@@ -26,6 +26,8 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
+import Squares from '../components/Squares/Squares';
+
 const Home = () => {
   const theme = useTheme();
 
@@ -42,12 +44,23 @@ const Home = () => {
       {/* 1. Hero Section */}
       <Box
         sx={{
+          position: 'relative',
           background: 'linear-gradient(to right, #E7F5FF, #F7ECFF)',
           pt: { xs: 8, md: 12 },
           pb: { xs: 8, md: 12 },
+          overflow: 'hidden',
         }}
       >
-        <Container maxWidth="lg">
+        <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
+          <Squares 
+            speed={0.5} 
+            squareSize={40}
+            direction='down' 
+            borderColor='rgba(0, 137, 123, 0.1)'
+            hoverFillColor='#8E24AA'
+          />
+        </Box>
+        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
           <Grid container spacing={6} alignItems="center">
             <Grid size={{ xs: 12, md: 6 }}>
               <Typography variant="overline" color="primary.main" fontWeight="bold" letterSpacing={1}>
