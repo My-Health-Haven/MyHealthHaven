@@ -40,6 +40,10 @@ const Home = () => {
           name="description"
           content="A guided, transparent way for Americans to access world-class medical care in Mexico, with U.S.-based Health Navigators™ at every step."
         />
+        <meta 
+          name="keywords" 
+          content="knee replacement abroad, hip replacement Mexico, dental implants Cancun, cardiac diagnostics Mexico, orthopedic surgery overseas, affordable full mouth reconstruction, angiogram Cancun, heart scan Mexico, cataract surgery Mexico, executive physical abroad, longevity health checkup Cancun, stem cell treatment Cancun, full-body MRI Mexico, IVF Mexico, fertility treatment Cancun, cosmetic dentistry Mexico, MRI Cancun, egg freezing abroad, veneers Cancun, Invisalign Mexico, rhinoplasty Mexico, plastic surgery Cancun, cosmetic surgery abroad, breast augmentation Cancun, liposuction Mexico packages, executive health check Mexico, corporate wellness Cancun, sports injury surgery Mexico, eyelid surgery Mexico, anti-aging treatments Cancun, Botox Cancun, gastric sleeve Mexico, bariatric surgery Cancun, affordable knee replacement Mexico, hernia repair Cancun, gallbladder surgery Mexico, weight loss surgery Cancun, diabetes treatment Mexico, hypertension care abroad, medical tourism chronic disease, teeth whitening Mexico, mommy makeover Mexico, breast lift Cancun, hair transplant Mexico, Brazilian butt lift Cancun, tummy tuck Mexico" 
+        />
       </Helmet>
 
       {/* 1. Hero Section */}
