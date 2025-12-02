@@ -39,7 +39,7 @@ const Navbar = () => {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-        <Box component="img" src="/logo.jpg" alt="MyHealth Haven Logo" sx={{ height: 50 }} />
+        <Box component="img" src="/logo.png" alt="MyHealth Haven Logo" sx={{ height: 50 }} />
       </Box>
       <Typography variant="h6" sx={{ mb: 2, color: 'primary.main', fontWeight: 'bold' }}>
         MyHealth Haven
@@ -71,7 +71,7 @@ const Navbar = () => {
             to="/"
             sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'primary.main', fontWeight: 800, letterSpacing: '-0.02em' }}
           >
-            <Box component="img" src="/logo.jpg" alt="MyHealth Haven Logo" sx={{ height: 40, mr: 1.5 }} />
+            <Box component="img" src="/logo.png" alt="MyHealth Haven Logo" sx={{ height: 40, mr: 1.5 }} />
             MyHealth Haven
           </Typography>
 

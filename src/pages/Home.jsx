@@ -356,12 +356,12 @@ const Home = () => {
           </Box>
           <Grid container spacing={4} justifyContent="center">
             {[
-              { name: "Health Navigator 1", title: "Senior Health Navigator™", creds: "Certified Medical Professional", blurb: "Helps patients understand their options and prepare safely for surgery abroad." },
-              { name: "Health Navigator 2", title: "Medical Travel Strategist", creds: "Healthcare Specialist", blurb: "Focuses on aligning U.S. quality expectations with Mexican clinical partners." }
+              { name: "Health Navigator 1", title: "Senior Health Navigator™", creds: "Certified Medical Professional", blurb: "Helps patients understand their options and prepare safely for surgery abroad.", img: "/healthnav1.png" },
+              { name: "Health Navigator 2", title: "Medical Travel Strategist", creds: "Healthcare Specialist", blurb: "Focuses on aligning U.S. quality expectations with Mexican clinical partners.", img: "/healthnav2.png" }
             ].map((profile, index) => (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
                 <Card sx={{ textAlign: 'center', p: 3, height: '100%', boxShadow: 'none', border: '1px solid', borderColor: 'divider' }}>
-                  <Avatar sx={{ width: 80, height: 80, mx: 'auto', mb: 2, bgcolor: 'primary.light' }}>{profile.name[0]}</Avatar>
+                  <Avatar src={profile.img} sx={{ width: 80, height: 80, mx: 'auto', mb: 2, bgcolor: 'primary.light' }}>{profile.name[0]}</Avatar>
                   <Typography variant="h6" fontWeight="bold">{profile.name}</Typography>
                   <Typography variant="subtitle2" color="primary.main">{profile.title}</Typography>
                   <Typography variant="caption" display="block" sx={{ mb: 2, fontStyle: 'italic' }}>{profile.creds}</Typography>

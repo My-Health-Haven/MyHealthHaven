@@ -9,7 +9,7 @@ const Footer = () => {
         <Grid container spacing={4}>
           <Grid size={{ xs: 12, md: 4 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-              <Box component="img" src="/logo.jpg" alt="MyHealth Haven Logo" sx={{ height: 32, mr: 1 }} />
+              <Box component="img" src="/logo.png" alt="MyHealth Haven Logo" sx={{ height: 32, mr: 1 }} />
               <Typography variant="h6" color="primary.main" fontWeight="bold">
                 MyHealth Haven
               </Typography>
