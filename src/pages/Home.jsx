@@ -518,8 +518,8 @@ const Home = () => {
                 { quote: "MyHealth Haven took something overwhelming and made it structured and safe. I always knew who to call and what came next.", name: "L., 54", meta: "Knee replacement traveler" },
                 { quote: "The cost was transparent from the start and my Navigator made sure my U.S. doctor was in the loop.", name: "R., 47", meta: "Bariatric surgery traveler" }
               ].map((testi, i) => (
-                <Grid size={{ xs: 12, md: 6 }} key={i}>
-                  <FadeIn delay={i * 200}>
+                <Grid size={{ xs: 12, md: 6 }} key={i} sx={{ display: 'flex' }}>
+                  <FadeIn delay={i * 200} style={{ width: '100%' }}>
                     <Card sx={{ 
                       p: 4, 
                       height: '100%', 
@@ -528,7 +528,10 @@ const Home = () => {
                       WebkitBackdropFilter: 'blur(25px) saturate(200%)', 
                       border: '1px solid', 
                       borderColor: 'rgba(255, 255, 255, 1)', 
-                      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.08)' 
+                      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.08)',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'space-between'
                     }}>
                       <Typography variant="h6" paragraph fontStyle="italic">"{testi.quote}"</Typography>
                       <Box>
