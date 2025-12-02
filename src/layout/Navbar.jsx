@@ -62,7 +62,7 @@ const Navbar = () => {
   );
 
   return (
-    <AppBar position="sticky" color="default" elevation={0} sx={{ bgcolor: 'rgba(255, 255, 255, 0.8)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderBottom: '1px solid', borderColor: 'divider' }}>
+    <AppBar position="sticky" color="transparent" elevation={0} sx={{ bgcolor: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(25px) saturate(200%)', WebkitBackdropFilter: 'blur(25px) saturate(200%)', borderBottom: '1px solid', borderColor: 'rgba(255, 255, 255, 0.3)', boxShadow: '0 4px 30px rgba(0, 0, 0, 0.05)' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography

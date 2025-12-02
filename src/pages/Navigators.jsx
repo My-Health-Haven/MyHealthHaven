@@ -38,7 +38,7 @@ const Navigators = () => {
       </Box>
 
       {/* 2. What they do (Feature List) */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'white' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth="lg">
           <Typography variant="h2" align="center" gutterBottom>What your Health Navigator™ does for you</Typography>
           <Grid container spacing={2} sx={{ mt: 4 }}>
@@ -62,7 +62,7 @@ const Navigators = () => {
       </Box>
 
       {/* 3. Team Grid */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#F9FAFB' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth="lg">
           <Typography variant="h2" align="center" gutterBottom>A bilingual team that understands both systems</Typography>
           <Grid container spacing={4} sx={{ mt: 6 }}>
@@ -86,7 +86,7 @@ const Navigators = () => {
       </Box>
 
       {/* 4. CTA */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'white', textAlign: 'center' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent', textAlign: 'center' }}>
         <Container maxWidth="md">
           <Typography variant="h2" gutterBottom>Start with a 15-minute conversation.</Typography>
           <Typography variant="h5" color="text.secondary" paragraph>

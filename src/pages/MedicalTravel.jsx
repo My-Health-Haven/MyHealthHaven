@@ -50,7 +50,7 @@ const MedicalTravel = () => {
       </Box>
 
       {/* 2. Locations Overview */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'white' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth="lg">
           <Typography variant="h2" gutterBottom>Where we operate</Typography>
           <Typography variant="body1" paragraph sx={{ maxWidth: 800 }}>
@@ -74,7 +74,7 @@ const MedicalTravel = () => {
       </Box>
 
       {/* 3. Travel Flow (Vertical Steps) */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#F9FAFB' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth="md">
           <Typography variant="h2" align="center" gutterBottom>Typical medical travel timeline</Typography>
           <Stack spacing={4} sx={{ mt: 6, position: 'relative' }}>

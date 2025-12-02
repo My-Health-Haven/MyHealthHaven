@@ -140,7 +140,7 @@ const Home = () => {
       </Box>
 
       {/* 2. Problem / Solution */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'white' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth="xl">
           <Grid container spacing={8}>
             <Grid size={{ xs: 12, md: 6 }}>
@@ -178,7 +178,17 @@ const Home = () => {
                 Every patient works with a dedicated Health Navigator™ who coordinates options, pricing, logistics, and post-procedure support.
               </Typography>
 
-              <Box sx={{ mt: 4, p: 3, bgcolor: 'background.default', borderRadius: 2 }}>
+              <Box sx={{ 
+                mt: 4, 
+                p: 3, 
+                bgcolor: 'rgba(255, 255, 255, 0.1)', 
+                backdropFilter: 'blur(25px) saturate(200%)', 
+                WebkitBackdropFilter: 'blur(25px) saturate(200%)', 
+                border: '1px solid', 
+                borderColor: 'rgba(255, 255, 255, 1)', 
+                boxShadow: '0 4px 30px rgba(0, 0, 0, 0.08)',
+                borderRadius: 2 
+              }}>
                 <Typography variant="h6" gutterBottom>What you can expect:</Typography>
                 <Grid container spacing={2}>
                   {[
@@ -202,7 +212,7 @@ const Home = () => {
       </Box>
 
       {/* 3. Pillars */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#F9FAFB' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth="xl">
           <Box sx={{ textAlign: 'center', mb: 8, maxWidth: 800, mx: 'auto' }}>
             <Typography variant="h2" gutterBottom>What makes Health Navigation™ different</Typography>
@@ -230,7 +240,7 @@ const Home = () => {
       </Box>
 
       {/* 4. How It Works */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'white' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth="xl">
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <Typography variant="h2" gutterBottom>How Health Navigation™ works</Typography>
@@ -244,7 +254,7 @@ const Home = () => {
             ].map((item, index) => (
               <Grid size={{ xs: 12, md: 4 }} key={index}>
                 <Box sx={{ position: 'relative', p: 4, border: '1px solid', borderColor: 'divider', borderRadius: 2, height: '100%' }}>
-                  <Typography variant="h1" color="grey.100" sx={{ position: 'absolute', top: 10, right: 20, fontWeight: 900, fontSize: '6rem', lineHeight: 1, zIndex: 0 }}>
+                  <Typography variant="h1" className="shiny-text" sx={{ position: 'absolute', top: 10, right: 20, fontWeight: 900, fontSize: '6rem', lineHeight: 1, zIndex: 0 }}>
                     {item.step}
                   </Typography>
                   <Box sx={{ position: 'relative', zIndex: 1 }}>
@@ -264,7 +274,7 @@ const Home = () => {
       </Box>
 
       {/* 5. Featured Procedures */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#F4FAFF' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth="xl">
           <Box sx={{ mb: 6 }}>
             <Typography variant="h2" gutterBottom>Procedures we frequently support</Typography>
@@ -282,7 +292,17 @@ const Home = () => {
               { title: "Other Medical Necessities", tags: ["General surgery", "Urology"], body: "For patients seeking equivalent clinical outcomes at a more sustainable cost.", href: "/procedures" }
             ].map((card, index) => (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
-                <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', border: '1px solid', borderColor: 'divider', boxShadow: 'none' }}>
+                <Card sx={{ 
+                  height: '100%', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  bgcolor: 'rgba(255, 255, 255, 0.1)', 
+                  backdropFilter: 'blur(25px) saturate(200%)', 
+                  WebkitBackdropFilter: 'blur(25px) saturate(200%)', 
+                  border: '1px solid', 
+                  borderColor: 'rgba(255, 255, 255, 1)', 
+                  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.08)' 
+                }}>
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography variant="h6" gutterBottom fontWeight="bold">{card.title}</Typography>
                     <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ mb: 2 }}>
@@ -305,7 +325,7 @@ const Home = () => {
       </Box>
 
       {/* 6. Why Mexico */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'white' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth="xl">
           <Grid container spacing={8} alignItems="center">
             <Grid size={{ xs: 12, md: 6 }}>
@@ -331,7 +351,18 @@ const Home = () => {
                   { label: "Support cities", value: "Cancún +", desc: "Major medical and tourism hubs." }
                 ].map((stat, i) => (
                   <Grid size={{ xs: 12 }} key={i}>
-                    <Box sx={{ p: 3, borderLeft: '4px solid', borderColor: 'primary.main', bgcolor: 'background.default' }}>
+                    <Box sx={{ 
+                      p: 3, 
+                      borderLeft: '4px solid', 
+                      borderColor: 'primary.main', 
+                      bgcolor: 'rgba(255, 255, 255, 0.1)', 
+                      backdropFilter: 'blur(25px) saturate(200%)', 
+                      WebkitBackdropFilter: 'blur(25px) saturate(200%)', 
+                      border: '1px solid', 
+                      borderLeftWidth: '4px',
+                      borderColor: 'rgba(255, 255, 255, 1)', 
+                      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.08)' 
+                    }}>
                       <Typography variant="h4" color="primary.main" fontWeight="bold">{stat.value}</Typography>
                       <Typography variant="subtitle1" fontWeight="bold">{stat.label}</Typography>
                       <Typography variant="body2" color="text.secondary">{stat.desc}</Typography>
@@ -348,7 +379,7 @@ const Home = () => {
       </Box>
 
       {/* 7. Navigators Preview */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#F9FAFB' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth="xl">
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <Typography variant="h2" gutterBottom>Meet your Health Navigators™</Typography>
@@ -360,7 +391,17 @@ const Home = () => {
               { name: "Health Navigator 2", title: "Medical Travel Strategist", creds: "Healthcare Specialist", blurb: "Focuses on aligning U.S. quality expectations with Mexican clinical partners.", img: "/healthnav2.png" }
             ].map((profile, index) => (
               <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
-                <Card sx={{ textAlign: 'center', p: 3, height: '100%', boxShadow: 'none', border: '1px solid', borderColor: 'divider' }}>
+                <Card sx={{ 
+                  textAlign: 'center', 
+                  p: 3, 
+                  height: '100%', 
+                  bgcolor: 'rgba(255, 255, 255, 0.1)', 
+                  backdropFilter: 'blur(25px) saturate(200%)', 
+                  WebkitBackdropFilter: 'blur(25px) saturate(200%)', 
+                  border: '1px solid', 
+                  borderColor: 'rgba(255, 255, 255, 1)', 
+                  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.08)' 
+                }}>
                   <Avatar src={profile.img} sx={{ width: 80, height: 80, mx: 'auto', mb: 2, bgcolor: 'primary.light' }}>{profile.name[0]}</Avatar>
                   <Typography variant="h6" fontWeight="bold">{profile.name}</Typography>
                   <Typography variant="subtitle2" color="primary.main">{profile.title}</Typography>
@@ -377,7 +418,7 @@ const Home = () => {
       </Box>
 
       {/* 8. Testimonials */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'white' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth="xl">
           <Typography variant="h2" align="center" gutterBottom>Health restored. Confidence renewed.</Typography>
           <Typography variant="h5" align="center" color="text.secondary" sx={{ mb: 8 }}>Stories from patients who chose guided cross-border care.</Typography>
@@ -387,7 +428,16 @@ const Home = () => {
               { quote: "The cost was transparent from the start and my Navigator made sure my U.S. doctor was in the loop.", name: "R., 47", meta: "Bariatric surgery traveler" }
             ].map((testi, i) => (
               <Grid size={{ xs: 12, md: 6 }} key={i}>
-                <Card sx={{ p: 4, height: '100%', bgcolor: 'background.default' }}>
+                <Card sx={{ 
+                  p: 4, 
+                  height: '100%', 
+                  bgcolor: 'rgba(255, 255, 255, 0.1)', 
+                  backdropFilter: 'blur(25px) saturate(200%)', 
+                  WebkitBackdropFilter: 'blur(25px) saturate(200%)', 
+                  border: '1px solid', 
+                  borderColor: 'rgba(255, 255, 255, 1)', 
+                  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.08)' 
+                }}>
                   <Typography variant="h6" paragraph fontStyle="italic">"{testi.quote}"</Typography>
                   <Box>
                     <Typography variant="subtitle1" fontWeight="bold">{testi.name}</Typography>
@@ -401,7 +451,7 @@ const Home = () => {
       </Box>
 
       {/* 9. FAQs */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#F4FAFF' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth="md">
           <Typography variant="h2" align="center" gutterBottom>Frequently asked questions</Typography>
           <Typography variant="h5" align="center" color="text.secondary" sx={{ mb: 6 }}>If you are considering care in Mexico, you should have clear, honest answers.</Typography>
@@ -412,7 +462,15 @@ const Home = () => {
             { q: "What if complications occur?", a: "Your Navigator will explain how the hospital handles complications, how additional costs are managed, and how follow-up care works if you need it." },
             { q: "Do I have to decide right away?", a: "No. Many patients start with an informational call to understand options. There is no obligation." }
           ].map((faq, i) => (
-            <Accordion key={i} sx={{ mb: 1 }}>
+            <Accordion key={i} sx={{ 
+              mb: 1, 
+              bgcolor: 'rgba(255, 255, 255, 0.1)', 
+              backdropFilter: 'blur(25px) saturate(200%)', 
+              WebkitBackdropFilter: 'blur(25px) saturate(200%)', 
+              border: '1px solid', 
+              borderColor: 'rgba(255, 255, 255, 1)', 
+              boxShadow: '0 4px 30px rgba(0, 0, 0, 0.08)' 
+            }}>
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography variant="subtitle1" fontWeight="bold">{faq.q}</Typography>
               </AccordionSummary>
@@ -425,7 +483,7 @@ const Home = () => {
       </Box>
 
       {/* 10. Final CTA */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'white', textAlign: 'center' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent', textAlign: 'center' }}>
         <Container maxWidth="md">
           <Typography variant="overline" color="primary.main" fontWeight="bold">The end of guesswork in global care.</Typography>
           <Typography variant="h2" gutterBottom sx={{ mt: 2 }}>Talk to a Health Navigator™ about your options.</Typography>
