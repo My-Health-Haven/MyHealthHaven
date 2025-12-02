@@ -47,8 +47,10 @@ const Home = () => {
         sx={{
           position: 'relative',
           background: 'linear-gradient(to right, #E7F5FF, #F7ECFF)',
-          pt: { xs: 8, md: 12 },
-          pb: { xs: 8, md: 12 },
+          minHeight: { xs: 'auto', md: 'calc(100vh - 64px)' },
+          display: 'flex',
+          alignItems: 'center',
+          py: { xs: 8, md: 0 },
           overflow: 'hidden',
         }}
       >
@@ -61,7 +63,7 @@ const Home = () => {
             hoverFillColor='#8E24AA'
           />
         </Box>
-        <Container maxWidth="xl" sx={{ position: 'relative', zIndex: 1 }}>
+        <Container maxWidth={false} sx={{ position: 'relative', zIndex: 1, px: { xs: 2, md: 6, lg: 10 } }}>
           <Grid container spacing={6} alignItems="center">
             <Grid size={{ xs: 12, md: 6 }}>
               <Typography variant="overline" color="primary.main" fontWeight="bold" letterSpacing={1}>
