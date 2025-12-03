@@ -32,6 +32,7 @@ import Squares from '../components/Squares/Squares';
 import FadeIn from '../components/FadeIn';
 import StarBorder from '../components/StarBorder';
 import Threads from '../components/Threads';
+import GlassCard from '../components/GlassCard';
 
 const Home = () => {
   const theme = useTheme();
@@ -237,17 +238,7 @@ const Home = () => {
                   Every patient works with a dedicated Health Navigator™ who coordinates options, pricing, logistics, and post-procedure support.
                 </Typography>
 
-                <Box sx={{ 
-                  mt: 4, 
-                  p: 3, 
-                  bgcolor: 'rgba(255, 255, 255, 0.1)', 
-                  backdropFilter: 'blur(25px) saturate(200%)', 
-                  WebkitBackdropFilter: 'blur(25px) saturate(200%)', 
-                  border: '1px solid', 
-                  borderColor: 'rgba(255, 255, 255, 1)', 
-                  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.08)',
-                  borderRadius: 2 
-                }}>
+                <GlassCard sx={{ mt: 4, p: 3 }}>
                   <Typography variant="h6" gutterBottom>What you can expect:</Typography>
                   <Grid container spacing={2}>
                     {[
@@ -266,7 +257,7 @@ const Home = () => {
                       </Grid>
                     ))}
                   </Grid>
-                </Box>
+                </GlassCard>
             </Grid>
           </Grid>
         </Container>
@@ -317,16 +308,10 @@ const Home = () => {
               ].map((item, index) => (
                 <Grid size={{ xs: 12, md: 4 }} key={index}>
                   <FadeIn delay={index * 150}>
-                    <Box sx={{ 
+                    <GlassCard sx={{ 
                       position: 'relative', 
                       p: 4, 
                       height: '100%',
-                      bgcolor: alpha(theme.palette.primary.main, 0.03),
-                      backdropFilter: 'blur(20px)',
-                      border: '1px solid',
-                      borderColor: alpha(theme.palette.primary.main, 0.2),
-                      borderRadius: 4,
-                      boxShadow: `0 4px 24px ${alpha(theme.palette.primary.main, 0.08)}`
                     }}>
                       <Typography variant="h1" className="shiny-text" sx={{ position: 'absolute', top: 10, right: 20, fontWeight: 900, fontSize: '6rem', lineHeight: 1, zIndex: 0 }}>
                         {item.step}
@@ -340,7 +325,7 @@ const Home = () => {
                           </Button>
                         )}
                       </Box>
-                    </Box>
+                    </GlassCard>
                   </FadeIn>
                 </Grid>
               ))}
@@ -368,17 +353,14 @@ const Home = () => {
               ].map((card, index) => (
                 <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
                   <FadeIn delay={index * 50}>
-                    <Card sx={{ 
-                      height: '100%', 
-                      display: 'flex', 
-                      flexDirection: 'column', 
-                      bgcolor: 'rgba(255, 255, 255, 0.1)', 
-                      backdropFilter: 'blur(25px) saturate(200%)', 
-                      WebkitBackdropFilter: 'blur(25px) saturate(200%)', 
-                      border: '1px solid', 
-                      borderColor: 'rgba(255, 255, 255, 1)', 
-                      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.08)' 
-                    }}>
+                    <GlassCard 
+                      noShadow
+                      sx={{ 
+                        height: '100%', 
+                        display: 'flex', 
+                        flexDirection: 'column',
+                      }}
+                    >
                       <CardContent sx={{ flexGrow: 1 }}>
                         <Typography variant="h6" gutterBottom fontWeight="bold">{card.title}</Typography>
                         <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ mb: 2 }}>
@@ -390,7 +372,7 @@ const Home = () => {
                       <Box sx={{ p: 2, pt: 0 }}>
                         <Button component={Link} to={card.href} size="small">Learn more</Button>
                       </Box>
-                    </Card>
+                    </GlassCard>
                   </FadeIn>
                 </Grid>
               ))}
@@ -462,22 +444,16 @@ const Home = () => {
                   ].map((stat, i) => (
                     <Grid size={{ xs: 12 }} key={i}>
                       <FadeIn delay={i * 150}>
-                        <Box sx={{ 
+                        <GlassCard sx={{ 
                           p: 3, 
                           borderLeft: '4px solid', 
-                          borderColor: 'primary.light', 
-                          bgcolor: 'rgba(255, 255, 255, 0.1)', 
-                          backdropFilter: 'blur(25px) saturate(200%)', 
-                          WebkitBackdropFilter: 'blur(25px) saturate(200%)', 
-                          border: '1px solid', 
-                          borderLeftWidth: '4px',
-                          borderColor: 'rgba(255, 255, 255, 0.2)', 
-                          boxShadow: '0 4px 30px rgba(0, 0, 0, 0.2)' 
+                          borderLeftColor: 'primary.light', // Ensure this overrides or merges correctly
+                          // The GlassCard has its own border, we might want to keep the left border accent
                         }}>
                           <Typography variant="h4" sx={{ color: 'white', fontWeight: 'bold' }}>{stat.value}</Typography>
                           <Typography variant="subtitle1" sx={{ color: 'white', fontWeight: 'bold' }}>{stat.label}</Typography>
                           <Typography variant="body2" sx={{ color: 'grey.300' }}>{stat.desc}</Typography>
-                        </Box>
+                        </GlassCard>
                       </FadeIn>
                     </Grid>
                   ))}
@@ -510,18 +486,11 @@ const Home = () => {
               ].map((profile, index) => (
                 <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
                   <FadeIn delay={index * 200}>
-                    <Card sx={{ 
+                    <GlassCard sx={{ 
                       textAlign: 'center', 
                       height: '100%', 
                       maxWidth: 340,
                       mx: 'auto',
-                      bgcolor: 'rgba(255, 255, 255, 0.1)', 
-                      backdropFilter: 'blur(25px) saturate(200%)', 
-                      WebkitBackdropFilter: 'blur(25px) saturate(200%)', 
-                      border: '1px solid', 
-                      borderColor: 'rgba(255, 255, 255, 1)', 
-                      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.08)',
-                      overflow: 'hidden',
                       display: 'flex',
                       flexDirection: 'column'
                     }}>
@@ -542,7 +511,7 @@ const Home = () => {
                         <Typography variant="caption" display="block" sx={{ mb: 2, fontStyle: 'italic' }}>{profile.creds}</Typography>
                         <Typography variant="body2">{profile.blurb}</Typography>
                       </Box>
-                    </Card>
+                    </GlassCard>
                   </FadeIn>
                 </Grid>
               ))}
@@ -567,15 +536,9 @@ const Home = () => {
               ].map((testi, i) => (
                 <Grid size={{ xs: 12, md: 6 }} key={i} sx={{ display: 'flex' }}>
                   <FadeIn delay={i * 200} style={{ width: '100%' }}>
-                    <Card sx={{ 
+                    <GlassCard sx={{ 
                       p: 4, 
                       height: '100%', 
-                      bgcolor: 'rgba(255, 255, 255, 0.1)', 
-                      backdropFilter: 'blur(25px) saturate(200%)', 
-                      WebkitBackdropFilter: 'blur(25px) saturate(200%)', 
-                      border: '1px solid', 
-                      borderColor: 'rgba(255, 255, 255, 1)', 
-                      boxShadow: '0 4px 30px rgba(0, 0, 0, 0.08)',
                       display: 'flex',
                       flexDirection: 'column',
                       justifyContent: 'space-between'
@@ -585,7 +548,7 @@ const Home = () => {
                         <Typography variant="subtitle1" fontWeight="bold">{testi.name}</Typography>
                         <Typography variant="caption" color="text.secondary">{testi.meta}</Typography>
                       </Box>
-                    </Card>
+                    </GlassCard>
                   </FadeIn>
                 </Grid>
               ))}
@@ -609,12 +572,13 @@ const Home = () => {
               <FadeIn key={i} delay={i * 100}>
                 <Accordion sx={{ 
                   mb: 1, 
-                  bgcolor: 'rgba(255, 255, 255, 0.1)', 
-                  backdropFilter: 'blur(25px) saturate(200%)', 
-                  WebkitBackdropFilter: 'blur(25px) saturate(200%)', 
-                  border: '1px solid', 
-                  borderColor: 'rgba(255, 255, 255, 1)', 
-                  boxShadow: '0 4px 30px rgba(0, 0, 0, 0.08)' 
+                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
+                  backdropFilter: 'blur(20px) saturate(180%)',
+                  WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                  border: '1px solid rgba(255, 255, 255, 0.3)',
+                  boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.07), inset 0 0 20px rgba(255, 255, 255, 0.05)',
+                  borderRadius: '16px !important', // Force rounded corners
+                  '&:before': { display: 'none' }, // Remove default divider
                 }}>
                   <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                     <Typography variant="subtitle1" fontWeight="bold">{faq.q}</Typography>
