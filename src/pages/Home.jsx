@@ -302,31 +302,57 @@ const Home = () => {
             </Box>
             <Grid container spacing={4}>
               {[
-                { step: 1, title: "Talk with a Health Navigator™", body: "Share your medical goals, history, concerns, and budget during a confidential consultation.", cta: true },
-                { step: 2, title: "Receive a curated care plan", body: "We match you with vetted hospitals and specialists, provide all-inclusive estimates, and outline options in writing." },
-                { step: 3, title: "Travel, treatment, and recovery support", body: "We coordinate logistics, help you prepare for surgery, and stay connected during your recovery back home." }
+                { step: 1, title: "Talk with a Health Navigator™", body: "Share your medical goals, history, concerns, and budget during a confidential consultation.", cta: true, img: "/step1.png" },
+                { step: 2, title: "Receive a curated care plan", body: "We match you with vetted hospitals and specialists, provide all-inclusive estimates, and outline options in writing.", img: "/step2.png" },
+                { step: 3, title: "Travel, treatment, and recovery support", body: "We coordinate logistics, help you prepare for surgery, and stay connected during your recovery back home.", img: "/step3.png" }
               ].map((item, index) => (
-                <Grid size={{ xs: 12, md: 4 }} key={index}>
-                  <FadeIn delay={index * 150}>
-                    <GlassCard sx={{ 
-                      position: 'relative', 
-                      p: 4, 
-                      height: '100%',
-                    }}>
-                      <Typography variant="h1" className="shiny-text" sx={{ position: 'absolute', top: 10, right: 20, fontWeight: 900, fontSize: '6rem', lineHeight: 1, zIndex: 0 }}>
-                        {item.step}
-                      </Typography>
-                      <Box sx={{ position: 'relative', zIndex: 1 }}>
-                        <Typography variant="h5" gutterBottom fontWeight="bold">{item.title}</Typography>
-                        <Typography variant="body1" color="text.secondary" paragraph>{item.body}</Typography>
-                        {item.cta && (
-                          <Button component={Link} to="/contact" variant="text" color="primary" sx={{ p: 0 }}>
-                            Schedule your call &rarr;
-                          </Button>
-                        )}
-                      </Box>
-                    </GlassCard>
-                  </FadeIn>
+                <Grid container spacing={6} alignItems="center" direction={{ xs: 'column', md: index % 2 === 1 ? 'row-reverse' : 'row' }} key={index} sx={{ mb: { xs: 8, md: 12 } }}>
+                  <Grid size={{ xs: 12, md: 6 }}>
+                    <FadeIn delay={200}>
+                      <GlassCard sx={{ 
+                        position: 'relative', 
+                        p: 4, 
+                        height: '100%',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center'
+                      }}>
+                        <Typography variant="h1" className="shiny-text" sx={{ position: 'absolute', top: 10, right: 20, fontWeight: 900, fontSize: '6rem', lineHeight: 1, zIndex: 0, opacity: 0.1 }}>
+                          {item.step}
+                        </Typography>
+                        <Box sx={{ position: 'relative', zIndex: 1 }}>
+                          <Typography variant="h4" gutterBottom fontWeight="bold" color="primary.main">Step {item.step}</Typography>
+                          <Typography variant="h5" gutterBottom fontWeight="bold">{item.title}</Typography>
+                          <Typography variant="body1" color="text.secondary" paragraph sx={{ fontSize: '1.1rem' }}>{item.body}</Typography>
+                          {item.cta && (
+                            <Button component={Link} to="/contact" variant="contained" color="primary" size="large" sx={{ mt: 2 }}>
+                              Schedule your call &rarr;
+                            </Button>
+                          )}
+                        </Box>
+                      </GlassCard>
+                    </FadeIn>
+                  </Grid>
+                  <Grid size={{ xs: 12, md: 6 }}>
+                    <FadeIn delay={400}>
+                      <Box 
+                        component="img"
+                        src={item.img}
+                        alt={item.title}
+                        sx={{
+                          width: '100%',
+                          height: 'auto',
+                          borderRadius: 4,
+                          boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+                          transform: index % 2 === 1 ? 'rotate(-2deg)' : 'rotate(2deg)',
+                          transition: 'transform 0.3s ease-in-out',
+                          '&:hover': {
+                            transform: 'rotate(0deg) scale(1.02)'
+                          }
+                        }}
+                      />
+                    </FadeIn>
+                  </Grid>
                 </Grid>
               ))}
             </Grid>
@@ -336,9 +362,9 @@ const Home = () => {
       {/* 5. Featured Procedures */}
       <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
-            <Box sx={{ mb: 6 }}>
+            <Box sx={{ mb: 6, textAlign: 'center' }}>
               <Typography variant="h2" color="primary.main" gutterBottom>Procedures we frequently support</Typography>
-              <Typography variant="h5" color="text.secondary" sx={{ maxWidth: 800 }}>
+              <Typography variant="h5" color="text.secondary" sx={{ maxWidth: 800, mx: 'auto' }}>
                 From lifestyle to medically necessary care, we focus on high-impact procedures where cross-border care delivers both quality and value.
               </Typography>
             </Box>
