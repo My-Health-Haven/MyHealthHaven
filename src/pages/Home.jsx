@@ -34,6 +34,7 @@ import StarBorder from '../components/StarBorder';
 import GlassCard from '../components/GlassCard';
 
 const Threads = React.lazy(() => import('../components/Threads'));
+const Marquee = React.lazy(() => import('../components/Marquee'));
 
 const Home = () => {
   const theme = useTheme();
@@ -369,36 +370,16 @@ const Home = () => {
       </Box>
 
       {/* 5. Testimonials */}
+      {/* 5. Testimonials */}
       <Box ref={testimonialsRef} sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
             <Typography variant="h2" color="primary.main" align="center" gutterBottom>Health restored. Confidence renewed.</Typography>
             <Typography variant="h5" align="center" color="text.secondary" sx={{ mb: 8 }}>Stories from patients who chose guided cross-border care.</Typography>
-            <Grid container spacing={4}>
-              {[
-                { quote: "MyHealth Haven took something overwhelming and made it structured and safe. I always knew who to call and what came next.", name: "L., 54", meta: "Knee replacement traveler" },
-                { quote: "The cost was transparent from the start and my Navigator made sure my U.S. doctor was in the loop.", name: "R., 47", meta: "Bariatric surgery traveler" }
-              ].map((testi, i) => (
-                <Grid size={{ xs: 12, md: 6 }} key={i} sx={{ display: 'flex' }}>
-                  <FadeIn delay={i * 200} style={{ width: '100%' }}>
-                    <GlassCard sx={{ 
-                      p: 4, 
-                      height: '100%', 
-                      display: 'flex',
-                      flexDirection: 'column',
-                      justifyContent: 'space-between'
-                    }}>
-                      <Typography variant="h6" paragraph fontStyle="italic">"{testi.quote}"</Typography>
-                      <Box>
-                        <Typography variant="subtitle1" fontWeight="bold">{testi.name}</Typography>
-                        <Typography variant="caption" color="text.secondary">{testi.meta}</Typography>
-                      </Box>
-                    </GlassCard>
-                  </FadeIn>
-                </Grid>
-              ))}
-            </Grid>
+            
+            <TestimonialsContent />
         </Container>
       </Box>
+
 
       {/* 6. Why Mexico */}
       <Box sx={{ position: 'relative', py: { xs: 8, md: 12 }, overflow: 'hidden' }}>
@@ -606,6 +587,85 @@ const Home = () => {
           </Box>
         </Container>
       </Box>
+    </>
+  );
+};
+
+const TestimonialsContent = () => {
+  const [shuffled, setShuffled] = React.useState(null);
+
+  useEffect(() => {
+    // Verified Reviews only
+    const allTestimonials = [
+      { quote: "From the moment I arrived, they made me feel important. The nurses checked on me without me having to ask, and the surgeon explained everything clearly. I didn't feel rushed, but cared for at every moment.", name: "Maria", meta: "Verified Patient" },
+      { quote: "I thought I would only receive good medical care. What I didn’t expect was so much human warmth. The team was respectful, answered every question patiently, and my recovery felt safe.", name: "Daniel", meta: "Verified Patient" },
+      { quote: "What impressed me most was not just the professionalism, but the human aspect. From reception to nursing, they treated me like family. I went in nervous… I left grateful.", name: "Elena", meta: "Verified Patient" },
+      { quote: "I’ve had surgeries in other countries, but here was the first time I felt seen as a person, not just a file. The staff was always attentive, and the atmosphere helped me recover peacefully.", name: "Javier", meta: "Verified Patient" },
+      { quote: "Clean facilities, attentive service, and clear communication gave me confidence from the first minute. I never felt alone in the process — they were attentive to everything.", name: "Rosa", meta: "Verified Patient" }
+    ];
+
+    // Simple shuffle
+    const shuffledList = [...allTestimonials].sort(() => 0.5 - Math.random());
+    setShuffled(shuffledList);
+  }, []);
+
+  if (!shuffled) return null; // or a loading skeleton
+
+  const gridItems = shuffled.slice(0, 2);
+  const carouselItems = shuffled.slice(2);
+
+  return (
+    <>
+      {/* Top 2 - Grid Layout */}
+      <Grid container spacing={4} sx={{ mb: 8 }} justifyContent="center">
+        {gridItems.map((testi, i) => (
+          <Grid size={{ xs: 12, md: 6 }} key={i} sx={{ display: 'flex' }}>
+            <FadeIn delay={i * 200} style={{ width: '100%' }}>
+              <GlassCard sx={{ 
+                p: 4, 
+                height: '100%', 
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                transition: 'transform 0.3s ease',
+                '&:hover': { transform: 'translateY(-4px)' }
+              }}>
+                <Typography variant="h6" paragraph fontStyle="italic">"{testi.quote}"</Typography>
+                <Box>
+                  <Typography variant="subtitle1" fontWeight="bold">{testi.name}</Typography>
+                  <Typography variant="caption" color="text.secondary">{testi.meta}</Typography>
+                </Box>
+              </GlassCard>
+            </FadeIn>
+          </Grid>
+        ))}
+      </Grid>
+
+      {/* Remaining - Marquee Carousel */}
+      <FadeIn delay={400}>
+        <React.Suspense fallback={null}>
+          <Marquee speed={40} pauseOnHover={true}>
+            {carouselItems.map((testi, i) => (
+              <Box key={i} sx={{ width: 400, flexShrink: 0 }}>
+                <GlassCard sx={{ 
+                  p: 3, 
+                  height: '100%',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  mx: 2 // Margin for spacing in marquee
+                }}>
+                  <Typography variant="body1" paragraph fontStyle="italic">"{testi.quote}"</Typography>
+                  <Box>
+                    <Typography variant="subtitle2" fontWeight="bold">{testi.name}</Typography>
+                    <Typography variant="caption" color="text.secondary">{testi.meta}</Typography>
+                  </Box>
+                </GlassCard>
+              </Box>
+            ))}
+          </Marquee>
+        </React.Suspense>
+      </FadeIn>
     </>
   );
 };
