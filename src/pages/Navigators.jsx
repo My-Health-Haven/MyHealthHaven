@@ -8,13 +8,19 @@ import {
   Card,
   Avatar,
   Stack,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import FadeIn from '../components/FadeIn';
+import GlassCard from '../components/GlassCard';
 
 const Navigators = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   return (
     <>
       <Helmet>
@@ -26,12 +32,41 @@ const Navigators = () => {
       </Helmet>
 
       {/* 1. Hero Centered */}
-      <Box sx={{ py: { xs: 8, md: 12 }, textAlign: 'center', bgcolor: 'background.default' }}>
-        <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
+      <Box sx={{ position: 'relative', py: { xs: 8, md: 12 }, textAlign: 'center', overflow: 'hidden' }}>
+        {/* Parallax Background Image */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundImage: 'url(/HealthNavigatorsBG.webp)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            backgroundAttachment: isMobile ? 'scroll' : 'fixed',
+            zIndex: 0,
+          }}
+        />
+        {/* Darkening & Blur Overlay */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            bgcolor: 'rgba(0, 0, 0, 0.6)',
+            backdropFilter: 'blur(3px)',
+            zIndex: 0,
+          }}
+        />
+        
+        <Container maxWidth={false} sx={{ position: 'relative', zIndex: 1, px: { xs: 2, md: 6, lg: 10 } }}>
           <Box sx={{ maxWidth: 'md', mx: 'auto' }}>
             <FadeIn>
-              <Typography variant="h1" gutterBottom>Your advocate across borders.</Typography>
-              <Typography variant="h5" color="text.secondary" paragraph>
+              <Typography variant="h1" gutterBottom sx={{ color: 'white' }}>Your advocate across borders.</Typography>
+              <Typography variant="h5" sx={{ color: 'grey.300', mb: 3 }}>
                 Health Navigators™ are experienced healthcare professionals who coordinate options, answer questions, and stay with you from first contact through recovery.
               </Typography>
               <Button variant="contained" size="large" component={Link} to="/contact" sx={{ mt: 4 }}>
@@ -87,13 +122,13 @@ const Navigators = () => {
                 ].map((profile, index) => (
                   <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
                     <FadeIn delay={index * 200}>
-                      <Card sx={{ textAlign: 'center', p: 4, height: '100%', boxShadow: 'none', border: '1px solid', borderColor: 'divider' }}>
+                      <GlassCard sx={{ textAlign: 'center', p: 4, height: '100%' }}>
                         <Avatar src={profile.img} sx={{ width: 100, height: 100, mx: 'auto', mb: 2, bgcolor: 'secondary.main' }}>{profile.name[0]}</Avatar>
                         <Typography variant="h6" fontWeight="bold">{profile.name}</Typography>
                         <Typography variant="subtitle2" color="primary.main">{profile.role}</Typography>
                         <Typography variant="caption" display="block" sx={{ mb: 2, fontStyle: 'italic' }}>{profile.creds}</Typography>
                         <Typography variant="body2">{profile.bio}</Typography>
-                      </Card>
+                      </GlassCard>
                     </FadeIn>
                   </Grid>
                 ))}

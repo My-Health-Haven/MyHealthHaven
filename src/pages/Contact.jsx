@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container, Typography, Box, Button, TextField, Stack } from '@mui/material';
+import GlassCard from '../components/GlassCard';
 
 const Contact = () => {
   return (
@@ -9,7 +10,8 @@ const Contact = () => {
         Schedule a confidential conversation to discuss your options.
       </Typography>
       
-      <Box component="form" noValidate autoComplete="off" sx={{ mt: 4, maxWidth: 600 }}>
+      <GlassCard sx={{ mt: 4, maxWidth: 600, p: 4 }}>
+        <Box component="form" noValidate autoComplete="off">
         <Stack spacing={3}>
             <TextField label="Name" variant="outlined" fullWidth />
             <TextField label="Email" variant="outlined" fullWidth />
@@ -19,7 +21,8 @@ const Contact = () => {
                 Request Consultation
             </Button>
         </Stack>
-      </Box>
+        </Box>
+      </GlassCard>
     </Container>
   );
 };

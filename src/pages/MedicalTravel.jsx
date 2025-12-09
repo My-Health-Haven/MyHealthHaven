@@ -14,6 +14,7 @@ import { Link } from 'react-router-dom';
 import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import FadeIn from '../components/FadeIn';
+import GlassCard from '../components/GlassCard';
 
 const MedicalTravel = () => {
   return (
@@ -68,17 +69,17 @@ const MedicalTravel = () => {
               <Grid container spacing={4} sx={{ mt: 4 }}>
                 <Grid size={{ xs: 12, md: 6 }}>
                    <FadeIn delay={100}>
-                     <Card sx={{ height: 300, bgcolor: 'grey.100', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                     <GlassCard sx={{ height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <LocationOnIcon color="primary" fontSize="large" />
                         <Typography variant="h6" sx={{ ml: 1 }}>Cancún Medical Hub</Typography>
-                     </Card>
+                     </GlassCard>
                    </FadeIn>
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
                    <FadeIn delay={200}>
-                     <Card sx={{ height: 300, bgcolor: 'grey.100', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                     <GlassCard sx={{ height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                         <Typography variant="h6" color="text.secondary">More locations coming soon</Typography>
-                     </Card>
+                     </GlassCard>
                    </FadeIn>
                 </Grid>
               </Grid>
@@ -122,9 +123,9 @@ const MedicalTravel = () => {
                       }}>
                         {i + 1}
                       </Box>
-                      <Card sx={{ flexGrow: 1, p: 2 }}>
+                      <GlassCard sx={{ flexGrow: 1, p: 2 }}>
                         <Typography variant="body1" fontWeight={500}>{step}</Typography>
-                      </Card>
+                      </GlassCard>
                     </Box>
                   </FadeIn>
                 ))}

@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import GlassCard from '../components/GlassCard';
 
 const procedures = [
   { title: "Orthopedic Surgery", slug: "orthopedic", tags: ["Knee replacement", "Hip replacement", "Spine"], body: "For patients seeking to restore movement without 6–12 month waits or unaffordable U.S. bills." },
@@ -49,14 +50,14 @@ const Procedures = () => {
       </Box>
 
       {/* 2. Categories Grid */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'white' }}>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
           <Box sx={{ maxWidth: 'lg', mx: 'auto' }}>
             <Typography variant="h2" gutterBottom>Procedure categories</Typography>
             <Grid container spacing={3} sx={{ mt: 4 }}>
               {procedures.map((proc, index) => (
                 <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
-                  <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', border: '1px solid', borderColor: 'divider', boxShadow: 'none' }}>
+                  <GlassCard sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
                     <CardContent sx={{ flexGrow: 1 }}>
                       <Typography variant="h6" gutterBottom fontWeight="bold">{proc.title}</Typography>
                       <Stack direction="row" spacing={1} flexWrap="wrap" sx={{ mb: 2 }}>
@@ -69,7 +70,8 @@ const Procedures = () => {
                         View details
                       </Button>
                     </Box>
-                  </Card>
+
+                  </GlassCard>
                 </Grid>
               ))}
             </Grid>

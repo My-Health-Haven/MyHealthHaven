@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container, Typography, Box, FormControl, InputLabel, Select, MenuItem, Paper } from '@mui/material';
+import { Container, Typography, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import GlassCard from '../components/GlassCard';
 
 const Estimate = () => {
   return (
@@ -9,7 +10,7 @@ const Estimate = () => {
         No account required. Select your procedure to receive an instant ballpark cost range.
       </Typography>
       
-      <Paper sx={{ p: 4, mt: 4, maxWidth: 600 }}>
+      <GlassCard sx={{ p: 4, mt: 4, maxWidth: 600 }}>
          <FormControl fullWidth sx={{ mb: 3 }}>
           <InputLabel id="procedure-select-label">Select Procedure</InputLabel>
           <Select
@@ -29,7 +30,7 @@ const Estimate = () => {
         <Typography variant="caption" color="text.secondary">
             * This is a preliminary estimate. Your final quote will be provided by your Health Navigator™ after a medical review.
         </Typography>
-      </Paper>
+      </GlassCard>
     </Container>
   );
 };
