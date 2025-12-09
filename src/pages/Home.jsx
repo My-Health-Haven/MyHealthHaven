@@ -591,33 +591,35 @@ const Home = () => {
           <Box sx={{ maxWidth: 'md', mx: 'auto' }}>
             <Typography variant="h2" color="primary.main" align="center" gutterBottom>Frequently asked questions</Typography>
             <Typography variant="h5" align="center" color="text.secondary" sx={{ mb: 6 }}>If you are considering care in Mexico, you should have clear, honest answers.</Typography>
-            {[
-              { q: "Is medical care in Mexico safe?", a: "Safety is our first filter. We partner only with hospitals and clinicians that meet defined standards for credentialing, infection control, and transparency." },
-              { q: "How do I know what my procedure will really cost?", a: "Before you travel, you receive an all-inclusive estimate that covers hospital, surgeon, anesthesia, standard imaging, and typical hospital stay." },
-              { q: "Can I talk to my U.S. doctor about this?", a: "Yes, and we encourage it. With your permission, we can share relevant information with your U.S. clinician." },
-              { q: "What if complications occur?", a: "Your Navigator will explain how the hospital handles complications, how additional costs are managed, and how follow-up care works if you need it." },
-              { q: "Do I have to decide right away?", a: "No. Many patients start with an informational call to understand options. There is no obligation." }
-            ].map((faq, i) => (
-              <FadeIn key={i} delay={i * 100}>
-                <Accordion sx={{ 
-                  mb: 1, 
-                  background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
-                  backdropFilter: 'blur(20px) saturate(180%)',
-                  WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-                  border: '1px solid rgba(255, 255, 255, 0.3)',
-                  boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.07), inset 0 0 20px rgba(255, 255, 255, 0.05)',
-                  borderRadius: '16px !important', // Force rounded corners
-                  '&:before': { display: 'none' }, // Remove default divider
-                }}>
-                  <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                    <Typography variant="subtitle1" fontWeight="bold">{faq.q}</Typography>
-                  </AccordionSummary>
-                  <AccordionDetails>
-                    <Typography variant="body2">{faq.a}</Typography>
-                  </AccordionDetails>
-                </Accordion>
-              </FadeIn>
-            ))}
+            <Stack spacing={1}>
+              {[
+                { q: "Is medical care in Mexico safe?", a: "Safety is our first filter. We partner only with hospitals and clinicians that meet defined standards for credentialing, infection control, and transparency." },
+                { q: "How do I know what my procedure will really cost?", a: "Before you travel, you receive an all-inclusive estimate that covers hospital, surgeon, anesthesia, standard imaging, and typical hospital stay." },
+                { q: "Can I talk to my U.S. doctor about this?", a: "Yes, and we encourage it. With your permission, we can share relevant information with your U.S. clinician." },
+                { q: "What if complications occur?", a: "Your Navigator will explain how the hospital handles complications, how additional costs are managed, and how follow-up care works if you need it." },
+                { q: "Do I have to decide right away?", a: "No. Many patients start with an informational call to understand options. There is no obligation." }
+              ].map((faq, i) => (
+                <FadeIn key={i} delay={i * 100}>
+                  <Accordion sx={{ 
+                    // mb: 1, // Handled by Stack
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
+                    backdropFilter: 'blur(20px) saturate(180%)',
+                    WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+                    border: '1px solid rgba(255, 255, 255, 0.3)',
+                    boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.07), inset 0 0 20px rgba(255, 255, 255, 0.05)',
+                    borderRadius: '16px !important', // Force rounded corners
+                    '&:before': { display: 'none' }, // Remove default divider
+                  }}>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      <Typography variant="subtitle1" fontWeight="bold">{faq.q}</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      <Typography variant="body2">{faq.a}</Typography>
+                    </AccordionDetails>
+                  </Accordion>
+                </FadeIn>
+              ))}
+            </Stack>
           </Box>
         </Container>
       </Box>
