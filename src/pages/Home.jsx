@@ -111,13 +111,15 @@ const Home = () => {
         }}
       >
         <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
-          <Squares 
-            speed={0.5} 
-            squareSize={40}
-            direction='down' 
-            borderColor='rgba(0, 137, 123, 0.1)'
-            hoverFillColor='#8E24AA'
-          />
+          {!isMobile && (
+            <Squares 
+              speed={0.5} 
+              squareSize={40}
+              direction='down' 
+              borderColor='rgba(0, 137, 123, 0.1)'
+              hoverFillColor='#8E24AA'
+            />
+          )}
         </Box>
         <Container maxWidth={false} sx={{ position: 'relative', zIndex: 1, px: { xs: 2, md: 6, lg: 10 } }}>
           <Grid container spacing={6} alignItems="center">
@@ -297,13 +299,15 @@ const Home = () => {
       {/* 4. How It Works */}
       <Box ref={howItWorksRef} sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent', position: 'relative' }}>
         <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
-          <Squares 
-            speed={0.5} 
-            squareSize={40}
-            direction='down' 
-            borderColor='rgba(0, 137, 123, 0.1)'
-            hoverFillColor='#8E24AA'
-          />
+          {!isMobile && (
+            <Squares 
+              speed={0.5} 
+              squareSize={40}
+              direction='down' 
+              borderColor='rgba(0, 137, 123, 0.1)'
+              hoverFillColor='#8E24AA'
+            />
+          )}
         </Box>
         <Container maxWidth="lg" sx={{ px: { xs: 2, md: 6, lg: 10 }, position: 'relative', zIndex: 1 }}>
             <Box sx={{ textAlign: 'center', mb: 8 }}>
@@ -429,7 +433,7 @@ const Home = () => {
             backgroundImage: 'url(/cancun-skyline.jpg)',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            backgroundAttachment: 'fixed',
+            backgroundAttachment: isMobile ? 'scroll' : 'fixed',
             zIndex: 0,
           }}
         />
