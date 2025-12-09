@@ -1,8 +1,10 @@
 import React from 'react';
-import { Box, Container, Grid, Typography, Link as MuiLink, Stack } from '@mui/material';
+import { Box, Container, Grid, Typography, Link as MuiLink, Stack, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
+import { useUserJourney } from '../context/UserJourneyContext';
 
 const Footer = () => {
+  const { resetJourney } = useUserJourney();
   return (
     <Box component="footer" sx={{ bgcolor: 'white', py: 6, borderTop: '1px solid', borderColor: 'divider' }}>
       <Container maxWidth="xl">
@@ -64,6 +66,9 @@ const Footer = () => {
           <Box sx={{ display: 'flex', gap: 3 }}>
             <MuiLink component={Link} to="/privacy" color="text.secondary" variant="body2" underline="hover">Privacy Policy</MuiLink>
             <MuiLink component={Link} to="/terms" color="text.secondary" variant="body2" underline="hover">Terms of Use</MuiLink>
+            <Button onClick={resetJourney} size="small" sx={{ color: 'text.disabled', fontSize: '0.75rem', textTransform: 'none', ml: 2 }}>
+              Reset My Journey
+            </Button>
           </Box>
         </Box>
       </Container>

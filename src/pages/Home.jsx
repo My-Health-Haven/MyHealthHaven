@@ -32,6 +32,9 @@ import Squares from '../components/Squares/Squares';
 import FadeIn from '../components/FadeIn';
 import StarBorder from '../components/StarBorder';
 import GlassCard from '../components/GlassCard';
+import JourneyWizard from '../components/JourneyWizard';
+import { useUserJourney } from '../context/UserJourneyContext';
+import { JOURNEY_CONTENT } from '../data/journeyContent';
 
 const Threads = React.lazy(() => import('../components/Threads'));
 const Marquee = React.lazy(() => import('../components/Marquee'));
@@ -39,6 +42,18 @@ const Marquee = React.lazy(() => import('../components/Marquee'));
 const Home = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { journey } = useUserJourney();
+
+  // Resolve content based on journey selection, fallback to default
+  const activeContent = journey && JOURNEY_CONTENT[journey.category] 
+    ? JOURNEY_CONTENT[journey.category] 
+    : JOURNEY_CONTENT.default;
+
+  // Fallback if specific section is missing in a specific category (safety check)
+  const heroContent = activeContent.hero || JOURNEY_CONTENT.default.hero;
+  const problemContent = activeContent.problem || JOURNEY_CONTENT.default.problem;
+  const solutionContent = activeContent.solution || JOURNEY_CONTENT.default.solution;
+
 
   const howItWorksRef = useRef(null);
   const navigatorsRef = useRef(null);
@@ -98,6 +113,8 @@ const Home = () => {
           content="knee replacement abroad, hip replacement Mexico, dental implants Cancun, cardiac diagnostics Mexico, orthopedic surgery overseas, affordable full mouth reconstruction, angiogram Cancun, heart scan Mexico, cataract surgery Mexico, executive physical abroad, longevity health checkup Cancun, stem cell treatment Cancun, full-body MRI Mexico, IVF Mexico, fertility treatment Cancun, cosmetic dentistry Mexico, MRI Cancun, egg freezing abroad, veneers Cancun, Invisalign Mexico, rhinoplasty Mexico, plastic surgery Cancun, cosmetic surgery abroad, breast augmentation Cancun, liposuction Mexico packages, executive health check Mexico, corporate wellness Cancun, sports injury surgery Mexico, eyelid surgery Mexico, anti-aging treatments Cancun, Botox Cancun, gastric sleeve Mexico, bariatric surgery Cancun, affordable knee replacement Mexico, hernia repair Cancun, gallbladder surgery Mexico, weight loss surgery Cancun, diabetes treatment Mexico, hypertension care abroad, medical tourism chronic disease, teeth whitening Mexico, mommy makeover Mexico, breast lift Cancun, hair transplant Mexico, Brazilian butt lift Cancun, tummy tuck Mexico" 
         />
       </Helmet>
+      
+      <JourneyWizard />
 
       {/* 1. Hero Section */}
       <Box
@@ -129,25 +146,39 @@ const Home = () => {
                 Health Navigation™ Across Borders
               </Typography>
               <Typography variant="h1" sx={{ mt: 2, mb: 3, color: 'text.primary' }}>
-                World-class medical care in Mexico, guided by U.S. healthcare experts.
+                {heroContent.title}
               </Typography>
               <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary', maxWidth: 600 }}>
-                We help Americans access safe, accredited doctors, hospitals and clinics in Mexico with transparent pricing, bilingual support, and a dedicated Health Navigator™ from your first question to full recovery.
+                {heroContent.subtitle}
               </Typography>
               
               <Chip 
-                label="Made In America, Made Better in Mexico" 
+                label={heroContent.chip} 
                 color="secondary" 
                 variant="outlined" 
                 sx={{ mb: 4, fontWeight: 600, border: '2px solid' }} 
               />
 
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 4 }}>
-                <Button variant="contained" size="large" component={Link} to="/contact">
-                  Speak with a Health Navigator™
-                </Button>
+                {journey?.urgency === 'asap' ? (
+                  <Button 
+                    variant="contained" 
+                    size="large" 
+                    color="success"
+                    startIcon={<Box component="img" src="/WhatsApp.png" sx={{ width: 24, height: 24 }} />}
+                    href="https://wa.me/521234567890?text=I%20am%20interested%20in%20learning%20more%20about%20medical%20care"
+                    target="_blank"
+                  >
+                    Chat with a Navigator
+                  </Button>
+                ) : (
+                  <Button variant="contained" size="large" component={Link} to="/contact">
+                    Speak with a Health Navigator™
+                  </Button>
+                )}
+                
                 <Button variant="outlined" size="large" component={Link} to="/estimate">
-                  Get a No-Signup Cost Estimate
+                  {journey?.urgency === 'browsing' ? "See Sample Prices" : "Get a No-Signup Cost Estimate"}
                 </Button>
               </Stack>
 
@@ -207,10 +238,10 @@ const Home = () => {
           <Grid container spacing={8}>
             <Grid size={{ xs: 12, md: 6 }}>
                 <Typography variant="h2" gutterBottom>
-                  When U.S. healthcare is out of reach, patients are forced into hard choices.
+                  {problemContent.title}
                 </Typography>
                 <Typography paragraph color="text.secondary">
-                  Unfortunately many people end up postponing necessary procedures because of high costs, long wait times, or baffling insurance rules.
+                  {problemContent.desc}
                 </Typography>
                 <Typography paragraph color="text.secondary">
                   Fortunately there are other very good alternatives; they look abroad. The problem is when they do it on their own they end up scrolling through countless ads, searching marketplaces that can’t be verified, who select partners based on profits, not patients and that don’t commit to excellence, accountability and transparency.
@@ -233,10 +264,10 @@ const Home = () => {
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
                 <Typography variant="h2" gutterBottom color="primary.main">
-                  MyHealth Haven turns medical travel into a guided, transparent experience.
+                  {solutionContent.title}
                 </Typography>
                 <Typography paragraph color="text.secondary">
-                  We bridge the U.S. and Mexican healthcare systems, combining American standards with Mexico’s clinical excellence and affordability.
+                   {solutionContent.desc}
                 </Typography>
                 <Typography paragraph color="text.secondary">
                   Every patient is paired with a dedicated Health Navigator™—a single point of contact who manages options, pricing, logistics, and post-procedure support.
