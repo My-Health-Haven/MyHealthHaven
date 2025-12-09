@@ -28,7 +28,7 @@ import CompareArrowsIcon from '@mui/icons-material/CompareArrows';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 
-import Squares from '../components/Squares/Squares';
+const Squares = React.lazy(() => import('../components/Squares/Squares'));
 import FadeIn from '../components/FadeIn';
 import StarBorder from '../components/StarBorder';
 import GlassCard from '../components/GlassCard';
@@ -61,36 +61,45 @@ const Home = () => {
   const ctaRef = useRef(null);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const windowHeight = window.innerHeight;
-      const triggerPoint = windowHeight / 2;
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const windowHeight = window.innerHeight;
+          const triggerPoint = windowHeight / 2;
 
-      const getOffset = (ref) => ref.current ? ref.current.offsetTop : 0;
+          const getOffset = (ref) => ref.current ? ref.current.offsetTop : 0;
 
-      const howItWorksTop = getOffset(howItWorksRef);
-      const navigatorsTop = getOffset(navigatorsRef);
-      const testimonialsTop = getOffset(testimonialsRef);
-      const ctaTop = getOffset(ctaRef);
+          const howItWorksTop = getOffset(howItWorksRef);
+          const navigatorsTop = getOffset(navigatorsRef);
+          const testimonialsTop = getOffset(testimonialsRef);
+          const ctaTop = getOffset(ctaRef);
 
-      let newColor = '#ffffff';
+          let newColor = '#ffffff';
 
-      if (scrollY + triggerPoint >= ctaTop) {
-        newColor = '#ffffff';
-      } else if (scrollY + triggerPoint >= testimonialsTop) {
-        newColor = '#E0F2F1'; // Pastel Green
-      } else if (scrollY + triggerPoint >= navigatorsTop) {
-        newColor = '#ffffff';
-      } else if (scrollY + triggerPoint >= howItWorksTop) {
-        newColor = '#F3E5F5'; // Pastel Purple
-      } else {
-        newColor = '#ffffff';
+          if (scrollY + triggerPoint >= ctaTop) {
+            newColor = '#ffffff';
+          } else if (scrollY + triggerPoint >= testimonialsTop) {
+            newColor = '#E0F2F1'; // Pastel Green
+          } else if (scrollY + triggerPoint >= navigatorsTop) {
+            newColor = '#ffffff';
+          } else if (scrollY + triggerPoint >= howItWorksTop) {
+            newColor = '#F3E5F5'; // Pastel Purple
+          } else {
+            newColor = '#ffffff';
+          }
+
+          document.body.style.backgroundColor = newColor;
+          ticking = false;
+        });
+
+        ticking = true;
       }
-
-      document.body.style.backgroundColor = newColor;
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     // Initial check
     handleScroll();
 
@@ -130,6 +139,7 @@ const Home = () => {
       >
         <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
           {!isMobile && (
+            <React.Suspense fallback={null}>
             <Squares 
               speed={0.5} 
               squareSize={40}
@@ -137,6 +147,7 @@ const Home = () => {
               borderColor='rgba(0, 137, 123, 0.1)'
               hoverFillColor='#8E24AA'
             />
+            </React.Suspense>
           )}
         </Box>
         <Container maxWidth={false} sx={{ position: 'relative', zIndex: 1, px: { xs: 2, md: 6, lg: 10 } }}>
@@ -332,6 +343,7 @@ const Home = () => {
       <Box ref={howItWorksRef} sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent', position: 'relative' }}>
         <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
           {!isMobile && (
+            <React.Suspense fallback={null}>
             <Squares 
               speed={0.5} 
               squareSize={40}
@@ -339,6 +351,7 @@ const Home = () => {
               borderColor='rgba(0, 137, 123, 0.1)'
               hoverFillColor='#8E24AA'
             />
+            </React.Suspense>
           )}
         </Box>
         <Container maxWidth="lg" sx={{ px: { xs: 2, md: 6, lg: 10 }, position: 'relative', zIndex: 1 }}>
@@ -348,9 +361,9 @@ const Home = () => {
             </Box>
             <Grid container spacing={4}>
               {[
-                { step: 1, title: "Talk with a Health Navigator™", body: "Share your medical goals, history, concerns, and budget during a confidential consultation.", cta: true, img: "/step1.png" },
-                { step: 2, title: "Receive a curated care plan", body: "We match you with vetted hospitals and specialists, provide all-inclusive estimates, and outline options in writing.", img: "/step2.png" },
-                { step: 3, title: "Travel, treatment, and recovery support", body: "We coordinate logistics, help you prepare for surgery, and stay connected during your recovery back home.", img: "/step3.png" }
+                { step: 1, title: "Talk with a Health Navigator™", body: "Share your medical goals, history, concerns, and budget during a confidential consultation.", cta: true, img: "/step1.png", width: 1000, height: 789 },
+                { step: 2, title: "Receive a curated care plan", body: "We match you with vetted hospitals and specialists, provide all-inclusive estimates, and outline options in writing.", img: "/step2.png", width: 1000, height: 742 },
+                { step: 3, title: "Travel, treatment, and recovery support", body: "We coordinate logistics, help you prepare for surgery, and stay connected during your recovery back home.", img: "/step3.png", width: 1000, height: 720 }
               ].map((item, index) => (
                 <Grid container spacing={2} alignItems="center" direction={{ xs: 'column', md: index % 2 === 1 ? 'row-reverse' : 'row' }} key={index} sx={{ mb: { xs: 6, md: 8 } }}>
                   <Grid size={{ xs: 12, md: 6 }}>
@@ -385,6 +398,8 @@ const Home = () => {
                         src={item.img}
                         alt={item.title}
                         loading="lazy"
+                        width={item.width}
+                        height={item.height}
                         sx={{
                           width: '100%',
                           maxWidth: { xs: '100%', md: '800px' },
@@ -514,8 +529,8 @@ const Home = () => {
             </Box>
             <Grid container spacing={4} justifyContent="center">
               {[
-                { name: "Health Navigator 1", title: "Senior Health Navigator™", creds: "Certified Medical Professional", blurb: "Helps patients understand their options and prepare safely for surgery abroad.", img: "/healthnav1.png" },
-                { name: "Health Navigator 2", title: "Medical Travel Strategist", creds: "Healthcare Specialist", blurb: "Focuses on aligning U.S. quality expectations with Mexican clinical partners.", img: "/healthnav2.png" }
+                { name: "Health Navigator 1", title: "Senior Health Navigator™", creds: "Certified Medical Professional", blurb: "Helps patients understand their options and prepare safely for surgery abroad.", img: "/healthnav1.png", width: 625, height: 625 },
+                { name: "Health Navigator 2", title: "Medical Travel Strategist", creds: "Healthcare Specialist", blurb: "Focuses on aligning U.S. quality expectations with Mexican clinical partners.", img: "/healthnav2.png", width: 625, height: 625 }
               ].map((profile, index) => (
                 <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
                   <FadeIn delay={index * 200}>
@@ -532,6 +547,8 @@ const Home = () => {
                         src={profile.img} 
                         alt={profile.name}
                         loading="lazy"
+                        width={profile.width}
+                        height={profile.height}
                         sx={{ 
                           width: '100%', 
                           aspectRatio: '1/1', 
