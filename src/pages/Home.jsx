@@ -484,7 +484,7 @@ const Home = () => {
       </Box>
 
       {/* 7. Navigators Preview */}
-      <Box ref={navigatorsRef} sx={{ position: 'relative', py: { xs: 8, md: 12 }, bgcolor: 'transparent', overflow: 'hidden' }}>
+      <Box ref={navigatorsRef} sx={{ position: 'relative', pt: { xs: 8, md: 12 }, pb: { xs: 3, md: 6 }, bgcolor: 'transparent', overflow: 'hidden' }}>
         <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
           {!isMobile && (
             <React.Suspense fallback={null}>
@@ -547,7 +547,7 @@ const Home = () => {
       
 
       {/* 8. FAQs */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
+      <Box sx={{ pt: { xs: 2, md: 3 }, pb: { xs: 3, md: 6 }, bgcolor: 'transparent' }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
           <Box sx={{ maxWidth: 'md', mx: 'auto' }}>
             <Typography variant="h2" color="primary.main" align="center" gutterBottom>Frequently asked questions</Typography>
