@@ -34,7 +34,7 @@ import StarBorder from '../components/StarBorder';
 import GlassCard from '../components/GlassCard';
 import JourneyWizard from '../components/JourneyWizard';
 import { useUserJourney } from '../context/UserJourneyContext';
-import { JOURNEY_CONTENT } from '../data/journeyContent';
+import { resolveJourneyContent } from '../data/journeyContent';
 
 const Threads = React.lazy(() => import('../components/Threads'));
 const Marquee = React.lazy(() => import('../components/Marquee'));
@@ -44,15 +44,13 @@ const Home = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'), { defaultMatches: true });
   const { journey } = useUserJourney();
 
-  // Resolve content based on journey selection, fallback to default
-  const activeContent = journey && JOURNEY_CONTENT[journey.category] 
-    ? JOURNEY_CONTENT[journey.category] 
-    : JOURNEY_CONTENT.default;
+  // Resolve content based on journey selection, demographic logic handled in helper
+  const activeContent = resolveJourneyContent(journey);
 
-  // Fallback if specific section is missing in a specific category (safety check)
-  const heroContent = activeContent.hero || JOURNEY_CONTENT.default.hero;
-  const problemContent = activeContent.problem || JOURNEY_CONTENT.default.problem;
-  const solutionContent = activeContent.solution || JOURNEY_CONTENT.default.solution;
+  // Fallback safe access (though resolveJourneyContent handles defaults)
+  const heroContent = activeContent.hero;
+  const problemContent = activeContent.problem;
+  const solutionContent = activeContent.solution;
 
 
   const howItWorksRef = useRef(null);
