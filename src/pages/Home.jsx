@@ -162,7 +162,7 @@ const Home = () => {
               </Typography>
               
               <Chip 
-                label={heroContent.chip} 
+                label="Made In America, Made Better in Mexico" 
                 color="secondary" 
                 variant="outlined" 
                 sx={{ mb: 4, fontWeight: 600, border: '2px solid' }} 
