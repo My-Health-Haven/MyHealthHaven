@@ -54,13 +54,25 @@ const Navbar = () => {
       </Typography>
       <Divider sx={{ mb: 2 }} />
       <List>
-        <ListItem disablePadding>
-           <ListItemButton component={Link} to="/contact" sx={{ justifyContent: 'center', bgcolor: 'primary.main', color: 'white', '&:hover': { bgcolor: 'primary.dark' }, m: 2, mb: 1, borderRadius: 1 }}>
-              <ListItemText primary={t('navbar.speakWithNavigator')} />
-           </ListItemButton>
-           <ListItemButton component={Link} to="/estimate" sx={{ justifyContent: 'center', border: '1px solid', borderColor: 'primary.main', color: 'primary.main', m: 2, mt: 0, borderRadius: 1 }}>
-              <ListItemText primary={t('navbar.freeEstimate')} />
-           </ListItemButton>
+        <ListItem disablePadding sx={{ flexDirection: 'column', px: 2 }}>
+           <Button 
+              fullWidth 
+              variant="contained" 
+              component={Link} 
+              to="/contact" 
+              sx={{ mb: 2, py: 1.5 }}
+           >
+              {t('navbar.speakWithNavigator')}
+           </Button>
+           <Button 
+              fullWidth 
+              variant="outlined" 
+              component={Link} 
+              to="/estimate"
+              sx={{ mb: 3, py: 1.5 }}
+           >
+              {t('navbar.freeEstimate')}
+           </Button>
         </ListItem>
         <ListItem disablePadding sx={{ justifyContent: 'center', mb: 2 }}>
            <Button 
