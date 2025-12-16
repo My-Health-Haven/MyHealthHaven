@@ -22,6 +22,7 @@ import WcIcon from '@mui/icons-material/Wc'; // Gender neutral/Other
 import { useUserJourney } from '../context/UserJourneyContext';
 import GlassCard from './GlassCard';
 import { useLanguage } from '../context/LanguageContext';
+import ErrorBoundary from './ErrorBoundary';
 
 const CATEGORIES = [
   { id: 'ortho', icon: <AccessibilityNewIcon fontSize="large" />, color: '#1E88E5' },
@@ -103,6 +104,7 @@ const JourneyWizard = () => {
       }}
     >
       <Fade in={showWizard}>
+        <ErrorBoundary fallback={null}>
           <Box sx={{ position: 'relative' }}>
              <IconButton 
                 onClick={handleClose}
@@ -243,6 +245,7 @@ const JourneyWizard = () => {
             </GlassCard>
             
           </Box>
+        </ErrorBoundary>
       </Fade>
     </Dialog>
   );

@@ -33,6 +33,7 @@ import FadeIn from '../components/FadeIn';
 import StarBorder from '../components/StarBorder';
 import GlassCard from '../components/GlassCard';
 import JourneyWizard from '../components/JourneyWizard';
+import ErrorBoundary from '../components/ErrorBoundary';
 import { useUserJourney } from '../context/UserJourneyContext';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -138,6 +139,7 @@ const Home = () => {
       >
         <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
             <React.Suspense fallback={null}>
+            <ErrorBoundary fallback={null}>
             <Squares 
               speed={0.5} 
               squareSize={40}
@@ -145,6 +147,7 @@ const Home = () => {
               borderColor='rgba(0, 137, 123, 0.1)'
               hoverFillColor='#8E24AA'
             />
+            </ErrorBoundary>
             </React.Suspense>
         </Box>
         <Container maxWidth={false} sx={{ position: 'relative', zIndex: 1, px: { xs: 2, md: 6, lg: 10 } }}>
@@ -340,6 +343,7 @@ const Home = () => {
       <Box ref={howItWorksRef} sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent', position: 'relative' }}>
         <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
             <React.Suspense fallback={null}>
+            <ErrorBoundary fallback={null}>
             <Squares 
               speed={0.5} 
               squareSize={40}
@@ -347,6 +351,7 @@ const Home = () => {
               borderColor='rgba(0, 137, 123, 0.1)'
               hoverFillColor='#8E24AA'
             />
+            </ErrorBoundary>
             </React.Suspense>
         </Box>
         <Container maxWidth="lg" sx={{ px: { xs: 2, md: 6, lg: 10 }, position: 'relative', zIndex: 1 }}>
@@ -512,7 +517,9 @@ const Home = () => {
         <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
           {!isMobile && (
             <React.Suspense fallback={null}>
+              <ErrorBoundary fallback={null}>
               <Threads color={[0.556, 0.141, 0.666]} amplitude={1} distance={0} enableMouseInteraction={true} />
+              </ErrorBoundary>
             </React.Suspense>
           )}
         </Box>

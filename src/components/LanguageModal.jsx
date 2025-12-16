@@ -10,6 +10,7 @@ import {
   Stack,
 } from '@mui/material';
 import { useLanguage } from '../context/LanguageContext';
+import ErrorBoundary from './ErrorBoundary';
 
 const LanguageModal = () => {
   const { showModal, selectLanguage } = useLanguage();
@@ -35,6 +36,7 @@ const LanguageModal = () => {
         <Typography variant="h5" fontWeight="bold">Welcome / Bienvenido</Typography>
       </DialogTitle>
       <DialogContent>
+        <ErrorBoundary fallback={null}>
         <Typography variant="body1" color="text.secondary" paragraph>
           Please select your preferred language.
           <br />
@@ -60,6 +62,7 @@ const LanguageModal = () => {
             Español
           </Button>
         </Stack>
+        </ErrorBoundary>
       </DialogContent>
     </Dialog>
   );
