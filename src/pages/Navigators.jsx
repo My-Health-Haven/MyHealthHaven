@@ -82,7 +82,7 @@ const Navigators = () => {
       {/* 2. What they do (Feature List) */}
       <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
-          <Box sx={{ maxWidth: 'lg', mx: 'auto' }}>
+          <Box sx={{ maxWidth: 'xl', mx: 'auto' }}>
             <FadeIn>
               <Typography variant="h2" align="center" gutterBottom>{t('navigatorsPage.whatTheyDoTitle')}</Typography>
             </FadeIn>
@@ -105,7 +105,7 @@ const Navigators = () => {
       {/* 3. Team Grid */}
       <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
-          <Box sx={{ maxWidth: 'lg', mx: 'auto' }}>
+          <Box sx={{ maxWidth: 'xl', mx: 'auto' }}>
             <FadeIn>
               <Typography variant="h2" align="center" gutterBottom>{t('navigatorsPage.teamTitle')}</Typography>
             </FadeIn>

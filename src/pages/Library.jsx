@@ -46,7 +46,7 @@ const Library = () => {
       {/* 2. Article List */}
       <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
-          <Box sx={{ maxWidth: 'lg', mx: 'auto' }}>
+          <Box sx={{ maxWidth: 'xl', mx: 'auto' }}>
             <Typography variant="h2" gutterBottom>{t('libraryPage.featuredTopics')}</Typography>
             <Grid container spacing={3} sx={{ mt: 4 }}>
               {(t('libraryPage.articles') || []).map((article, index) => (

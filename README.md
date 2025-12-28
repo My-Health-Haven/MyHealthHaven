@@ -2,29 +2,40 @@
 
 MyHealth Haven is a modern web application designed to guide Americans in accessing world-class medical care in Mexico. It serves as a bridge between patients and vetted hospitals, offering transparency, safety, and personalized support.
 
-## 🛠️ Technology Stack
+## Technology Stack
 
 This project is built with a modern, performance-oriented stack:
 
 - **[React](https://react.dev/)**: The library for web and native user interfaces.
 - **[Vite](https://vitejs.dev/)**: Next Generation Frontend Tooling for fast development and building.
 - **[Material UI (MUI)](https://mui.com/)**: A comprehensive library of React UI components that implements Google's Material Design.
-- **[Tailwind CSS](https://tailwindcss.com/)**: A utility-first CSS framework for rapid UI development (specifically used for new components like the Hero animation).
+- **[Tailwind CSS](https://tailwindcss.com/)**: A utility-first CSS framework for rapid UI development.
 - **[React Router](https://reactrouter.com/)**: For client-side routing.
+- **[GSAP](https://gsap.com/)**: Professional-grade JavaScript animation for the modern web.
+- **[Lucide React](https://lucide.dev/)**: Beautiful & consistent icon library.
 
-## 📂 Project Structure
+## Project Structure
 
 Here is a quick overview of the most important files and folders:
 
 ```text
 /
-├── public/              # Static assets (images, logos)
+├── public/              # Static assets (images, pdfs, video)
 ├── src/
 │   ├── components/      # Reusable UI components
-│   │   └── Squares/     # The animated background component
-│   ├── layout/          # Layout components (Navbar, Footer)
-│   ├── pages/           # Page components (Home, MedicalTravel, etc.)
-│   ├── theme.js         # Global MUI theme configuration (colors, fonts)
+│   │   ├── Squares/     # Animated background component
+│   │   ├── ui/          # Shared UI elements
+│   │   └── ...          # Other components (JourneyWizard, GlassCard, etc.)
+│   ├── context/         # React Context definitions
+│   ├── layout/          # Layout components (Navbar, Footer, Layout)
+│   ├── pages/           # Page components
+│   │   ├── Home.jsx
+│   │   ├── MedicalTravel.jsx
+│   │   ├── Procedures.jsx
+│   │   ├── Navigators.jsx
+│   │   ├── Contact.jsx
+│   │   └── ...
+│   ├── theme.js         # Global MUI theme configuration
 │   ├── App.jsx          # Main application component and routing setup
 │   ├── main.jsx         # Application entry point
 │   └── tailwind.css     # Tailwind CSS imports
@@ -32,7 +43,7 @@ Here is a quick overview of the most important files and folders:
 └── vite.config.js       # Vite configuration
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 To run this project locally on your machine:
 
@@ -55,7 +66,7 @@ To run this project locally on your machine:
     npm run build
     ```
 
-## 🎨 Customization Guide
+## Customization Guide
 
 ### 1. Changing Colors & Fonts (Theme)
 
@@ -74,6 +85,10 @@ Each page has its own file in `src/pages/`.
 - **Home Page**: `src/pages/Home.jsx`
 - **Medical Travel**: `src/pages/MedicalTravel.jsx`
 - **Procedures**: `src/pages/Procedures.jsx`
+- **Navigators**: `src/pages/Navigators.jsx`
+- **Contact**: `src/pages/Contact.jsx`
+- **Get an Estimate**: `src/pages/Estimate.jsx`
+- **Library**: `src/pages/Library.jsx`
 
 You can edit the text, images, and layout directly in these files using JSX.
 
@@ -93,6 +108,6 @@ To add or change menu items in the top navigation bar:
 
 **Note on Tailwind**: If you are adding new components that use Tailwind CSS, they will work automatically as Tailwind is configured to scan all files in `src/`.
 
-## 📝 License
+## License
 
 This project is proprietary software. All rights reserved.
