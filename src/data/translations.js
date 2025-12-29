@@ -248,7 +248,13 @@ export const translations = {
         "In-hospital recovery and discharge.",
         "Return home and coordinated follow-up with U.S. clinicians.",
       ],
+      locationsParagraphs: [
+        "MyHealth Haven is a U.S.-based company, built to meet American expectations for transparency, safety, and patient advocacy. Our operational model is intentional and focused: rather than spreading care across multiple countries or regions, we purposefully select top-tier medical providers exclusively in Cancún.",
+        "Cancún offers a rare combination of advantages—internationally trained physicians, modern private hospitals, and a mature medical infrastructure—paired with unmatched ease of travel from the United States. With frequent nonstop flights from major U.S. cities, minimal time-zone disruption, and a hospitality ecosystem accustomed to American patients, care can be accessed efficiently and confidently.",
+        "By concentrating our network in one proven destination, we maintain deeper oversight, stronger clinical relationships, and a more seamless experience for every client. The result is U.S.-level care standards, delivered in a location optimized for quality, safety, and simplicity.",
+      ],
     },
+
     proceduresPage: {
       title: "Find your procedure. Keep your agency.",
       subtitle:
@@ -626,6 +632,11 @@ export const translations = {
         "Llegada, visita preoperatoria y procedimiento.",
         "Recuperación en el hospital y alta.",
         "Regreso a casa y seguimiento coordinado con clínicos de EE.UU.",
+      ],
+      locationsParagraphs: [
+        "MyHealth Haven is a U.S.-based company, built to meet American expectations for transparency, safety, and patient advocacy. Our operational model is intentional and focused: rather than spreading care across multiple countries or regions, we purposefully select top-tier medical providers exclusively in Cancún.",
+        "Cancún offers a rare combination of advantages—internationally trained physicians, modern private hospitals, and a mature medical infrastructure—paired with unmatched ease of travel from the United States. With frequent nonstop flights from major U.S. cities, minimal time-zone disruption, and a hospitality ecosystem accustomed to American patients, care can be accessed efficiently and confidently.",
+        "By concentrating our network in one proven destination, we maintain deeper oversight, stronger clinical relationships, and a more seamless experience for every client. The result is U.S.-level care standards, delivered in a location optimized for quality, safety, and simplicity.",
       ],
     },
     proceduresPage: {

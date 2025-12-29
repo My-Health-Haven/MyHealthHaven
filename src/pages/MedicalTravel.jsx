@@ -93,28 +93,30 @@ const MedicalTravel = () => {
           <Box sx={{ maxWidth: 'xl', mx: 'auto' }}>
             <FadeIn>
               <Typography variant="h2" gutterBottom>{t('medicalTravelPage.locationsTitle')}</Typography>
-              <Typography variant="body1" paragraph sx={{ maxWidth: 800 }}>
-                {t('medicalTravelPage.locationsDesc')}
-              </Typography>
+              {Array.isArray(t('medicalTravelPage.locationsParagraphs')) ? (
+                t('medicalTravelPage.locationsParagraphs').map((paragraph, index) => (
+                  <Typography key={index} variant="body1" paragraph sx={{ maxWidth: 900, fontSize: '1.1rem', color: 'text.secondary' }}>
+                    {paragraph}
+                  </Typography>
+                ))
+              ) : (
+                <Typography variant="body1" paragraph sx={{ maxWidth: 800 }}>
+                  {t('medicalTravelPage.locationsDesc')}
+                </Typography>
+              )}
             </FadeIn>
               
-              <Grid container spacing={4} sx={{ mt: 4 }}>
-                <Grid size={{ xs: 12, md: 6 }}>
-                   <FadeIn delay={100}>
-                     <GlassCard sx={{ height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <LocationOnIcon color="primary" fontSize="large" />
-                        <Typography variant="h6" sx={{ ml: 1 }}>{t('medicalTravelPage.cancunHub')}</Typography>
-                     </GlassCard>
-                   </FadeIn>
-                </Grid>
-                <Grid size={{ xs: 12, md: 6 }}>
-                   <FadeIn delay={200}>
-                     <GlassCard sx={{ height: 300, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                        <Typography variant="h6" color="text.secondary">{t('medicalTravelPage.comingSoon')}</Typography>
-                     </GlassCard>
-                   </FadeIn>
-                </Grid>
-              </Grid>
+            <FadeIn delay={200}>
+              <Box sx={{ mt: 6, width: '100%', height: { xs: 400, md: 500 }, borderRadius: 4, overflow: 'hidden', boxShadow: '0 8px 32px rgba(0,0,0,0.1)' }}>
+                <iframe 
+                  src="https://www.google.com/maps/d/embed?mid=1LWn2Sx3NCenBN4f_Wabr45-v7hhciJY&ehbc=2E312F&noprof=1" 
+                  width="100%" 
+                  height="100%" 
+                  style={{ border: 0 }}
+                  title="MyHealth Haven Operations Map"
+                />
+              </Box>
+            </FadeIn>
           </Box>
         </Container>
       </Box>
