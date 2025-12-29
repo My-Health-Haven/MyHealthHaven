@@ -239,15 +239,93 @@ export const translations = {
         "We begin in established medical hubs such as Cancún, with plans to expand to additional cities as hospital partnerships meet our standards.",
       cancunHub: "Cancún Medical Hub",
       comingSoon: "More locations coming soon",
-      timelineTitle: "Typical medical travel timeline",
+      timelineTitle: "Typical Medical Care Timeline",
+      timelineSubtitle:
+        "A clear, supportive journey—so you always know what comes next.",
       timelineSteps: [
-        "Initial Navigator consultation and medical review.",
-        "Pre-approval from partner hospital and detailed estimate.",
-        "Travel planning and accommodation guidance.",
-        "Arrival, pre-op visit, and procedure.",
-        "In-hospital recovery and discharge.",
-        "Return home and coordinated follow-up with U.S. clinicians.",
+        {
+          title: "Initial Inquiry",
+          duration: "Day 0",
+          description:
+            "You reach out through our website, WhatsApp, email or by phone. You connect with one of our dedicated Health Navigator™ to understand your goals, medical history, and preferred timing.",
+        },
+        {
+          title: "Medical Review & Options",
+          duration: "Days 5-7",
+          description:
+            "The information you provide is reviewed by our care team and shared with top-tier physicians within your area of needed care. We outline recommended options, provide you an all inclusive price quote, and next steps—clearly and transparently.",
+        },
+        {
+          title: "Virtual Consultations",
+          duration: "Days 7–10",
+          description:
+            "You meet your physician(s) & Health Navigator™ via secure video link. This is your opportunity to ask questions, confirm the plan, and feel confident before moving forward.",
+        },
+        {
+          title: "Planning & Scheduling",
+          duration: "Days 7–14",
+          description: "Once you decide to proceed, we coordinate:",
+          points: [
+            "Procedure dates",
+            "Pre-op testing",
+            "Travel timing",
+            "Hotel and ground transportation",
+          ],
+          footer: "Everything is aligned around your care—not tourism.",
+        },
+        {
+          title: "Pre-Travel Preparation",
+          duration: "2–3 Weeks Before Travel",
+          description: "Your Health Navigator walks you through:",
+          points: [
+            "Medical instructions (sometime with doctors & clinic staff)",
+            "What to pack",
+            "Arrival logistics",
+            "Emergency contacts",
+          ],
+          footer: "You travel informed, prepared, and supported.",
+        },
+        {
+          title: "Arrival & Local Support",
+          duration: "Day of Arrival",
+          description:
+            "You’re met at the Cancun International Airport on the day of arrival by a private car and driver. Depending on your actual care plan, you will travel to a hotel or your hospital and be met there by your personal Health Navigator™. Your Health Navigator™ will assist you in your check-in and walk you through on-the-ground details about your time in Cancun including timing and logistics. They will be with you at critical points during your stay and available 24 hours a day for calls, texts.",
+        },
+        {
+          title: "Pre-Procedure Evaluation",
+          duration: "1–2 Days Before Procedure",
+          description:
+            "With your Health Navigator™, you attend in-person evaluations and final testing after which your physician confirms readiness and reviews the plan again—no surprises.",
+        },
+        {
+          title: "Procedure Day",
+          description:
+            "Your procedure is performed in a modern, accredited facility by experienced specialists. Your Health Navigator™ remains available to you and your family throughout the day.",
+        },
+        {
+          title: "Recovery & Monitoring",
+          duration: "3–14 Days, Depending on Care",
+          description:
+            "You recover under medical supervision with regular check-ins. Your Health Navigator™ coordinates follow-up visits, medications, and comfort needs while you heal in Cancun.",
+        },
+        {
+          title: "Return Home & Continuity of Care",
+          description: "Before you travel home, you receive:",
+          points: [
+            "Medical records",
+            "Discharge instructions",
+            "Follow-up schedule",
+          ],
+          footer:
+            "After returning home, your Health Navigator™ remains available for virtual follow-ups and coordination with your local physician.",
+        },
       ],
+      timelineConclusion: {
+        title: "Throughout the Entire Journey",
+        subtitle: "You are never “on your own.”",
+        description:
+          "MyHealth Haven and your Health Navigator™ act as your cross-border care partner, ensuring clarity, safety, and continuity—every step of the way.",
+      },
       locationsParagraphs: [
         "MyHealth Haven is a U.S.-based company, built to meet American expectations for transparency, safety, and patient advocacy. Our operational model is intentional and focused: rather than spreading care across multiple countries or regions, we purposefully select top-tier medical providers exclusively in Cancún.",
         "Cancún offers a rare combination of advantages—internationally trained physicians, modern private hospitals, and a mature medical infrastructure—paired with unmatched ease of travel from the United States. With frequent nonstop flights from major U.S. cities, minimal time-zone disruption, and a hospitality ecosystem accustomed to American patients, care can be accessed efficiently and confidently.",
@@ -624,15 +702,94 @@ export const translations = {
         "Comenzamos en centros médicos establecidos como Cancún, con planes de expandirnos a ciudades adicionales a medida que las asociaciones hospitalarias cumplan con nuestros estándares.",
       cancunHub: "Centro Médico de Cancún",
       comingSoon: "Más ubicaciones próximamente",
-      timelineTitle: "Línea de tiempo típica de turismo médico",
+      timelineTitle: "Typical Medical Care Timeline",
+      timelineSubtitle:
+        "A clear, supportive journey—so you always know what comes next.",
       timelineSteps: [
-        "Consulta inicial con el Navegador y revisión médica.",
-        "Pre-aprobación del hospital asociado y presupuesto detallado.",
-        "Planificación de viajes y orientación de alojamiento.",
-        "Llegada, visita preoperatoria y procedimiento.",
-        "Recuperación en el hospital y alta.",
-        "Regreso a casa y seguimiento coordinado con clínicos de EE.UU.",
+        {
+          title: "Initial Inquiry",
+          duration: "Day 0",
+          description:
+            "You reach out through our website, WhatsApp, email or by phone. You connect with one of our dedicated Health Navigator™ to understand your goals, medical history, and preferred timing.",
+        },
+        {
+          title: "Medical Review & Options",
+          duration: "Days 5-7",
+          description:
+            "The information you provide is reviewed by our care team and shared with top-tier physicians within your area of needed care. We outline recommended options, provide you an all inclusive price quote, and next steps—clearly and transparently.",
+        },
+        {
+          title: "Virtual Consultations",
+          duration: "Days 7–10",
+          description:
+            "You meet your physician(s) & Health Navigator™ via secure video link. This is your opportunity to ask questions, confirm the plan, and feel confident before moving forward.",
+        },
+        {
+          title: "Planning & Scheduling",
+          duration: "Days 7–14",
+          description: "Once you decide to proceed, we coordinate:",
+          points: [
+            "Procedure dates",
+            "Pre-op testing",
+            "Travel timing",
+            "Hotel and ground transportation",
+          ],
+          footer: "Everything is aligned around your care—not tourism.",
+        },
+        {
+          title: "Pre-Travel Preparation",
+          duration: "2–3 Weeks Before Travel",
+          description: "Your Health Navigator walks you through:",
+          points: [
+            "Medical instructions (sometime with doctors & clinic staff)",
+            "What to pack",
+            "Arrival logistics",
+            "Emergency contacts",
+          ],
+          footer: "You travel informed, prepared, and supported.",
+        },
+        {
+          title: "Arrival & Local Support",
+          duration: "Day of Arrival",
+          description:
+            "You’re met at the Cancun International Airport on the day of arrival by a private car and driver. Depending on your actual care plan, you will travel to a hotel or your hospital and be met there by your personal Health Navigator™. Your Health Navigator™ will assist you in your check-in and walk you through on-the-ground details about your time in Cancun including timing and logistics. They will be with you at critical points during your stay and available 24 hours a day for calls, texts.",
+        },
+        {
+          title: "Pre-Procedure Evaluation",
+          duration: "1–2 Days Before Procedure",
+          description:
+            "With your Health Navigator™, you attend in-person evaluations and final testing after which your physician confirms readiness and reviews the plan again—no surprises.",
+        },
+        {
+          title: "Procedure Day",
+          description:
+            "Your procedure is performed in a modern, accredited facility by experienced specialists. Your Health Navigator™ remains available to you and your family throughout the day.",
+        },
+        {
+          title: "Recovery & Monitoring",
+          duration: "3–14 Days, Depending on Care",
+          description:
+            "You recover under medical supervision with regular check-ins. Your Health Navigator™ coordinates follow-up visits, medications, and comfort needs while you heal in Cancun.",
+        },
+        {
+          title: "Return Home & Continuity of Care",
+          description: "Before you travel home, you receive:",
+          points: [
+            "Medical records",
+            "Discharge instructions",
+            "Follow-up schedule",
+          ],
+          footer:
+            "After returning home, your Health Navigator™ remains available for virtual follow-ups and coordination with your local physician.",
+        },
       ],
+      timelineConclusion: {
+        title: "Throughout the Entire Journey",
+        subtitle: "You are never “on your own.”",
+        description:
+          "MyHealth Haven and your Health Navigator™ act as your cross-border care partner, ensuring clarity, safety, and continuity—every step of the way.",
+      },
+
       locationsParagraphs: [
         "MyHealth Haven is a U.S.-based company, built to meet American expectations for transparency, safety, and patient advocacy. Our operational model is intentional and focused: rather than spreading care across multiple countries or regions, we purposefully select top-tier medical providers exclusively in Cancún.",
         "Cancún offers a rare combination of advantages—internationally trained physicians, modern private hospitals, and a mature medical infrastructure—paired with unmatched ease of travel from the United States. With frequent nonstop flights from major U.S. cities, minimal time-zone disruption, and a hospitality ecosystem accustomed to American patients, care can be accessed efficiently and confidently.",
