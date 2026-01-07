@@ -1,7 +1,8 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from 'react';
 
 const UserJourneyContext = createContext();
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useUserJourney = () => useContext(UserJourneyContext);
 
 export const UserJourneyProvider = ({ children }) => {
@@ -22,20 +23,22 @@ export const UserJourneyProvider = ({ children }) => {
     }
   }, [journey]);
 
-  const saveJourney = (data) => {
+  const saveJourney = useCallback((data) => {
     setJourney(data);
     localStorage.setItem('userJourney', JSON.stringify(data));
     setShowWizard(false);
-  };
+  }, []);
 
-  const resetJourney = () => {
+  const resetJourney = useCallback(() => {
     setJourney(null);
     localStorage.removeItem('userJourney');
     setShowWizard(true);
-  };
+  }, []);
+
+  const value = useMemo(() => ({ journey, saveJourney, resetJourney, showWizard, setShowWizard }), [journey, saveJourney, resetJourney, showWizard]);
 
   return (
-    <UserJourneyContext.Provider value={{ journey, saveJourney, resetJourney, showWizard, setShowWizard }}>
+    <UserJourneyContext.Provider value={value}>
       {children}
     </UserJourneyContext.Provider>
   );

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import { translations } from '../data/translations';
 import { resolveJourneyContent } from '../data/journeyContent';
 
@@ -17,6 +17,7 @@ export const LanguageProvider = ({ children }) => {
 
   useEffect(() => {
     if (!language) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setShowModal(true);
     } else {
       setShowModal(false);
@@ -29,7 +30,7 @@ export const LanguageProvider = ({ children }) => {
   };
 
   // Translation helper
-  const t = (key) => {
+  const t = useCallback((key) => {
     if (!language) return ''; // or fallback to en?
     const langData = translations[language] || translations['en'];
     
@@ -44,25 +45,28 @@ export const LanguageProvider = ({ children }) => {
        }
     }
     return value;
-  };
+  }, [language]);
 
   // Helper to get content based on current language
   // We will need to wrap the journey resolver or pass language to it
-  const getLocalizedJourneyContent = (journey) => {
+  const getLocalizedJourneyContent = useCallback((journey) => {
     // We can assume resolveJourneyContent now handles language or returns a structure we can pick from.
     // Since I haven't updated resolveJourneyContent yet to take a language arg,
     // I will need to update that file to return localized content or handle it here.
     // For now, let's assume I will update resolveJourneyContent to accept language.
     return resolveJourneyContent(journey, language || 'en');
-  };
+  }, [language]);
+
+  const value = useMemo(() => ({ language, selectLanguage, showModal, t, getLocalizedJourneyContent }), [language, showModal, t, getLocalizedJourneyContent]);
 
   return (
-    <LanguageContext.Provider value={{ language, selectLanguage, showModal, t, getLocalizedJourneyContent }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );
 };
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (!context) {

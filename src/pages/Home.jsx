@@ -14,8 +14,6 @@ import {
   AccordionDetails,
   Avatar,
   useTheme,
-  IconButton,
-  alpha,
   useMediaQuery,
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
@@ -43,7 +41,7 @@ const Home = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'), { defaultMatches: true });
   const { journey } = useUserJourney();
-  const { t, getLocalizedJourneyContent, language } = useLanguage();
+  const { t, getLocalizedJourneyContent } = useLanguage();
 
   // Force default/neutral content by passing null, effectively ignoring any stored journey state
   const activeContent = getLocalizedJourneyContent(null);
@@ -629,15 +627,15 @@ const TestimonialsContent = () => {
   const { t, language } = useLanguage();
 
   useEffect(() => {
-    // Verified Reviews only - fetched from translations
+     // Verified Reviews only - fetched from translations
     const allTestimonials = t('home.testimonials') || [];
+    if (allTestimonials.length > 0) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
+        setShuffled([...allTestimonials].sort(() => 0.5 - Math.random()));
+    }
+  }, [language, t]); // Re-run when language/content changes
 
-    // Simple shuffle
-    const shuffledList = [...allTestimonials].sort(() => 0.5 - Math.random());
-    setShuffled(shuffledList);
-  }, [language, t]); // Re-run when language changes
-
-  if (!shuffled) return null; // or a loading skeleton
+  if (!shuffled || shuffled.length === 0) return null; // or a loading skeleton
 
   const gridItems = shuffled.slice(0, 2);
   const carouselItems = shuffled.slice(2);

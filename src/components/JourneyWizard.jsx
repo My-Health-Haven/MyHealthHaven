@@ -76,10 +76,11 @@ const JourneyWizard = () => {
   };
 
   useEffect(() => {
-    if (showWizard) {
+    if (showWizard && step !== 1) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setStep(1);
     }
-  }, [showWizard]);
+  }, [showWizard, step]);
 
   return (
     <Dialog

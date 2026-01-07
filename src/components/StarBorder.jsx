@@ -1,5 +1,6 @@
+import React from 'react';
 const StarBorder = ({
-  as: Component = 'button',
+  as = 'button',
   className = '',
   color = 'white',
   speed = '6s',
@@ -8,6 +9,7 @@ const StarBorder = ({
   children,
   ...rest
 }) => {
+  const Component = as;
   return (
     <Component
       className={`relative inline-block overflow-hidden rounded-[20px] ${className}`}
