@@ -4,17 +4,12 @@ import {
   Container,
   Typography,
   Button,
-  Grid,
-  Stack,
-  Card,
-  CardContent,
 } from '@mui/material';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
 import FadeIn from '../components/FadeIn';
 import GlassCard from '../components/GlassCard';
+import MedicalCareTimeline from '../components/MedicalCareTimeline';
 
 
 import { useLanguage } from '../context/LanguageContext';
@@ -121,99 +116,29 @@ const MedicalTravel = () => {
         </Container>
       </Box>
 
-      {/* 3. Travel Flow (Vertical Steps) */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
-        <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
-          <Box sx={{ maxWidth: 'md', mx: 'auto' }}>
-            <FadeIn>
-
-              <Typography variant="h2" align="center" gutterBottom>{t('medicalTravelPage.timelineTitle')}</Typography>
-              <Typography variant="h5" align="center" color="text.secondary" sx={{ maxWidth: 800, mx: 'auto', mb: 6 }}>
-                {t('medicalTravelPage.timelineSubtitle')}
-              </Typography>
-            </FadeIn>
-              <Stack spacing={4} sx={{ mt: 6, position: 'relative' }}>
-                {/* Vertical Line */}
-                <Box sx={{ position: 'absolute', left: 20, top: 0, bottom: 0, width: 2, bgcolor: 'primary.light', zIndex: 0, display: { xs: 'none', md: 'block' } }} />
-                
-                {(t('medicalTravelPage.timelineSteps') || []).map((step, i) => (
-                  <FadeIn key={i} delay={i * 100}>
-                    <Box sx={{ display: 'flex', alignItems: 'flex-start', position: 'relative', zIndex: 1 }}>
-                      <Box sx={{ 
-                        width: 40, 
-                        height: 40, 
-                        borderRadius: '50%', 
-                        bgcolor: 'primary.main', 
-                        color: 'white', 
-                        display: 'flex', 
-                        alignItems: 'center', 
-                        justifyContent: 'center',
-                        fontWeight: 'bold',
-                        flexShrink: 0,
-                        mr: 3
-                      }}>
-                        {i + 1}
-                      </Box>
-                      <GlassCard sx={{ flexGrow: 1, p: 3 }}>
-                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 2, flexWrap: 'wrap', gap: 2 }}>
-                           <Typography variant="h6" fontWeight="bold" color="primary.main">
-                             {typeof step === 'string' ? step : step.title}
-                           </Typography>
-                           {step.duration && (
-                             <Box sx={{ bgcolor: 'primary.light', color: 'white', px: 1.5, py: 0.5, borderRadius: 2, fontSize: '0.875rem', fontWeight: 500 }}>
-                               {step.duration}
-                             </Box>
-                           )}
-                        </Box>
-                        
-                        {typeof step === 'string' ? (
-                          <Typography variant="body1">{step}</Typography> 
-                        ) : (
-                          <>
-                            <Typography variant="body1" paragraph color="text.secondary">
-                              {step.description}
-                            </Typography>
-                            
-                            {step.points && (
-                              <Box component="ul" sx={{ pl: 2, mb: 2 }}>
-                                {step.points.map((point, idx) => (
-                                  <Typography key={idx} component="li" variant="body1" color="text.primary" sx={{ mb: 0.5 }}>
-                                    {point}
-                                  </Typography>
-                                ))}
-                              </Box>
-                            )}
-
-                            {step.footer && (
-                              <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'primary.main', fontWeight: 500, mt: 2 }}>
-                                {step.footer}
-                              </Typography>
-                            )}
-                          </>
-                        )}
-                      </GlassCard>
-                    </Box>
-                  </FadeIn>
-                ))}
-
-              {/* Conclusion Section */}
-               <FadeIn delay={800}>
-                 <Box sx={{ ml: { md: '64px' }, mt: 4 }}>
-                    <GlassCard sx={{ p: 4, bgcolor: 'rgba(255,255,255,0.9)', borderLeft: 6, borderColor: 'primary.main' }}>
-                       <Typography variant="h5" gutterBottom color="primary.dark">
-                          {t('medicalTravelPage.timelineConclusion.title')}
-                       </Typography>
-                       <Typography variant="subtitle1" fontWeight="bold" paragraph>
-                          {t('medicalTravelPage.timelineConclusion.subtitle')}
-                       </Typography>
-                       <Typography variant="body1">
-                          {t('medicalTravelPage.timelineConclusion.description')}
-                       </Typography>
-                    </GlassCard>
-                 </Box>
-               </FadeIn>
-              </Stack>
-          </Box>
+      {/* 3. Medical Care Timeline - 2-Row Process Flow */}
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'white' }}>
+        <Container maxWidth={false} sx={{ px: { xs: 2, md: 4, lg: 6 } }}>
+          <FadeIn>
+            <MedicalCareTimeline />
+          </FadeIn>
+          
+          {/* Conclusion Section */}
+          <FadeIn delay={300}>
+            <Box sx={{ maxWidth: 900, mx: 'auto', mt: 6 }}>
+              <GlassCard sx={{ p: 4, bgcolor: 'rgba(255,255,255,0.95)', borderLeft: 6, borderColor: 'primary.main' }}>
+                <Typography variant="h5" gutterBottom color="primary.dark">
+                  {t('medicalTravelPage.timelineConclusion.title')}
+                </Typography>
+                <Typography variant="subtitle1" fontWeight="bold" paragraph>
+                  {t('medicalTravelPage.timelineConclusion.subtitle')}
+                </Typography>
+                <Typography variant="body1">
+                  {t('medicalTravelPage.timelineConclusion.description')}
+                </Typography>
+              </GlassCard>
+            </Box>
+          </FadeIn>
         </Container>
       </Box>
     </>

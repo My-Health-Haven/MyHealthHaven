@@ -316,8 +316,55 @@ export const translations = {
       },
       locationsParagraphs: [
         'MyHealth Haven is a U.S.-based company, built to meet American expectations for transparency, safety, and patient advocacy. Our operational model is intentional and focused: rather than spreading care across multiple countries or regions, we purposefully select top-tier medical providers exclusively in Cancún.',
-        'Cancún offers a rare combination of advantages—internationally trained physicians, modern private hospitals, and a mature medical infrastructure—paired with unmatched ease of travel from the United States. With frequent nonstop flights from major U.S. cities, minimal time-zone disruption, and a hospitality ecosystem accustomed to American patients, care can be accessed efficiently and confidently.',
+        'Cancún offers a rare combination of advantages internationally trained physicians, modern private hospitals, and a mature medical infrastructure paired with unmatched ease of travel from the United States. With frequent nonstop flights from major U.S. cities, minimal time-zone disruption, and a hospitality ecosystem accustomed to American patients, care can be accessed efficiently and confidently.',
         'By concentrating our network in one proven destination, we maintain deeper oversight, stronger clinical relationships, and a more seamless experience for every client. The result is U.S.-level care standards, delivered in a location optimized for quality, safety, and simplicity.',
+      ],
+      // Timeline card component translations
+      timelineCardTitle: 'A Clear, Supportive Journey',
+      timelineCardSubtitle: 'So You Always Know What Comes Next',
+      timelineCards: [
+        {
+          title: 'Initial Inquiry',
+          timing: 'Day 0',
+          caption: 'Connect with your Health Navigator™.',
+        },
+        {
+          title: 'Medical Review & Options',
+          timing: 'Days 5-7',
+          caption: 'Receive care options & pricing.',
+        },
+        {
+          title: 'Virtual Consultations',
+          timing: 'Days 7-10',
+          caption: 'Meet your physician via video.',
+        },
+        {
+          title: 'Planning & Scheduling',
+          timing: 'Days 7-14',
+          caption: 'Coordinate dates & travel.',
+        },
+        {
+          title: 'Pre-Travel Preparation',
+          timing: '2-3 Weeks Before',
+          caption: 'Get ready with detailed guidance.',
+        },
+        {
+          title: 'Arrival & Local Support',
+          timing: 'Day of Arrival',
+          caption: 'Personal welcome & assistance.',
+        },
+        {
+          title: 'Pre-Procedure Evaluation',
+          timing: '1-2 Days Before',
+          caption: 'Final tests & readiness check.',
+        },
+        { title: 'Procedure Day', timing: '', caption: 'Procedure with expert care.' },
+        {
+          title: 'Recovery & Monitoring',
+          timing: '3-14 Days',
+          caption: 'Supervised healing & follow-ups.',
+        },
+        { title: 'Return Home & Continuity', timing: '', caption: 'Ongoing support after return.' },
       ],
     },
 
@@ -676,93 +723,148 @@ export const translations = {
         'Comenzamos en centros médicos establecidos como Cancún, con planes de expandirnos a ciudades adicionales a medida que las asociaciones hospitalarias cumplan con nuestros estándares.',
       cancunHub: 'Centro Médico de Cancún',
       comingSoon: 'Más ubicaciones próximamente',
-      timelineTitle: 'Typical Medical Care Timeline',
-      timelineSubtitle: 'A clear, supportive journey—so you always know what comes next.',
+      timelineTitle: 'Cronología Típica de Atención Médica',
+      timelineSubtitle: 'Un viaje claro y con apoyo para que siempre sepas qué sigue.',
       timelineSteps: [
         {
-          title: 'Initial Inquiry',
-          duration: 'Day 0',
+          title: 'Consulta Inicial',
+          duration: 'Día 0',
           description:
-            'You reach out through our website, WhatsApp, email or by phone. You connect with one of our dedicated Health Navigator™ to understand your goals, medical history, and preferred timing.',
+            'Nos contactas a través de nuestro sitio web, WhatsApp, correo electrónico o por teléfono. Te conectas con uno de nuestros dedicados Navegadores de Salud™ para entender tus objetivos, historial médico y tiempos preferidos.',
         },
         {
-          title: 'Medical Review & Options',
-          duration: 'Days 5-7',
+          title: 'Revisión Médica y Opciones',
+          duration: 'Días 5-7',
           description:
-            'The information you provide is reviewed by our care team and shared with top-tier physicians within your area of needed care. We outline recommended options, provide you an all inclusive price quote, and next steps—clearly and transparently.',
+            'La información que proporcionas es revisada por nuestro equipo de atención y compartida con médicos de primer nivel en tu área de atención necesaria. Te presentamos las opciones recomendadas, te proporcionamos un presupuesto todo incluido y los siguientes pasos de manera clara y transparente.',
         },
         {
-          title: 'Virtual Consultations',
-          duration: 'Days 7–10',
+          title: 'Consultas Virtuales',
+          duration: 'Días 7-10',
           description:
-            'You meet your physician(s) & Health Navigator™ via secure video link. This is your opportunity to ask questions, confirm the plan, and feel confident before moving forward.',
+            'Te reúnes con tu(s) médico(s) y Navegador de Salud™ a través de un enlace de video seguro. Esta es tu oportunidad de hacer preguntas, confirmar el plan y sentirte seguro antes de avanzar.',
         },
         {
-          title: 'Planning & Scheduling',
-          duration: 'Days 7–14',
-          description: 'Once you decide to proceed, we coordinate:',
+          title: 'Planificación y Programación',
+          duration: 'Días 7-14',
+          description: 'Una vez que decides proceder, coordinamos:',
           points: [
-            'Procedure dates',
-            'Pre-op testing',
-            'Travel timing',
-            'Hotel and ground transportation',
+            'Fechas del procedimiento',
+            'Pruebas preoperatorias',
+            'Tiempos de viaje',
+            'Hotel y transporte terrestre',
           ],
-          footer: 'Everything is aligned around your care—not tourism.',
+          footer: 'Todo se alinea alrededor de tu atención, no del turismo.',
         },
         {
-          title: 'Pre-Travel Preparation',
-          duration: '2–3 Weeks Before Travel',
-          description: 'Your Health Navigator walks you through:',
+          title: 'Preparación Previa al Viaje',
+          duration: '2-3 Semanas Antes del Viaje',
+          description: 'Tu Navegador de Salud te guía a través de:',
           points: [
-            'Medical instructions (sometime with doctors & clinic staff)',
-            'What to pack',
-            'Arrival logistics',
-            'Emergency contacts',
+            'Instrucciones médicas (a veces con médicos y personal de la clínica)',
+            'Qué empacar',
+            'Logística de llegada',
+            'Contactos de emergencia',
           ],
-          footer: 'You travel informed, prepared, and supported.',
+          footer: 'Viajas informado, preparado y con apoyo.',
         },
         {
-          title: 'Arrival & Local Support',
-          duration: 'Day of Arrival',
+          title: 'Llegada y Apoyo Local',
+          duration: 'Día de Llegada',
           description:
-            'You’re met at the Cancun International Airport on the day of arrival by a private car and driver. Depending on your actual care plan, you will travel to a hotel or your hospital and be met there by your personal Health Navigator™. Your Health Navigator™ will assist you in your check-in and walk you through on-the-ground details about your time in Cancun including timing and logistics. They will be with you at critical points during your stay and available 24 hours a day for calls, texts.',
+            'Te reciben en el Aeropuerto Internacional de Cancún el día de tu llegada con un auto privado y conductor. Dependiendo de tu plan de atención, viajarás a un hotel o a tu hospital donde te recibirá tu Navegador de Salud™ personal. Tu Navegador de Salud™ te asistirá en el registro y te explicará los detalles sobre tu tiempo en Cancún, incluyendo tiempos y logística. Estarán contigo en puntos críticos durante tu estancia y disponibles las 24 horas del día.',
         },
         {
-          title: 'Pre-Procedure Evaluation',
-          duration: '1–2 Days Before Procedure',
+          title: 'Evaluación Pre-Procedimiento',
+          duration: '1-2 Días Antes del Procedimiento',
           description:
-            'With your Health Navigator™, you attend in-person evaluations and final testing after which your physician confirms readiness and reviews the plan again—no surprises.',
+            'Con tu Navegador de Salud™, asistes a evaluaciones en persona y pruebas finales, después de las cuales tu médico confirma la preparación y revisa el plan nuevamente sin sorpresas.',
         },
         {
-          title: 'Procedure Day',
+          title: 'Día del Procedimiento',
           description:
-            'Your procedure is performed in a modern, accredited facility by experienced specialists. Your Health Navigator™ remains available to you and your family throughout the day.',
+            'Tu procedimiento se realiza en una instalación moderna y acreditada por especialistas experimentados. Tu Navegador de Salud™ permanece disponible para ti y tu familia durante todo el día.',
         },
         {
-          title: 'Recovery & Monitoring',
-          duration: '3–14 Days, Depending on Care',
+          title: 'Recuperación y Monitoreo',
+          duration: '3-14 Días, Dependiendo de la Atención',
           description:
-            'You recover under medical supervision with regular check-ins. Your Health Navigator™ coordinates follow-up visits, medications, and comfort needs while you heal in Cancun.',
+            'Te recuperas bajo supervisión médica con revisiones regulares. Tu Navegador de Salud™ coordina visitas de seguimiento, medicamentos y necesidades de confort mientras sanas en Cancún.',
         },
         {
-          title: 'Return Home & Continuity of Care',
-          description: 'Before you travel home, you receive:',
-          points: ['Medical records', 'Discharge instructions', 'Follow-up schedule'],
+          title: 'Regreso a Casa y Continuidad de la Atención',
+          description: 'Antes de viajar a casa, recibes:',
+          points: ['Registros médicos', 'Instrucciones de alta', 'Programa de seguimiento'],
           footer:
-            'After returning home, your Health Navigator™ remains available for virtual follow-ups and coordination with your local physician.',
+            'Después de regresar a casa, tu Navegador de Salud™ permanece disponible para seguimientos virtuales y coordinación con tu médico local.',
         },
       ],
       timelineConclusion: {
-        title: 'Throughout the Entire Journey',
-        subtitle: 'You are never “on your own.”',
+        title: 'Durante Todo el Viaje',
+        subtitle: 'Nunca estás "solo".',
         description:
-          'MyHealth Haven and your Health Navigator™ act as your cross-border care partner, ensuring clarity, safety, and continuity—every step of the way.',
+          'MyHealth Haven y tu Navegador de Salud™ actúan como tu socio de atención transfronteriza, asegurando claridad, seguridad y continuidad en cada paso del camino.',
       },
 
       locationsParagraphs: [
-        'MyHealth Haven is a U.S.-based company, built to meet American expectations for transparency, safety, and patient advocacy. Our operational model is intentional and focused: rather than spreading care across multiple countries or regions, we purposefully select top-tier medical providers exclusively in Cancún.',
-        'Cancún offers a rare combination of advantages—internationally trained physicians, modern private hospitals, and a mature medical infrastructure—paired with unmatched ease of travel from the United States. With frequent nonstop flights from major U.S. cities, minimal time-zone disruption, and a hospitality ecosystem accustomed to American patients, care can be accessed efficiently and confidently.',
-        'By concentrating our network in one proven destination, we maintain deeper oversight, stronger clinical relationships, and a more seamless experience for every client. The result is U.S.-level care standards, delivered in a location optimized for quality, safety, and simplicity.',
+        'MyHealth Haven es una empresa con sede en EE.UU., construida para cumplir con las expectativas estadounidenses de transparencia, seguridad y defensa del paciente. Nuestro modelo operativo es intencional y enfocado: en lugar de dispersar la atención en múltiples países o regiones, seleccionamos intencionalmente proveedores médicos de primer nivel exclusivamente en Cancún.',
+        'Cancún ofrece una combinación única de ventajas: médicos con formación internacional, hospitales privados modernos y una infraestructura médica madura, junto con una facilidad de viaje incomparable desde Estados Unidos. Con vuelos frecuentes sin escalas desde las principales ciudades de EE.UU., mínima interrupción por zona horaria y un ecosistema de hospitalidad acostumbrado a pacientes estadounidenses, la atención puede accederse de manera eficiente y con confianza.',
+        'Al concentrar nuestra red en un destino probado, mantenemos una supervisión más profunda, relaciones clínicas más fuertes y una experiencia más fluida para cada cliente. El resultado son estándares de atención a nivel estadounidense, entregados en una ubicación optimizada para calidad, seguridad y simplicidad.',
+      ],
+      // Timeline card component translations
+      timelineCardTitle: 'Un Viaje Claro y con Apoyo',
+      timelineCardSubtitle: 'Para que Siempre Sepas Qué Sigue',
+      timelineCards: [
+        {
+          title: 'Consulta Inicial',
+          timing: 'Día 0',
+          caption: 'Conéctate con tu Navegador de Salud™.',
+        },
+        {
+          title: 'Revisión Médica y Opciones',
+          timing: 'Días 5-7',
+          caption: 'Recibe opciones de atención y precios.',
+        },
+        {
+          title: 'Consultas Virtuales',
+          timing: 'Días 7-10',
+          caption: 'Conoce a tu médico por video.',
+        },
+        {
+          title: 'Planificación y Programación',
+          timing: 'Días 7-14',
+          caption: 'Coordina fechas y viaje.',
+        },
+        {
+          title: 'Preparación Previa al Viaje',
+          timing: '2-3 Semanas Antes',
+          caption: 'Prepárate con guía detallada.',
+        },
+        {
+          title: 'Llegada y Apoyo Local',
+          timing: 'Día de Llegada',
+          caption: 'Bienvenida y asistencia personal.',
+        },
+        {
+          title: 'Evaluación Pre-Procedimiento',
+          timing: '1-2 Días Antes',
+          caption: 'Pruebas finales y verificación.',
+        },
+        {
+          title: 'Día del Procedimiento',
+          timing: '',
+          caption: 'Procedimiento con atención experta.',
+        },
+        {
+          title: 'Recuperación y Monitoreo',
+          timing: '3-14 Días',
+          caption: 'Sanación supervisada y seguimientos.',
+        },
+        {
+          title: 'Regreso a Casa y Continuidad',
+          timing: '',
+          caption: 'Apoyo continuo después del regreso.',
+        },
       ],
     },
     proceduresPage: {
