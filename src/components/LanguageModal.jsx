@@ -27,17 +27,20 @@ const LanguageModal = () => {
           borderRadius: 4,
           p: 2,
           textAlign: 'center',
-          background: 'rgba(255, 255, 255, 0.95)',
-          backdropFilter: 'blur(10px)',
+          background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05))',
+          backdropFilter: 'blur(20px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+          border: '1px solid rgba(255, 255, 255, 0.3)',
+          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
         }
       }}
     >
       <DialogTitle>
-        <Typography variant="h5" fontWeight="bold">Welcome / Bienvenido</Typography>
+        <Typography variant="h5" fontWeight="bold" color="white">Welcome / Bienvenido</Typography>
       </DialogTitle>
       <DialogContent>
         <ErrorBoundary fallback={null}>
-        <Typography variant="body1" color="text.secondary" paragraph>
+        <Typography variant="body1" color="rgba(255, 255, 255, 0.8)" paragraph>
           Please select your preferred language.
           <br />
           Por favor seleccione su idioma preferido.
@@ -57,7 +60,14 @@ const LanguageModal = () => {
             size="large" 
             onClick={() => selectLanguage('es')}
             fullWidth
-            color="primary"
+            sx={{
+              color: 'white',
+              borderColor: 'rgba(255, 255, 255, 0.5)',
+              '&:hover': {
+                borderColor: 'white',
+                background: 'rgba(255,255,255,0.1)'
+              }
+            }}
           >
             Español
           </Button>
