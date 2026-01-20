@@ -8,6 +8,7 @@ export const translations = {
       library: 'Library',
       speakWithNavigator: 'Free Consultation',
       freeEstimate: 'Free Estimate',
+      schedule: 'Schedule',
     },
     home: {
       heroTitleBadge: 'Health Navigation™ Across Borders',
@@ -539,6 +540,7 @@ export const translations = {
       library: 'Biblioteca',
       speakWithNavigator: 'Hable con un Navegador de Salud™',
       freeEstimate: 'Presupuesto Gratis',
+      schedule: 'Agendar Cita',
     },
     home: {
       heroTitleBadge: 'Navegación de Salud™ Sin Fronteras',
@@ -606,37 +608,37 @@ export const translations = {
 
       testimonialsTitle: 'Salud restaurada. Confianza renovada.',
       testimonialsSubtitle:
-        'Historias de pacientes que eligieron atención guiada a través de las fronteras.',
+        'Historias de pacientes que eligieron atención transfronteriza en Cancún.',
       testimonials: [
         {
           quote:
             'Desde el momento en que llegué, me hicieron sentir importante. Las enfermeras me revisaban sin que yo tuviera que pedirlo, y el cirujano explicó todo claramente. No me sentí apurada, sino cuidada en todo momento.',
           name: 'Maria',
-          meta: 'Paciente Verificado',
+          meta: 'Paciente Verificado • 2024 • Facebook',
         },
         {
           quote:
             'Pensé que solo recibiría buena atención médica. Lo que no esperaba era tanta calidez humana. El equipo fue respetuoso, respondió cada pregunta con paciencia y mi recuperación se sintió segura.',
           name: 'Daniel',
-          meta: 'Paciente Verificado',
+          meta: 'Paciente Verificado • Noviembre 2025 • Doctoralia',
         },
         {
           quote:
             'Lo que más me impresionó no fue solo el profesionalismo, sino el aspecto humano. Desde la recepción hasta la enfermería, me trataron como familia. Entré nerviosa... salí agradecida.',
           name: 'Elena',
-          meta: 'Paciente Verificado',
+          meta: 'Paciente Verificado • Noviembre 2025 • Doctoralia',
         },
         {
           quote:
             'He tenido cirugías en otros países, pero aquí fue la primera vez que me sentí vista como una persona, no solo como un expediente. El personal siempre estuvo atento y el ambiente me ayudó a recuperarme pacíficamente.',
           name: 'Javier',
-          meta: 'Paciente Verificado',
+          meta: 'Paciente Verificado • 2024 • Facebook',
         },
         {
           quote:
             'Instalaciones limpias, servicio atento y una comunicación clara me dieron confianza desde el primer minuto. Nunca me sentí sola en el proceso — estuvieron atentos a todo.',
           name: 'Rosa',
-          meta: 'Paciente Verificado',
+          meta: 'Paciente Verificado • Noviembre 2025 • Doctoralia',
         },
       ],
 

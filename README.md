@@ -1,18 +1,18 @@
 # MyHealth Haven
 
-MyHealth Haven is a modern web application designed to guide Americans in accessing world-class medical care in Mexico. It serves as a bridge between patients and vetted hospitals, offering transparency, safety, and personalized support.
+MyHealth Haven is a web application designed to guide Americans in accessing medical care in Mexico. It serves as a bridge between patients and vetted hospitals, offering transparency, safety, and personalized support.
 
 ## Technology Stack
 
-This project is built with a modern, performance-oriented stack:
+This project is built with a performance-oriented stack:
 
-- **[React](https://react.dev/)**: The library for web and native user interfaces.
-- **[Vite](https://vitejs.dev/)**: Next Generation Frontend Tooling for fast development and building.
-- **[Material UI (MUI)](https://mui.com/)**: A comprehensive library of React UI components that implements Google's Material Design.
-- **[Tailwind CSS](https://tailwindcss.com/)**: A utility-first CSS framework for rapid UI development.
-- **[React Router](https://reactrouter.com/)**: For client-side routing.
-- **[GSAP](https://gsap.com/)**: Professional-grade JavaScript animation for the modern web.
-- **[Lucide React](https://lucide.dev/)**: Beautiful & consistent icon library.
+- **React**: The library for web and native user interfaces.
+- **Vite**: Next Generation Frontend Tooling for fast development and building.
+- **Material UI (MUI)**: A comprehensive library of React UI components.
+- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
+- **React Router**: For client-side routing.
+- **GSAP**: Professional-grade JavaScript animation.
+- **Lucide React**: Icon library.
 
 ## Project Structure
 
@@ -23,22 +23,13 @@ Here is a quick overview of the most important files and folders:
 ├── public/              # Static assets (images, pdfs, video)
 ├── src/
 │   ├── components/      # Reusable UI components
-│   │   ├── Squares/     # Animated background component
-│   │   ├── ui/          # Shared UI elements
-│   │   └── ...          # Other components (JourneyWizard, GlassCard, etc.)
 │   ├── context/         # React Context definitions
 │   ├── layout/          # Layout components (Navbar, Footer, Layout)
 │   ├── pages/           # Page components
-│   │   ├── Home.jsx
-│   │   ├── MedicalTravel.jsx
-│   │   ├── Procedures.jsx
-│   │   ├── Navigators.jsx
-│   │   ├── Contact.jsx
-│   │   └── ...
 │   ├── theme.js         # Global MUI theme configuration
 │   ├── App.jsx          # Main application component and routing setup
-│   ├── main.jsx         # Application entry point
-│   └── tailwind.css     # Tailwind CSS imports
+│   └── main.jsx         # Application entry point
+├── Dockerfile           # Docker configuration
 ├── tailwind.config.js   # Tailwind configuration
 └── vite.config.js       # Vite configuration
 ```
@@ -47,24 +38,43 @@ Here is a quick overview of the most important files and folders:
 
 To run this project locally on your machine:
 
-1.  **Install Dependencies**:
+### 1. Install Dependencies
 
-    ```bash
-    npm install
-    ```
+```bash
+npm install
+```
 
-2.  **Start Development Server**:
+### 2. Start Development Server
 
-    ```bash
-    npm run dev
-    ```
+```bash
+npm run dev
+```
 
-    This will start the local server, usually at `http://localhost:5173`.
+This will start the local server, usually at `http://localhost:5173`.
 
-3.  **Build for Production**:
-    ```bash
-    npm run build
-    ```
+### 3. Build for Production
+
+```bash
+npm run build
+```
+
+## Docker Deployment
+
+This application includes a multi-stage `Dockerfile`.
+
+### Build Container
+
+```bash
+docker build -t healthhaven .
+```
+
+### Run Container
+
+```bash
+docker run -p 8080:80 healthhaven
+```
+
+Access the application at `http://localhost:8080`.
 
 ## Customization Guide
 
@@ -73,40 +83,23 @@ To run this project locally on your machine:
 The global design system is managed by Material UI in `src/theme.js`.
 
 - **Colors**: Edit the `palette` object.
-  - `primary.main`: The main teal color.
-  - `secondary.main`: The purple accent color.
 - **Fonts**: Edit the `typography` object.
-- **Layout**: The `maxWidth` for containers is set here (currently `xl`).
 
 ### 2. Editing Page Content
 
-Each page has its own file in `src/pages/`.
+Each page has its own file in `src/pages/`. Most text content is centralized in `src/data/translations.js` to support internationalization.
 
 - **Home Page**: `src/pages/Home.jsx`
 - **Medical Travel**: `src/pages/MedicalTravel.jsx`
 - **Procedures**: `src/pages/Procedures.jsx`
 - **Navigators**: `src/pages/Navigators.jsx`
 - **Contact**: `src/pages/Contact.jsx`
-- **Get an Estimate**: `src/pages/Estimate.jsx`
-- **Library**: `src/pages/Library.jsx`
-
-You can edit the text, images, and layout directly in these files using JSX.
+- **Schedule**: `src/pages/Schedule.jsx` (Appointment Calendar)
 
 ### 3. Modifying Navigation
 
-To add or change menu items in the top navigation bar:
-
 - Open `src/layout/Navbar.jsx`.
-- Update the `navItems` array at the top of the file.
-- Links use `react-router-dom`, so ensure the `href` matches a route defined in `src/App.jsx`.
-
-### 4. Adding New Components
-
-- Create a new folder in `src/components/` (e.g., `src/components/MyNewComponent/`).
-- Add your `.jsx` and `.css` files there.
-- Import and use it in your pages.
-
-**Note on Tailwind**: If you are adding new components that use Tailwind CSS, they will work automatically as Tailwind is configured to scan all files in `src/`.
+- Update the `navItems` array.
 
 ## License
 
