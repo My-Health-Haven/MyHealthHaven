@@ -34,7 +34,7 @@ const Footer = () => {
               <MuiLink component={Link} to="/#how-it-works" color="text.secondary" variant="body2" underline="hover">{t('footer.howItWorks')}</MuiLink>
               <MuiLink component={Link} to="/procedures" color="text.secondary" variant="body2" underline="hover">{t('footer.procedures')}</MuiLink>
               <MuiLink component={Link} to="/medical-travel" color="text.secondary" variant="body2" underline="hover">{t('footer.medicalTravel')}</MuiLink>
-              <MuiLink component={Link} to="/#faqs" color="text.secondary" variant="body2" underline="hover">{t('footer.faqs')}</MuiLink>
+              <MuiLink component={Link} to="/#faq" color="text.secondary" variant="body2" underline="hover">{t('footer.faqs')}</MuiLink>
             </Stack>
           </Grid>
 
@@ -55,7 +55,7 @@ const Footer = () => {
             </Typography>
             <Stack spacing={1}>
               <MuiLink component={Link} to="/contact" color="text.secondary" variant="body2" underline="hover">{t('footer.speakWithNavigator')}</MuiLink>
-              <MuiLink href="https://wa.me/0000000000" color="text.secondary" variant="body2" underline="hover" target="_blank" rel="noopener">{t('footer.whatsapp')}</MuiLink>
+              <MuiLink href="https://wa.me/12142763928" color="text.secondary" variant="body2" underline="hover" target="_blank" rel="noopener">{t('footer.whatsapp')}</MuiLink>
               <MuiLink href="mailto:hello@myhealthhaven.com" color="text.secondary" variant="body2" underline="hover">{t('footer.email')}</MuiLink>
             </Stack>
           </Grid>

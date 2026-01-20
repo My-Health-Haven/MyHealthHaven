@@ -178,7 +178,7 @@ const Home = () => {
                     size="large" 
                     color="success"
                     startIcon={<Box component="img" src="/WhatsApp.png" sx={{ width: 24, height: 24 }} />}
-                    href="https://wa.me/521234567890?text=I%20am%20interested%20in%20learning%20more%20about%20medical%20care"
+                    href="https://wa.me/12142763928?text=I%20am%20interested%20in%20learning%20more%20about%20medical%20care"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -214,10 +214,10 @@ const Home = () => {
                   <Box
                     component="video"
                     controls
-                    preload="none"
+                    preload="metadata"
                     playsInline
                     poster="/HealthNavigatorsBG.webp"
-                    src="/Journey.mp4"
+                    src="/Supported Journey.mp4"
                     sx={{
                       position: 'absolute',
                       top: 0,
@@ -339,7 +339,7 @@ const Home = () => {
       </Box>
 
       {/* 4. How It Works */}
-      <Box ref={howItWorksRef} sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent', position: 'relative' }}>
+      <Box id="how-it-works" ref={howItWorksRef} sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent', position: 'relative' }}>
         <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
             <React.Suspense fallback={null}>
             <ErrorBoundary fallback={null}>
@@ -528,6 +528,30 @@ const Home = () => {
               <Typography variant="h2" color="primary.main" gutterBottom><LinkNav text={t('home.meetNavigatorsTitle')} /></Typography>
               <Typography variant="h5" color="text.secondary">{t('home.meetNavigatorsSubtitle')}</Typography>
             </Box>
+
+            {/* Navigator Video */}
+            <Box sx={{ mb: 8, maxWidth: 800, mx: 'auto' }}>
+               <Card sx={{ borderRadius: 4, overflow: 'hidden', boxShadow: 'none', border: '1px solid', borderColor: 'divider' }}>
+                <Box sx={{ position: 'relative', paddingTop: '56.25%', bgcolor: 'grey.200' }}>
+                  <Box
+                    component="video"
+                    controls
+                    preload="metadata"
+                    playsInline
+                    src="/Meet Your Health Navigator.mp4"
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                  />
+                </Box>
+              </Card>
+            </Box>
+
             <Grid container spacing={4} justifyContent="center">
               {(t('home.navigatorProfiles', { returnObjects: true }) || []).map((profile, index) => (
                 <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
