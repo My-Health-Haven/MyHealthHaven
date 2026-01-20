@@ -124,7 +124,7 @@ const WhatsAppWidget = () => {
 
   const handleSendMessage = () => {
     // Replace with your number
-    const phoneNumber = "521234567890"; // Example placeholder
+    const phoneNumber = "12142763928";
     const encodedMessage = encodeURIComponent(message);
     window.open(
       `https://wa.me/${phoneNumber}?text=${encodedMessage}`,

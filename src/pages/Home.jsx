@@ -513,15 +513,6 @@ const Home = () => {
 
       {/* 7. Navigators Preview */}
       <Box ref={navigatorsRef} sx={{ position: 'relative', pt: { xs: 8, md: 12 }, pb: { xs: 3, md: 6 }, bgcolor: 'transparent', overflow: 'hidden' }}>
-        <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
-          {!isMobile && (
-            <React.Suspense fallback={null}>
-              <ErrorBoundary fallback={null}>
-              <Threads color={[0.556, 0.141, 0.666]} amplitude={1} distance={0} enableMouseInteraction={true} />
-              </ErrorBoundary>
-            </React.Suspense>
-          )}
-        </Box>
         <Container maxWidth={false} sx={{ position: 'relative', zIndex: 1, px: { xs: 2, md: 6, lg: 10 } }}>
 
             <Box sx={{ textAlign: 'center', mb: 8 }}>
@@ -552,43 +543,6 @@ const Home = () => {
               </Card>
             </Box>
 
-            <Grid container spacing={4} justifyContent="center">
-              {(t('home.navigatorProfiles', { returnObjects: true }) || []).map((profile, index) => (
-                <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
-                  <FadeIn delay={index * 200}>
-                    <GlassCard sx={{ 
-                      textAlign: 'center', 
-                      height: '100%', 
-                      maxWidth: 340,
-                      mx: 'auto',
-                      display: 'flex',
-                      flexDirection: 'column'
-                    }}>
-                      <Box 
-                        component="img" 
-                        src={profile.img} 
-                        alt={profile.name}
-                        loading="lazy"
-                        width={profile.width}
-                        height={profile.height}
-                        sx={{ 
-                          width: '100%', 
-                          aspectRatio: '1/1', 
-                          objectFit: 'cover',
-                          bgcolor: 'primary.light'
-                        }} 
-                      />
-                      <Box sx={{ p: 3, flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                        <Typography variant="h6" fontWeight="bold">{profile.name}</Typography>
-                        <Typography variant="subtitle2" color="primary.main">{profile.title}</Typography>
-                        <Typography variant="caption" display="block" sx={{ mb: 2, fontStyle: 'italic' }}>{profile.creds}</Typography>
-                        <Typography variant="body2">{profile.blurb}</Typography>
-                      </Box>
-                    </GlassCard>
-                  </FadeIn>
-                </Grid>
-              ))}
-            </Grid>
             <Box sx={{ mt: 6, textAlign: 'center' }}>
               <FadeIn delay={300}>
                 <Button component={Link} to="/navigators" variant="outlined">{t('home.seeHowNavigatorsWork')}</Button>

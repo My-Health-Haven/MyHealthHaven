@@ -102,28 +102,36 @@ const Navigators = () => {
         </Container>
       </Box>
 
-      {/* 3. Team Grid */}
+      {/* 3. Meet Your Health Navigator Video (Replaces Team Grid) */}
       <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
-          <Box sx={{ maxWidth: 'xl', mx: 'auto' }}>
+          <Box sx={{ maxWidth: 'lg', mx: 'auto' }}>
             <FadeIn>
-              <Typography variant="h2" align="center" gutterBottom>{t('navigatorsPage.teamTitle')}</Typography>
+              {/* <Typography variant="h2" align="center" gutterBottom>{t('navigatorsPage.teamTitle')}</Typography> */}
+              <Typography variant="h2" align="center" gutterBottom color="primary.main">{t('home.meetNavigatorsTitle')}</Typography>
             </FadeIn>
-              <Grid container spacing={4} sx={{ mt: 6 }}>
-                {(t('navigatorsPage.teamMembers') || []).map((profile, index) => (
-                  <Grid size={{ xs: 12, sm: 6, md: 4 }} key={index}>
-                    <FadeIn delay={index * 200}>
-                      <GlassCard sx={{ textAlign: 'center', p: 4, height: '100%' }}>
-                        <Avatar src={profile.img} sx={{ width: 100, height: 100, mx: 'auto', mb: 2, bgcolor: 'secondary.main' }}>{profile.name[0]}</Avatar>
-                        <Typography variant="h6" fontWeight="bold">{profile.name}</Typography>
-                        <Typography variant="subtitle2" color="primary.main">{profile.role}</Typography>
-                        <Typography variant="caption" display="block" sx={{ mb: 2, fontStyle: 'italic' }}>{profile.creds}</Typography>
-                        <Typography variant="body2">{profile.bio}</Typography>
-                      </GlassCard>
-                    </FadeIn>
-                  </Grid>
-                ))}
-              </Grid>
+              
+            <Box sx={{ mt: 6, maxWidth: 900, mx: 'auto' }}>
+               <Card sx={{ borderRadius: 4, overflow: 'hidden', boxShadow: 'none', border: '1px solid', borderColor: 'divider' }}>
+                <Box sx={{ position: 'relative', paddingTop: '56.25%', bgcolor: 'grey.200' }}>
+                  <Box
+                    component="video"
+                    controls
+                    preload="metadata"
+                    playsInline
+                    src="/Meet Your Health Navigator.mp4"
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                    }}
+                  />
+                </Box>
+              </Card>
+            </Box>
           </Box>
         </Container>
       </Box>
