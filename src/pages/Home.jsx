@@ -545,7 +545,7 @@ const Home = () => {
 
             <Box sx={{ mt: 6, textAlign: 'center' }}>
               <FadeIn delay={300}>
-                <Button component={Link} to="/navigators" variant="outlined">{t('home.seeHowNavigatorsWork')}</Button>
+                <Button component={Link} to="/schedule" variant="outlined">{t('home.seeHowNavigatorsWork')}</Button>
               </FadeIn>
             </Box>
         </Container>

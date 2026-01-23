@@ -71,7 +71,7 @@ const Navigators = () => {
               <Typography variant="h5" sx={{ color: 'grey.300', mb: 3 }}>
                 {t('navigatorsPage.subtitle')}
               </Typography>
-              <Button variant="contained" size="large" component={Link} to="/contact" sx={{ mt: 4 }}>
+              <Button variant="contained" size="large" component={Link} to="/schedule" sx={{ mt: 4 }}>
                 {t('navigatorsPage.cta')}
               </Button>
             </FadeIn>
@@ -147,7 +147,7 @@ const Navigators = () => {
               </Typography>
               <Box sx={{ mt: 4 }}>
                 <FadeIn delay={300}>
-                  <Button variant="contained" size="large" component={Link} to="/contact">
+                  <Button variant="contained" size="large" component={Link} to="/schedule">
                     {t('navigatorsPage.finalCtaButton')}
                   </Button>
                 </FadeIn>

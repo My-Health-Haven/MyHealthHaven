@@ -8,7 +8,7 @@ export const translations = {
       library: 'Library',
       speakWithNavigator: 'Free Consultation',
       freeEstimate: 'Free Estimate',
-      schedule: 'Schedule',
+      schedule: 'Schedule Appointment',
     },
     home: {
       heroTitleBadge: 'Health Navigation™ Across Borders',
@@ -150,7 +150,7 @@ export const translations = {
       meetNavigatorsTitle: 'Meet your Health Navigators™',
       meetNavigatorsSubtitle:
         'Real people with clinical and healthcare backgrounds, guiding you through every step.',
-      seeHowNavigatorsWork: 'See how our Navigators work',
+      seeHowNavigatorsWork: 'Schedule Appointment',
 
       faqTitle: 'Frequently asked questions',
       faqSubtitle: 'If you are considering care in Mexico, you should have clear, honest answers.',
@@ -559,19 +559,18 @@ Medical travel isn’t about replacing your local healthcare system. It’s abou
     },
     estimatePage: {
       title: 'Get a Free Estimate',
-      subtitle:
-        'No account required. Select your procedure to receive an instant ballpark cost range.',
-      selectLabel: 'Select Procedure',
+      subtitle: 'A detailed quote will be emailed to you.',
+      form: {
+        name: 'Name',
+        email: 'Email',
+        phone: 'Phone Number',
+        city: 'City',
+        state: 'State',
+        procedure: 'Procedure of Interest',
+        submit: 'Request Estimate',
+      },
       disclaimer:
         '* This is a preliminary estimate. Your final quote will be provided by your Health Navigator™ after a medical review.',
-      procedures: {
-        knee: 'Total Knee Replacement',
-        hip: 'Total Hip Replacement',
-        sleeve: 'Gastric Sleeve',
-        dental: 'Dental Implants (All-on-4)',
-        rhino: 'Rhinoplasty',
-        mri: 'Full Body MRI',
-      },
     },
     schedulePage: {
       title: 'Schedule Your Appointment',
@@ -722,7 +721,7 @@ Medical travel isn’t about replacing your local healthcare system. It’s abou
       meetNavigatorsTitle: 'Conozca a sus Navegadores de Salud™',
       meetNavigatorsSubtitle:
         'Personas reales con antecedentes clínicos y de salud, guiándolo en cada paso.',
-      seeHowNavigatorsWork: 'Vea cómo trabajan nuestros Navegadores',
+      seeHowNavigatorsWork: 'Agendar Cita',
 
       faqTitle: 'Preguntas frecuentes',
       faqSubtitle:
@@ -1162,19 +1161,18 @@ El turismo médico no se trata de reemplazar su sistema de salud local. Se trata
     },
     estimatePage: {
       title: 'Obtenga un Presupuesto Gratis',
-      subtitle:
-        'No se requiere cuenta. Seleccione su procedimiento para recibir un rango de costos estimado instantáneo.',
-      selectLabel: 'Seleccione Procedimiento',
+      subtitle: 'Se le enviará un presupuesto detallado por correo electrónico.',
+      form: {
+        name: 'Nombre',
+        email: 'Correo Electrónico',
+        phone: 'Número de Teléfono',
+        city: 'Ciudad',
+        state: 'Estado',
+        procedure: 'Procedimiento de Interés',
+        submit: 'Solicitar Presupuesto',
+      },
       disclaimer:
         '* Esta es una estimación preliminar. Su cotización final será proporcionada por su Navegador de Salud™ después de una revisión médica.',
-      procedures: {
-        knee: 'Reemplazo Total de Rodilla',
-        hip: 'Reemplazo Total de Cadera',
-        sleeve: 'Manga Gástrica',
-        dental: 'Implantes Dentales (All-on-4)',
-        rhino: 'Rinoplastia',
-        mri: 'Resonancia Magnética de Cuerpo Completo',
-      },
     },
     schedulePage: {
       title: 'Programe su Cita',

@@ -16,8 +16,11 @@ import {
   useMediaQuery,
   Stack,
   Divider,
+  Menu,
+  MenuItem,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -27,16 +30,24 @@ const Navbar = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const location = useLocation();
   const { language, selectLanguage, t } = useLanguage();
+  
+  // State for Home Dropdown
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleMenuClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
 
   const navItems = [
-    { label: t('navbar.home'), href: '/' },
     { label: t('navbar.navigators'), href: '/navigators' },
     { label: t('navbar.medicalTravel'), href: '/medical-travel' },
     { label: t('navbar.procedures'), href: '/procedures' },
-    { label: t('navbar.freeEstimate'), href: '/estimate' },
-    { label: t('navbar.schedule'), href: '/schedule' },
     { label: t('navbar.library'), href: '/library' },
-    { label: 'FAQ', href: '/#faq' },
   ];
 
   const handleDrawerToggle = () => {
@@ -62,10 +73,10 @@ const Navbar = () => {
               fullWidth 
               variant="contained" 
               component={Link} 
-              to="/contact" 
+              to="/schedule" 
               sx={{ mb: 2, py: 1.5 }}
            >
-              {t('navbar.speakWithNavigator')}
+              {t('navbar.schedule')}
            </Button>
 
         </ListItem>
@@ -81,6 +92,11 @@ const Navbar = () => {
              {language === 'en' ? 'Español' : 'English'}
            </Button>
         </ListItem>
+        <ListItem disablePadding>
+            <ListItemButton component={Link} to="/" sx={{ textAlign: 'center' }}>
+              <ListItemText primary={t('navbar.home')} />
+            </ListItemButton>
+        </ListItem>
         {navItems.map((item) => (
           <ListItem key={item.href} disablePadding>
             <ListItemButton component={Link} to={item.href} sx={{ textAlign: 'center' }}>
@@ -88,6 +104,11 @@ const Navbar = () => {
             </ListItemButton>
           </ListItem>
         ))}
+        <ListItem disablePadding>
+            <ListItemButton component={Link} to="/#faq" sx={{ textAlign: 'center' }}>
+              <ListItemText primary="FAQ" />
+            </ListItemButton>
+        </ListItem>
       </List>
     </Box>
   );
@@ -117,6 +138,52 @@ const Navbar = () => {
             </IconButton>
           ) : (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+              
+              {/* Home Dropdown - Split Button */}
+              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                <Button
+                  component={Link}
+                  to="/"
+                  sx={{
+                    color: location.pathname === '/' ? 'primary.main' : 'text.primary',
+                    fontWeight: location.pathname === '/' ? 700 : 500,
+                    '&:hover': { color: 'primary.main', bgcolor: 'transparent' },
+                    minWidth: 'auto',
+                    mr: 0.5,
+                  }}
+                >
+                  {t('navbar.home')}
+                </Button>
+                <IconButton
+                  id="home-menu-button"
+                  aria-controls={open ? 'home-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleMenuClick}
+                  size="small"
+                  sx={{
+                     color: open ? 'primary.main' : 'text.primary',
+                     '&:hover': { color: 'primary.main' }
+                  }}
+                >
+                  <ExpandMoreIcon />
+                </IconButton>
+
+                <Menu
+                  id="home-menu"
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleMenuClose}
+                  MenuListProps={{
+                    'aria-labelledby': 'home-menu-button',
+                  }}
+                >
+                   <MenuItem onClick={handleMenuClose} component={Link} to="/#faq">
+                    FAQ
+                  </MenuItem>
+                </Menu>
+              </Box>
+
               {navItems.map((item) => (
                 <Button
                   key={item.href}
@@ -131,6 +198,18 @@ const Navbar = () => {
                   {item.label}
                 </Button>
               ))}
+
+              <Button
+                component={Link}
+                to="/schedule"
+                sx={{
+                    color: location.pathname === '/schedule' ? 'primary.main' : 'text.primary',
+                    fontWeight: location.pathname === '/schedule' ? 700 : 500,
+                    '&:hover': { color: 'primary.main', bgcolor: 'transparent' },
+                }}
+              >
+                {t('navbar.schedule')}
+              </Button>
               
               <Button onClick={toggleLanguage} sx={{ minWidth: 'auto', fontWeight: 'bold' }}>
                 {language === 'en' ? 'ES' : 'EN'}
@@ -140,10 +219,10 @@ const Navbar = () => {
                 variant="contained"
                 color="primary"
                 component={Link}
-                to="/contact"
-                sx={{ ml: 2, boxShadow: 'none', '&:hover': { boxShadow: 'none' } }}
+                to="/estimate"
+                sx={{ ml: 2, boxShadow: 'none', '&:hover': { boxShadow: 'none' }, color: 'white' }}
               >
-                {t('navbar.speakWithNavigator')}
+                {t('navbar.freeEstimate')}
               </Button>
 
             </Box>
