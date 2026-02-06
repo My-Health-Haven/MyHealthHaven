@@ -8,7 +8,7 @@ export const translations = {
       library: 'Library',
       speakWithNavigator: 'Free Consultation',
       freeEstimate: 'Free Estimate',
-      schedule: 'Schedule Appointment',
+      schedule: 'Schedule a consultation',
     },
     home: {
       heroTitleBadge: 'Health Navigation™ Across Borders',
@@ -150,7 +150,7 @@ export const translations = {
       meetNavigatorsTitle: 'Meet your Health Navigators™',
       meetNavigatorsSubtitle:
         'Real people with clinical and healthcare backgrounds, guiding you through every step.',
-      seeHowNavigatorsWork: 'Schedule Appointment',
+      seeHowNavigatorsWork: 'Schedule a consultation',
 
       faqTitle: 'Frequently asked questions',
       faqSubtitle: 'If you are considering care in Mexico, you should have clear, honest answers.',
@@ -250,7 +250,7 @@ export const translations = {
       title: 'Turn medical travel into a structured, supported journey.',
       subtitle:
         'From airport to hospital to recovery, we help you understand what to expect and how to prepare.',
-      cta: 'Talk about travel logistics',
+      cta: 'Schedule your free consultation',
       locationsTitle: 'Where we operate',
       locationsDesc:
         'We begin in established medical hubs such as Cancún, with plans to expand to additional cities as hospital partnerships meet our standards.',

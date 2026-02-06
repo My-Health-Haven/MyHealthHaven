@@ -61,7 +61,7 @@ const MedicalTravel = () => {
               <Button 
                 variant="contained" 
                 size="large" 
-                color="primary"
+                color="success"
                 component={Link} 
                 to="/schedule"
                 sx={{ mt: 4 }}

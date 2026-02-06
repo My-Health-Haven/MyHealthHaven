@@ -23,6 +23,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
+import PhoneIcon from '@mui/icons-material/Phone';
+import EmailIcon from '@mui/icons-material/Email';
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -114,6 +116,25 @@ const Navbar = () => {
   );
 
   return (
+    <>
+    <Box sx={{ bgcolor: 'primary.main', color: 'white', py: 0.5 }}>
+        <Container maxWidth="xl">
+            <Stack direction="row" spacing={3} justifyContent="flex-end" alignItems="center">
+                <Stack direction="row" spacing={1} alignItems="center">
+                    <PhoneIcon fontSize="small" sx={{ fontSize: 16 }} />
+                    <Typography variant="caption" component="a" href="tel:+12142763928" sx={{ color: 'white', textDecoration: 'none', fontWeight: 500 }}>
+                        +1 (214) 276 3928
+                    </Typography>
+                </Stack>
+                <Stack direction="row" spacing={1} alignItems="center">
+                    <EmailIcon fontSize="small" sx={{ fontSize: 16 }} />
+                    <Typography variant="caption" component="a" href="mailto:info@andersonlg.com" sx={{ color: 'white', textDecoration: 'none', fontWeight: 500 }}>
+                        info@andersonlg.com
+                    </Typography>
+                </Stack>
+            </Stack>
+        </Container>
+    </Box>
     <AppBar position="sticky" color="transparent" elevation={0} sx={{ bgcolor: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(25px) saturate(200%)', WebkitBackdropFilter: 'blur(25px) saturate(200%)', borderBottom: '1px solid', borderColor: 'rgba(255, 255, 255, 0.3)', boxShadow: '0 4px 30px rgba(0, 0, 0, 0.05)' }}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
@@ -210,10 +231,6 @@ const Navbar = () => {
               >
                 {t('navbar.schedule')}
               </Button>
-              
-              <Button onClick={toggleLanguage} sx={{ minWidth: 'auto', fontWeight: 'bold' }}>
-                {language === 'en' ? 'ES' : 'EN'}
-              </Button>
 
               <Button
                 variant="contained"
@@ -250,6 +267,7 @@ const Navbar = () => {
         {drawer}
       </Drawer>
     </AppBar>
+    </>
   );
 };
 

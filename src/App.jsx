@@ -13,6 +13,8 @@ const NotFound = React.lazy(() => import('./pages/NotFound'));
 const Estimate = React.lazy(() => import('./pages/Estimate'));
 const Contact = React.lazy(() => import('./pages/Contact'));
 const Schedule = React.lazy(() => import('./pages/Schedule'));
+const PrivacyPolicy = React.lazy(() => import('./pages/PrivacyPolicy'));
+const TermsOfUse = React.lazy(() => import('./pages/TermsOfUse'));
 import { UserJourneyProvider } from './context/UserJourneyContext';
 import { LanguageProvider } from './context/LanguageContext';
 import LanguageModal from './components/LanguageModal';
@@ -39,8 +41,8 @@ function App() {
                   <Route path="estimate" element={<Estimate />} />
                   <Route path="contact" element={<Contact />} />
                   <Route path="schedule" element={<Schedule />} />
-                  <Route path="privacy" element={<ComingSoon />} />
-                  <Route path="terms" element={<ComingSoon />} />
+                  <Route path="privacy" element={<PrivacyPolicy />} />
+                  <Route path="terms" element={<TermsOfUse />} />
                   <Route path="about" element={<ComingSoon />} />
                   <Route path="employers" element={<ComingSoon />} />
                   <Route path="providers" element={<ComingSoon />} />
