@@ -9,13 +9,14 @@ body {
 
 /* The scattered radial blobs */
 body::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
   background-size: 100% 1600px;
   background-repeat: repeat-y;
-  background-image: radial-gradient(
+  background-image:
+    radial-gradient(
       circle 200px at 15% 300px,
       rgba(0, 137, 123, 0.15) 0,
       rgba(0, 137, 123, 0) 100%
@@ -30,11 +31,7 @@ body::before {
       rgba(142, 36, 170, 0.1) 0,
       rgba(142, 36, 170, 0) 100%
     ),
-    radial-gradient(
-      circle 200px at 85% 500px,
-      rgba(0, 137, 123, 0.1) 0,
-      rgba(0, 137, 123, 0) 100%
-    );
+    radial-gradient(circle 200px at 85% 500px, rgba(0, 137, 123, 0.1) 0, rgba(0, 137, 123, 0) 100%);
   pointer-events: none;
   /* background-color: #ffffff; Removed to allow body background color to show */
 }
@@ -45,7 +42,8 @@ body {
 
 @media (min-width: 768px) {
   body::before {
-    background-image: radial-gradient(
+    background-image:
+      radial-gradient(
         circle 300px at 15% 300px,
         rgba(0, 137, 123, 0.15) 0,
         rgba(0, 137, 123, 0) 100%
@@ -135,12 +133,7 @@ body {
 
 @layer utilities {
   .shiny-text {
-    background: linear-gradient(
-      to right,
-      #d1d5db 20%,
-      #ffffff 50%,
-      #d1d5db 80%
-    );
+    background: linear-gradient(to right, #d1d5db 20%, #ffffff 50%, #d1d5db 80%);
     background-size: 200% auto;
     color: #000;
     background-clip: text;
@@ -150,12 +143,7 @@ body {
   }
 
   .shiny-text-dark {
-    background: linear-gradient(
-      to right,
-      #374151 20%,
-      #9ca3af 50%,
-      #374151 80%
-    );
+    background: linear-gradient(to right, #374151 20%, #9ca3af 50%, #374151 80%);
     background-size: 200% auto;
     color: #000;
     background-clip: text;
@@ -169,4 +157,30 @@ body {
       background-position: 200% center;
     }
   }
+}
+
+/* Custom Scrollbar Styles */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 5px;
+  transition: background 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* For main theme integration - using teal/purple */
+.theme-scrollbar ::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00897b 0%, #00695c 100%);
 }

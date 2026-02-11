@@ -1,18 +1,68 @@
-import React, { useMemo } from 'react';
-import { Box, Container, Typography, Button, Grid, Card, CardContent, Chip } from '@mui/material';
+import React, { useState } from 'react';
+import { 
+  Box, 
+  Container, 
+  Typography, 
+  Button, 
+  Grid, 
+  CircularProgress,
+  Alert,
+  Drawer,
+  IconButton,
+  useMediaQuery,
+  useTheme
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import CloseIcon from '@mui/icons-material/Close';
 import { useLanguage } from '../context/LanguageContext';
-import FileDownloadIcon from '@mui/icons-material/FileDownload';
 import FadeIn from '../components/FadeIn';
+import { useProcedures } from '../hooks/useProcedures';
+import ProcedureCard from '../components/procedures/ProcedureCard';
+import ProcedureFilters from '../components/procedures/ProcedureFilters';
+import ProcedureSearch from '../components/procedures/ProcedureSearch';
 
 const Procedures = () => {
   const { t } = useLanguage();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const [mobileOpen, setMobileOpen] = useState(false);
 
-  const sortedCategories = useMemo(() => {
-    const items = t('proceduresPage.items') || [];
-    return [...items].sort((a, b) => a.title.localeCompare(b.title));
-  }, [t]);
+  const {
+    procedures,
+    availableFilters,
+    loading,
+    error,
+    searchQuery,
+    selectedFilters,
+    handleSearch,
+    handleFilterChange,
+    clearFilters,
+    filteredCount
+  } = useProcedures();
+
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+
+  const FilterSidebar = () => (
+    <Box sx={{ p: 2 }}>
+      {isMobile && (
+        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 1 }}>
+          <IconButton onClick={handleDrawerToggle}>
+            <CloseIcon />
+          </IconButton>
+        </Box>
+      )}
+      <ProcedureFilters 
+        availableFilters={availableFilters}
+        selectedFilters={selectedFilters}
+        onFilterChange={handleFilterChange}
+        onClearFilters={clearFilters}
+      />
+    </Box>
+  );
 
   return (
     <>
@@ -20,45 +70,109 @@ const Procedures = () => {
         <title>Procedures and Care Pathways | MyHealth Haven</title>
         <meta
           name="description"
-          content="Explore the types of procedures supported by MyHealth Haven."
+          content="Explore the types of procedures supported by MyHealth Haven. Search and filter by medical area, complexity, and more."
         />
       </Helmet>
 
       <Box sx={{ py: { xs: 4, md: 8 }, bgcolor: 'background.default', minHeight: '80vh' }}>
         <Container maxWidth="xl" sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-          <Box sx={{ mb: 8, textAlign: 'center', maxWidth: 'md', mx: 'auto' }}>
+          
+          {/* Header */}
+          <Box sx={{ mb: 6, textAlign: 'center', maxWidth: 'md', mx: 'auto' }}>
             <FadeIn>
-            <Typography variant="h2" gutterBottom>{t('proceduresPage.title')}</Typography>
-            <Typography variant="h5" color="text.secondary" paragraph>
-               {t('proceduresPage.subtitle')}
-            </Typography>
+              <Typography variant="h2" gutterBottom>{t('proceduresPage.title')}</Typography>
+              <Typography variant="h5" color="text.secondary" paragraph>
+                 {t('proceduresPage.subtitle')}
+              </Typography>
             </FadeIn>
           </Box>
 
-          <Grid container spacing={3}>
-            {sortedCategories.map((category, index) => (
-              <Grid size={{ xs: 12, md: 4 }} key={index}>
-                <FadeIn delay={index * 50}>
-                  <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: 3, transition: 'transform 0.2s', '&:hover': { transform: 'translateY(-4px)' } }}>
-                    <CardContent>
-                      <Typography variant="h5" gutterBottom fontWeight="bold" color="primary.main">
-                        {category.title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" paragraph>
-                        {category.body}
-                      </Typography>
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-                        {category.tags.map((tag, i) => (
-                          <Chip key={i} label={tag} size="small" variant="outlined" />
-                        ))}
-                      </Box>
-                    </CardContent>
-                  </Card>
-                </FadeIn>
+          {/* Search and Filter Toggle (Mobile) */}
+          <Box sx={{ mb: 4 }}>
+            <Grid container spacing={2} alignItems="center">
+              <Grid size={{ xs: 12, md: isMobile ? 12 : 9 }} sx={{ ml: 'auto' }}>
+                 <Box sx={{ display: 'flex', gap: 2 }}>
+                   {isMobile && (
+                     <Button 
+                       variant="outlined" 
+                       startIcon={<FilterListIcon />} 
+                       onClick={handleDrawerToggle}
+                       sx={{ minWidth: '120px' }}
+                     >
+                       Filters
+                     </Button>
+                   )}
+                   <Box sx={{ flexGrow: 1 }}>
+                     <ProcedureSearch onSearch={handleSearch} initialValue={searchQuery} />
+                   </Box>
+                 </Box>
               </Grid>
-            ))}
+            </Grid>
+          </Box>
+
+          <Grid container spacing={4}>
+            {/* Desktop Filters Sidebar */}
+            {!isMobile && (
+              <Grid size={{ md: 3 }}>
+                <Box sx={{ bgcolor: 'background.paper', borderRadius: 3, p: 0, overflow: 'hidden', position: 'sticky', top: 100 }}>
+                  <FilterSidebar />
+                </Box>
+              </Grid>
+            )}
+
+            {/* Mobile Filters Drawer */}
+            <Drawer
+              anchor="left"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              ModalProps={{ keepMounted: true }} 
+              PaperProps={{ sx: { width: 300 } }}
+            >
+              <FilterSidebar />
+            </Drawer>
+
+            {/* Procedures Grid */}
+            <Grid size={{ xs: 12, md: 9 }}>
+              {loading ? (
+                <Box sx={{ display: 'flex', justifyContent: 'center', p: 8 }}>
+                  <CircularProgress />
+                </Box>
+              ) : error ? (
+                <Alert severity="error" sx={{ mb: 4 }}>
+                  {error}
+                </Alert>
+              ) : (
+                <>
+                  <Box sx={{ mb: 2 }}>
+                    <Typography variant="body2" color="text.secondary">
+                      Showing {filteredCount} results
+                    </Typography>
+                  </Box>
+                  
+                  {procedures.length === 0 ? (
+                    <Box sx={{ textAlign: 'center', py: 8, bgcolor: 'background.paper', borderRadius: 3 }}>
+                      <Typography variant="h6" color="text.secondary" gutterBottom>
+                        No procedures found matching your criteria.
+                      </Typography>
+                      <Button variant="text" onClick={clearFilters}>
+                        Clear all filters
+                      </Button>
+                    </Box>
+                  ) : (
+                    <Grid container spacing={3}>
+                      {procedures.map((procedure, index) => (
+                        <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={procedure.procedure_id || index}>
+                          <ProcedureCard procedure={procedure} index={index} />
+                        </Grid>
+                      ))}
+                    </Grid>
+                  )}
+                </>
+              )}
+            </Grid>
           </Grid>
 
+          {/* CTA Buttons */}
           <Box sx={{ mt: 8, textAlign: 'center', display: 'flex', justifyContent: 'center', gap: 2, flexWrap: 'wrap' }}>
              <Button
                 variant="contained"
@@ -81,6 +195,7 @@ const Procedures = () => {
                 {t('navbar.schedule')}
               </Button>
           </Box>
+
         </Container>
       </Box>
     </>

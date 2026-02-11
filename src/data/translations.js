@@ -397,6 +397,9 @@ export const translations = {
       subtitle:
         'Browse procedure categories to understand typical care pathways, risks, and cost ranges. Then decide together with your Navigator what fits your goals.',
       cta: 'Speak with a Health Navigator™',
+      filters: 'Filters',
+      clearAll: 'Clear all',
+      searchPlaceholder: 'Search procedures, categories, or keywords...',
       categoriesTitle: 'Procedure categories',
       items: [
         // Keeping these dynamic might be trickier if structure varies, but let's try
@@ -998,6 +1001,9 @@ Medical travel isn’t about replacing your local healthcare system. It’s abou
       subtitle:
         'Explore categorías de procedimientos para comprender las vías de atención típicas, los riesgos y los rangos de costos. Luego decida junto con su Navegador qué se adapta a sus objetivos.',
       cta: 'Hable con un Navegador de Salud™',
+      filters: 'Filtros',
+      clearAll: 'Borrar todo',
+      searchPlaceholder: 'Buscar procedimientos, categorías o palabras clave...',
       categoriesTitle: 'Categorías de procedimientos',
       items: [
         {
