@@ -29,7 +29,20 @@ export default async function handler(req, res) {
 
     const sheets = google.sheets({ version: 'v4', auth });
     const spreadsheetId = process.env.GOOGLE_SHEET_ID;
-    const range = 'Procedures!A:I'; // Assumes data is in 'Procedures' tab, columns A-I
+
+    // 1. Fetch spreadsheet metadata to get the actual sheet name (tab name)
+    const metaResponse = await sheets.spreadsheets.get({
+      spreadsheetId,
+      fields: 'sheets.properties.title',
+    });
+
+    const sheetTitle = metaResponse.data.sheets?.[0]?.properties?.title;
+    if (!sheetTitle) {
+      throw new Error('No sheets found in the spreadsheet');
+    }
+
+    // 2. Use the dynamic sheet title for the range
+    const range = `${sheetTitle}!A:I`;
 
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,
