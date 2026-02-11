@@ -57,9 +57,10 @@ export default async function handler(req, res) {
     // Extract headers (first row) and normalize them
     // Expected headers: procedure_id, top_category, group_bucket, section, procedure_name, tags, visible, sort_order
     const headers = rows[0].map((header) => header.toLowerCase().replace(/\s+/g, '_'));
+    console.log('Detected Headers:', headers);
 
     // Map rows to objects
-    const procedures = rows.slice(1).map((row) => {
+    const procedures = rows.slice(1).map((row, i) => {
       const procedure = {};
       headers.forEach((header, index) => {
         const value = row[index] ? row[index].trim() : '';
@@ -69,8 +70,9 @@ export default async function handler(req, res) {
         } else if (header === 'sort_order') {
           procedure[header] = value ? parseInt(value, 10) : 999;
         } else if (header === 'visible') {
-          // Handle various boolean representations from Sheets (TRUE, true, checkmarks if exported oddly)
-          procedure[header] = value.toUpperCase() === 'TRUE';
+          // Relaxed check: Only hide if explicitly FALSE. Default to true.
+          const upperVal = value.toUpperCase();
+          procedure[header] = upperVal !== 'FALSE' && upperVal !== 'NO';
         } else {
           procedure[header] = value;
         }
@@ -78,10 +80,14 @@ export default async function handler(req, res) {
       return procedure;
     });
 
+    console.log(`Parsed ${procedures.length} rows.`);
+
     // Filter out hidden procedures
     const validProcedures = procedures.filter(
       (p) => p.visible && p.procedure_id && p.procedure_name
     );
+
+    console.log(`Returning ${validProcedures.length} valid procedures.`);
 
     // Sort by sort_order
     validProcedures.sort((a, b) => a.sort_order - b.sort_order);
