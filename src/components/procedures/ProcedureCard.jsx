@@ -5,6 +5,7 @@ import FadeIn from '../FadeIn';
 const getComplexityColor = (bucket) => {
   if (!bucket) return 'default';
   const lower = bucket.toLowerCase();
+  if (lower === 'n/a' || lower === 'na') return 'default';
   if (lower.includes('high')) return 'error';
   if (lower.includes('moderate')) return 'warning';
   if (lower.includes('low') || lower.includes('minor')) return 'success';
@@ -14,7 +15,9 @@ const getComplexityColor = (bucket) => {
 const ProcedureCard = ({ procedure, index = 0 }) => {
   const {
     procedure_name,
+    section_group,
     section,
+    care_type,
     top_category,
     group_bucket,
     tags
@@ -25,6 +28,8 @@ const ProcedureCard = ({ procedure, index = 0 }) => {
     ? tags 
     : (tags ? tags.split(',').map(t => t.trim()) : []);
 
+  const normalizedBucket = String(group_bucket || '').trim().toLowerCase();
+  const hasComplexity = !!group_bucket && normalizedBucket !== 'n/a' && normalizedBucket !== 'na';
   const complexityColor = getComplexityColor(group_bucket);
 
   return (
@@ -53,7 +58,7 @@ const ProcedureCard = ({ procedure, index = 0 }) => {
         <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: 3 }}>
           <Box sx={{ mb: 2 }}>
             <Stack direction="row" alignItems="center" justifyContent="space-between" sx={{ mb: 1 }}>
-              {section && (
+              {(section_group || section) && (
                 <Typography 
                   variant="overline" 
                   sx={{ 
@@ -64,7 +69,7 @@ const ProcedureCard = ({ procedure, index = 0 }) => {
                     lineHeight: 1
                   }}
                 >
-                  {section}
+                  {[section_group, section].filter(Boolean).join(' - ')}
                 </Typography>
               )}
               {top_category && (
@@ -86,7 +91,7 @@ const ProcedureCard = ({ procedure, index = 0 }) => {
               {procedure_name}
             </Typography>
             
-            {group_bucket && (
+            {hasComplexity ? (
                <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                   <Box sx={{ 
                     width: 8, 
@@ -98,7 +103,11 @@ const ProcedureCard = ({ procedure, index = 0 }) => {
                     {group_bucket}
                   </Typography>
                </Box>
-            )}
+            ) : care_type ? (
+              <Typography variant="body2" fontWeight={500} color="text.secondary">
+                {care_type}
+              </Typography>
+            ) : null}
           </Box>
 
           <Box sx={{ mt: 'auto', pt: 2 }}>

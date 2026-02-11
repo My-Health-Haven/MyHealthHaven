@@ -6,7 +6,9 @@ const MOCK_DATA = {
     {
       procedure_id: 'MN-HC-001',
       top_category: 'Medical Necessity',
-      group_bucket: 'High-Complexity',
+      group_bucket: 'High',
+      care_type: 'Surgical',
+      section_group: 'CARDIOVASCULAR',
       section: 'CARDIAC & MAJOR SURGERY',
       procedure_name: 'Heart bypass (CABG)',
       tags: ['Cardiac', 'Major Surgery'],
@@ -16,7 +18,9 @@ const MOCK_DATA = {
     {
       procedure_id: 'MN-HC-002',
       top_category: 'Medical Necessity',
-      group_bucket: 'High-Complexity',
+      group_bucket: 'High',
+      care_type: 'Surgical',
+      section_group: 'CARDIOVASCULAR',
       section: 'CARDIAC & MAJOR SURGERY',
       procedure_name: 'Heart valve repair/replacement',
       tags: ['Cardiac', 'Valve'],
@@ -26,7 +30,9 @@ const MOCK_DATA = {
     {
       procedure_id: 'MN-MC-001',
       top_category: 'Medical Necessity',
-      group_bucket: 'Moderate-Complexity',
+      group_bucket: 'Moderate',
+      care_type: 'Surgical',
+      section_group: 'ORTHOPEDIC',
       section: 'JOINT REPLACEMENTS',
       procedure_name: 'Knee replacement',
       tags: ['Orthopedic', 'Joint'],
@@ -36,7 +42,9 @@ const MOCK_DATA = {
     {
       procedure_id: 'MN-LC-001',
       top_category: 'Medical Necessity',
-      group_bucket: 'Low-Complexity',
+      group_bucket: 'Low',
+      care_type: 'Surgical',
+      section_group: 'ORTHOPEDIC',
       section: 'MODERATE / MINOR SURGERY',
       procedure_name: 'ACL reconstruction',
       tags: ['Orthopedic', 'Minor'],
@@ -46,7 +54,9 @@ const MOCK_DATA = {
     {
       procedure_id: 'COS-001',
       top_category: 'Cosmetic',
-      group_bucket: 'Plastic Surgery',
+      group_bucket: 'Moderate',
+      care_type: 'Surgical',
+      section_group: 'BODY CONTOURING',
       section: 'BODY CONTOURING',
       procedure_name: 'Tummy tuck (abdominoplasty)',
       tags: ['Cosmetic', 'Body'],
@@ -56,7 +66,9 @@ const MOCK_DATA = {
   ],
   filters: {
     top_category: ['Medical Necessity', 'Cosmetic', 'Dental'],
-    group_bucket: ['High-Complexity', 'Moderate-Complexity', 'Low-Complexity', 'Plastic Surgery'],
+    group_bucket: ['High', 'Moderate', 'Low', 'N/A'],
+    care_type: ['Surgical', 'Diagnostic', 'Preventive'],
+    section_group: ['CARDIOVASCULAR', 'ORTHOPEDIC', 'BODY CONTOURING'],
     section: [
       'CARDIAC & MAJOR SURGERY',
       'JOINT REPLACEMENTS',
@@ -145,6 +157,8 @@ export const useProcedures = () => {
         const searchFields = [
           procedure.procedure_name,
           procedure.short_description,
+          procedure.care_type,
+          procedure.section_group,
           procedure.section, // Added section to search
           // Handle tags array or string
           Array.isArray(procedure.tags) ? procedure.tags.join(' ') : procedure.tags || '',

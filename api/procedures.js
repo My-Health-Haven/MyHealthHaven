@@ -42,8 +42,8 @@ export default async function handler(req, res) {
       throw new Error('No sheets found in the spreadsheet');
     }
 
-    // 2. Use the dynamic sheet title for the range
-    const range = `${sheetTitle}!A:I`;
+    // 2. Use a wide range so schema additions (e.g., care_type) remain supported.
+    const range = `${sheetTitle}!A:Z`;
 
     const response = await sheets.spreadsheets.values.get({
       spreadsheetId,

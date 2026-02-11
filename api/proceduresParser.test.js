@@ -65,6 +65,31 @@ describe('proceduresParser', () => {
     expect(first.section).toBe('Dermatology');
   });
 
+  it('keeps care_type and section_group as first-class filters', () => {
+    const rows = [
+      [
+        'procedure_id',
+        'top_category',
+        'group_bucket',
+        'care_type',
+        'section_group',
+        'section',
+        'procedure_name',
+        'tags',
+        'visible',
+        'sort_order',
+      ],
+      ['X-1', 'Medical Necessity', 'High', 'Surgical', 'CARDIOVASCULAR', 'Major Surgery', 'CABG', 'Cardiac, Major', '1', '1'],
+      ['X-2', 'Medical Necessity', 'N/A', 'Diagnostic', 'IMAGING', 'General Diagnostics', 'Echocardiogram', 'Cardiac, Imaging', '1', '2'],
+    ];
+
+    const result = parseProceduresRows(rows);
+
+    expect(result.filters.care_type).toEqual(['Surgical', 'Diagnostic']);
+    expect(result.filters.section_group).toEqual(['CARDIOVASCULAR', 'IMAGING']);
+    expect(result.filters.group_bucket).toEqual(['High', 'N/A']);
+  });
+
   it('throws when required headers are missing', () => {
     const rows = [['top_category', 'procedure_name'], ['Medical', 'Bypass']];
     expect(() => parseProceduresRows(rows)).toThrow(/Could not locate a valid header row/i);
