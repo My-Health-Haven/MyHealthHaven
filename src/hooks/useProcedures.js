@@ -63,6 +63,16 @@ const MOCK_DATA = {
       'MODERATE / MINOR SURGERY',
       'BODY CONTOURING',
     ],
+    tags: [
+      'Cardiac',
+      'Major Surgery',
+      'Valve',
+      'Orthopedic',
+      'Joint',
+      'Minor',
+      'Cosmetic',
+      'Body',
+    ],
   },
 };
 
@@ -134,6 +144,7 @@ export const useProcedures = () => {
         const query = searchQuery.toLowerCase();
         const searchFields = [
           procedure.procedure_name,
+          procedure.short_description,
           procedure.section, // Added section to search
           // Handle tags array or string
           Array.isArray(procedure.tags) ? procedure.tags.join(' ') : procedure.tags || '',
@@ -156,6 +167,10 @@ export const useProcedures = () => {
         const itemValue = procedure[category];
         // If item has no value for this category but filter is active, it shouldn't match
         if (!itemValue) return false;
+
+        if (Array.isArray(itemValue)) {
+          return itemValue.some((value) => selectedOptions.includes(value));
+        }
 
         // Check if item value is in the selected options
         return selectedOptions.includes(itemValue);

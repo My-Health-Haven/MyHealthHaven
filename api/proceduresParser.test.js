@@ -48,6 +48,7 @@ describe('proceduresParser', () => {
     expect(result.filters.top_category).toEqual(['Medical']);
     expect(result.filters.group_bucket).toEqual(['High-Complexity', 'Low-Complexity']);
     expect(result.filters.section).toEqual(['CARDIAC', 'DENTAL']);
+    expect(result.filters.tags).toEqual(['Cardiac', 'Cosmetic', 'Dental', 'Major']);
   });
 
   it('supports schema aliases used by the current UI', () => {

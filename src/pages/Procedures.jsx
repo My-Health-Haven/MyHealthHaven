@@ -114,7 +114,18 @@ const Procedures = () => {
             {/* Desktop Filters Sidebar */}
             {!isMobile && (
               <Grid size={{ md: 3 }}>
-                <Box sx={{ bgcolor: 'background.paper', borderRadius: 3, p: 0, overflow: 'hidden', position: 'sticky', top: 100 }}>
+                <Box
+                  sx={{
+                    bgcolor: 'background.paper',
+                    borderRadius: 3,
+                    p: 0,
+                    position: 'sticky',
+                    top: 100,
+                    maxHeight: 'calc(100vh - 120px)',
+                    overflowY: 'auto',
+                    overflowX: 'hidden',
+                  }}
+                >
                   <FilterSidebar />
                 </Box>
               </Grid>

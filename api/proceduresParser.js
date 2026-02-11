@@ -3,7 +3,6 @@ const NON_FILTER_COLUMNS = new Set([
   'procedure_id',
   'procedure_name',
   'short_description',
-  'tags',
   'visible',
   'sort_order',
 ]);
@@ -97,6 +96,21 @@ const normalizeProcedureShape = (procedure) => {
 const uniqueSorted = (values) =>
   [...new Set(values)].sort((a, b) => String(a).localeCompare(String(b)));
 
+const uniqueInOrder = (values) => {
+  const seen = new Set();
+  const result = [];
+
+  values.forEach((value) => {
+    const normalized = String(value);
+    if (!seen.has(normalized)) {
+      seen.add(normalized);
+      result.push(value);
+    }
+  });
+
+  return result;
+};
+
 export const parseProceduresRows = (rows) => {
   if (!Array.isArray(rows) || rows.length === 0) {
     return { procedures: [], filters: {} };
@@ -152,15 +166,31 @@ export const parseProceduresRows = (rows) => {
     .filter((procedure) => procedure.procedure_id && procedure.procedure_name)
     .sort((a, b) => (a.sort_order ?? 999) - (b.sort_order ?? 999));
 
-  const filterKeys = uniqueSorted(
-    headers.filter((header) => header && !NON_FILTER_COLUMNS.has(header))
-  );
+  const seenFilterKeys = new Set();
+  const filterKeys = headers.filter((header) => {
+    if (!header || NON_FILTER_COLUMNS.has(header) || seenFilterKeys.has(header)) {
+      return false;
+    }
+    seenFilterKeys.add(header);
+    return true;
+  });
 
   const filters = {};
   filterKeys.forEach((key) => {
+    if (key === 'tags') {
+      const tagValues = procedures
+        .flatMap((procedure) => (Array.isArray(procedure.tags) ? procedure.tags : []))
+        .filter(Boolean);
+
+      if (tagValues.length > 0) {
+        filters[key] = uniqueSorted(tagValues);
+      }
+      return;
+    }
+
     const values = procedures.map((procedure) => procedure[key]).filter(Boolean);
     if (values.length > 0) {
-      filters[key] = uniqueSorted(values);
+      filters[key] = uniqueInOrder(values);
     }
   });
 
