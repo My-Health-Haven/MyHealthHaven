@@ -81,15 +81,27 @@ export const useProcedures = () => {
         const response = await fetch('/api/procedures');
         const contentType = response.headers.get('content-type');
 
-        if (!response.ok || (contentType && !contentType.includes('application/json'))) {
-          // If 404 or not JSON (likely local dev returning HTML), use mock data if we're in dev
+        if (!response.ok) {
+          // Try to parse error details from JSON response
+          let errorMessage = 'Failed to fetch procedures';
+          if (contentType && contentType.includes('application/json')) {
+            try {
+              const errorData = await response.json();
+              errorMessage = errorData.details || errorData.error || errorMessage;
+            } catch (e) {
+              // Ignore JSON parse error, use default message
+            }
+          }
+
+          // In dev, fallback to mock data if API fails (e.g. 404/500)
           if (import.meta.env.DEV) {
-            console.warn('API not available or returned non-JSON, using mock data for development');
+            console.warn(`API Error (${errorMessage}), using mock data for development`);
             setData(MOCK_DATA);
             setLoading(false);
             return;
           }
-          throw new Error('Failed to fetch procedures');
+
+          throw new Error(errorMessage);
         }
 
         const result = await response.json();
