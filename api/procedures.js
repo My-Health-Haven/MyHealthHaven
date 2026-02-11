@@ -89,6 +89,10 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error('Error fetching procedures:', error);
-    return res.status(500).json({ error: 'Failed to fetch procedures data' });
+    return res.status(500).json({
+      error: 'Failed to fetch procedures data',
+      details: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined,
+    });
   }
 }
