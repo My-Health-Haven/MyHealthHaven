@@ -1,22 +1,55 @@
 import { google } from 'googleapis';
 import { parseProceduresRows } from './proceduresParser.js';
 
-export default async function handler(req, res) {
-  // Set CORS headers to allow requests from any origin
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT');
-  res.setHeader(
-    'Access-Control-Allow-Headers',
-    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
-  );
+const ALLOWED_METHODS = 'GET, OPTIONS';
 
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
+const parseAllowedOrigins = () =>
+  (process.env.ALLOWED_ORIGINS || '')
+    .split(',')
+    .map((origin) => origin.trim())
+    .filter(Boolean);
+
+const isOriginAllowed = (req, origin) => {
+  if (!origin) return true;
+
+  const allowedOrigins = parseAllowedOrigins();
+  if (allowedOrigins.includes(origin)) {
+    return true;
+  }
+
+  try {
+    const originHost = new URL(origin).host;
+    return originHost === req.headers.host;
+  } catch {
+    return false;
+  }
+};
+
+const applyCors = (req, res) => {
+  const origin = req.headers.origin;
+  if (!origin || !isOriginAllowed(req, origin)) {
     return;
   }
 
-  // Check for environment variables
+  res.setHeader('Access-Control-Allow-Origin', origin);
+  res.setHeader('Vary', 'Origin');
+  res.setHeader('Access-Control-Allow-Methods', ALLOWED_METHODS);
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+};
+
+export default async function handler(req, res) {
+  applyCors(req, res);
+
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return;
+  }
+
+  if (req.method !== 'GET') {
+    res.setHeader('Allow', ALLOWED_METHODS);
+    return res.status(405).json({ error: 'Method not allowed' });
+  }
+
   if (!process.env.GOOGLE_SHEETS_CREDENTIALS || !process.env.GOOGLE_SHEET_ID) {
     console.error('Missing Google Sheet credentials or ID');
     return res.status(500).json({ error: 'Server configuration error' });
@@ -66,10 +99,6 @@ export default async function handler(req, res) {
     });
   } catch (error) {
     console.error('Error fetching procedures:', error);
-    return res.status(500).json({
-      error: 'Failed to fetch procedures data',
-      details: error.message,
-      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined,
-    });
+    return res.status(500).json({ error: 'Failed to fetch procedures data' });
   }
 }

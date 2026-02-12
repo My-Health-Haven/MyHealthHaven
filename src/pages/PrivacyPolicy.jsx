@@ -16,7 +16,7 @@ My Health Haven Management LLC (“My Health Haven,” “we,” “us,” or �
 
 ---
 
-## **1\. Information We Collect**
+## **1. Information We Collect**
 
 We may collect:
 
@@ -28,7 +28,7 @@ We do **not** require submission of protected health information (PHI) through t
 
 ---
 
-## **2\. How We Use Information**
+## **2. How We Use Information**
 
 We use collected information to:
 
@@ -39,14 +39,14 @@ We use collected information to:
 
 ---
 
-## **3\. Medical Information Disclaimer**
+## **3. Medical Information Disclaimer**
 
 The Site is **not intended** for the collection of sensitive medical records.  
 If health-related information is voluntarily submitted, it is handled with care but does **not** establish a provider-patient relationship.
 
 ---
 
-## **4\. Sharing of Information**
+## **4. Sharing of Information**
 
 We do **not** sell personal information.
 
@@ -58,48 +58,48 @@ We may share information:
 
 ---
 
-## **5\. Data Security**
+## **5. Data Security**
 
 We use reasonable administrative, technical, and organizational safeguards to protect personal information. However, no system is completely secure.
 
 ---
 
-## **6\. International Users**
+## **6. International Users**
 
 Your information may be processed in the United States or other jurisdictions where we or our service providers operate. By using the Site, you consent to such transfers.
 
 ---
 
-## **7\. Cookies and Tracking**
+## **7. Cookies and Tracking**
 
 We may use cookies or similar technologies to improve functionality and analyze traffic. You may adjust browser settings to manage cookies.
 
 ---
 
-## **8\. Your Rights**
+## **8. Your Rights**
 
 Depending on your location, you may have rights to access, correct, or request deletion of personal data. Requests may be submitted to the contact information below.
 
 ---
 
-## **9\. Children’s Privacy**
+## **9. Children’s Privacy**
 
 The Site is not directed to children under 18, and we do not knowingly collect information from minors.
 
 ---
 
-## **10\. Updates to This Policy**
+## **10. Updates to This Policy**
 
 We may update this Privacy Policy periodically. The “Last Updated” date reflects the latest revision.
 
 ---
 
-## **11\. Contact**
+## **11. Contact**
 
 Privacy questions or requests may be directed to:  
 **Info@andersonlg.com**
 
-© 2026 My Health Haven Management, LLC  \- All Rights Reserved
+© 2026 My Health Haven Management, LLC  - All Rights Reserved
 `;
 
 const PrivacyPolicy = () => {

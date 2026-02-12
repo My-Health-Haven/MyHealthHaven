@@ -132,7 +132,8 @@ const WhatsAppWidget = () => {
     const encodedMessage = encodeURIComponent(message);
     window.open(
       `https://wa.me/${phoneNumber}?text=${encodedMessage}`,
-      "_blank"
+      "_blank",
+      "noopener,noreferrer"
     );
   };
 

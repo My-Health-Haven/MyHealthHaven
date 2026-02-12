@@ -6,6 +6,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import theme from '../theme';
 import WhatsAppWidget from '../components/WhatsAppWidget';
+import AnalyticsConsent from '../components/AnalyticsConsent';
 
 const Layout = () => {
   return (
@@ -13,6 +14,7 @@ const Layout = () => {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <WhatsAppWidget />
+        <AnalyticsConsent />
         <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
           <Navbar />
           <Box component="main" sx={{ flexGrow: 1 }}>

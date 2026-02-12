@@ -5,11 +5,9 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
-import { useUserJourney } from '../context/UserJourneyContext';
 import { useLanguage } from '../context/LanguageContext';
 
 const Footer = () => {
-  const { resetJourney } = useUserJourney();
   const { t } = useLanguage();
   return (
     <Box component="footer" sx={{ bgcolor: 'white', py: 6, borderTop: '1px solid', borderColor: 'divider' }}>
@@ -59,23 +57,23 @@ const Footer = () => {
             </Typography>
             <Stack spacing={1}>
               <MuiLink component={Link} to="/contact" color="text.secondary" variant="body2" underline="hover">{t('footer.speakWithNavigator')}</MuiLink>
-              <MuiLink href="https://wa.me/12142763928" color="text.secondary" variant="body2" underline="hover" target="_blank" rel="noopener">{t('footer.whatsapp')}</MuiLink>
+              <MuiLink href="https://wa.me/12142763928" color="text.secondary" variant="body2" underline="hover" target="_blank" rel="noopener noreferrer">{t('footer.whatsapp')}</MuiLink>
               <MuiLink href="mailto:info@andersonlg.com" color="text.secondary" variant="body2" underline="hover">{t('footer.email')}</MuiLink>
             </Stack>
             <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
-               <IconButton href="https://www.instagram.com/my.healthhaven?igsh=MTBnZzhlM3ozbWtxeg%3D%3D&utm_source=qr" target="_blank" rel="noopener" color="inherit">
+               <IconButton href="https://www.instagram.com/my.healthhaven?igsh=MTBnZzhlM3ozbWtxeg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" color="inherit">
                   <InstagramIcon />
                </IconButton>
-               <IconButton href="https://x.com/myhealthhaven1?s=21" target="_blank" rel="noopener" color="inherit">
+               <IconButton href="https://x.com/myhealthhaven1?s=21" target="_blank" rel="noopener noreferrer" color="inherit">
                   <TwitterIcon />
                </IconButton>
-               <IconButton href="https://www.facebook.com/profile.php?id=61586308873245&mibextid=LQQJ4d" target="_blank" rel="noopener" color="inherit">
+               <IconButton href="https://www.facebook.com/profile.php?id=61586308873245&mibextid=LQQJ4d" target="_blank" rel="noopener noreferrer" color="inherit">
                   <FacebookIcon />
                </IconButton>
-               <IconButton href="https://youtube.com/@my.health.haven1?si=-SiWbDZCe2FhLvl5" target="_blank" rel="noopener" color="inherit">
+               <IconButton href="https://youtube.com/@my.health.haven1?si=-SiWbDZCe2FhLvl5" target="_blank" rel="noopener noreferrer" color="inherit">
                   <YouTubeIcon />
                </IconButton>
-               <IconButton href="https://www.linkedin.com/company/my-health-haven/?viewAsMember=true" target="_blank" rel="noopener" color="inherit">
+               <IconButton href="https://www.linkedin.com/company/my-health-haven/?viewAsMember=true" target="_blank" rel="noopener noreferrer" color="inherit">
                    <LinkedInIcon />
                </IconButton>
             </Stack>

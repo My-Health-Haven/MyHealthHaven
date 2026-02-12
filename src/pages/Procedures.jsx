@@ -46,7 +46,7 @@ const Procedures = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const FilterSidebar = () => (
+  const renderFilterSidebar = () => (
     <Box sx={{ p: 2 }}>
       {isMobile && (
         <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 1 }}>
@@ -126,7 +126,7 @@ const Procedures = () => {
                     overflowX: 'hidden',
                   }}
                 >
-                  <FilterSidebar />
+                  {renderFilterSidebar()}
                 </Box>
               </Grid>
             )}
@@ -139,7 +139,7 @@ const Procedures = () => {
               ModalProps={{ keepMounted: true }} 
               PaperProps={{ sx: { width: 300 } }}
             >
-              <FilterSidebar />
+              {renderFilterSidebar()}
             </Drawer>
 
             {/* Procedures Grid */}

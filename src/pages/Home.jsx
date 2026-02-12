@@ -31,7 +31,6 @@ import FadeIn from '../components/FadeIn';
 import StarBorder from '../components/StarBorder';
 import GlassCard from '../components/GlassCard';
 import ErrorBoundary from '../components/ErrorBoundary';
-import { useUserJourney } from '../context/UserJourneyContext';
 import { useLanguage } from '../context/LanguageContext';
 
 const Threads = React.lazy(() => import('../components/Threads'));
@@ -55,13 +54,11 @@ const LinkNav = ({ text }) => {
 const Home = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'), { defaultMatches: true });
-  const { journey } = useUserJourney();
-  const { t, getLocalizedJourneyContent } = useLanguage();
+  const { t, getLocalizedHomeContent } = useLanguage();
 
-  // Force default/neutral content by passing null, effectively ignoring any stored journey state
-  const activeContent = getLocalizedJourneyContent(null);
+  const activeContent = getLocalizedHomeContent();
 
-  // Fallback safe access (though resolveJourneyContent handles defaults)
+  // Home content is resolved per language in LanguageContext.
   const heroContent = activeContent.hero;
   const problemContent = activeContent.problem;
   const solutionContent = activeContent.solution;
@@ -172,26 +169,12 @@ const Home = () => {
               </Typography>
 
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 4 }}>
-                {journey?.urgency === 'asap' ? (
-                  <Button 
-                    variant="contained" 
-                    size="large" 
-                    color="success"
-                    startIcon={<Box component="img" src="/WhatsApp.png" sx={{ width: 24, height: 24 }} />}
-                    href="https://wa.me/12142763928?text=I%20am%20interested%20in%20learning%20more%20about%20medical%20care"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {t('home.chatWithNavigator')}
-                  </Button>
-                ) : (
-                  <Button variant="contained" size="large" component={Link} to="/contact">
-                    {t('home.speakWithNavigator')}
-                  </Button>
-                )}
+                <Button variant="contained" size="large" component={Link} to="/contact">
+                  {t('home.speakWithNavigator')}
+                </Button>
                 
                 <Button variant="outlined" size="large" component={Link} to="/estimate">
-                  {journey?.urgency === 'browsing' ? t('home.samplePrices') : t('home.getEstimate')}
+                  {t('home.getEstimate')}
                 </Button>
               </Stack>
 

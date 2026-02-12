@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Container, Typography, Box, Button, TextField, MenuItem, Stack } from '@mui/material';
 import { useLanguage } from '../context/LanguageContext';
 import GlassCard from '../components/GlassCard';
@@ -37,29 +37,22 @@ const Estimate = () => {
     procedure: '',
   });
 
-  const [availableCities, setAvailableCities] = useState([]);
-
-  useEffect(() => {
-    if (formData.state) {
-      const cities = CITIES_BY_STATE[formData.state] || [`${formData.state} City 1`, `${formData.state} City 2`, 'Other'];
-      setAvailableCities(cities);
-      setFormData(prev => ({ ...prev, city: '' }));
-    } else {
-        setAvailableCities([]);
-    }
+  const availableCities = useMemo(() => {
+    if (!formData.state) return [];
+    return CITIES_BY_STATE[formData.state] || [`${formData.state} City 1`, `${formData.state} City 2`, 'Other'];
   }, [formData.state]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
+      ...(name === 'state' ? { city: '' } : {}),
       [name]: value,
     }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
     alert('Request sent!');
   };
 

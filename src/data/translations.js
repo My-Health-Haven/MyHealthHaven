@@ -12,6 +12,15 @@ export const translations = {
     },
     home: {
       heroTitleBadge: 'Health Navigation™ Across Borders',
+      heroTitle: 'World-class medical care in Mexico, guided by U.S. healthcare experts.',
+      heroSubtitle:
+        'We help Americans access safe, accredited doctors, hospitals and clinics in Mexico with transparent pricing, bilingual support, and a dedicated Health Navigator™ from your first question to full recovery.',
+      problemTitle: 'When U.S. healthcare is out of reach, patients are forced into hard choices.',
+      problemDesc:
+        'Unfortunately many people end up postponing necessary procedures because of high costs, long wait times, or baffling insurance rules.',
+      solutionTitle: 'MyHealth Haven turns medical travel into a guided, transparent experience.',
+      solutionDesc:
+        'We bridge the U.S. and Mexican healthcare systems, combining American standards with Mexico’s clinical excellence and affordability.',
       chatWithNavigator: 'Chat with a Navigator',
       speakWithNavigator: 'Free Consultation',
       samplePrices: 'See Sample Prices',
@@ -461,27 +470,6 @@ export const translations = {
       copyright: '© MyHealth Haven. All rights reserved.',
       privacyPolicy: 'Privacy Policy',
       termsOfUse: 'Terms of Use',
-      resetJourney: 'Reset My Journey',
-    },
-    journeyWizard: {
-      profileStep: 'Profile',
-      genderQuestion: 'Please select your gender',
-      ageQuestion: 'Select your age range',
-      personalizationStep: 'Personalization',
-      categoryQuestion: 'What brings you to Health Haven?',
-      back: 'Back',
-      genders: {
-        female: 'Female',
-        male: 'Male',
-        other: 'Other',
-      },
-      categories: {
-        ortho: 'Joints & Orthopedics',
-        plastic: 'Plastic Surgery',
-        dental: 'Dental Care',
-        bariatric: 'Weight Loss',
-        general: 'General / Unsure',
-      },
     },
     libraryPage: {
       title: 'Education before decisions.',
@@ -603,6 +591,18 @@ Medical travel isn’t about replacing your local healthcare system. It’s abou
     },
     home: {
       heroTitleBadge: 'Navegación de Salud™ Sin Fronteras',
+      heroTitle:
+        'Atencion medica de clase mundial en Mexico, guiada por expertos en salud de EE.UU.',
+      heroSubtitle:
+        'Ayudamos a los estadounidenses a acceder a medicos, hospitales y clinicas seguros y acreditados en Mexico con precios transparentes, soporte bilingue y un Health Navigator™ dedicado desde su primera pregunta hasta su recuperacion total.',
+      problemTitle:
+        'Cuando la atencion medica en EE.UU. esta fuera del alcance, los pacientes se ven obligados a tomar decisiones dificiles.',
+      problemDesc:
+        'Desafortunadamente, muchas personas terminan posponiendo procedimientos necesarios debido a los altos costos, los largos tiempos de espera o las reglas de seguros confusas.',
+      solutionTitle:
+        'MyHealth Haven convierte el turismo medico en una experiencia guiada y transparente.',
+      solutionDesc:
+        'Unimos los sistemas de salud de EE.UU. y Mexico, combinando los estandares estadounidenses con la excelencia clinica y la asequibilidad de Mexico.',
       chatWithNavigator: 'Chatear con un Navegador',
       speakWithNavigator: 'Hable con un Navegador de Salud™',
       samplePrices: 'Ver Precios de Muestra',
@@ -1064,27 +1064,6 @@ Medical travel isn’t about replacing your local healthcare system. It’s abou
       copyright: '© MyHealth Haven. Todos los derechos reservados.',
       privacyPolicy: 'Política de Privacidad',
       termsOfUse: 'Términos de Uso',
-      resetJourney: 'Restablecer Mi Viaje',
-    },
-    journeyWizard: {
-      profileStep: 'Perfil',
-      genderQuestion: 'Por favor seleccione su género',
-      ageQuestion: 'Seleccione su rango de edad',
-      personalizationStep: 'Personalización',
-      categoryQuestion: '¿Qué le trae a Health Haven?',
-      back: 'Atrás',
-      genders: {
-        female: 'Femenino',
-        male: 'Masculino',
-        other: 'Otro',
-      },
-      categories: {
-        ortho: 'Articulaciones y Ortopedia',
-        plastic: 'Cirugía Plástica',
-        dental: 'Cuidado Dental',
-        bariatric: 'Pérdida de Peso',
-        general: 'General / No estoy seguro',
-      },
     },
     libraryPage: {
       title: 'Educación antes de las decisiones.',

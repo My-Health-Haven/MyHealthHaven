@@ -110,7 +110,7 @@ export const useProcedures = () => {
             try {
               const errorData = await response.json();
               errorMessage = errorData.details || errorData.error || errorMessage;
-            } catch (e) {
+            } catch {
               // Ignore JSON parse error, use default message
             }
           }
@@ -210,7 +210,7 @@ export const useProcedures = () => {
 
       // If empty, remove the category key entirely
       if (newValues.length === 0) {
-        const { [category]: unused, ...rest } = prev;
+        const { [category]: _unused, ...rest } = prev;
         return rest;
       }
 
