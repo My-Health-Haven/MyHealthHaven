@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { findHeaderRowIndex, parseProceduresRows } from './proceduresParser.js';
+import { findHeaderRowIndex, parseColumnMetaRows, parseProceduresRows } from './proceduresParser.js';
 
 describe('proceduresParser', () => {
   it('finds header row even when metadata rows appear first', () => {
@@ -51,6 +51,32 @@ describe('proceduresParser', () => {
     expect(result.filters.tags).toEqual(['Cardiac', 'Cosmetic', 'Dental', 'Major']);
   });
 
+  it('ignores optional customer-label row directly below headers', () => {
+    const rows = [
+      [
+        'procedure_id',
+        'top_category',
+        'group_bucket',
+        'care_type',
+        'section_group',
+        'section',
+        'procedure_name',
+        'tags',
+        'visible',
+        'sort_order',
+      ],
+      ['MHH Item', 'Category', 'Complexity', 'Type', 'Speciality', 'Procedure Type', 'Procedure Name', 'Purpose', 'visible', 'sort_order'],
+      ['P-1', 'Medical', 'High', 'Surgical', 'CARDIOVASCULAR', 'Major Surgery', 'CABG', 'Cardiac, Major', '1', '1'],
+    ];
+
+    const result = parseProceduresRows(rows);
+
+    expect(result.procedures).toHaveLength(1);
+    expect(result.procedures[0].procedure_id).toBe('P-1');
+    expect(result.columnConfig.top_category.label).toBe('Category');
+    expect(result.columnConfig.group_bucket.label).toBe('Complexity');
+  });
+
   it('supports schema aliases used by the current UI', () => {
     const rows = [
       ['procedure_id', 'procedure_name', 'procedure_category', 'complexity', 'service_line', 'visible'],
@@ -88,6 +114,62 @@ describe('proceduresParser', () => {
     expect(result.filters.care_type).toEqual(['Surgical', 'Diagnostic']);
     expect(result.filters.section_group).toEqual(['CARDIOVASCULAR', 'IMAGING']);
     expect(result.filters.group_bucket).toEqual(['High', 'N/A']);
+  });
+
+  it('parses metadata sheet rows for labels and behavior', () => {
+    const metaRows = [
+      ['column_key', 'label', 'behavior', 'searchable', 'card_label', 'card_order', 'max_length'],
+      ['top_category', 'Category', 'filter-only', 'false', '', '', '80'],
+      ['price_note', 'Price', 'card-display', 'false', '', '1', '80'],
+      ['internal_notes', 'Internal Notes', 'hidden', 'false', '', '', '40'],
+    ];
+
+    const metadata = parseColumnMetaRows(metaRows);
+
+    expect(metadata.top_category).toEqual({
+      label: 'Category',
+      behavior: 'filter-only',
+      searchable: false,
+      maxLength: 80,
+    });
+    expect(metadata.price_note).toEqual({
+      label: 'Price',
+      behavior: 'card-display',
+      searchable: false,
+      cardOrder: 1,
+      maxLength: 80,
+    });
+    expect(metadata.internal_notes).toEqual({
+      label: 'Internal Notes',
+      behavior: 'hidden',
+      searchable: false,
+      maxLength: 40,
+    });
+  });
+
+  it('respects column behavior config and validates row values', () => {
+    const rows = [
+      ['procedure_id', 'procedure_name', 'top_category', 'price_note', 'visible', 'sort_order', 'tags'],
+      ['P-1', 'CABG', 'Medical', 'From $13,500 USD', 'YES', 'A', 'Cardiac, Major'],
+      ['P-2', 'Knee replacement', 'Orthopedic', '', 'MAYBE', '2', 'Orthopedic'],
+      ['P-1', 'Duplicate', 'Orthopedic', '', '1', '3', 'Duplicate'],
+    ];
+
+    const columnMetaRows = [
+      ['column_key', 'label', 'behavior', 'searchable'],
+      ['top_category', 'Category', 'filter-only', 'false'],
+      ['price_note', 'Price', 'card-display', 'false'],
+    ];
+
+    const result = parseProceduresRows(rows, { columnMetaRows });
+
+    expect(result.procedures).toHaveLength(2);
+    expect(result.filters.top_category).toEqual(['Orthopedic', 'Medical']);
+    expect(result.filters.price_note).toBeUndefined();
+    expect(result.columnConfig.price_note.behavior).toBe('card-display');
+    expect(result.procedures.find((item) => item.procedure_id === 'P-1')?.sort_order).toBe(999);
+    expect(result.procedures.find((item) => item.procedure_id === 'P-2')?.visible).toBe(true);
+    expect(result.validation.warnings.length).toBeGreaterThanOrEqual(2);
   });
 
   it('throws when required headers are missing', () => {

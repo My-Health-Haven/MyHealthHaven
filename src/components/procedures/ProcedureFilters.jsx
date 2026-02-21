@@ -32,7 +32,13 @@ const GROUP_CONFIG = {
   group_bucket: { defaultExpanded: true, maxVisible: 10, searchable: false },
 };
 
-const ProcedureFilters = ({ availableFilters, selectedFilters, onFilterChange, onClearFilters }) => {
+const ProcedureFilters = ({
+  availableFilters,
+  selectedFilters,
+  onFilterChange,
+  onClearFilters,
+  columnConfig = {},
+}) => {
   const { t } = useLanguage();
   const [optionSearch, setOptionSearch] = useState({});
   const [expandedOptions, setExpandedOptions] = useState({});
@@ -65,7 +71,7 @@ const ProcedureFilters = ({ availableFilters, selectedFilters, onFilterChange, o
 
     const query = (optionSearch[categoryKey] || '').trim().toLowerCase();
     const filteredOptions = query
-      ? options.filter((option) => option.toLowerCase().includes(query))
+      ? options.filter((option) => String(option).toLowerCase().includes(query))
       : options;
 
     const isExpanded = !!expandedOptions[categoryKey];
@@ -75,10 +81,12 @@ const ProcedureFilters = ({ availableFilters, selectedFilters, onFilterChange, o
     const hiddenCount = Math.max(filteredOptions.length - visibleOptions.length, 0);
 
     // Format category title (e.g., 'medical_area' -> 'Medical Area')
-    const title = categoryKey
-      .split('_')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+    const title =
+      columnConfig[categoryKey]?.label ||
+      categoryKey
+        .split('_')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
       
     // Determine if this group has any active filters
     const activeData = selectedFilters[categoryKey] || [];

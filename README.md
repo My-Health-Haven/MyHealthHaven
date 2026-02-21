@@ -101,6 +101,12 @@ Each page has its own file in `src/pages/`. Most text content is centralized in 
 - Open `src/layout/Navbar.jsx`.
 - Update the `navItems` array.
 
+### 4. Procedures Spreadsheet Operations
+
+For the full non-technical editing guide, schema/config tab format, and Google Sheets hardening checklist, see:
+
+- `docs/PROCEDURES_SHEET_GUIDE.md`
+
 ## License
 
 This project is proprietary software. All rights reserved.

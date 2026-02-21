@@ -32,6 +32,7 @@ const Procedures = () => {
   const {
     procedures,
     availableFilters,
+    columnConfig,
     loading,
     error,
     searchQuery,
@@ -60,6 +61,7 @@ const Procedures = () => {
         selectedFilters={selectedFilters}
         onFilterChange={handleFilterChange}
         onClearFilters={clearFilters}
+        columnConfig={columnConfig}
       />
     </Box>
   );
@@ -173,7 +175,7 @@ const Procedures = () => {
                     <Grid container spacing={3}>
                       {procedures.map((procedure, index) => (
                         <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={procedure.procedure_id || index}>
-                          <ProcedureCard procedure={procedure} index={index} />
+                          <ProcedureCard procedure={procedure} index={index} columnConfig={columnConfig} />
                         </Grid>
                       ))}
                     </Grid>

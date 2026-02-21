@@ -14,6 +14,7 @@ const MOCK_DATA = {
       tags: ['Cardiac', 'Major Surgery'],
       visible: true,
       sort_order: 1,
+      price_note: 'From $13,500 USD',
     },
     {
       procedure_id: 'MN-HC-002',
@@ -86,10 +87,83 @@ const MOCK_DATA = {
       'Body',
     ],
   },
+  columnConfig: {
+    top_category: {
+      label: 'Category',
+      behavior: 'filter-only',
+      searchable: false,
+      cardLabel: '',
+      cardOrder: 1,
+      maxLength: 80,
+    },
+    group_bucket: {
+      label: 'Complexity',
+      behavior: 'filter-only',
+      searchable: false,
+      cardLabel: '',
+      cardOrder: 2,
+      maxLength: 80,
+    },
+    care_type: {
+      label: 'Type',
+      behavior: 'filter-only',
+      searchable: true,
+      cardLabel: '',
+      cardOrder: 3,
+      maxLength: 80,
+    },
+    section_group: {
+      label: 'Speciality',
+      behavior: 'filter-only',
+      searchable: true,
+      cardLabel: '',
+      cardOrder: 4,
+      maxLength: 120,
+    },
+    section: {
+      label: 'Procedure Type',
+      behavior: 'filter-only',
+      searchable: true,
+      cardLabel: '',
+      cardOrder: 5,
+      maxLength: 120,
+    },
+    tags: {
+      label: 'Purpose',
+      behavior: 'filter-only',
+      searchable: true,
+      cardLabel: '',
+      cardOrder: 6,
+      maxLength: 200,
+    },
+    price_note: {
+      label: 'Price',
+      behavior: 'card-display',
+      searchable: false,
+      cardLabel: '',
+      cardOrder: 7,
+      maxLength: 80,
+    },
+  },
+  validation: { warnings: [] },
 };
 
+const LEGACY_SEARCH_FIELDS = [
+  'procedure_name',
+  'short_description',
+  'care_type',
+  'section_group',
+  'section',
+  'tags',
+];
+
 export const useProcedures = () => {
-  const [data, setData] = useState({ procedures: [], filters: {} });
+  const [data, setData] = useState({
+    procedures: [],
+    filters: {},
+    columnConfig: {},
+    validation: { warnings: [] },
+  });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -127,7 +201,12 @@ export const useProcedures = () => {
         }
 
         const result = await response.json();
-        setData(result);
+        setData({
+          procedures: result.procedures || [],
+          filters: result.filters || {},
+          columnConfig: result.columnConfig || {},
+          validation: result.validation || { warnings: [] },
+        });
         setError(null);
       } catch (err) {
         console.error('Error in useProcedures:', err);
@@ -147,6 +226,14 @@ export const useProcedures = () => {
     fetchProcedures();
   }, []);
 
+  const searchColumns = useMemo(() => {
+    const configuredColumns = Object.entries(data.columnConfig || {})
+      .filter(([, config]) => config?.searchable)
+      .map(([key]) => key);
+
+    return configuredColumns.length > 0 ? configuredColumns : LEGACY_SEARCH_FIELDS;
+  }, [data.columnConfig]);
+
   const filteredProcedures = useMemo(() => {
     if (!data.procedures) return [];
 
@@ -154,15 +241,13 @@ export const useProcedures = () => {
       // 1. Search Filter
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
-        const searchFields = [
-          procedure.procedure_name,
-          procedure.short_description,
-          procedure.care_type,
-          procedure.section_group,
-          procedure.section, // Added section to search
-          // Handle tags array or string
-          Array.isArray(procedure.tags) ? procedure.tags.join(' ') : procedure.tags || '',
-        ].map((f) => (f || '').toLowerCase());
+        const searchFields = searchColumns.map((column) => {
+          const value = procedure[column];
+          if (Array.isArray(value)) {
+            return value.join(' ').toLowerCase();
+          }
+          return String(value || '').toLowerCase();
+        });
 
         const matchesSearch = searchFields.some((field) => field.includes(query));
         if (!matchesSearch) return false;
@@ -190,7 +275,7 @@ export const useProcedures = () => {
         return selectedOptions.includes(itemValue);
       });
     });
-  }, [data.procedures, searchQuery, selectedFilters]);
+  }, [data.procedures, searchColumns, searchQuery, selectedFilters]);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
@@ -226,6 +311,8 @@ export const useProcedures = () => {
   return {
     procedures: filteredProcedures,
     availableFilters: data.filters,
+    columnConfig: data.columnConfig || {},
+    validationWarnings: data.validation?.warnings || [],
     loading,
     error,
     searchQuery,

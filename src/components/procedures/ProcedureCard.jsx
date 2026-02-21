@@ -12,7 +12,7 @@ const getComplexityColor = (bucket) => {
   return 'primary';
 };
 
-const ProcedureCard = ({ procedure, index = 0 }) => {
+const ProcedureCard = ({ procedure, index = 0, columnConfig = {} }) => {
   const {
     procedure_name,
     section_group,
@@ -31,6 +31,23 @@ const ProcedureCard = ({ procedure, index = 0 }) => {
   const normalizedBucket = String(group_bucket || '').trim().toLowerCase();
   const hasComplexity = !!group_bucket && normalizedBucket !== 'n/a' && normalizedBucket !== 'na';
   const complexityColor = getComplexityColor(group_bucket);
+
+  const cardDisplayItems = Object.entries(columnConfig || {})
+    .filter(([, config]) => config?.behavior === 'card-display')
+    .map(([key, config]) => {
+      const rawValue = procedure[key];
+      const value = Array.isArray(rawValue) ? rawValue.join(', ') : String(rawValue || '').trim();
+      if (!value) return null;
+
+      return {
+        key,
+        value,
+        label: String(config.cardLabel || '').trim(),
+        order: Number.isFinite(config.cardOrder) ? config.cardOrder : Number.MAX_SAFE_INTEGER,
+      };
+    })
+    .filter(Boolean)
+    .sort((a, b) => a.order - b.order || a.key.localeCompare(b.key));
 
   return (
     <FadeIn delay={index * 50} style={{ height: '100%' }}>
@@ -108,6 +125,22 @@ const ProcedureCard = ({ procedure, index = 0 }) => {
                 {care_type}
               </Typography>
             ) : null}
+
+            {cardDisplayItems.length > 0 && (
+              <Stack spacing={0.5} sx={{ mt: 1.25 }}>
+                {cardDisplayItems.map((item) => (
+                  <Typography
+                    key={item.key}
+                    variant="body2"
+                    fontWeight={700}
+                    color="primary.main"
+                    sx={{ lineHeight: 1.3 }}
+                  >
+                    {item.label ? `${item.label}: ${item.value}` : item.value}
+                  </Typography>
+                ))}
+              </Stack>
+            )}
           </Box>
 
           <Box sx={{ mt: 'auto', pt: 2 }}>
