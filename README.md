@@ -106,6 +106,7 @@ Each page has its own file in `src/pages/`. Most text content is centralized in 
 For the full non-technical editing guide, schema/config tab format, and Google Sheets hardening checklist, see:
 
 - `docs/PROCEDURES_SHEET_GUIDE.md`
+- `docs/PROCEDURES_BOSS_TUTORIAL.md`
 
 ## License
 

@@ -7,8 +7,12 @@ This guide explains how to edit the procedures spreadsheet safely without breaki
 Use a primary data tab with this structure:
 
 1. Row 1: Technical headers (machine keys). Keep this row locked.
-2. Row 2: Optional customer-facing labels. This row is optional and ignored as data.
-3. Row 3+: Procedure rows (real data).
+2. Row 2+: Procedure rows (real data).
+
+Legacy compatibility:
+
+- If an old sheet still has a row 2 labels row, the parser can ignore it.
+- New setup should use `procedures_config` for labels instead.
 
 Minimum required headers in Row 1:
 
@@ -24,7 +28,7 @@ Safe without code changes:
 - Add, edit, or remove procedure rows.
 - Edit existing cell values in data rows.
 - Add new columns in Row 1 and fill values in rows below.
-- Change Row 2 labels to better customer-facing wording.
+- Change labels/behavior in `procedures_config`.
 
 Risky without review:
 
@@ -48,6 +52,11 @@ Optional config headers:
 - `card_label`
 - `card_order`
 - `max_length`
+
+Important:
+
+- Customer-facing filter labels are sourced from `procedures_config.label`.
+- If no config label is provided, the app falls back to an automatic label from the header key.
 
 Example:
 
@@ -75,12 +84,18 @@ If config is not provided:
 - `price_note` defaults to `card-display`.
 - Most other columns default to `filter-only`.
 
+`card_label` behavior:
+
+- Applies only to `card-display` columns.
+- If blank, the card shows the raw cell value.
+- If set, the card shows `card_label: value`.
+
 ## 5. Price Note Column (`From $...`)
 
 To support price text:
 
 1. Add `price_note` in Row 1.
-2. Optionally set Row 2 label (for internal clarity).
+2. Add/update `price_note` in `procedures_config` with `behavior = card-display` and label `Price` (optional but recommended).
 3. Put full message in each row, for example `From $13,500 USD`.
 4. Leave blank when it should not display.
 
@@ -95,7 +110,7 @@ Server-side parser protections:
 - Splits `tags` by comma into arrays.
 - Truncates text to max lengths.
 - Skips duplicate `procedure_id` rows.
-- Ignores optional Row 2 label row.
+- Ignores optional legacy Row 2 label row (backwards compatibility).
 - Returns validation warnings in API response.
 
 Frontend safety:
@@ -109,7 +124,6 @@ Use these in Google Sheets:
 
 1. Protect ranges:
    - Lock Row 1.
-   - Lock Row 2 if only managers should edit labels.
 2. Data validation:
    - `visible`: dropdown with `YES`, `NO`.
    - `sort_order`: number only.
@@ -121,10 +135,15 @@ Use these in Google Sheets:
    - Keep Sheet version history enabled.
    - Make structural changes in copy first, then apply to production sheet.
 
+If using Google Sheets Tables mode:
+
+- Prefer `procedures_config` labels (this guide's default).
+- Avoid putting customer labels in row 2 of the main data tab because table-column validation rules can mark them invalid.
+
 ## 8. Quick "No-Break" Workflow for New Columns
 
 1. Add the new technical header in Row 1.
-2. Add friendly label in Row 2.
+2. Add a row in `procedures_config` for that column (label + behavior).
 3. Decide behavior in config tab (`filter-only`, `card-display`, `searchable`, or `hidden`).
 4. Add sample values to a few rows.
 5. Validate the procedures page.

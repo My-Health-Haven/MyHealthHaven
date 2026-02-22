@@ -314,15 +314,11 @@ const getDefaultBehavior = (key) => {
 
 const getDefaultMaxLength = (key) => DEFAULT_MAX_LENGTH_BY_COLUMN[key] || DEFAULT_MAX_LENGTH;
 
-const buildColumnConfig = ({ activeHeaders, labelRow, columnMeta }) => {
+const buildColumnConfig = ({ activeHeaders, columnMeta }) => {
   const config = {};
 
-  activeHeaders.forEach(({ key, index }, position) => {
+  activeHeaders.forEach(({ key }, position) => {
     const meta = columnMeta[key] || {};
-    const labelFromRow =
-      labelRow && !LABEL_ROW_MARKERS.has(normalizeHeader(labelRow[index]))
-        ? sanitizeText(labelRow[index], 80).value
-        : '';
 
     let behavior = meta.behavior && meta.behavior !== 'auto' ? meta.behavior : getDefaultBehavior(key);
     if (!ALLOWED_BEHAVIORS.has(behavior)) {
@@ -338,7 +334,7 @@ const buildColumnConfig = ({ activeHeaders, labelRow, columnMeta }) => {
     }
 
     config[key] = {
-      label: meta.label || labelFromRow || humanizeHeader(key),
+      label: meta.label || humanizeHeader(key),
       behavior,
       searchable,
       cardLabel: meta.cardLabel || '',
@@ -416,11 +412,10 @@ export const parseProceduresRows = (rows, options = {}) => {
 
   const labelCandidateRow = rows[headerRowIndex + 1];
   const hasLabelRow = looksLikeLabelRow(labelCandidateRow, activeHeaders);
-  const labelRow = hasLabelRow ? labelCandidateRow : null;
   const dataStartIndex = hasLabelRow ? headerRowIndex + 2 : headerRowIndex + 1;
 
   const columnMeta = parseColumnMetaRows(options.columnMetaRows);
-  const columnConfig = buildColumnConfig({ activeHeaders, labelRow, columnMeta });
+  const columnConfig = buildColumnConfig({ activeHeaders, columnMeta });
 
   const seenProcedureIds = new Set();
   const procedures = [];

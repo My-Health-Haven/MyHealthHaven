@@ -65,7 +65,7 @@ describe('proceduresParser', () => {
         'visible',
         'sort_order',
       ],
-      ['MHH Item', 'Category', 'Complexity', 'Type', 'Speciality', 'Procedure Type', 'Procedure Name', 'Purpose', 'visible', 'sort_order'],
+      ['labels', 'Ignore This Label', 'Ignore This Too', 'Ignore', 'Ignore', 'Ignore', 'Ignore', 'Ignore', 'visible', 'sort_order'],
       ['P-1', 'Medical', 'High', 'Surgical', 'CARDIOVASCULAR', 'Major Surgery', 'CABG', 'Cardiac, Major', '1', '1'],
     ];
 
@@ -116,7 +116,7 @@ describe('proceduresParser', () => {
     expect(result.filters.group_bucket).toEqual(['High', 'N/A']);
   });
 
-  it('parses metadata sheet rows for labels and behavior', () => {
+  it('parses metadata sheet rows for labels, behavior and validation settings', () => {
     const metaRows = [
       ['column_key', 'label', 'behavior', 'searchable', 'card_label', 'card_order', 'max_length'],
       ['top_category', 'Category', 'filter-only', 'false', '', '', '80'],
@@ -167,6 +167,7 @@ describe('proceduresParser', () => {
     expect(result.filters.top_category).toEqual(['Orthopedic', 'Medical']);
     expect(result.filters.price_note).toBeUndefined();
     expect(result.columnConfig.price_note.behavior).toBe('card-display');
+    expect(result.columnConfig.top_category.label).toBe('Category');
     expect(result.procedures.find((item) => item.procedure_id === 'P-1')?.sort_order).toBe(999);
     expect(result.procedures.find((item) => item.procedure_id === 'P-2')?.visible).toBe(true);
     expect(result.validation.warnings.length).toBeGreaterThanOrEqual(2);
