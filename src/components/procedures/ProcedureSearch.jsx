@@ -9,6 +9,10 @@ const ProcedureSearch = ({ onSearch, initialValue = '' }) => {
   const { t } = useLanguage();
 
   useEffect(() => {
+    setValue(initialValue);
+  }, [initialValue]);
+
+  useEffect(() => {
     const handler = setTimeout(() => {
       onSearch(value);
     }, 300); // 300ms debounce

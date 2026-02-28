@@ -147,4 +147,33 @@ describe('useProcedures Hook', () => {
     // OR logic within tags category -> tag1 OR tag2
     expect(result.current.procedures).toHaveLength(3);
   });
+
+  it('should not fall back to legacy searchable fields when config explicitly disables search', async () => {
+    global.fetch = vi.fn(() =>
+      Promise.resolve({
+        ok: true,
+        headers: {
+          get: (key) => (key.toLowerCase() === 'content-type' ? 'application/json' : null),
+        },
+        json: () =>
+          Promise.resolve({
+            ...MOCK_RESPONSE,
+            columnConfig: {
+              procedure_name: { searchable: true },
+              tags: { searchable: false },
+              section: { searchable: false },
+            },
+          }),
+      })
+    );
+
+    const { result } = renderHook(() => useProcedures());
+    await waitFor(() => expect(result.current.loading).toBe(false));
+
+    act(() => {
+      result.current.handleSearch('tag3');
+    });
+
+    expect(result.current.procedures).toHaveLength(0);
+  });
 });

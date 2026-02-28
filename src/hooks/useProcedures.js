@@ -227,11 +227,22 @@ export const useProcedures = () => {
   }, []);
 
   const searchColumns = useMemo(() => {
-    const configuredColumns = Object.entries(data.columnConfig || {})
+    const columnConfigEntries = Object.entries(data.columnConfig || {});
+    const configuredColumns = columnConfigEntries
       .filter(([, config]) => config?.searchable)
       .map(([key]) => key);
 
-    return configuredColumns.length > 0 ? configuredColumns : LEGACY_SEARCH_FIELDS;
+    if (configuredColumns.length > 0) {
+      return configuredColumns;
+    }
+
+    // If explicit column config exists but marks no searchable fields, keep
+    // search scoped to the primary name instead of falling back to legacy columns.
+    if (columnConfigEntries.length > 0) {
+      return ['procedure_name'];
+    }
+
+    return LEGACY_SEARCH_FIELDS;
   }, [data.columnConfig]);
 
   const filteredProcedures = useMemo(() => {

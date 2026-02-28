@@ -37,6 +37,7 @@ const DEFAULT_MAX_LENGTH_BY_COLUMN = {
 const ALLOWED_BEHAVIORS = new Set(['filter-only', 'card-display', 'searchable', 'hidden']);
 const TRUE_VALUES = new Set(['true', 'yes', '1', 'y']);
 const FALSE_VALUES = new Set(['false', 'no', '0', 'n']);
+const STRICT_NUMBER_PATTERN = /^[-+]?(?:\d+\.?\d*|\.\d+)$/;
 const META_COLUMN_ALIASES = {
   columnKey: ['column_key', 'column', 'key', 'field', 'column_name'],
   label: ['label', 'display_label', 'filter_label'],
@@ -120,6 +121,10 @@ const parseVisible = (value) => {
 const parseSortOrder = (value) => {
   const raw = String(value ?? '').trim();
   if (!raw) return { value: 999, valid: true };
+
+  if (!STRICT_NUMBER_PATTERN.test(raw)) {
+    return { value: 999, valid: false };
+  }
 
   const parsed = Number.parseFloat(raw);
   if (Number.isFinite(parsed)) return { value: parsed, valid: true };
@@ -479,14 +484,16 @@ export const parseProceduresRows = (rows, options = {}) => {
       continue;
     }
 
-    if (seenProcedureIds.has(normalizedProcedure.procedure_id)) {
+    const dedupeKey = String(normalizedProcedure.procedure_id).toLowerCase();
+
+    if (seenProcedureIds.has(dedupeKey)) {
       warnings.push(
         `Row ${sourceRowNumber}: duplicate procedure_id "${normalizedProcedure.procedure_id}" skipped.`
       );
       continue;
     }
 
-    seenProcedureIds.add(normalizedProcedure.procedure_id);
+    seenProcedureIds.add(dedupeKey);
     if (normalizedProcedure.visible === false) {
       continue;
     }

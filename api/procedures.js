@@ -55,7 +55,7 @@ const resolveSheetByName = (sheetTitles, requestedName) => {
 };
 
 const escapeSheetTitle = (title) => `'${String(title).replace(/'/g, "''")}'`;
-const buildSheetRange = (title) => `${escapeSheetTitle(title)}!A:Z`;
+export const buildSheetRange = (title) => escapeSheetTitle(title);
 
 export default async function handler(req, res) {
   applyCors(req, res);

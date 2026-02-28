@@ -173,6 +173,41 @@ describe('proceduresParser', () => {
     expect(result.validation.warnings.length).toBeGreaterThanOrEqual(2);
   });
 
+  it('treats partially numeric sort_order values as invalid', () => {
+    const rows = [
+      ['procedure_id', 'procedure_name', 'sort_order', 'visible'],
+      ['P-1', 'CABG', '2abc', 'YES'],
+      ['P-2', 'Knee replacement', '2.5', 'YES'],
+    ];
+
+    const result = parseProceduresRows(rows);
+
+    expect(result.procedures).toHaveLength(2);
+    expect(result.procedures[0].procedure_id).toBe('P-2');
+    expect(result.procedures[1].sort_order).toBe(999);
+    expect(result.validation.warnings.some((warning) => warning.includes('invalid sort_order'))).toBe(
+      true
+    );
+  });
+
+  it('skips duplicate procedure_id values case-insensitively', () => {
+    const rows = [
+      ['procedure_id', 'procedure_name', 'visible'],
+      ['CABG-1', 'CABG', 'YES'],
+      ['cabg-1', 'CABG duplicate', 'YES'],
+    ];
+
+    const result = parseProceduresRows(rows);
+
+    expect(result.procedures).toHaveLength(1);
+    expect(result.procedures[0].procedure_id).toBe('CABG-1');
+    expect(
+      result.validation.warnings.some((warning) =>
+        warning.includes('duplicate procedure_id "cabg-1" skipped')
+      )
+    ).toBe(true);
+  });
+
   it('throws when required headers are missing', () => {
     const rows = [['top_category', 'procedure_name'], ['Medical', 'Bypass']];
     expect(() => parseProceduresRows(rows)).toThrow(/Could not locate a valid header row/i);
