@@ -351,10 +351,12 @@ const Estimate = () => {
                         transition: 'transform 0.2s ease, background-color 0.2s ease',
                         '&:hover': {
                           transform: 'scale(1.01)',
-                          backgroundColor: 'rgba(0, 137, 123, 0.08)',
+                          backgroundColor: 'primary.main',
+                          color: 'common.white',
                         },
                         '&[aria-selected="true"]': {
-                          backgroundColor: 'rgba(0, 137, 123, 0.14) !important',
+                          backgroundColor: 'primary.dark !important',
+                          color: 'common.white',
                           fontWeight: 600,
                         },
                       }}>
