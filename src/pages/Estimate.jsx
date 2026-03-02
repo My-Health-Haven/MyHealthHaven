@@ -296,6 +296,14 @@ const Estimate = () => {
                   value={formData.procedure || null}
                   onChange={handleProcedureSelect}
                   loading={proceduresLoading}
+                  loadingText={procedureLoadingLabel}
+                  disablePortal
+                  slotProps={{
+                    popper: {
+                      placement: 'bottom-start',
+                      modifiers: [{ name: 'flip', enabled: false }],
+                    },
+                  }}
                   getOptionLabel={(option) =>
                     option === OTHER_PROCEDURE_OPTION ? procedureOtherLabel : String(option || '')
                   }
@@ -310,9 +318,23 @@ const Estimate = () => {
                       placeholder={procedureSearchPlaceholder}
                       variant="outlined"
                       hiddenLabel
+                      InputProps={{
+                        ...params.InputProps,
+                        endAdornment: (
+                          <>
+                            {proceduresLoading ? <CircularProgress color="inherit" size={20} /> : null}
+                            {params.InputProps.endAdornment}
+                          </>
+                        ),
+                      }}
                     />
                   )}
                 />
+                {proceduresLoading && (
+                  <Typography variant="caption" sx={{ display: 'block', mt: 1, color: 'text.secondary' }}>
+                    {procedureLoadingLabel}
+                  </Typography>
+                )}
               </Box>
 
               {isOtherProcedureSelected && (
