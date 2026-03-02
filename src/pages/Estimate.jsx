@@ -9,26 +9,14 @@ import {
   Stack,
   Alert,
   CircularProgress,
+  Autocomplete,
 } from '@mui/material';
 import { useLanguage } from '../context/LanguageContext';
 import GlassCard from '../components/GlassCard';
+import { CITIES_BY_STATE, US_STATES } from '../data/usLocations';
+import { useProcedures } from '../hooks/useProcedures';
 
-const US_STATES = [
-    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia',
-    'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland',
-    'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
-    'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
-    'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
-];
-
-const CITIES_BY_STATE = {
-  'California': ['Los Angeles', 'San Francisco', 'San Diego', 'Sacramento', 'San Jose'],
-  'Texas': ['Houston', 'San Antonio', 'Dallas', 'Austin', 'Fort Worth'],
-  'Florida': ['Miami', 'Orlando', 'Tampa', 'Jacksonville', 'Tallahassee'],
-  'New York': ['New York City', 'Buffalo', 'Rochester', 'Albany', 'Syracuse'],
-  'Illinois': ['Chicago', 'Aurora', 'Naperville', 'Joliet', 'Rockford'],
-  'default': ['Major City 1', 'Major City 2', 'City 3']
-};
+const OTHER_PROCEDURE_OPTION = '__other_procedure__';
 
 const FormLabel = ({ children }) => (
   <Typography variant="h6" component="label" sx={{ display: 'block', mb: 1, fontWeight: 700, color: 'text.primary' }}>
@@ -38,6 +26,24 @@ const FormLabel = ({ children }) => (
 
 const Estimate = () => {
   const { t, language } = useLanguage();
+  const { procedures: allProcedures, loading: proceduresLoading } = useProcedures();
+  const isSpanish = language === 'es';
+
+  const procedureSearchPlaceholder = isSpanish
+    ? 'Busque y seleccione un procedimiento'
+    : 'Search and select a procedure';
+  const procedureLoadingLabel = isSpanish ? 'Cargando procedimientos...' : 'Loading procedures...';
+  const procedureNoOptionsLabel = isSpanish
+    ? 'No hay procedimientos coincidentes'
+    : 'No matching procedures';
+  const procedureOtherLabel = isSpanish ? 'Otro (especifique)' : 'Other (please specify)';
+  const procedureOtherPlaceholder = isSpanish
+    ? 'Describa el procedimiento que le interesa...'
+    : 'Please describe the procedure you are interested in...';
+  const procedureRequiredError = isSpanish
+    ? 'Seleccione un procedimiento o elija Otro y escriba los detalles.'
+    : 'Please select a procedure or choose Other and provide details.';
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -45,6 +51,7 @@ const Estimate = () => {
     city: '',
     state: '',
     procedure: '',
+    procedureOther: '',
     website: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -53,8 +60,25 @@ const Estimate = () => {
 
   const availableCities = useMemo(() => {
     if (!formData.state) return [];
-    return CITIES_BY_STATE[formData.state] || [`${formData.state} City 1`, `${formData.state} City 2`, 'Other'];
+    return CITIES_BY_STATE[formData.state] || ['Other'];
   }, [formData.state]);
+
+  const procedureOptions = useMemo(() => {
+    const uniqueProcedureNames = new Set();
+
+    for (const item of allProcedures) {
+      const name = String(item?.procedure_name || '').trim();
+      if (name) uniqueProcedureNames.add(name);
+    }
+
+    const sortedNames = Array.from(uniqueProcedureNames).sort((a, b) => a.localeCompare(b));
+    return [...sortedNames, OTHER_PROCEDURE_OPTION];
+  }, [allProcedures]);
+
+  const isOtherProcedureSelected = formData.procedure === OTHER_PROCEDURE_OPTION;
+  const procedureSubmissionValue = isOtherProcedureSelected
+    ? formData.procedureOther.trim()
+    : formData.procedure.trim();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -71,10 +95,29 @@ const Estimate = () => {
     }));
   };
 
+  const handleProcedureSelect = (_event, value) => {
+    if (submitStatus !== 'idle') {
+      setSubmitStatus('idle');
+      setSubmitError('');
+    }
+
+    setFormData((prev) => ({
+      ...prev,
+      procedure: value || '',
+      ...(value === OTHER_PROCEDURE_OPTION ? {} : { procedureOther: '' }),
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (isSubmitting) return;
+
+    if (!procedureSubmissionValue) {
+      setSubmitStatus('error');
+      setSubmitError(procedureRequiredError);
+      return;
+    }
 
     setIsSubmitting(true);
     setSubmitStatus('idle');
@@ -88,6 +131,7 @@ const Estimate = () => {
         },
         body: JSON.stringify({
           ...formData,
+          procedure: procedureSubmissionValue,
           language: language || 'en',
         }),
       });
@@ -106,6 +150,7 @@ const Estimate = () => {
         city: '',
         state: '',
         procedure: '',
+        procedureOther: '',
         website: '',
       });
       setSubmitStatus('success');
@@ -246,19 +291,47 @@ const Estimate = () => {
 
               <Box>
                 <FormLabel>{t('estimatePage.form.procedure')}</FormLabel>
-                <TextField
-                  fullWidth
-                  required
-                  multiline
-                  rows={4}
-                  placeholder={t('estimatePage.form.procedurePlaceholder')}
-                  name="procedure"
-                  value={formData.procedure}
-                  onChange={handleChange}
-                  variant="outlined"
-                  hiddenLabel
+                <Autocomplete
+                  options={procedureOptions}
+                  value={formData.procedure || null}
+                  onChange={handleProcedureSelect}
+                  loading={proceduresLoading}
+                  getOptionLabel={(option) =>
+                    option === OTHER_PROCEDURE_OPTION ? procedureOtherLabel : String(option || '')
+                  }
+                  isOptionEqualToValue={(option, value) => option === value}
+                  noOptionsText={
+                    proceduresLoading ? procedureLoadingLabel : procedureNoOptionsLabel
+                  }
+                  renderInput={(params) => (
+                    <TextField
+                      {...params}
+                      required
+                      placeholder={procedureSearchPlaceholder}
+                      variant="outlined"
+                      hiddenLabel
+                    />
+                  )}
                 />
               </Box>
+
+              {isOtherProcedureSelected && (
+                <Box>
+                  <FormLabel>{procedureOtherLabel}</FormLabel>
+                  <TextField
+                    fullWidth
+                    required
+                    multiline
+                    rows={4}
+                    placeholder={procedureOtherPlaceholder}
+                    name="procedureOther"
+                    value={formData.procedureOther}
+                    onChange={handleChange}
+                    variant="outlined"
+                    hiddenLabel
+                  />
+                </Box>
+              )}
 
               <Box sx={{ pt: 2 }}>
                 <Button 
