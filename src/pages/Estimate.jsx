@@ -349,16 +349,17 @@ const Estimate = () => {
                         animation: 'listItemPopIn 0.22s ease forwards',
                         animationDelay: `${Math.min(index, 12) * 25}ms`,
                         transition: 'transform 0.2s ease, background-color 0.2s ease',
-                        '&:hover': {
+                        '&:hover, &.Mui-focused, &[data-focus="true"]': {
                           transform: 'scale(1.01)',
-                          backgroundColor: 'primary.main',
-                          color: 'common.white',
+                          backgroundColor: 'primary.main !important',
+                          color: 'common.white !important',
                         },
-                        '&[aria-selected="true"]': {
+                        '&[aria-selected="true"], &[aria-selected="true"]:hover, &[aria-selected="true"].Mui-focused':
+                          {
                           backgroundColor: 'primary.dark !important',
-                          color: 'common.white',
+                          color: 'common.white !important',
                           fontWeight: 600,
-                        },
+                          },
                       }}>
                       {option === OTHER_PROCEDURE_OPTION ? procedureOtherLabel : String(option || '')}
                     </Box>

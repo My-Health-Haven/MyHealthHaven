@@ -30,19 +30,19 @@ const listItemMotionStyles = {
 };
 
 const listHoverStyles = {
-  backgroundColor: "#00897B",
-  color: "#FFFFFF",
+  backgroundColor: "#00897B !important",
+  color: "#FFFFFF !important",
   "& .MuiTypography-root": {
-    color: "#FFFFFF",
+    color: "#FFFFFF !important",
   },
   "& .MuiListItemText-primary, & .MuiListItemText-secondary": {
-    color: "#FFFFFF",
+    color: "#FFFFFF !important",
   },
   "& a": {
-    color: "#FFFFFF",
+    color: "#FFFFFF !important",
   },
   "& svg": {
-    color: "#FFFFFF",
+    color: "#FFFFFF !important",
   },
 };
 
@@ -134,13 +134,13 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           ...listItemMotionStyles,
-          "&:hover": {
+          "&:hover, &.Mui-focusVisible": {
             transform: "scale(1.01)",
             ...listHoverStyles,
           },
-          "&.Mui-selected": {
-            backgroundColor: "#00695C",
-            color: "#FFFFFF",
+          "&.Mui-selected, &.Mui-selected:hover, &.Mui-selected.Mui-focusVisible": {
+            backgroundColor: "#00695C !important",
+            color: "#FFFFFF !important",
           },
         },
       },
@@ -159,12 +159,12 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           ...listItemMotionStyles,
-          "&.Mui-selected": {
-            backgroundColor: "#00695C",
-            color: "#FFFFFF",
+          "&.Mui-selected, &.Mui-selected:hover, &.Mui-selected.Mui-focusVisible": {
+            backgroundColor: "#00695C !important",
+            color: "#FFFFFF !important",
             fontWeight: 600,
           },
-          "&:hover": {
+          "&:hover, &.Mui-focusVisible": {
             transform: "scale(1.01)",
             ...listHoverStyles,
           },
@@ -182,12 +182,12 @@ const theme = createTheme({
         },
         option: {
           ...listItemMotionStyles,
-          "&.Mui-focused": {
+          "&.Mui-focused, &[data-focus='true']": {
             ...listHoverStyles,
           },
-          "&[aria-selected='true']": {
-            backgroundColor: "#00695C",
-            color: "#FFFFFF",
+          "&[aria-selected='true'], &[aria-selected='true']:hover, &[aria-selected='true'].Mui-focused": {
+            backgroundColor: "#00695C !important",
+            color: "#FFFFFF !important",
             fontWeight: 600,
           },
           "&:hover": {
