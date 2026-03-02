@@ -297,11 +297,34 @@ const Estimate = () => {
                   onChange={handleProcedureSelect}
                   loading={proceduresLoading}
                   loadingText={procedureLoadingLabel}
-                  disablePortal
                   slotProps={{
                     popper: {
                       placement: 'bottom-start',
-                      modifiers: [{ name: 'flip', enabled: false }],
+                      modifiers: [
+                        { name: 'flip', enabled: false },
+                        { name: 'offset', options: { offset: [0, 8] } },
+                      ],
+                      sx: {
+                        zIndex: (theme) => theme.zIndex.modal + 1,
+                      },
+                    },
+                    paper: {
+                      elevation: 0,
+                      sx: {
+                        borderRadius: 2,
+                        border: '1px solid',
+                        borderColor: 'divider',
+                        boxShadow: '0 16px 32px rgba(17, 24, 39, 0.14)',
+                        bgcolor: 'background.paper',
+                        overflow: 'hidden',
+                      },
+                    },
+                    listbox: {
+                      sx: {
+                        py: 0.75,
+                        px: 0.75,
+                        maxHeight: 320,
+                      },
                     },
                   }}
                   getOptionLabel={(option) =>
@@ -311,6 +334,33 @@ const Estimate = () => {
                   noOptionsText={
                     proceduresLoading ? procedureLoadingLabel : procedureNoOptionsLabel
                   }
+                  renderOption={(props, option, { index }) => (
+                    <Box
+                      component="li"
+                      {...props}
+                      sx={{
+                        borderRadius: 1.5,
+                        mb: 0.5,
+                        minHeight: 42,
+                        px: 1.5,
+                        py: 1,
+                        opacity: 0,
+                        transform: 'scale(0.94) translateY(4px)',
+                        animation: 'listItemPopIn 0.22s ease forwards',
+                        animationDelay: `${Math.min(index, 12) * 25}ms`,
+                        transition: 'transform 0.2s ease, background-color 0.2s ease',
+                        '&:hover': {
+                          transform: 'scale(1.01)',
+                          backgroundColor: 'rgba(0, 137, 123, 0.08)',
+                        },
+                        '&[aria-selected="true"]': {
+                          backgroundColor: 'rgba(0, 137, 123, 0.14) !important',
+                          fontWeight: 600,
+                        },
+                      }}>
+                      {option === OTHER_PROCEDURE_OPTION ? procedureOtherLabel : String(option || '')}
+                    </Box>
+                  )}
                   renderInput={(params) => (
                     <TextField
                       {...params}
