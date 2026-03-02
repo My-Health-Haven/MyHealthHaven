@@ -1,5 +1,22 @@
 import { createTheme, responsiveFontSizes } from "@mui/material/styles";
 
+const createStaggeredAnimationDelays = (maxItems = 12, stepMs = 35) => {
+  const delays = {};
+  for (let i = 1; i <= maxItems; i += 1) {
+    delays[`&:nth-of-type(${i})`] = {
+      animationDelay: `${(i - 1) * stepMs}ms`,
+    };
+  }
+  return delays;
+};
+
+const listItemMotionStyles = {
+  animation: "listItemPopIn 0.2s ease both",
+  transformOrigin: "left center",
+  transition: "transform 0.2s ease, background-color 0.2s ease, opacity 0.2s ease",
+  ...createStaggeredAnimationDelays(),
+};
+
 // Theme configuration
 const theme = createTheme({
   palette: {
@@ -51,10 +68,63 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        "@keyframes listItemPopIn": {
+          "0%": {
+            opacity: 0,
+            transform: "scale(0.7)",
+          },
+          "100%": {
+            opacity: 1,
+            transform: "scale(1)",
+          },
+        },
+        "main ul li, main ol li": {
+          ...listItemMotionStyles,
+        },
+        ".MuiList-root .MuiListItem-root": {
+          ...listItemMotionStyles,
+        },
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
           borderRadius: "8px",
+        },
+      },
+    },
+    MuiListItemButton: {
+      styleOverrides: {
+        root: {
+          ...listItemMotionStyles,
+          "&:hover": {
+            transform: "scale(1.01)",
+          },
+        },
+      },
+    },
+    MuiMenuItem: {
+      styleOverrides: {
+        root: {
+          ...listItemMotionStyles,
+          "&:hover": {
+            transform: "scale(1.01)",
+          },
+        },
+      },
+    },
+    MuiAutocomplete: {
+      styleOverrides: {
+        option: {
+          ...listItemMotionStyles,
+          "&[aria-selected='true']": {
+            backgroundColor: "rgba(0, 137, 123, 0.12)",
+          },
+          "&:hover": {
+            transform: "scale(1.01)",
+          },
         },
       },
     },
