@@ -558,7 +558,15 @@ Medical travel isn’t about replacing your local healthcare system. It’s abou
         city: 'City',
         state: 'State',
         procedure: 'Procedure of Interest',
+        procedurePlaceholder: 'Describe the procedure you are interested in...',
+        selectStateFirst: 'Select a State first',
         submit: 'Request Estimate',
+        submitting: 'Submitting...',
+      },
+      feedback: {
+        success: 'Thanks. Your estimate request was sent successfully.',
+        error: 'We could not send your request right now. Please try again.',
+        rateLimit: 'Too many submissions. Please wait a minute and try again.',
       },
       disclaimer:
         '* This is a preliminary estimate. Your final quote will be provided by your Health Navigator™ after a medical review.',
@@ -1153,8 +1161,16 @@ El turismo médico no se trata de reemplazar su sistema de salud local. Se trata
         phone: 'Número de Teléfono',
         city: 'Ciudad',
         state: 'Estado',
-        procedure: 'Procedimiento de Interés',
+        procedure: 'Procedimiento de Inter�s',
+        procedurePlaceholder: 'Describa el procedimiento que le interesa...',
+        selectStateFirst: 'Seleccione primero un estado',
         submit: 'Solicitar Presupuesto',
+        submitting: 'Enviando...',
+      },
+      feedback: {
+        success: 'Gracias. Su solicitud de presupuesto fue enviada correctamente.',
+        error: 'No pudimos enviar su solicitud. Intente de nuevo.',
+        rateLimit: 'Demasiadas solicitudes. Espere un minuto e intente de nuevo.',
       },
       disclaimer:
         '* Esta es una estimación preliminar. Su cotización final será proporcionada por su Navegador de Salud™ después de una revisión médica.',
@@ -1176,3 +1192,4 @@ El turismo médico no se trata de reemplazar su sistema de salud local. Se trata
     },
   },
 };
+

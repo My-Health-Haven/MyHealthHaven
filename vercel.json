@@ -32,6 +32,10 @@
       "destination": "/api/procedures.js"
     },
     {
+      "source": "/api/estimate",
+      "destination": "/api/estimate.js"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }

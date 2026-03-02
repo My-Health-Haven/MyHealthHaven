@@ -58,6 +58,23 @@ This will start the local server, usually at `http://localhost:5173`.
 npm run build
 ```
 
+## Estimate Form Email Submission
+
+The Free Estimate form submits to `/api/estimate`, which sends each request to email via Resend.
+
+Set these environment variables in Vercel (or your runtime):
+
+- `RESEND_API_KEY` (required): Resend API key.
+- `ESTIMATE_FROM_EMAIL` (recommended): Sender email/domain verified in Resend.
+- `ESTIMATE_TO_EMAIL` (optional): Destination inbox for leads. Defaults to `myhealthhavenwy@gmail.com`.
+- `ESTIMATE_RATE_LIMIT_MAX` (optional): Max submissions per IP per minute. Default `5`.
+- `ALLOWED_ORIGINS` (optional): Comma-separated CORS allowlist for API routes.
+
+Notes:
+
+- If `ESTIMATE_FROM_EMAIL` is not set, the API falls back to `onboarding@resend.dev`.
+- `reply_to` is set to the user's submitted email so you can respond directly from your inbox.
+
 ## Docker Deployment
 
 This application includes a multi-stage `Dockerfile`.

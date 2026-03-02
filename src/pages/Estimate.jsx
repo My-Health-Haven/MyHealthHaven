@@ -1,5 +1,15 @@
 import React, { useMemo, useState } from 'react';
-import { Container, Typography, Box, Button, TextField, MenuItem, Stack } from '@mui/material';
+import {
+  Container,
+  Typography,
+  Box,
+  Button,
+  TextField,
+  MenuItem,
+  Stack,
+  Alert,
+  CircularProgress,
+} from '@mui/material';
 import { useLanguage } from '../context/LanguageContext';
 import GlassCard from '../components/GlassCard';
 
@@ -27,7 +37,7 @@ const FormLabel = ({ children }) => (
 );
 
 const Estimate = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -35,7 +45,11 @@ const Estimate = () => {
     city: '',
     state: '',
     procedure: '',
+    website: '',
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState('idle');
+  const [submitError, setSubmitError] = useState('');
 
   const availableCities = useMemo(() => {
     if (!formData.state) return [];
@@ -44,6 +58,12 @@ const Estimate = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+
+    if (submitStatus !== 'idle') {
+      setSubmitStatus('idle');
+      setSubmitError('');
+    }
+
     setFormData((prev) => ({
       ...prev,
       ...(name === 'state' ? { city: '' } : {}),
@@ -51,9 +71,50 @@ const Estimate = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    alert('Request sent!');
+
+    if (isSubmitting) return;
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+    setSubmitError('');
+
+    try {
+      const response = await fetch('/api/estimate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          language: language || 'en',
+        }),
+      });
+
+      if (!response.ok) {
+        if (response.status === 429) {
+          throw new Error(t('estimatePage.feedback.rateLimit'));
+        }
+        throw new Error(t('estimatePage.feedback.error'));
+      }
+
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        city: '',
+        state: '',
+        procedure: '',
+        website: '',
+      });
+      setSubmitStatus('success');
+    } catch (error) {
+      setSubmitStatus('error');
+      setSubmitError(error.message || t('estimatePage.feedback.error'));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -70,6 +131,23 @@ const Estimate = () => {
         
         <GlassCard sx={{ p: { xs: 3, md: 6 } }}>
           <form onSubmit={handleSubmit}>
+            <input
+              type="text"
+              name="website"
+              value={formData.website}
+              onChange={handleChange}
+              autoComplete="off"
+              tabIndex={-1}
+              aria-hidden="true"
+              style={{
+                position: 'absolute',
+                left: '-9999px',
+                width: 0,
+                height: 0,
+                opacity: 0,
+                pointerEvents: 'none',
+              }}
+            />
             <Stack spacing={4}>
               
               <Box>
@@ -147,7 +225,11 @@ const Estimate = () => {
                   fullWidth
                   required
                   disabled={!formData.state}
-                  placeholder={!formData.state ? 'Select a State first' : t('estimatePage.form.city')}
+                  placeholder={
+                    !formData.state
+                      ? t('estimatePage.form.selectStateFirst')
+                      : t('estimatePage.form.city')
+                  }
                   name="city"
                   value={formData.city}
                   onChange={handleChange}
@@ -169,7 +251,7 @@ const Estimate = () => {
                   required
                   multiline
                   rows={4}
-                  placeholder="Describe the procedure you are interested in..."
+                  placeholder={t('estimatePage.form.procedurePlaceholder')}
                   name="procedure"
                   value={formData.procedure}
                   onChange={handleChange}
@@ -185,11 +267,18 @@ const Estimate = () => {
                   variant="contained" 
                   size="large"
                   color="primary"
+                  disabled={isSubmitting}
+                  startIcon={isSubmitting ? <CircularProgress size={18} color="inherit" /> : null}
                   sx={{ py: 2, fontSize: '1.2rem', fontWeight: 'bold', boxShadow: 'none' }} 
                 >
-                  {t('estimatePage.form.submit')}
+                  {isSubmitting ? t('estimatePage.form.submitting') : t('estimatePage.form.submit')}
                 </Button>
               </Box>
+
+              {submitStatus === 'success' && (
+                <Alert severity="success">{t('estimatePage.feedback.success')}</Alert>
+              )}
+              {submitStatus === 'error' && <Alert severity="error">{submitError}</Alert>}
 
             </Stack>
           </form>
