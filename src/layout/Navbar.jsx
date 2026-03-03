@@ -79,7 +79,7 @@ const Navbar = () => {
              variant="text" 
              color="primary"
            >
-             {language === 'en' ? 'Español' : 'English'}
+             {language === 'en' ? 'Espanol' : 'English'}
            </Button>
         </ListItem>
         <ListItem disablePadding>
@@ -235,6 +235,17 @@ const Navbar = () => {
                 }}
               >
                 {t('navbar.schedule')}
+              </Button>
+
+              <Button
+                onClick={toggleLanguage}
+                sx={{
+                  color: 'text.primary',
+                  fontWeight: 500,
+                  '&:hover': { color: 'primary.main', bgcolor: 'transparent' },
+                }}
+              >
+                {language === 'en' ? 'Espanol' : 'English'}
               </Button>
 
               <Button

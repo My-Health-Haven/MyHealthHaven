@@ -16,7 +16,6 @@ const Schedule = React.lazy(() => import('./pages/Schedule'));
 const PrivacyPolicy = React.lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfUse = React.lazy(() => import('./pages/TermsOfUse'));
 import { LanguageProvider } from './context/LanguageContext';
-import LanguageModal from './components/LanguageModal';
 import ScrollToHashElement from './components/ScrollToHashElement';
 
 function App() {
@@ -29,7 +28,6 @@ function App() {
       <LanguageProvider>
         <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <ScrollToHashElement />
-          <LanguageModal />
           <React.Suspense fallback={<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>Loading...</div>}>
             <Routes>
               <Route path="/" element={<Layout />}>

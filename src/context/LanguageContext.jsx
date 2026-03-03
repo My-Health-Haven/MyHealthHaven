@@ -2,28 +2,48 @@ import React, { createContext, useContext, useState, useEffect, useCallback, use
 import { translations } from '../data/translations';
 
 const LanguageContext = createContext();
+const FALLBACK_LANGUAGE = 'en';
+const SUPPORTED_LANGUAGES = new Set(['en', 'es']);
+
+const normalizeLanguage = (value) => {
+  if (typeof value !== 'string') return null;
+  const normalized = value.trim().toLowerCase();
+  return SUPPORTED_LANGUAGES.has(normalized) ? normalized : null;
+};
+
+const getBrowserLanguage = () => {
+  if (typeof window === 'undefined') return FALLBACK_LANGUAGE;
+  const browserLanguage = window.navigator?.language?.split('-')[0];
+  return normalizeLanguage(browserLanguage) || FALLBACK_LANGUAGE;
+};
+
+const getInitialLanguage = () => {
+  if (typeof window === 'undefined') return FALLBACK_LANGUAGE;
+  const storedLanguage = normalizeLanguage(window.localStorage.getItem('appLanguage'));
+  return storedLanguage || getBrowserLanguage();
+};
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState(() => {
-    return localStorage.getItem('appLanguage') || null;
-  });
+  const [language, setLanguage] = useState(getInitialLanguage);
 
-  const showModal = !language;
+  // Keep first render crawlable: do not block content behind a mandatory modal.
+  const showModal = false;
 
   useEffect(() => {
-    if (language) {
-      localStorage.setItem('appLanguage', language);
-    }
+    if (typeof window === 'undefined') return;
+    const normalizedLanguage = normalizeLanguage(language) || FALLBACK_LANGUAGE;
+    window.localStorage.setItem('appLanguage', normalizedLanguage);
   }, [language]);
 
   const selectLanguage = (lang) => {
-    setLanguage(lang);
+    const normalizedLanguage = normalizeLanguage(lang);
+    if (normalizedLanguage) setLanguage(normalizedLanguage);
   };
 
   // Translation helper
   const t = useCallback((key) => {
-    if (!language) return ''; // or fallback to en?
-    const langData = translations[language] || translations['en'];
+    const activeLanguage = normalizeLanguage(language) || FALLBACK_LANGUAGE;
+    const langData = translations[activeLanguage] || translations[FALLBACK_LANGUAGE];
     
     // Support nested keys like 'navbar.home'
     const keys = key.split('.');

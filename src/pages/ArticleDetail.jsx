@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { Box, Container, Typography, Button, Divider } from '@mui/material';
+import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../context/LanguageContext';
 import FadeIn from '../components/FadeIn';
 
@@ -20,6 +21,14 @@ const ArticleDetail = () => {
   }
 
   return (
+    <>
+    <Helmet>
+      <title>{`${article.title} | MyHealth Haven Library`}</title>
+      <meta
+        name="description"
+        content={article.summary || 'Expert guidance and educational content from MyHealth Haven.'}
+      />
+    </Helmet>
     <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'background.paper', minHeight: '80vh' }}>
       <Container maxWidth="md">
         <FadeIn>
@@ -67,6 +76,7 @@ const ArticleDetail = () => {
         </FadeIn>
       </Container>
     </Box>
+    </>
   );
 };
 
