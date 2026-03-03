@@ -70,18 +70,6 @@ const Navbar = () => {
       </Typography>
       <Divider sx={{ mb: 2 }} />
       <List>
-        <ListItem disablePadding sx={{ flexDirection: 'column', px: 2 }}>
-           <Button 
-              fullWidth 
-              variant="contained" 
-              component={Link} 
-              to="/schedule" 
-              sx={{ mb: 2, py: 1.5 }}
-           >
-              {t('navbar.schedule')}
-           </Button>
-
-        </ListItem>
         <ListItem disablePadding sx={{ justifyContent: 'center', mb: 2 }}>
            <Button 
              onClick={(e) => {
@@ -110,6 +98,23 @@ const Navbar = () => {
             <ListItemButton component={Link} to="/#faq" sx={{ textAlign: 'center' }}>
               <ListItemText primary="FAQ" />
             </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+            <ListItemButton component={Link} to="/schedule" sx={{ textAlign: 'center' }}>
+              <ListItemText primary={t('navbar.schedule')} />
+            </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding sx={{ px: 2, mt: 2 }}>
+          <Button
+            fullWidth
+            variant="contained"
+            color="primary"
+            component={Link}
+            to="/estimate"
+            sx={{ boxShadow: 'none', '&:hover': { boxShadow: 'none' }, color: 'white' }}
+          >
+            {t('navbar.freeEstimate')}
+          </Button>
         </ListItem>
       </List>
     </Box>
