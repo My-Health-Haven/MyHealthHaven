@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary';
-const Layout = React.lazy(() => import('./layout/Layout'));
-const Home = React.lazy(() => import('./pages/Home'));
+import Layout from './layout/Layout';
+import Home from './pages/Home';
 const Navigators = React.lazy(() => import('./pages/Navigators'));
 const MedicalTravel = React.lazy(() => import('./pages/MedicalTravel'));
 const Procedures = React.lazy(() => import('./pages/Procedures'));
@@ -19,7 +19,16 @@ import { LanguageProvider } from './context/LanguageContext';
 import ScrollToHashElement from './components/ScrollToHashElement';
 import AppLoadingScreen from './components/AppLoadingScreen';
 
+const isCrawlerUserAgent = () => {
+  if (typeof navigator === 'undefined') return false;
+  return /(bot|crawler|spider|slurp|bingpreview|facebookexternalhit|linkedinbot|twitterbot|whatsapp|telegrambot|discordbot|slackbot)/i.test(
+    navigator.userAgent
+  );
+};
+
 function App() {
+  const showLoader = React.useMemo(() => !isCrawlerUserAgent(), []);
+
   React.useEffect(() => {
     localStorage.removeItem('userJourney');
   }, []);
@@ -29,7 +38,7 @@ function App() {
       <LanguageProvider>
         <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <ScrollToHashElement />
-          <React.Suspense fallback={<AppLoadingScreen />}>
+          <React.Suspense fallback={showLoader ? <AppLoadingScreen /> : null}>
             <Routes>
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />
