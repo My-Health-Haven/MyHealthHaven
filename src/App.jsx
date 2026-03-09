@@ -17,6 +17,7 @@ const PrivacyPolicy = React.lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfUse = React.lazy(() => import('./pages/TermsOfUse'));
 import { LanguageProvider } from './context/LanguageContext';
 import ScrollToHashElement from './components/ScrollToHashElement';
+import AppLoadingScreen from './components/AppLoadingScreen';
 
 function App() {
   React.useEffect(() => {
@@ -28,7 +29,7 @@ function App() {
       <LanguageProvider>
         <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
           <ScrollToHashElement />
-          <React.Suspense fallback={<div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>Loading...</div>}>
+          <React.Suspense fallback={<AppLoadingScreen />}>
             <Routes>
               <Route path="/" element={<Layout />}>
                 <Route index element={<Home />} />

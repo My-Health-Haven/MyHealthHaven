@@ -159,6 +159,107 @@ body {
   }
 }
 
+.app-loader {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1.5rem;
+  text-align: center;
+  color: #0f172a;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(0, 137, 123, 0.22), transparent 45%),
+    radial-gradient(circle at 80% 85%, rgba(142, 36, 170, 0.18), transparent 52%),
+    #f4faff;
+}
+
+.app-loader__spinner {
+  width: 5.5rem;
+  height: 5.5rem;
+  border-radius: 9999px;
+  padding: 0.25rem;
+  background: conic-gradient(from 120deg, #00897b, #8e24aa, #00897b);
+  animation: appLoaderSpin 1.2s linear infinite;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.18);
+}
+
+.app-loader__spinner-core {
+  width: 100%;
+  height: 100%;
+  border-radius: 9999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(2px);
+}
+
+.app-loader__logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  object-fit: contain;
+}
+
+.app-loader__text {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.app-loader__dots {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-height: 0.75rem;
+}
+
+.app-loader__dots span {
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 9999px;
+  background-color: #00897b;
+  opacity: 0.35;
+  animation: appLoaderBounce 0.9s ease-in-out infinite;
+}
+
+.app-loader__dots span:nth-child(2) {
+  animation-delay: 0.15s;
+}
+
+.app-loader__dots span:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+@keyframes appLoaderSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes appLoaderBounce {
+  0%,
+  80%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.35;
+  }
+  40% {
+    transform: translateY(-4px);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .app-loader__spinner,
+  .app-loader__dots span {
+    animation: none;
+  }
+}
+
 /* Custom Scrollbar Styles */
 ::-webkit-scrollbar {
   width: 10px;
