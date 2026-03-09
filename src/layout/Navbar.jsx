@@ -133,8 +133,8 @@ const Navbar = () => {
                 </Stack>
                 <Stack direction="row" spacing={1} alignItems="center">
                     <EmailIcon fontSize="small" sx={{ fontSize: 16 }} />
-                    <Typography variant="caption" component="a" href="mailto:info@andersonlg.com" sx={{ color: 'white', textDecoration: 'none', fontWeight: 500 }}>
-                        info@andersonlg.com
+                    <Typography variant="caption" component="a" href="mailto:healthnavigator@andersonlg.com" sx={{ color: 'white', textDecoration: 'none', fontWeight: 500 }}>
+                        healthnavigator@andersonlg.com
                     </Typography>
                 </Stack>
             </Stack>

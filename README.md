@@ -66,7 +66,7 @@ Set these environment variables in Vercel (or your runtime):
 
 - `RESEND_API_KEY` (required): Resend API key.
 - `ESTIMATE_FROM_EMAIL` (recommended): Sender email/domain verified in Resend.
-- `ESTIMATE_TO_EMAIL` (optional): Destination inbox for leads. Defaults to `myhealthhavenwy@gmail.com`.
+- `ESTIMATE_TO_EMAIL` (optional): Destination inbox for leads. Defaults to `healthnavigator@andersonlg.com`.
 - `ESTIMATE_RATE_LIMIT_MAX` (optional): Max submissions per IP per minute. Default `5`.
 - `ALLOWED_ORIGINS` (optional): Comma-separated CORS allowlist for API routes.
 
