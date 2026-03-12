@@ -4,7 +4,10 @@ const DEFAULT_TO_EMAIL = 'healthnavigator@andersonlg.com';
 const DEFAULT_FROM_EMAIL = 'onboarding@resend.dev';
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const PHONE_MAX_DIGITS = 15;
+const PHONE_REGEX = /^\+?\d{7,15}$/;
+const EMAIL_REGEX =
+  /^(?=.{1,254}$)(?=.{1,64}@)[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9]))+$/;
 
 const ipSubmissionLog = new Map();
 
@@ -52,10 +55,19 @@ const normalizeText = (value, { maxLength, keepLineBreaks = false }) => {
   return normalized.slice(0, maxLength);
 };
 
+const sanitizePhone = (value = '') => {
+  const hasLeadingPlus = value.startsWith('+');
+  const digitsOnly = value.replace(/\D/g, '').slice(0, PHONE_MAX_DIGITS);
+  return `${hasLeadingPlus ? '+' : ''}${digitsOnly}`;
+};
+
+const isValidEmail = (value = '') => EMAIL_REGEX.test(value);
+const isValidPhone = (value = '') => PHONE_REGEX.test(value);
+
 export const sanitizeEstimatePayload = (payload = {}) => ({
   name: normalizeText(payload.name, { maxLength: 120 }),
   email: normalizeText(payload.email, { maxLength: 254 }).toLowerCase(),
-  phone: normalizeText(payload.phone, { maxLength: 40 }),
+  phone: sanitizePhone(normalizeText(payload.phone, { maxLength: 40 })),
   state: normalizeText(payload.state, { maxLength: 80 }),
   city: normalizeText(payload.city, { maxLength: 80 }),
   procedure: normalizeText(payload.procedure, { maxLength: 2000, keepLineBreaks: true }),
@@ -73,8 +85,11 @@ export const validateEstimatePayload = (payload) => {
   if (!payload.city) errors.push('City is required.');
   if (!payload.procedure) errors.push('Procedure details are required.');
 
-  if (payload.email && !EMAIL_REGEX.test(payload.email)) {
+  if (payload.email && !isValidEmail(payload.email)) {
     errors.push('Email format is invalid.');
+  }
+  if (payload.phone && !isValidPhone(payload.phone)) {
+    errors.push('Phone number format is invalid.');
   }
 
   return errors;

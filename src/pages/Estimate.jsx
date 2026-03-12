@@ -18,6 +18,20 @@ import { CITIES_BY_STATE, US_STATES } from '../data/usLocations';
 import { useProcedures } from '../hooks/useProcedures';
 
 const OTHER_PROCEDURE_OPTION = '__other_procedure__';
+const PHONE_MAX_DIGITS = 15;
+const PHONE_MAX_LENGTH = PHONE_MAX_DIGITS + 1;
+const PHONE_REGEX = /^\+?\d{7,15}$/;
+const EMAIL_REGEX =
+  /^(?=.{1,254}$)(?=.{1,64}@)[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9]))+$/;
+
+const sanitizePhoneInput = (value = '') => {
+  const hasLeadingPlus = value.trim().startsWith('+');
+  const digitsOnly = value.replace(/\D/g, '').slice(0, PHONE_MAX_DIGITS);
+  return `${hasLeadingPlus ? '+' : ''}${digitsOnly}`;
+};
+
+const isValidEmail = (value = '') => EMAIL_REGEX.test(value.trim());
+const isValidPhone = (value = '') => PHONE_REGEX.test(value.trim());
 
 const FormLabel = ({ children }) => (
   <Typography variant="h6" component="label" sx={{ display: 'block', mb: 1, fontWeight: 700, color: 'text.primary' }}>
@@ -44,6 +58,12 @@ const Estimate = () => {
   const procedureRequiredError = isSpanish
     ? 'Seleccione un procedimiento o elija Otro y escriba los detalles.'
     : 'Please select a procedure or choose Other and provide details.';
+  const phoneInvalidError = isSpanish
+    ? 'Ingrese un numero de telefono valido (solo numeros y un "+" opcional al inicio).'
+    : 'Please enter a valid phone number (numbers and an optional leading "+").';
+  const emailInvalidError = isSpanish
+    ? 'Ingrese un correo electronico valido (ejemplo: nombre@dominio.com).'
+    : 'Please enter a valid email address (example: name@domain.com).';
 
   const [formData, setFormData] = useState({
     name: '',
@@ -83,6 +103,11 @@ const Estimate = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    let nextValue = value;
+
+    if (name === 'phone') {
+      nextValue = sanitizePhoneInput(value);
+    }
 
     if (submitStatus !== 'idle') {
       setSubmitStatus('idle');
@@ -92,7 +117,7 @@ const Estimate = () => {
     setFormData((prev) => ({
       ...prev,
       ...(name === 'state' ? { city: '' } : {}),
-      [name]: value,
+      [name]: nextValue,
     }));
   };
 
@@ -117,6 +142,18 @@ const Estimate = () => {
     if (!procedureSubmissionValue) {
       setSubmitStatus('error');
       setSubmitError(procedureRequiredError);
+      return;
+    }
+
+    if (!isValidPhone(formData.phone)) {
+      setSubmitStatus('error');
+      setSubmitError(phoneInvalidError);
+      return;
+    }
+
+    if (!isValidEmail(formData.email)) {
+      setSubmitStatus('error');
+      setSubmitError(emailInvalidError);
       return;
     }
 
@@ -225,10 +262,17 @@ const Estimate = () => {
                     required
                     placeholder={t('estimatePage.form.phone')}
                     name="phone"
+                    type="tel"
                     value={formData.phone}
                     onChange={handleChange}
                     variant="outlined"
                     hiddenLabel
+                    autoComplete="tel"
+                    inputProps={{
+                      inputMode: 'tel',
+                      pattern: '^\\+?\\d{7,15}$',
+                      maxLength: PHONE_MAX_LENGTH,
+                    }}
                   />
                 </Box>
 
@@ -245,6 +289,10 @@ const Estimate = () => {
                     onChange={handleChange}
                     variant="outlined"
                     hiddenLabel
+                    autoComplete="email"
+                    inputProps={{
+                      autoCapitalize: 'none',
+                    }}
                   />
                 </Box>
 

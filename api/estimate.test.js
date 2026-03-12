@@ -39,7 +39,7 @@ describe('estimate API helpers', () => {
     expect(payload).toMatchObject({
       name: 'Sergio Lopez',
       email: 'user@example.com',
-      phone: '+1 555 111 2222',
+      phone: '+15551112222',
       state: 'Texas',
       city: 'Houston',
       procedure: 'Knee replacement',
@@ -80,6 +80,21 @@ describe('estimate API helpers', () => {
     );
 
     expect(errors).toContain('Email format is invalid.');
+  });
+
+  it('rejects malformed phone format', () => {
+    const errors = validateEstimatePayload(
+      sanitizeEstimatePayload({
+        name: 'Sergio',
+        email: 'user@example.com',
+        phone: '+',
+        state: 'Texas',
+        city: 'Houston',
+        procedure: 'Test',
+      })
+    );
+
+    expect(errors).toContain('Phone number format is invalid.');
   });
 
   it('rejects unsupported HTTP methods', async () => {

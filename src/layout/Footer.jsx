@@ -1,4 +1,4 @@
-import { Box, Container, Grid, Typography, Link as MuiLink, Stack, Button, IconButton } from '@mui/material';
+import { Box, Container, Grid, Typography, Link as MuiLink, Stack, IconButton } from '@mui/material';
 import { Link } from 'react-router-dom';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
@@ -7,8 +7,17 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { useLanguage } from '../context/LanguageContext';
 
+const HEALTH_NAVIGATOR_EMAIL = 'healthnavigator@andersonlg.com';
+const TIKTOK_URL = 'https://www.tiktok.com/@my.health.haven1';
+
 const Footer = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const currentYear = new Date().getFullYear();
+  const copyrightText =
+    language === 'es'
+      ? `\u00A9 ${currentYear} My Health Haven Management, LLC - Todos los derechos reservados.`
+      : `\u00A9 ${currentYear} My Health Haven Management, LLC - All Rights Reserved.`;
+
   return (
     <Box component="footer" sx={{ bgcolor: 'white', py: 6, borderTop: '1px solid', borderColor: 'divider' }}>
       <Container maxWidth="xl">
@@ -58,7 +67,12 @@ const Footer = () => {
             <Stack spacing={1}>
               <MuiLink component={Link} to="/contact" color="text.secondary" variant="body2" underline="hover">{t('footer.speakWithNavigator')}</MuiLink>
               <MuiLink href="https://wa.me/12142763928" color="text.secondary" variant="body2" underline="hover" target="_blank" rel="noopener noreferrer">{t('footer.whatsapp')}</MuiLink>
-              <MuiLink href="mailto:info@andersonlg.com" color="text.secondary" variant="body2" underline="hover">{t('footer.email')}</MuiLink>
+              <MuiLink href={TIKTOK_URL} color="text.secondary" variant="body2" underline="hover" target="_blank" rel="noopener noreferrer">
+                TikTok
+              </MuiLink>
+              <MuiLink href={`mailto:${HEALTH_NAVIGATOR_EMAIL}`} color="text.secondary" variant="body2" underline="hover">
+                {HEALTH_NAVIGATOR_EMAIL}
+              </MuiLink>
             </Stack>
             <Stack direction="row" spacing={1} sx={{ mt: 2 }}>
                <IconButton href="https://www.instagram.com/my.healthhaven?igsh=MTBnZzhlM3ozbWtxeg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" color="inherit">
@@ -76,6 +90,18 @@ const Footer = () => {
                <IconButton href="https://www.linkedin.com/company/my-health-haven/?viewAsMember=true" target="_blank" rel="noopener noreferrer" color="inherit">
                    <LinkedInIcon />
                </IconButton>
+               <IconButton
+                 href={TIKTOK_URL}
+                 target="_blank"
+                 rel="noopener noreferrer"
+                 color="inherit"
+                 aria-label="TikTok"
+                 title="TikTok"
+               >
+                 <Typography component="span" variant="caption" sx={{ fontSize: '0.65rem', fontWeight: 700, lineHeight: 1 }}>
+                   TT
+                 </Typography>
+               </IconButton>
             </Stack>
           </Grid>
         </Grid>
@@ -86,7 +112,7 @@ const Footer = () => {
            </Typography>
            <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <Typography variant="body2" color="text.secondary">
-            {t('footer.copyright')}
+            {copyrightText}
           </Typography>
           <Box sx={{ display: 'flex', gap: 3 }}>
             <MuiLink component={Link} to="/privacy" color="text.secondary" variant="body2" underline="hover">{t('footer.privacyPolicy')}</MuiLink>
