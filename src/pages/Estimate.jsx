@@ -64,6 +64,9 @@ const Estimate = () => {
   const emailInvalidError = isSpanish
     ? 'Ingrese un correo electronico valido (ejemplo: nombre@dominio.com).'
     : 'Please enter a valid email address (example: name@domain.com).';
+  const emailUnverifiedError = isSpanish
+    ? 'No pudimos verificar ese correo electronico. Intente con una direccion real y activa.'
+    : 'We could not verify that email address. Please use a real, active inbox.';
 
   const [formData, setFormData] = useState({
     name: '',
@@ -173,10 +176,20 @@ const Estimate = () => {
           language: language || 'en',
         }),
       });
+      const responseBody = await response.json().catch(() => null);
 
       if (!response.ok) {
         if (response.status === 429) {
           throw new Error(t('estimatePage.feedback.rateLimit'));
+        }
+        if (responseBody?.code === 'EMAIL_VERIFICATION_FAILED') {
+          throw new Error(emailUnverifiedError);
+        }
+        if (Array.isArray(responseBody?.details) && responseBody.details.length > 0) {
+          throw new Error(responseBody.details[0]);
+        }
+        if (typeof responseBody?.error === 'string' && responseBody.error.trim().length > 0) {
+          throw new Error(responseBody.error);
         }
         throw new Error(t('estimatePage.feedback.error'));
       }

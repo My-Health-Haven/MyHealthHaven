@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import handler, { sanitizeEstimatePayload, validateEstimatePayload } from './estimate.js';
+import handler, {
+  extractEmailDomain,
+  isDisposableEmailDomain,
+  sanitizeEstimatePayload,
+  validateEstimatePayload,
+  verifyEmailDeliverability,
+} from './estimate.js';
 
 const createMockRes = () => {
   const res = {
@@ -95,6 +101,46 @@ describe('estimate API helpers', () => {
     );
 
     expect(errors).toContain('Phone number format is invalid.');
+  });
+
+  it('extracts an email domain in lowercase', () => {
+    expect(extractEmailDomain('USER@Example.COM')).toBe('example.com');
+  });
+
+  it('detects known disposable email domains', () => {
+    expect(isDisposableEmailDomain('mailinator.com')).toBe(true);
+    expect(isDisposableEmailDomain('example.com')).toBe(false);
+  });
+
+  it('rejects disposable emails during deliverability checks', async () => {
+    const result = await verifyEmailDeliverability('person@mailinator.com', {
+      emailVerifierApiKey: '',
+    });
+
+    expect(result).toEqual({ ok: false, reason: 'disposable_domain' });
+  });
+
+  it('accepts emails with DNS records during deliverability checks', async () => {
+    const result = await verifyEmailDeliverability('person@example.com', {
+      emailVerifierApiKey: '',
+      resolveMxFn: async () => [{ exchange: 'mx.example.com', priority: 10 }],
+    });
+
+    expect(result).toEqual({ ok: true, source: 'dns' });
+  });
+
+  it('rejects emails with no DNS records during deliverability checks', async () => {
+    const notFound = async () => {
+      throw new Error('ENOTFOUND');
+    };
+    const result = await verifyEmailDeliverability('person@missing-domain.test', {
+      emailVerifierApiKey: '',
+      resolveMxFn: notFound,
+      resolve4Fn: notFound,
+      resolve6Fn: notFound,
+    });
+
+    expect(result).toEqual({ ok: false, reason: 'no_dns_records' });
   });
 
   it('rejects unsupported HTTP methods', async () => {

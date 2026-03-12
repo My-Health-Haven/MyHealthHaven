@@ -1,3 +1,5 @@
+import { resolve4, resolve6, resolveMx } from 'node:dns/promises';
+
 const ALLOWED_METHODS = 'POST, OPTIONS';
 const RESEND_API_URL = 'https://api.resend.com/emails';
 const DEFAULT_TO_EMAIL = 'healthnavigator@andersonlg.com';
@@ -8,6 +10,25 @@ const PHONE_MAX_DIGITS = 15;
 const PHONE_REGEX = /^\+?\d{7,15}$/;
 const EMAIL_REGEX =
   /^(?=.{1,254}$)(?=.{1,64}@)[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9]))+$/;
+const EMAIL_VERIFIER_DEFAULT_URL = 'https://emailvalidation.abstractapi.com/v1/';
+const EMAIL_VERIFIER_TIMEOUT_MS = 3_500;
+const DISPOSABLE_EMAIL_DOMAINS = new Set([
+  '10minutemail.com',
+  'dispostable.com',
+  'fakeinbox.com',
+  'guerrillamail.com',
+  'maildrop.cc',
+  'mailinator.com',
+  'mailnesia.com',
+  'mintemail.com',
+  'sharklasers.com',
+  'temp-mail.io',
+  'temp-mail.org',
+  'tempmail.com',
+  'throwawaymail.com',
+  'trashmail.com',
+  'yopmail.com',
+]);
 
 const ipSubmissionLog = new Map();
 
@@ -63,6 +84,157 @@ const sanitizePhone = (value = '') => {
 
 const isValidEmail = (value = '') => EMAIL_REGEX.test(value);
 const isValidPhone = (value = '') => PHONE_REGEX.test(value);
+const parseBoolean = (value, fallback) => {
+  if (typeof value !== 'string') return fallback;
+  const normalized = value.trim().toLowerCase();
+  if (normalized === 'true') return true;
+  if (normalized === 'false') return false;
+  return fallback;
+};
+
+const withTimeout = async (promiseFactory, timeoutMs) => {
+  const timeout = Number(timeoutMs);
+  if (!Number.isFinite(timeout) || timeout <= 0) {
+    return promiseFactory();
+  }
+
+  return new Promise((resolve, reject) => {
+    const timer = setTimeout(() => reject(new Error('timeout')), timeout);
+    Promise.resolve()
+      .then(promiseFactory)
+      .then((value) => {
+        clearTimeout(timer);
+        resolve(value);
+      })
+      .catch((error) => {
+        clearTimeout(timer);
+        reject(error);
+      });
+  });
+};
+
+export const extractEmailDomain = (email = '') => {
+  const atIndex = email.lastIndexOf('@');
+  if (atIndex <= 0 || atIndex === email.length - 1) return '';
+  return email.slice(atIndex + 1).toLowerCase();
+};
+
+export const isDisposableEmailDomain = (domain = '') =>
+  DISPOSABLE_EMAIL_DOMAINS.has(String(domain || '').toLowerCase());
+
+const hasDomainDnsRecords = async (domain, deps = {}) => {
+  const resolveMxFn = deps.resolveMxFn || resolveMx;
+  const resolve4Fn = deps.resolve4Fn || resolve4;
+  const resolve6Fn = deps.resolve6Fn || resolve6;
+
+  try {
+    const mxRecords = await resolveMxFn(domain);
+    if (Array.isArray(mxRecords) && mxRecords.length > 0) {
+      return true;
+    }
+  } catch {}
+
+  try {
+    const aRecords = await resolve4Fn(domain);
+    if (Array.isArray(aRecords) && aRecords.length > 0) {
+      return true;
+    }
+  } catch {}
+
+  try {
+    const aaaaRecords = await resolve6Fn(domain);
+    if (Array.isArray(aaaaRecords) && aaaaRecords.length > 0) {
+      return true;
+    }
+  } catch {}
+
+  return false;
+};
+
+const verifyWithAbstractApi = async (email, deps = {}) => {
+  const apiKey = deps.emailVerifierApiKey ?? process.env.EMAIL_VERIFIER_API_KEY;
+  if (!apiKey) {
+    return { status: 'skipped' };
+  }
+
+  const fetchFn = deps.fetchFn || globalThis.fetch;
+  if (typeof fetchFn !== 'function') {
+    return { status: 'skipped' };
+  }
+
+  const verifierBaseUrl = deps.emailVerifierUrl || process.env.EMAIL_VERIFIER_URL || EMAIL_VERIFIER_DEFAULT_URL;
+  const verifierTimeoutMs =
+    deps.emailVerifierTimeoutMs ??
+    Number(process.env.EMAIL_VERIFIER_TIMEOUT_MS || EMAIL_VERIFIER_TIMEOUT_MS);
+
+  const verifierUrl = new URL(verifierBaseUrl);
+  verifierUrl.searchParams.set('api_key', apiKey);
+  verifierUrl.searchParams.set('email', email);
+
+  try {
+    const response = await withTimeout(
+      () =>
+        fetchFn(verifierUrl.toString(), {
+          method: 'GET',
+          headers: {
+            Accept: 'application/json',
+          },
+        }),
+      verifierTimeoutMs
+    );
+
+    if (!response.ok) {
+      return { status: 'skipped' };
+    }
+
+    const data = await response.json();
+    const deliverability = String(data?.deliverability || '').toUpperCase();
+    const disposable = data?.is_disposable_email?.value === true;
+    const formatInvalid = data?.is_valid_format?.value === false;
+    const missingMx = data?.is_mx_found?.value === false;
+    const smtpInvalid = data?.is_smtp_valid?.value === false;
+    const undeliverable = deliverability === 'UNDELIVERABLE';
+
+    if (disposable) return { status: 'failed', reason: 'disposable_provider' };
+    if (formatInvalid || missingMx || smtpInvalid || undeliverable) {
+      return { status: 'failed', reason: 'undeliverable_provider' };
+    }
+
+    return { status: 'passed', source: 'provider' };
+  } catch {
+    return { status: 'skipped' };
+  }
+};
+
+export const verifyEmailDeliverability = async (email, deps = {}) => {
+  const domain = extractEmailDomain(email);
+  if (!domain) {
+    return { ok: false, reason: 'invalid_domain' };
+  }
+
+  const blockDisposableDomains =
+    deps.blockDisposableDomains ??
+    parseBoolean(process.env.ESTIMATE_BLOCK_DISPOSABLE_EMAILS, true);
+
+  if (blockDisposableDomains && isDisposableEmailDomain(domain)) {
+    return { ok: false, reason: 'disposable_domain' };
+  }
+
+  const verifierResult = await verifyWithAbstractApi(email, deps);
+  if (verifierResult.status === 'failed') {
+    return { ok: false, reason: verifierResult.reason };
+  }
+  if (verifierResult.status === 'passed') {
+    return { ok: true, source: verifierResult.source };
+  }
+
+  const domainHasDnsRecords = await hasDomainDnsRecords(domain, deps);
+  if (!domainHasDnsRecords) {
+    return { ok: false, reason: 'no_dns_records' };
+  }
+
+  return { ok: true, source: 'dns' };
+};
 
 export const sanitizeEstimatePayload = (payload = {}) => ({
   name: normalizeText(payload.name, { maxLength: 120 }),
@@ -243,6 +415,15 @@ export default async function handler(req, res) {
   const clientIp = getClientIp(req);
   if (isRateLimited(clientIp)) {
     return res.status(429).json({ error: 'Too many submissions. Please wait and try again.' });
+  }
+
+  const emailVerification = await verifyEmailDeliverability(payload.email);
+  if (!emailVerification.ok) {
+    return res.status(400).json({
+      error: 'Email address could not be verified. Please use a valid email.',
+      code: 'EMAIL_VERIFICATION_FAILED',
+      reason: emailVerification.reason,
+    });
   }
 
   const toEmail = process.env.ESTIMATE_TO_EMAIL || DEFAULT_TO_EMAIL;
