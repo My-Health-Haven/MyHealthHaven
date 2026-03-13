@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -28,6 +28,7 @@ import EmailIcon from '@mui/icons-material/Email';
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [useInverseNav, setUseInverseNav] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const location = useLocation();
@@ -59,6 +60,53 @@ const Navbar = () => {
   const toggleLanguage = () => {
     selectLanguage(language === 'en' ? 'es' : 'en');
   };
+
+  const darkHeroThreshold = useMemo(() => {
+    if (location.pathname.startsWith('/medical-travel')) return 440;
+    if (location.pathname.startsWith('/estimate')) return 360;
+    if (location.pathname.startsWith('/navigators')) return 320;
+    return 0;
+  }, [location.pathname]);
+
+  useEffect(() => {
+    if (!darkHeroThreshold) {
+      setUseInverseNav(false);
+      return undefined;
+    }
+
+    const updateNavContrast = () => {
+      setUseInverseNav(window.scrollY < darkHeroThreshold);
+    };
+
+    updateNavContrast();
+    window.addEventListener('scroll', updateNavContrast, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', updateNavContrast);
+    };
+  }, [darkHeroThreshold]);
+
+  const navTextColor = useInverseNav ? 'rgba(255,255,255,0.88)' : 'text.primary';
+  const navMutedTextColor = useInverseNav ? 'rgba(255,255,255,0.78)' : 'text.primary';
+  const navHoverColor = useInverseNav ? 'rgba(255,255,255,0.98)' : 'primary.main';
+  const navActiveColor = useInverseNav ? 'rgba(255,255,255,0.98)' : 'primary.main';
+  const navSurfaceStyles = useInverseNav
+    ? {
+        bgcolor: 'rgba(8, 20, 28, 0.28)',
+        backdropFilter: 'blur(25px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(25px) saturate(180%)',
+        borderBottom: '1px solid',
+        borderColor: 'rgba(255, 255, 255, 0.14)',
+        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.12)',
+      }
+    : {
+        bgcolor: 'rgba(255, 255, 255, 0.1)',
+        backdropFilter: 'blur(25px) saturate(200%)',
+        WebkitBackdropFilter: 'blur(25px) saturate(200%)',
+        borderBottom: '1px solid',
+        borderColor: 'rgba(255, 255, 255, 0.3)',
+        boxShadow: '0 4px 30px rgba(0, 0, 0, 0.05)',
+      };
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', pt: 4 }}>
@@ -140,14 +188,23 @@ const Navbar = () => {
             </Stack>
         </Container>
     </Box>
-    <AppBar position="sticky" color="transparent" elevation={0} sx={{ bgcolor: 'rgba(255, 255, 255, 0.1)', backdropFilter: 'blur(25px) saturate(200%)', WebkitBackdropFilter: 'blur(25px) saturate(200%)', borderBottom: '1px solid', borderColor: 'rgba(255, 255, 255, 0.3)', boxShadow: '0 4px 30px rgba(0, 0, 0, 0.05)' }}>
+    <AppBar position="sticky" color="transparent" elevation={0} sx={navSurfaceStyles}>
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
             component={Link}
             to="/"
-            sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', textDecoration: 'none', color: 'primary.main', fontWeight: 800, letterSpacing: '-0.02em' }}
+            sx={{
+              flexGrow: 1,
+              display: 'flex',
+              alignItems: 'center',
+              textDecoration: 'none',
+              color: useInverseNav ? 'common.white' : 'primary.main',
+              fontWeight: 800,
+              letterSpacing: '-0.02em',
+              transition: 'color 0.2s ease',
+            }}
           >
             <Box component="img" src="/logo.png" alt="MyHealth Haven Logo" sx={{ height: 40, mr: 1.5 }} />
             MyHealth Haven
@@ -159,6 +216,7 @@ const Navbar = () => {
               aria-label="open drawer"
               edge="start"
               onClick={handleDrawerToggle}
+              sx={{ color: useInverseNav ? 'common.white' : 'text.primary' }}
             >
               <MenuIcon sx={{ fontSize: '1.25rem' }} />
             </IconButton>
@@ -171,9 +229,9 @@ const Navbar = () => {
                   component={Link}
                   to="/"
                   sx={{
-                    color: location.pathname === '/' ? 'primary.main' : 'text.primary',
+                    color: location.pathname === '/' ? navActiveColor : navTextColor,
                     fontWeight: location.pathname === '/' ? 700 : 500,
-                    '&:hover': { color: 'primary.main', bgcolor: 'transparent' },
+                    '&:hover': { color: navHoverColor, bgcolor: 'transparent' },
                     minWidth: 'auto',
                     mr: 0.5,
                   }}
@@ -188,8 +246,8 @@ const Navbar = () => {
                   onClick={handleMenuClick}
                   size="small"
                   sx={{
-                     color: open ? 'primary.main' : 'text.primary',
-                     '&:hover': { color: 'primary.main' }
+                     color: open ? navActiveColor : navMutedTextColor,
+                     '&:hover': { color: navHoverColor }
                   }}
                 >
                   <ExpandMoreIcon />
@@ -216,9 +274,9 @@ const Navbar = () => {
                   component={Link}
                   to={item.href}
                   sx={{
-                    color: location.pathname === item.href ? 'primary.main' : 'text.primary',
+                    color: location.pathname === item.href ? navActiveColor : navTextColor,
                     fontWeight: location.pathname === item.href ? 700 : 500,
-                    '&:hover': { color: 'primary.main', bgcolor: 'transparent' },
+                    '&:hover': { color: navHoverColor, bgcolor: 'transparent' },
                   }}
                 >
                   {item.label}
@@ -229,9 +287,9 @@ const Navbar = () => {
                 component={Link}
                 to="/schedule"
                 sx={{
-                    color: location.pathname === '/schedule' ? 'primary.main' : 'text.primary',
+                    color: location.pathname === '/schedule' ? navActiveColor : navTextColor,
                     fontWeight: location.pathname === '/schedule' ? 700 : 500,
-                    '&:hover': { color: 'primary.main', bgcolor: 'transparent' },
+                    '&:hover': { color: navHoverColor, bgcolor: 'transparent' },
                 }}
               >
                 {t('navbar.schedule')}
@@ -240,9 +298,9 @@ const Navbar = () => {
               <Button
                 onClick={toggleLanguage}
                 sx={{
-                  color: 'text.primary',
+                  color: navTextColor,
                   fontWeight: 500,
-                  '&:hover': { color: 'primary.main', bgcolor: 'transparent' },
+                  '&:hover': { color: navHoverColor, bgcolor: 'transparent' },
                 }}
               >
                 {language === 'en' ? 'Espanol' : 'English'}
