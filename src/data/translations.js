@@ -22,9 +22,9 @@ export const translations = {
       solutionDesc:
         'We bridge the U.S. and Mexican healthcare systems, combining American standards with Mexico’s clinical excellence and affordability.',
       chatWithNavigator: 'Chat with a Navigator',
-      speakWithNavigator: 'Free Consultation',
+      speakWithNavigator: 'Free Estimate',
       samplePrices: 'See Sample Prices',
-      getEstimate: 'Get a No-Signup Cost Estimate',
+      getEstimate: 'Email Cost Estimate',
       usFounded: 'U.S.-founded, Mexico-partnered',
       vettedHospitals: 'Vetted hospitals meeting U.S.-level standards',
       bilingualSupport: 'Bilingual clinical and logistics support',
@@ -612,9 +612,9 @@ Medical travel isn’t about replacing your local healthcare system. It’s abou
       solutionDesc:
         'Unimos los sistemas de salud de EE.UU. y Mexico, combinando los estandares estadounidenses con la excelencia clinica y la asequibilidad de Mexico.',
       chatWithNavigator: 'Chatear con un Navegador',
-      speakWithNavigator: 'Hable con un Navegador de Salud™',
+      speakWithNavigator: 'Presupuesto Gratis',
       samplePrices: 'Ver Precios de Muestra',
-      getEstimate: 'Obtenga un Presupuesto sin Registro',
+      getEstimate: 'Presupuesto por Correo Electrónico',
       usFounded: 'Fundado en EE.UU., asociado con México',
       vettedHospitals: 'Hospitales verificados que cumplen con estándares de EE.UU.',
       bilingualSupport: 'Soporte clínico y logístico bilingüe',
