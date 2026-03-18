@@ -127,7 +127,7 @@ const Navbar = () => {
              variant="text" 
              color="primary"
            >
-             {language === 'en' ? 'Espanol' : 'English'}
+             {language === 'en' ? 'Spanish' : 'English'}
            </Button>
         </ListItem>
         <ListItem disablePadding>
@@ -303,7 +303,7 @@ const Navbar = () => {
                   '&:hover': { color: navHoverColor, bgcolor: 'transparent' },
                 }}
               >
-                {language === 'en' ? 'Espanol' : 'English'}
+                {language === 'en' ? 'Spanish' : 'English'}
               </Button>
 
               <Button

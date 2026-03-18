@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Word Embed Demo</title>
+    <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #cfd4dc;
+        color: #222;
+      }
+
+      .topbar {
+        background: #2f343d;
+        color: white;
+        padding: 10px 16px;
+        font-size: 13px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .ribbon {
+        background: #f3f4f6;
+        border-bottom: 1px solid #c9cbd1;
+        padding: 12px 16px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .chip {
+        border: 1px solid #cfd2d8;
+        background: #ffffff;
+        color: #4a4f58;
+        border-radius: 4px;
+        padding: 6px 10px;
+        font-size: 12px;
+      }
+
+      .workspace {
+        padding: 22px 16px 36px;
+      }
+
+      .paper {
+        width: min(860px, calc(100% - 24px));
+        margin: 0 auto;
+        background: white;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.18);
+        padding: 72px 78px 88px;
+        box-sizing: border-box;
+        border: 1px solid #ddd;
+        font-family: "Times New Roman", serif;
+        line-height: 1.65;
+      }
+
+      h1,
+      h2 {
+        font-weight: 700;
+        margin: 0 0 18px;
+      }
+
+      h1 {
+        font-size: 30px;
+      }
+
+      h2 {
+        font-size: 20px;
+        margin-top: 30px;
+      }
+
+      p,
+      li {
+        font-size: 16px;
+      }
+
+      ul {
+        margin: 0;
+        padding-left: 24px;
+      }
+
+      .note {
+        margin-top: 34px;
+        padding: 14px 16px;
+        border: 1px solid #d9c59b;
+        background: #fbf4e3;
+        font-family: Arial, sans-serif;
+        font-size: 13px;
+        line-height: 1.55;
+      }
+
+      .footer {
+        margin-top: 22px;
+        color: #6b7280;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="topbar">
+      <div>Document Viewer</div>
+      <div>100% | Page 1 of 1</div>
+    </div>
+    <div class="ribbon">
+      <div class="chip">File</div>
+      <div class="chip">Home</div>
+      <div class="chip">Insert</div>
+      <div class="chip">Layout</div>
+      <div class="chip">Review</div>
+      <div class="chip">Share</div>
+      <div class="chip">Comments</div>
+      <div class="chip">Export</div>
+    </div>
+    <div class="workspace">
+      <div class="paper">
+        <h1>Employer Partnership Overview</h1>
+        <p>
+          MyHealth Haven supports employers seeking a guided pathway for planned,
+          elective, diagnostic, and preventative care coordination in Mexico.
+        </p>
+
+        <h2>Potential Value Areas</h2>
+        <ul>
+          <li>Transparent pre-travel planning and communication</li>
+          <li>Navigation support for employees and families</li>
+          <li>Coordination around records, travel timing, and recovery</li>
+          <li>Optional employer-facing reporting and onboarding materials</li>
+        </ul>
+
+        <h2>What Feels Off Here</h2>
+        <p>
+          Even when the content itself is fine, this kind of document viewer sits
+          inside a hard frame. It does not inherit the website's typography,
+          spacing, buttons, or responsive behavior.
+        </p>
+        <p>
+          On smaller screens, the result usually becomes a mini app inside the
+          page: toolbars, fixed paper width, extra scrolling, and a viewing
+          experience that feels disconnected from the rest of the site.
+        </p>
+
+        <div class="note">
+          This is a demo of the kind of "document trapped in a viewer" look that
+          tends to happen when a Word file is embedded instead of rebuilding the
+          content as an actual web page.
+        </div>
+
+        <div class="footer">
+          Embedded document demo only. Not intended as final production UX.
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
