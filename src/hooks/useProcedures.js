@@ -1,5 +1,10 @@
 import { useState, useEffect, useMemo } from 'react';
 
+const PROCEDURES_CACHE_KEY = 'my-health-haven:procedures:v1';
+const PROCEDURES_CACHE_TTL_MS = 5 * 60 * 1000;
+let proceduresCacheEntry = null;
+let proceduresRequestPromise = null;
+
 // Mock data for development fallback
 const MOCK_DATA = {
   procedures: [
@@ -157,6 +162,161 @@ const LEGACY_SEARCH_FIELDS = [
   'tags',
 ];
 
+const normalizeProceduresPayload = (result = {}) => ({
+  procedures: Array.isArray(result.procedures) ? result.procedures : [],
+  filters: result.filters || {},
+  columnConfig: result.columnConfig || {},
+  validation: result.validation || { warnings: [] },
+});
+
+const getProceduresStorage = () => {
+  if (typeof window === 'undefined') return null;
+
+  try {
+    const storage = window.localStorage;
+    const hasStorageMethods =
+      storage &&
+      typeof storage.getItem === 'function' &&
+      typeof storage.setItem === 'function' &&
+      typeof storage.removeItem === 'function';
+
+    return hasStorageMethods ? storage : null;
+  } catch {
+    return null;
+  }
+};
+
+const isValidProceduresCacheEntry = (entry) =>
+  !!entry &&
+  typeof entry.updatedAt === 'number' &&
+  entry.updatedAt > 0 &&
+  entry.data &&
+  Array.isArray(entry.data.procedures);
+
+const isFreshProceduresCacheEntry = (entry) =>
+  isValidProceduresCacheEntry(entry) && Date.now() - entry.updatedAt < PROCEDURES_CACHE_TTL_MS;
+
+const readProceduresCacheEntry = () => {
+  if (isValidProceduresCacheEntry(proceduresCacheEntry)) {
+    return proceduresCacheEntry;
+  }
+
+  const storage = getProceduresStorage();
+  if (!storage) return null;
+
+  try {
+    const rawValue = storage.getItem(PROCEDURES_CACHE_KEY);
+    if (!rawValue) return null;
+
+    const parsed = JSON.parse(rawValue);
+    if (!isValidProceduresCacheEntry(parsed)) {
+      storage.removeItem(PROCEDURES_CACHE_KEY);
+      return null;
+    }
+
+    proceduresCacheEntry = parsed;
+    return parsed;
+  } catch {
+    storage.removeItem(PROCEDURES_CACHE_KEY);
+    return null;
+  }
+};
+
+const writeProceduresCache = (payload) => {
+  const normalizedPayload = normalizeProceduresPayload(payload);
+  const nextEntry = {
+    updatedAt: Date.now(),
+    data: normalizedPayload,
+  };
+
+  proceduresCacheEntry = nextEntry;
+
+  const storage = getProceduresStorage();
+  if (storage) {
+    try {
+      storage.setItem(PROCEDURES_CACHE_KEY, JSON.stringify(nextEntry));
+    } catch {
+      // Ignore storage quota and privacy-mode failures.
+    }
+  }
+
+  return normalizedPayload;
+};
+
+const getErrorMessageFromResponse = async (response) => {
+  const contentType = response.headers.get('content-type');
+  let errorMessage = 'Failed to fetch procedures';
+
+  if (contentType && contentType.includes('application/json')) {
+    try {
+      const errorData = await response.json();
+      errorMessage = errorData.details || errorData.error || errorMessage;
+    } catch {
+      // Ignore invalid JSON and keep the default message.
+    }
+  }
+
+  return errorMessage;
+};
+
+const getDevelopmentFallbackData = () => writeProceduresCache(MOCK_DATA);
+
+const fetchProceduresData = async () => {
+  if (proceduresRequestPromise) {
+    return proceduresRequestPromise;
+  }
+
+  proceduresRequestPromise = (async () => {
+    const response = await fetch('/api/procedures');
+
+    if (!response.ok) {
+      const errorMessage = await getErrorMessageFromResponse(response);
+
+      if (import.meta.env.DEV) {
+        console.warn(`API Error (${errorMessage}), using mock data for development`);
+        return getDevelopmentFallbackData();
+      }
+
+      throw new Error(errorMessage);
+    }
+
+    const result = await response.json();
+    return writeProceduresCache(result);
+  })().finally(() => {
+    proceduresRequestPromise = null;
+  });
+
+  return proceduresRequestPromise;
+};
+
+export const prefetchProceduresData = async () => {
+  const cacheEntry = readProceduresCacheEntry();
+
+  if (isFreshProceduresCacheEntry(cacheEntry)) {
+    return cacheEntry.data;
+  }
+
+  try {
+    return await fetchProceduresData();
+  } catch (error) {
+    if (cacheEntry?.data) {
+      return cacheEntry.data;
+    }
+
+    throw error;
+  }
+};
+
+export const __resetProceduresCache = () => {
+  proceduresCacheEntry = null;
+  proceduresRequestPromise = null;
+
+  const storage = getProceduresStorage();
+  if (storage) {
+    storage.removeItem(PROCEDURES_CACHE_KEY);
+  }
+};
+
 export const useProcedures = () => {
   const [data, setData] = useState({
     procedures: [],
@@ -170,60 +330,58 @@ export const useProcedures = () => {
   const [selectedFilters, setSelectedFilters] = useState({});
 
   useEffect(() => {
+    let isMounted = true;
+
     const fetchProcedures = async () => {
-      try {
+      const cacheEntry = readProceduresCacheEntry();
+      const cachedData = cacheEntry?.data || null;
+      const cacheIsFresh = isFreshProceduresCacheEntry(cacheEntry);
+
+      if (cachedData) {
+        setData(cachedData);
+        setError(null);
+        setLoading(false);
+      } else {
         setLoading(true);
-        // Clean key cache to ensure we get fresh data if needed, though browser handles this
-        const response = await fetch('/api/procedures');
-        const contentType = response.headers.get('content-type');
+      }
 
-        if (!response.ok) {
-          // Try to parse error details from JSON response
-          let errorMessage = 'Failed to fetch procedures';
-          if (contentType && contentType.includes('application/json')) {
-            try {
-              const errorData = await response.json();
-              errorMessage = errorData.details || errorData.error || errorMessage;
-            } catch {
-              // Ignore JSON parse error, use default message
-            }
-          }
+      if (cacheIsFresh) {
+        return;
+      }
 
-          // In dev, fallback to mock data if API fails (e.g. 404/500)
-          if (import.meta.env.DEV) {
-            console.warn(`API Error (${errorMessage}), using mock data for development`);
-            setData(MOCK_DATA);
-            setLoading(false);
-            return;
-          }
+      try {
+        const nextData = await fetchProceduresData();
 
-          throw new Error(errorMessage);
-        }
+        if (!isMounted) return;
 
-        const result = await response.json();
-        setData({
-          procedures: result.procedures || [],
-          filters: result.filters || {},
-          columnConfig: result.columnConfig || {},
-          validation: result.validation || { warnings: [] },
-        });
+        setData(nextData);
         setError(null);
       } catch (err) {
+        if (!isMounted) return;
+
         console.error('Error in useProcedures:', err);
-        // Fallback to mock data in dev even on error
-        if (import.meta.env.DEV) {
+
+        if (cachedData) {
+          setError(null);
+        } else if (import.meta.env.DEV) {
           console.warn('Fetch error, using mock data for development');
-          setData(MOCK_DATA);
+          setData(getDevelopmentFallbackData());
           setError(null);
         } else {
           setError(err.message || 'Something went wrong');
         }
       } finally {
-        setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchProcedures();
+
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
   const searchColumns = useMemo(() => {

@@ -16,10 +16,10 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 import { useLanguage } from '../../context/LanguageContext';
 
 const FILTER_PRIORITY = [
-  'top_category',
-  'group_bucket',
-  'care_type',
   'section_group',
+  'top_category',
+  'care_type',
+  'group_bucket',
   'section',
   'tags',
 ];

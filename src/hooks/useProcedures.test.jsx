@@ -1,6 +1,6 @@
 import { renderHook, act, waitFor } from '@testing-library/react';
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { useProcedures } from './useProcedures';
+import { __resetProceduresCache, prefetchProceduresData, useProcedures } from './useProcedures';
 
 // Mock data
 const MOCK_RESPONSE = {
@@ -42,6 +42,26 @@ const MOCK_RESPONSE = {
 
 describe('useProcedures Hook', () => {
   beforeEach(() => {
+    let store = {};
+    Object.defineProperty(window, 'localStorage', {
+      configurable: true,
+      value: {
+        getItem: vi.fn((key) => store[key] ?? null),
+        setItem: vi.fn((key, value) => {
+          store[key] = String(value);
+        }),
+        removeItem: vi.fn((key) => {
+          delete store[key];
+        }),
+        clear: vi.fn(() => {
+          store = {};
+        }),
+      },
+    });
+
+    __resetProceduresCache();
+    window.localStorage.clear();
+
     global.fetch = vi.fn(() =>
       Promise.resolve({
         ok: true,
@@ -54,6 +74,7 @@ describe('useProcedures Hook', () => {
   });
 
   afterEach(() => {
+    __resetProceduresCache();
     vi.restoreAllMocks();
   });
 
@@ -175,5 +196,16 @@ describe('useProcedures Hook', () => {
     });
 
     expect(result.current.procedures).toHaveLength(0);
+  });
+
+  it('should hydrate from a fresh cache without refetching on mount', async () => {
+    await prefetchProceduresData();
+    expect(global.fetch).toHaveBeenCalledTimes(1);
+
+    const { result } = renderHook(() => useProcedures());
+
+    expect(result.current.loading).toBe(false);
+    expect(result.current.procedures).toHaveLength(3);
+    expect(global.fetch).toHaveBeenCalledTimes(1);
   });
 });

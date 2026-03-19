@@ -20,6 +20,7 @@ const TermsOfUse = React.lazy(() => import('./pages/TermsOfUse'));
 import { LanguageProvider } from './context/LanguageContext';
 import ScrollToHashElement from './components/ScrollToHashElement';
 import AppLoadingScreen from './components/AppLoadingScreen';
+import { prefetchProceduresData } from './hooks/useProcedures';
 
 const isCrawlerUserAgent = () => {
   if (typeof navigator === 'undefined') return false;
@@ -33,6 +34,28 @@ function App() {
 
   React.useEffect(() => {
     localStorage.removeItem('userJourney');
+  }, []);
+
+  React.useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+
+    const warmProceduresPage = () => {
+      void prefetchProceduresData().catch(() => {});
+    };
+
+    if ('requestIdleCallback' in window) {
+      const idleCallbackId = window.requestIdleCallback(warmProceduresPage, { timeout: 2000 });
+
+      return () => {
+        window.cancelIdleCallback(idleCallbackId);
+      };
+    }
+
+    const timeoutId = window.setTimeout(warmProceduresPage, 1200);
+
+    return () => {
+      window.clearTimeout(timeoutId);
+    };
   }, []);
 
   return (
