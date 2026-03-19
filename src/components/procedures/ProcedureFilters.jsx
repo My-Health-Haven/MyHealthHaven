@@ -24,12 +24,12 @@ const FILTER_PRIORITY = [
   'tags',
 ];
 const GROUP_CONFIG = {
-  care_type: { defaultExpanded: true, maxVisible: 8, searchable: false },
-  section_group: { defaultExpanded: false, maxVisible: 8, searchable: true },
+  care_type: { defaultExpanded: false, maxVisible: 8, searchable: false },
+  section_group: { defaultExpanded: true, maxVisible: 8, searchable: true },
   section: { defaultExpanded: false, maxVisible: 10, searchable: true },
   tags: { defaultExpanded: false, maxVisible: 12, searchable: true },
   top_category: { defaultExpanded: true, maxVisible: 10, searchable: false },
-  group_bucket: { defaultExpanded: true, maxVisible: 10, searchable: false },
+  group_bucket: { defaultExpanded: false, maxVisible: 10, searchable: false },
 };
 
 const ProcedureFilters = ({
