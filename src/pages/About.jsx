@@ -22,7 +22,7 @@ const pageContent = {
     ],
     promiseTitle: 'Our Promise',
     closing:
-      'We do not just book appointments, we curate a healing experience, ensuring every patient is seen, supported, and safe at every step of their medical journey abroad.',
+      'We do not just book consultations, we curate a healing experience, ensuring every patient is seen, supported, and safe at every step of their medical journey abroad.',
     supportLine:
       'From first inquiry to recovery, our role is to reduce uncertainty and make the full process easier to navigate.',
     estimateCta: 'Free Estimate',

@@ -172,7 +172,7 @@ const Navbar = () => {
     <>
     <Box sx={{ bgcolor: 'primary.main', color: 'white', py: 0.5 }}>
         <Container maxWidth="xl">
-            <Stack direction="row" spacing={3} justifyContent="flex-end" alignItems="center">
+            <Stack direction="row" spacing={3} justifyContent="flex-start" alignItems="center">
                 <Stack direction="row" spacing={1} alignItems="center">
                     <PhoneIcon fontSize="small" sx={{ fontSize: 16 }} />
                     <Typography variant="caption" component="a" href="tel:+12142763928" sx={{ color: 'white', textDecoration: 'none', fontWeight: 500 }}>
