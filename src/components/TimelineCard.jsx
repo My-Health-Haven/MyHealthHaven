@@ -49,7 +49,7 @@ const TimelineCard = ({
           px: 1.5,
           textAlign: 'center',
           position: 'relative',
-          minHeight: 70, // Fixed minimum height for consistent sizing
+          height: 90, // Fixed height to ensure all notches align perfectly across different cards
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -109,11 +109,11 @@ const TimelineCard = ({
           '&::before': {
             content: '""',
             position: 'absolute',
-            top: '30%',
+            top: '25%',
             left: '50%',
             transform: 'translateX(-50%)',
-            width: 80,
-            height: 80,
+            width: 110,
+            height: 110,
             background: `radial-gradient(circle, ${alpha(theme.palette.primary.light, 0.15)} 0%, transparent 70%)`,
             borderRadius: '50%',
             zIndex: 0,
@@ -123,8 +123,8 @@ const TimelineCard = ({
         {/* Icon */}
         <Box
           sx={{
-            width: 64,
-            height: 64,
+            width: 80,
+            height: 80,
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
@@ -132,7 +132,9 @@ const TimelineCard = ({
             position: 'relative',
             zIndex: 1,
             '& svg': {
-              fontSize: 48,
+              fontSize: 80,
+              width: '100%',
+              height: '100%',
               color: theme.palette.primary.main,
             },
             '& img': {

@@ -3,32 +3,35 @@ import { Box, Typography } from '@mui/material';
 import TimelineCard from './TimelineCard';
 import TimelineArrow from './TimelineArrow';
 import TimelineConnector from './TimelineConnector';
+import FadeIn from './FadeIn';
 import { useLanguage } from '../context/LanguageContext';
 
-// Import icons for each step
-import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
-import AssignmentIcon from '@mui/icons-material/Assignment';
-import VideoCallIcon from '@mui/icons-material/VideoCall';
-import FlightTakeoffIcon from '@mui/icons-material/FlightTakeoff';
-import DirectionsCarIcon from '@mui/icons-material/DirectionsCar';
-import PersonPinCircleIcon from '@mui/icons-material/PersonPinCircle';
-import FactCheckIcon from '@mui/icons-material/FactCheck';
-import LocalHospitalIcon from '@mui/icons-material/LocalHospital';
-import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
-import HomeIcon from '@mui/icons-material/Home';
+// Import custom illustrations for each step
+import {
+  PhoneIllustration,
+  ClipboardIllustration,
+  VirtualConsultIllustration,
+  CalendarIllustration,
+  TravelIllustration,
+  ArrivalIllustration,
+  EvalIllustration,
+  ProcedureIllustration,
+  RecoveryIllustration,
+  HomeIllustration
+} from './TimelineIllustrations';
 
 // Icons array for each step (0-indexed)
 const stepIcons = [
-  <PhoneInTalkIcon key="1" />,
-  <AssignmentIcon key="2" />,
-  <VideoCallIcon key="3" />,
-  <FlightTakeoffIcon key="4" />,
-  <DirectionsCarIcon key="5" />,
-  <PersonPinCircleIcon key="6" />,
-  <FactCheckIcon key="7" />,
-  <LocalHospitalIcon key="8" />,
-  <MonitorHeartIcon key="9" />,
-  <HomeIcon key="10" />,
+  <PhoneIllustration key="1" />,
+  <ClipboardIllustration key="2" />,
+  <VirtualConsultIllustration key="3" />,
+  <CalendarIllustration key="4" />,
+  <TravelIllustration key="5" />,
+  <ArrivalIllustration key="6" />,
+  <EvalIllustration key="7" />,
+  <ProcedureIllustration key="8" />,
+  <RecoveryIllustration key="9" />,
+  <HomeIllustration key="10" />,
 ];
 
 // Step variants (teal for certain steps)
@@ -130,32 +133,67 @@ const MedicalCareTimeline = () => {
         </Typography>
       </Box>
 
-      {/* Row 1 - 5 Cards */}
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          mb: 0,
-          overflowX: 'auto',
-          pb: 1,
-        }}
-      >
-        {renderRow(row1Steps)}
+      {/* --- DESKTOP LAYOUT (2 rows exactly as before) --- */}
+      <Box sx={{ display: { xs: 'none', md: 'block' } }}>
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            mb: 0,
+            overflowX: 'auto',
+            pb: 1,
+          }}
+        >
+          {renderRow(row1Steps)}
+        </Box>
+
+        {/* Connector between rows */}
+        <TimelineConnector />
+
+        {/* Row 2 - 5 Cards */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            overflowX: 'auto',
+            pb: 1,
+          }}
+        >
+          {renderRow(row2Steps)}
+        </Box>
       </Box>
 
-      {/* Connector between rows */}
-      <TimelineConnector />
-
-      {/* Row 2 - 5 Cards */}
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          overflowX: 'auto',
-          pb: 1,
+      {/* --- MOBILE LAYOUT (1 vertical column) --- */}
+      <Box 
+        sx={{ 
+          display: { xs: 'flex', md: 'none' }, 
+          flexDirection: 'column', 
+          alignItems: 'center', 
+          gap: 0,
+          mt: 2,
+          pb: 2
         }}
       >
-        {renderRow(row2Steps)}
+        {stepConfigs.map((step, index) => (
+          <React.Fragment key={`mobile-${step.stepNumber}-${index}`}>
+            <FadeIn style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+              <TimelineCard
+                stepNumber={step.stepNumber}
+                title={step.title}
+                timing={step.timing}
+                icon={step.icon}
+                caption={step.caption}
+                variant={step.variant}
+                sx={{ maxWidth: 320, width: '100%' }} // Let cards be wider on mobile
+              />
+            </FadeIn>
+            {index < stepConfigs.length - 1 && (
+              <FadeIn delay={150} style={{ display: 'flex', justifyContent: 'center' }}>
+                <TimelineArrow sx={{ transform: 'rotate(90deg)', my: 2 }} />
+              </FadeIn>
+            )}
+          </React.Fragment>
+        ))}
       </Box>
     </Box>
   );
