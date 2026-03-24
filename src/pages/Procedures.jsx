@@ -13,7 +13,6 @@ import {
   useTheme
 } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import CloseIcon from '@mui/icons-material/Close';
 import { useLanguage } from '../context/LanguageContext';
@@ -22,12 +21,26 @@ import { useProcedures } from '../hooks/useProcedures';
 import ProcedureCard from '../components/procedures/ProcedureCard';
 import ProcedureFilters from '../components/procedures/ProcedureFilters';
 import ProcedureSearch from '../components/procedures/ProcedureSearch';
+import Seo from '../seo/Seo';
+import {
+  createBreadcrumbSchema,
+  createCollectionPageSchema,
+} from '../seo/siteSeo';
 
 const Procedures = () => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [mobileOpen, setMobileOpen] = useState(false);
+  const isServerRender = typeof window === 'undefined';
+  const seoTitle =
+    language === 'es'
+      ? 'Procedimientos y rutas de atencion | MyHealth Haven'
+      : 'Procedures and Care Pathways | MyHealth Haven';
+  const seoDescription =
+    language === 'es'
+      ? 'Explore los tipos de procedimientos respaldados por MyHealth Haven. Busque y filtre por area medica, complejidad y mas.'
+      : 'Explore the types of procedures supported by MyHealth Haven. Search and filter by medical area, complexity, and more.';
 
   const {
     procedures,
@@ -68,13 +81,24 @@ const Procedures = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Procedures and Care Pathways | MyHealth Haven</title>
-        <meta
-          name="description"
-          content="Explore the types of procedures supported by MyHealth Haven. Search and filter by medical area, complexity, and more."
-        />
-      </Helmet>
+      <Seo
+        title={seoTitle}
+        description={seoDescription}
+        canonicalPath="/procedures"
+        image="/logo.jpg"
+        schema={[
+          createCollectionPageSchema({
+            path: '/procedures',
+            name: seoTitle,
+            description: seoDescription,
+            image: '/logo.jpg',
+          }),
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: language === 'es' ? 'Procedimientos' : 'Procedures', path: '/procedures' },
+          ]),
+        ]}
+      />
 
       <Box sx={{ py: { xs: 4, md: 8 }, bgcolor: 'background.default', minHeight: '80vh' }}>
         <Container maxWidth="xl" sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
@@ -146,7 +170,20 @@ const Procedures = () => {
 
             {/* Procedures Grid */}
             <Grid size={{ xs: 12, md: 9 }}>
-              {loading ? (
+              {loading && isServerRender ? (
+                <Box sx={{ p: 4, bgcolor: 'background.paper', borderRadius: 3 }}>
+                  <Typography variant="h5" gutterBottom>
+                    {language === 'es'
+                      ? 'Directorio de procedimientos en preparacion'
+                      : 'Procedure directory loading'}
+                  </Typography>
+                  <Typography variant="body1" color="text.secondary">
+                    {language === 'es'
+                      ? 'El listado completo de procedimientos se carga de forma dinamica. Use esta pagina para explorar areas de atencion compatibles y solicitar una estimacion personalizada.'
+                      : 'The full procedure list loads dynamically. Use this page to explore supported care categories and request a personalized estimate.'}
+                  </Typography>
+                </Box>
+              ) : loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', p: 8 }}>
                   <CircularProgress />
                 </Box>

@@ -11,10 +11,14 @@ import {
   CircularProgress,
   Autocomplete,
 } from '@mui/material';
-import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../context/LanguageContext';
 import { CITIES_BY_STATE, US_STATES } from '../data/usLocations';
 import { useProcedures } from '../hooks/useProcedures';
+import Seo from '../seo/Seo';
+import {
+  createBreadcrumbSchema,
+  createWebPageSchema,
+} from '../seo/siteSeo';
 
 const OTHER_PROCEDURE_OPTION = '__other_procedure__';
 const PHONE_MAX_DIGITS = 15;
@@ -77,6 +81,12 @@ const Estimate = () => {
   const { t, language } = useLanguage();
   const { procedures: allProcedures, loading: proceduresLoading } = useProcedures();
   const isSpanish = language === 'es';
+  const seoTitle = isSpanish
+    ? 'Estimacion gratuita de procedimiento | MyHealth Haven'
+    : 'Free Procedure Estimate | MyHealth Haven';
+  const seoDescription = isSpanish
+    ? 'Solicite una estimacion personalizada para procedimientos compatibles con planificacion clara y acompanamiento bilingue de MyHealth Haven.'
+    : 'Request a personalized estimate for supported procedures with transparent planning and bilingual guidance from MyHealth Haven.';
 
   const procedureSearchPlaceholder = isSpanish
     ? 'Busque y seleccione un procedimiento'
@@ -249,13 +259,24 @@ const Estimate = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Free Procedure Estimate | MyHealth Haven</title>
-        <meta
-          name="description"
-          content="Request a personalized estimate for supported procedures with transparent planning and bilingual guidance from MyHealth Haven."
-        />
-      </Helmet>
+      <Seo
+        title={seoTitle}
+        description={seoDescription}
+        canonicalPath="/estimate"
+        image="/EstimateBackgroundIMG.png"
+        schema={[
+          createWebPageSchema({
+            path: '/estimate',
+            name: seoTitle,
+            description: seoDescription,
+            image: '/EstimateBackgroundIMG.png',
+          }),
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: isSpanish ? 'Estimacion' : 'Estimate', path: '/estimate' },
+          ]),
+        ]}
+      />
 
       <Box
         sx={{
@@ -427,7 +448,6 @@ const Estimate = () => {
                     <TextField
                       fullWidth
                       required
-                      email
                       placeholder={t('estimatePage.form.email')}
                       name="email"
                       type="email"

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Box,
   Container,
@@ -12,13 +12,10 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Avatar,
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import ShieldIcon from '@mui/icons-material/Shield';
 import PersonIcon from '@mui/icons-material/Person';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
@@ -31,9 +28,15 @@ import FadeIn from '../components/FadeIn';
 import StarBorder from '../components/StarBorder';
 import GlassCard from '../components/GlassCard';
 import ErrorBoundary from '../components/ErrorBoundary';
+import Seo from '../seo/Seo';
+import {
+  createFAQSchema,
+  createOrganizationSchema,
+  createWebPageSchema,
+  createWebsiteSchema,
+} from '../seo/siteSeo';
 import { useLanguage } from '../context/LanguageContext';
 
-const Threads = React.lazy(() => import('../components/Threads'));
 const Marquee = React.lazy(() => import('../components/Marquee'));
 
 const LinkNav = ({ text }) => {
@@ -54,9 +57,33 @@ const LinkNav = ({ text }) => {
 const Home = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'), { defaultMatches: true });
-  const { t, getLocalizedHomeContent } = useLanguage();
+  const { language, t, getLocalizedHomeContent } = useLanguage();
+  const [hasMounted, setHasMounted] = useState(false);
 
   const activeContent = getLocalizedHomeContent();
+  const seoTitle =
+    language === 'es'
+      ? 'Navegacion de salud entre Estados Unidos y Mexico | MyHealth Haven'
+      : 'Health Navigation Between the U.S. and Mexico | MyHealth Haven';
+  const seoDescription =
+    language === 'es'
+      ? 'MyHealth Haven ayuda a pacientes de Estados Unidos a navegar atencion medica confiable en Mexico con apoyo bilingue, planificacion clara y acompanamiento antes y despues del tratamiento.'
+      : 'MyHealth Haven helps U.S. patients navigate trusted medical care in Mexico with bilingual support, transparent planning, and continuity before and after treatment.';
+  const faqItems = Array.from({ length: 13 }, (_, index) => ({
+    question: t(`home.faq${index + 1}Q`),
+    answer: t(`home.faq${index + 1}A`),
+  })).filter((item) => item.question && item.answer);
+  const seoSchema = [
+    createOrganizationSchema(),
+    createWebsiteSchema(),
+    createWebPageSchema({
+      path: '/',
+      name: seoTitle,
+      description: seoDescription,
+      image: '/cancun-skyline.jpg',
+    }),
+    createFAQSchema(faqItems),
+  ];
 
   // Home content is resolved per language in LanguageContext.
   const heroContent = activeContent.hero;
@@ -70,6 +97,12 @@ const Home = () => {
   const ctaRef = useRef(null);
 
   useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return undefined;
+
     let ticking = false;
 
     const handleScroll = () => {
@@ -120,17 +153,13 @@ const Home = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Health Navigation™ Between the U.S. and Mexico | MyHealth Haven</title>
-        <meta
-          name="description"
-          content="A guided, transparent way for Americans to access world-class medical care in Mexico, with U.S.-based Health Navigators™ at every step."
-        />
-        <meta 
-          name="keywords" 
-          content="knee replacement abroad, hip replacement Mexico, dental implants Cancun, cardiac diagnostics Mexico, orthopedic surgery overseas, affordable full mouth reconstruction, angiogram Cancun, heart scan Mexico, cataract surgery Mexico, executive physical abroad, longevity health checkup Cancun, stem cell treatment Cancun, full-body MRI Mexico, IVF Mexico, fertility treatment Cancun, cosmetic dentistry Mexico, MRI Cancun, egg freezing abroad, veneers Cancun, Invisalign Mexico, rhinoplasty Mexico, plastic surgery Cancun, cosmetic surgery abroad, breast augmentation Cancun, liposuction Mexico packages, executive health check Mexico, corporate wellness Cancun, sports injury surgery Mexico, eyelid surgery Mexico, anti-aging treatments Cancun, Botox Cancun, gastric sleeve Mexico, bariatric surgery Cancun, affordable knee replacement Mexico, hernia repair Cancun, gallbladder surgery Mexico, weight loss surgery Cancun, diabetes treatment Mexico, hypertension care abroad, medical tourism chronic disease, teeth whitening Mexico, mommy makeover Mexico, breast lift Cancun, hair transplant Mexico, Brazilian butt lift Cancun, tummy tuck Mexico" 
-        />
-      </Helmet>
+      <Seo
+        title={seoTitle}
+        description={seoDescription}
+        canonicalPath="/"
+        image="/cancun-skyline.jpg"
+        schema={seoSchema}
+      />
 
 
       {/* 1. Hero Section */}
@@ -324,17 +353,19 @@ const Home = () => {
       {/* 4. How It Works */}
       <Box id="how-it-works" ref={howItWorksRef} sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent', position: 'relative' }}>
         <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', zIndex: 0 }}>
+          {hasMounted ? (
             <React.Suspense fallback={null}>
-            <ErrorBoundary fallback={null}>
-            <Squares 
-              speed={0.5} 
-              squareSize={40}
-              direction='down' 
-              borderColor='rgba(0, 137, 123, 0.1)'
-              hoverFillColor='#8E24AA'
-            />
-            </ErrorBoundary>
+              <ErrorBoundary fallback={null}>
+                <Squares
+                  speed={0.5}
+                  squareSize={40}
+                  direction='down'
+                  borderColor='rgba(0, 137, 123, 0.1)'
+                  hoverFillColor='#8E24AA'
+                />
+              </ErrorBoundary>
             </React.Suspense>
+          ) : null}
         </Box>
         <Container maxWidth="lg" sx={{ px: { xs: 2, md: 6, lg: 10 }, position: 'relative', zIndex: 1 }}>
             <Box sx={{ textAlign: 'center', mb: 8 }}>
@@ -642,31 +673,35 @@ const TestimonialsContent = () => {
 
       {/* Remaining - Marquee Carousel */}
       <FadeIn delay={400}>
-        <React.Suspense fallback={null}>
-          <Marquee speed={40} pauseOnHover={true}>
-            {carouselItems.map((testi, i) => (
-              <Box key={i} sx={{ width: 400, flexShrink: 0 }}>
-                <GlassCard sx={{ 
-                  p: 3, 
-                  height: '100%',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'space-between',
-                  mx: 2 // Margin for spacing in marquee
-                }}>
-                  <Typography variant="body1" paragraph fontStyle="italic">"{testi.quote}"</Typography>
-                  <Box>
-                    <Typography variant="subtitle2" fontWeight="bold">{testi.name}</Typography>
-                    <Typography variant="caption" color="text.secondary">{testi.meta}</Typography>
-                  </Box>
-                </GlassCard>
-              </Box>
-            ))}
-          </Marquee>
-        </React.Suspense>
+        {hasMounted ? (
+          <React.Suspense fallback={null}>
+            <Marquee speed={40} pauseOnHover={true}>
+              {carouselItems.map((testi, i) => (
+                <Box key={i} sx={{ width: 400, flexShrink: 0 }}>
+                  <GlassCard sx={{
+                    p: 3,
+                    height: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'space-between',
+                    mx: 2 // Margin for spacing in marquee
+                  }}>
+                    <Typography variant="body1" paragraph fontStyle="italic">"{testi.quote}"</Typography>
+                    <Box>
+                      <Typography variant="subtitle2" fontWeight="bold">{testi.name}</Typography>
+                      <Typography variant="caption" color="text.secondary">{testi.meta}</Typography>
+                    </Box>
+                  </GlassCard>
+                </Box>
+              ))}
+            </Marquee>
+          </React.Suspense>
+        ) : null}
       </FadeIn>
     </>
   );
 };
 
 export default Home;
+
+

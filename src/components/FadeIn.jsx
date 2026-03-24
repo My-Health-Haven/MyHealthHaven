@@ -1,11 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
+const shouldBypassAnimation = () => {
+  if (typeof document === 'undefined') {
+    return true;
+  }
+
+  return document.documentElement.dataset.prerendered === 'true';
+};
+
 const FadeIn = ({ children, delay = 0, duration = 800, className = '', style = {} }) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(() => shouldBypassAnimation());
   const domRef = useRef();
 
   useEffect(() => {
+    if (shouldBypassAnimation() || typeof IntersectionObserver === 'undefined') {
+      setIsVisible(true);
+      return undefined;
+    }
+
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -33,7 +46,7 @@ const FadeIn = ({ children, delay = 0, duration = 800, className = '', style = {
       className={`transition-all ease-out ${className}`}
       style={{
         opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'scale(1)' : 'scale(0.95)',
+        transform: isVisible ? 'scale(1)' : 'scale(0.98)',
         transitionDuration: `${duration}ms`,
         transitionDelay: `${delay}ms`,
         ...style

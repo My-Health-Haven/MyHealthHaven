@@ -6,10 +6,14 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import { Helmet } from 'react-helmet-async';
 import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
 import FadeIn from '../components/FadeIn';
+import Seo from '../seo/Seo';
+import {
+  createBreadcrumbSchema,
+  createWebPageSchema,
+} from '../seo/siteSeo';
 import { useLanguage } from '../context/LanguageContext';
 
 const GOOGLE_DOC_URL =
@@ -23,12 +27,30 @@ const COPY = {
     viewerTitle: 'Employer Documentation',
     sampleDoc: 'Download Sample Document',
     openFrame: 'Open Document',
+    metaDescription:
+      'Employer resources for evaluating guided cross-border care, cost transparency, and patient support through MyHealth Haven.',
+    intro:
+      'Review employer-facing information about how MyHealth Haven supports teams exploring structured, guided access to care in Mexico.',
+    highlights: [
+      'Program overview and employer-facing documentation',
+      'How care coordination, travel support, and patient guidance work',
+      'A sample resource your team can download and review offline',
+    ],
   },
   es: {
     title: 'Para Empleadores',
-    viewerTitle: 'Documentación para Empleadores',
+    viewerTitle: 'Documentacion para Empleadores',
     sampleDoc: 'Descargar Documento de Ejemplo',
     openFrame: 'Abrir Documento',
+    metaDescription:
+      'Recursos para empleadores sobre atencion transfronteriza guiada, claridad de costos y acompanamiento al paciente con MyHealth Haven.',
+    intro:
+      'Revise informacion orientada a empleadores sobre como MyHealth Haven apoya a equipos que exploran acceso estructurado y guiado a atencion en Mexico.',
+    highlights: [
+      'Resumen del programa y documentacion orientada a empleadores',
+      'Como funcionan la coordinacion de atencion, el apoyo de viaje y el acompanamiento al paciente',
+      'Un recurso de ejemplo que su equipo puede descargar y revisar sin conexion',
+    ],
   },
 };
 
@@ -38,13 +60,24 @@ const ForEmployers = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{copy.title} | MyHealth Haven</title>
-        <meta
-          name="description"
-          content="Information and documentation for employers."
-        />
-      </Helmet>
+      <Seo
+        title={`${copy.title} | MyHealth Haven`}
+        description={copy.metaDescription}
+        canonicalPath="/employers"
+        image="/Corporate Medical Plaza.jpg"
+        schema={[
+          createWebPageSchema({
+            path: '/employers',
+            name: `${copy.title} | MyHealth Haven`,
+            description: copy.metaDescription,
+            image: '/Corporate Medical Plaza.jpg',
+          }),
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: copy.title, path: '/employers' },
+          ]),
+        ]}
+      />
 
       <Box
         sx={{
@@ -59,6 +92,21 @@ const ForEmployers = () => {
             <Typography variant="h1" sx={{ color: '#2d2018', mb: 6, textAlign: 'center' }}>
               {copy.title}
             </Typography>
+          </FadeIn>
+
+          <FadeIn delay={60}>
+            <Box sx={{ maxWidth: 840, mx: 'auto', mb: 5, textAlign: 'center' }}>
+              <Typography variant="body1" sx={{ color: '#4a3b30', lineHeight: 1.8 }}>
+                {copy.intro}
+              </Typography>
+              <Stack spacing={1.5} sx={{ mt: 3, textAlign: 'left' }}>
+                {copy.highlights.map((item) => (
+                  <Typography key={item} variant="body2" sx={{ color: '#4a3b30' }}>
+                    - {item}
+                  </Typography>
+                ))}
+              </Stack>
+            </Box>
           </FadeIn>
 
           <FadeIn delay={100}>
@@ -163,3 +211,4 @@ const ForEmployers = () => {
 };
 
 export default ForEmployers;
+

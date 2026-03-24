@@ -10,20 +10,13 @@ import {
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp"; // Fallback or extra icon
 
 import { useLanguage } from "../context/LanguageContext";
 
 const WhatsAppWidget = () => {
   const { t } = useLanguage();
-  // ... (keeping state and other logic the same)
-
-  // Actually, let's store Top/Left coordinates for 'fixed' position
-  // Setup default to bottom-right corner.
-  const [coords, setCoords] = useState(() => ({
-    top: window.innerHeight - 80,
-    left: window.innerWidth - 80,
-  }));
+  const [isReady, setIsReady] = useState(false);
+  const [coords, setCoords] = useState({ top: 20, left: 20 });
 
   const [isDragging, setIsDragging] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
@@ -42,6 +35,16 @@ const WhatsAppWidget = () => {
   useEffect(() => {
     coordsRef.current = coords;
   }, [coords]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    setCoords({
+      top: window.innerHeight - 80,
+      left: window.innerWidth - 80,
+    });
+    setIsReady(true);
+  }, []);
 
   const snapToNearestCorner = useCallback((currentLeft, currentTop) => {
     const windowWidth = window.innerWidth;
@@ -76,6 +79,8 @@ const WhatsAppWidget = () => {
   }, [BUBBLE_SIZE, MARGIN]);
 
   useEffect(() => {
+    if (!isReady) return undefined;
+
     // Initial snap to bottom-right on mount/resize logic could be added here
     const handleResize = () => {
       // Use ref to access latest coords without re-running effect
@@ -83,7 +88,7 @@ const WhatsAppWidget = () => {
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [snapToNearestCorner]);
+  }, [isReady, snapToNearestCorner]);
 
   const handlePointerDown = (e) => {
     // Only left click or touch
@@ -136,6 +141,10 @@ const WhatsAppWidget = () => {
       "noopener,noreferrer"
     );
   };
+
+  if (!isReady) {
+    return null;
+  }
 
   return (
     <>

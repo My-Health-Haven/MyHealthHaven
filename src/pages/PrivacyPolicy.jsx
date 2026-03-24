@@ -1,8 +1,12 @@
 import React from 'react';
 import { Box, Container, Typography } from '@mui/material';
 import ReactMarkdown from 'react-markdown';
-import { Helmet } from 'react-helmet-async';
 import FadeIn from '../components/FadeIn';
+import Seo from '../seo/Seo';
+import {
+  createBreadcrumbSchema,
+  createWebPageSchema,
+} from '../seo/siteSeo';
 
 const content = `
 **MyHealth Haven**  
@@ -12,7 +16,7 @@ const content = `
 
 **Last Updated:** January 1, 2026
 
-My Health Haven Management LLC (“My Health Haven,” “we,” “us,” or “our”) respects your privacy and is committed to protecting your personal information.
+My Health Haven Management LLC ("My Health Haven," "we," "us," or "our") respects your privacy and is committed to protecting your personal information.
 
 ---
 
@@ -82,7 +86,7 @@ Depending on your location, you may have rights to access, correct, or request d
 
 ---
 
-## **9. Children’s Privacy**
+## **9. Children's Privacy**
 
 The Site is not directed to children under 18, and we do not knowingly collect information from minors.
 
@@ -90,7 +94,7 @@ The Site is not directed to children under 18, and we do not knowingly collect i
 
 ## **10. Updates to This Policy**
 
-We may update this Privacy Policy periodically. The “Last Updated” date reflects the latest revision.
+We may update this Privacy Policy periodically. The "Last Updated" date reflects the latest revision.
 
 ---
 
@@ -99,16 +103,30 @@ We may update this Privacy Policy periodically. The “Last Updated” date refl
 Privacy questions or requests may be directed to:  
 **Info@andersonlg.com**
 
-© 2026 My Health Haven Management, LLC  - All Rights Reserved
+(c) 2026 My Health Haven Management, LLC  - All Rights Reserved
 `;
 
 const PrivacyPolicy = () => {
   return (
     <>
-      <Helmet>
-        <title>Privacy Policy | MyHealth Haven</title>
-        <meta name="description" content="Privacy Policy for MyHealth Haven." />
-      </Helmet>
+      <Seo
+        title="Privacy Policy | MyHealth Haven"
+        description="Privacy Policy for MyHealth Haven."
+        canonicalPath="/privacy"
+        image="/logo.jpg"
+        schema={[
+          createWebPageSchema({
+            path: '/privacy',
+            name: 'Privacy Policy | MyHealth Haven',
+            description: 'Privacy Policy for MyHealth Haven.',
+            image: '/logo.jpg',
+          }),
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: 'Privacy Policy', path: '/privacy' },
+          ]),
+        ]}
+      />
       <Box sx={{ py: 12 }}>
         <Container maxWidth="md">
           <FadeIn>
@@ -123,3 +141,4 @@ const PrivacyPolicy = () => {
 };
 
 export default PrivacyPolicy;
+

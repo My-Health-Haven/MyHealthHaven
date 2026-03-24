@@ -6,32 +6,64 @@ import {
   Button,
   Grid,
   Card,
-  Avatar,
   Stack,
   useTheme,
   useMediaQuery,
 } from '@mui/material';
-import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import FadeIn from '../components/FadeIn';
 import GlassCard from '../components/GlassCard';
+import Seo from '../seo/Seo';
+import {
+  createBreadcrumbSchema,
+  createServiceSchema,
+  createWebPageSchema,
+} from '../seo/siteSeo';
 import { useLanguage } from '../context/LanguageContext';
 
 const Navigators = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const seoTitle =
+    language === 'es'
+      ? 'Navegadores de Salud Personales | MyHealth Haven'
+      : 'Personal Health Navigators | MyHealth Haven';
+  const seoDescription =
+    language === 'es'
+      ? 'Conozca a los profesionales bilingues que lo acompanan en cada etapa de su atencion medica transfronteriza.'
+      : 'Meet the bilingual professionals who guide you through every step of your cross-border care journey.';
 
   return (
     <>
-      <Helmet>
-        <title>Personal Health Navigators™ | MyHealth Haven</title>
-        <meta
-          name="description"
-          content="Meet the bilingual professionals who guide you through every step of your cross-border care journey."
-        />
-      </Helmet>
+      <Seo
+        title={seoTitle}
+        description={seoDescription}
+        canonicalPath="/navigators"
+        image="/healthnav1.png"
+        schema={[
+          createWebPageSchema({
+            path: '/navigators',
+            name: seoTitle,
+            description: seoDescription,
+            type: 'AboutPage',
+            image: '/healthnav1.png',
+          }),
+          createServiceSchema({
+            path: '/navigators',
+            name: language === 'es' ? 'Navegadores de Salud Personales' : 'Personal Health Navigators',
+            description: seoDescription,
+            image: '/healthnav1.png',
+            serviceType:
+              language === 'es' ? 'Navegacion de salud bilingue' : 'Bilingual health navigation',
+          }),
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: language === 'es' ? 'Navegadores' : 'Navigators', path: '/navigators' },
+          ]),
+        ]}
+      />
 
       {/* 1. Hero Centered */}
       <Box sx={{ position: 'relative', py: { xs: 8, md: 12 }, textAlign: 'center', overflow: 'hidden' }}>
@@ -161,3 +193,4 @@ const Navigators = () => {
 };
 
 export default Navigators;
+

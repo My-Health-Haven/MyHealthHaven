@@ -1,21 +1,46 @@
 import React from 'react';
 import { Container, Typography, Box, Button, TextField, Stack } from '@mui/material';
-import { Helmet } from 'react-helmet-async';
 import GlassCard from '../components/GlassCard';
+import Seo from '../seo/Seo';
+import {
+  createBreadcrumbSchema,
+  createContactPageSchema,
+  createOrganizationSchema,
+} from '../seo/siteSeo';
 
 import { useLanguage } from '../context/LanguageContext';
 
 const Contact = () => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const seoTitle =
+    language === 'es'
+      ? 'Contacte a un Navegador de Salud | MyHealth Haven'
+      : 'Contact a Health Navigator | MyHealth Haven';
+  const seoDescription =
+    language === 'es'
+      ? 'Contacte a MyHealth Haven para hablar sobre opciones de procedimientos, logistica y apoyo personalizado para atencion transfronteriza.'
+      : 'Contact MyHealth Haven to discuss procedure options, logistics, and personalized cross-border care support.';
   return (
     <>
-      <Helmet>
-        <title>Contact a Health Navigator | MyHealth Haven</title>
-        <meta
-          name="description"
-          content="Contact MyHealth Haven to discuss procedure options, logistics, and personalized cross-border care support."
-        />
-      </Helmet>
+      <Seo
+        title={seoTitle}
+        description={seoDescription}
+        canonicalPath="/contact"
+        image="/logo.jpg"
+        schema={[
+          createContactPageSchema({
+            path: '/contact',
+            name: seoTitle,
+            description: seoDescription,
+            image: '/logo.jpg',
+          }),
+          createOrganizationSchema(),
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: language === 'es' ? 'Contacto' : 'Contact', path: '/contact' },
+          ]),
+        ]}
+      />
 
       <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>

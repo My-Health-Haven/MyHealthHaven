@@ -9,6 +9,9 @@ const __dirname = path.dirname(__filename);
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
+  ssr: {
+    noExternal: ['react-helmet-async'],
+  },
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),

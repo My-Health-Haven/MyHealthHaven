@@ -20,26 +20,32 @@ const loadGtm = () => {
 };
 
 const AnalyticsConsent = () => {
-  const [consent, setConsent] = useState(() => {
-    const savedConsent = localStorage.getItem(CONSENT_KEY);
-    if (savedConsent === 'granted' || savedConsent === 'denied') {
-      return savedConsent;
-    }
-    return 'pending';
-  });
+  const [isReady, setIsReady] = useState(false);
+  const [consent, setConsent] = useState('pending');
 
   useEffect(() => {
-    if (consent === 'granted') {
+    if (typeof window === 'undefined') return;
+
+    const savedConsent = window.localStorage.getItem(CONSENT_KEY);
+    if (savedConsent === 'granted' || savedConsent === 'denied') {
+      setConsent(savedConsent);
+    }
+
+    setIsReady(true);
+  }, []);
+
+  useEffect(() => {
+    if (isReady && consent === 'granted') {
       loadGtm();
     }
-  }, [consent]);
+  }, [consent, isReady]);
 
   const handleConsent = (nextConsent) => {
-    localStorage.setItem(CONSENT_KEY, nextConsent);
+    window.localStorage.setItem(CONSENT_KEY, nextConsent);
     setConsent(nextConsent);
   };
 
-  if (consent !== 'pending') {
+  if (!isReady || consent !== 'pending') {
     return null;
   }
 

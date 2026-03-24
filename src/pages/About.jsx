@@ -1,8 +1,13 @@
 import React from 'react';
 import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
-import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import FadeIn from '../components/FadeIn';
+import Seo from '../seo/Seo';
+import {
+  createBreadcrumbSchema,
+  createOrganizationSchema,
+  createWebPageSchema,
+} from '../seo/siteSeo';
 import { useLanguage } from '../context/LanguageContext';
 
 const pageContent = {
@@ -77,10 +82,26 @@ const About = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{content.metaTitle}</title>
-        <meta name="description" content={content.metaDescription} />
-      </Helmet>
+      <Seo
+        title={content.metaTitle}
+        description={content.metaDescription}
+        canonicalPath="/about"
+        image="/Corporate Medical Plaza.jpg"
+        schema={[
+          createOrganizationSchema(),
+          createWebPageSchema({
+            path: '/about',
+            name: content.metaTitle,
+            description: content.metaDescription,
+            type: 'AboutPage',
+            image: '/Corporate Medical Plaza.jpg',
+          }),
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: content.eyebrow, path: '/about' },
+          ]),
+        ]}
+      />
 
       <Box
         sx={{

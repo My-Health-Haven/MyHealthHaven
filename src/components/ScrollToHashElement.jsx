@@ -1,12 +1,10 @@
-import { useLayoutEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const ScrollToHashElement = () => {
   const location = useLocation();
 
-  // Use useLayoutEffect for immediate scrolling if possible, but fallback to useEffect handling
-  // We use styled scrolling, so 'smooth' behavior is nice.
-  useLayoutEffect(() => {
+  useEffect(() => {
     const { hash } = location;
 
     const removeHashCharacter = (str) => {

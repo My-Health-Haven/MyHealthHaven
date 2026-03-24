@@ -1,19 +1,19 @@
 import React from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { Box, Container, Typography, Button, Divider } from '@mui/material';
-import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '../context/LanguageContext';
 import FadeIn from '../components/FadeIn';
+import Seo from '../seo/Seo';
+import {
+  createArticleSchema,
+  createBreadcrumbSchema,
+} from '../seo/siteSeo';
+import { getLibraryArticleBySlug } from '../data/libraryContent';
 
 const ArticleDetail = () => {
   const { slug } = useParams();
-  const { t } = useLanguage();
-
-  // Retrieve the full list of articles from translation context
-  const articles = t('libraryPage.articles', { returnObjects: true });
-  
-  // Find the matching article
-  const article = articles?.find(a => a.slug === slug);
+  const { language } = useLanguage();
+  const article = getLibraryArticleBySlug(slug);
 
   // If not found, redirect to library (or could show a 404 component)
   if (!article) {
@@ -22,19 +22,32 @@ const ArticleDetail = () => {
 
   return (
     <>
-    <Helmet>
-      <title>{`${article.title} | MyHealth Haven Library`}</title>
-      <meta
-        name="description"
-        content={article.summary || 'Expert guidance and educational content from MyHealth Haven.'}
+      <Seo
+        title={`${article.title} | ${language === 'es' ? 'Biblioteca MyHealth Haven' : 'MyHealth Haven Library'}`}
+        description={article.summary || 'Expert guidance and educational content from MyHealth Haven.'}
+        canonicalPath={`/library/${article.slug}`}
+        image="/cancun-skyline.jpg"
+        type="article"
+        schema={[
+          createArticleSchema({
+            path: `/library/${article.slug}`,
+            headline: article.title,
+            description: article.summary || 'Expert guidance and educational content from MyHealth Haven.',
+            image: '/cancun-skyline.jpg',
+          }),
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: language === 'es' ? 'Biblioteca' : 'Library', path: '/library' },
+            { name: article.title, path: `/library/${article.slug}` },
+          ]),
+        ]}
       />
-    </Helmet>
-    <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'background.paper', minHeight: '80vh' }}>
-      <Container maxWidth="md">
-        <FadeIn>
-          <Button component={Link} to="/library" sx={{ mb: 4 }}>
-            &larr; Back to Library
-          </Button>
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'background.paper', minHeight: '80vh' }}>
+        <Container maxWidth="md">
+          <FadeIn>
+            <Button component={Link} to="/library" sx={{ mb: 4 }}>
+              &larr; Back to Library
+            </Button>
 
           <Typography variant="h2" component="h1" gutterBottom color="primary.main">
             {article.title}
@@ -64,20 +77,21 @@ const ArticleDetail = () => {
              </Typography>
           )}
 
-          <Divider sx={{ my: 6 }} />
-          
-          <Box sx={{ textAlign: 'center' }}>
-             <Typography variant="h5" gutterBottom>Ready to explore your options?</Typography>
-             <Button variant="contained" size="large" component={Link} to="/contact" sx={{ mt: 2 }}>
-                Speak with a Health Navigator™
-             </Button>
-          </Box>
+            <Divider sx={{ my: 6 }} />
+            
+            <Box sx={{ textAlign: 'center' }}>
+              <Typography variant="h5" gutterBottom>Ready to explore your options?</Typography>
+              <Button variant="contained" size="large" component={Link} to="/contact" sx={{ mt: 2 }}>
+                Speak with a Health Navigator
+              </Button>
+            </Box>
 
-        </FadeIn>
-      </Container>
-    </Box>
+          </FadeIn>
+        </Container>
+      </Box>
     </>
   );
 };
 
 export default ArticleDetail;
+

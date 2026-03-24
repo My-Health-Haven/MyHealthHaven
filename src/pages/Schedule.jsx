@@ -1,21 +1,44 @@
 import React from 'react';
 import { Container, Box, Typography } from '@mui/material';
-import { Helmet } from 'react-helmet-async';
 import GlassCard from '../components/GlassCard';
 import { useLanguage } from '../context/LanguageContext';
+import Seo from '../seo/Seo';
+import {
+  createBreadcrumbSchema,
+  createContactPageSchema,
+} from '../seo/siteSeo';
 
 const Schedule = () => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const seoTitle =
+    language === 'es'
+      ? 'Agende una consulta | MyHealth Haven'
+      : 'Schedule a Consultation | MyHealth Haven';
+  const seoDescription =
+    language === 'es'
+      ? 'Reserve una consulta con MyHealth Haven para revisar opciones de procedimientos, planificacion de viaje y proximos pasos.'
+      : 'Book a consultation with MyHealth Haven to review procedure options, travel planning, and next steps.';
 
   return (
     <>
-      <Helmet>
-        <title>Schedule a Consultation | MyHealth Haven</title>
-        <meta
-          name="description"
-          content="Book a consultation with MyHealth Haven to review procedure options, travel planning, and next steps."
-        />
-      </Helmet>
+      <Seo
+        title={seoTitle}
+        description={seoDescription}
+        canonicalPath="/schedule"
+        image="/logo.jpg"
+        schema={[
+          createContactPageSchema({
+            path: '/schedule',
+            name: seoTitle,
+            description: seoDescription,
+            image: '/logo.jpg',
+          }),
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: language === 'es' ? 'Agendar' : 'Schedule', path: '/schedule' },
+          ]),
+        ]}
+      />
 
       <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
         <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
@@ -23,8 +46,18 @@ const Schedule = () => {
               <Typography variant="h2" align="center" gutterBottom color="primary.main">
                 {t('schedulePage.title')}
               </Typography>
-               <Typography variant="h5" align="center" color="text.secondary" sx={{ mb: 6 }}>
+              <Typography variant="h5" align="center" color="text.secondary" sx={{ mb: 6 }}>
                  {t('schedulePage.subtitle')}
+              </Typography>
+              <Typography
+                variant="body1"
+                align="center"
+                color="text.secondary"
+                sx={{ maxWidth: 760, mx: 'auto', mb: 4 }}
+              >
+                {language === 'es'
+                  ? 'Use el calendario en vivo para elegir un horario que le permita revisar opciones de procedimientos, logistica de viaje y el mejor siguiente paso con nuestro equipo.'
+                  : 'Use the live calendar below to pick a time to review procedure options, travel logistics, and the best next step with our team.'}
               </Typography>
 
               <GlassCard sx={{ p: 0, overflow: 'hidden', height: '1200px' }}>

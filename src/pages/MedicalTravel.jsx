@@ -5,26 +5,60 @@ import {
   Typography,
   Button,
 } from '@mui/material';
-import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import FadeIn from '../components/FadeIn';
 import GlassCard from '../components/GlassCard';
 import MedicalCareTimeline from '../components/MedicalCareTimeline';
+import Seo from '../seo/Seo';
+import {
+  createBreadcrumbSchema,
+  createServiceSchema,
+  createWebPageSchema,
+} from '../seo/siteSeo';
 
 
 import { useLanguage } from '../context/LanguageContext';
 
 const MedicalTravel = () => {
-  const { t } = useLanguage();
+  const { language, t } = useLanguage();
+  const seoTitle =
+    language === 'es'
+      ? 'Viaje medico con acompanamiento | MyHealth Haven'
+      : 'Medical Travel with Guidance | MyHealth Haven';
+  const seoDescription =
+    language === 'es'
+      ? 'Entienda como funcionan el viaje, la seguridad y la logistica cuando recibe atencion en Mexico con MyHealth Haven.'
+      : 'Understand how travel, safety, and logistics work when you receive care in Mexico with MyHealth Haven.';
   return (
     <>
-      <Helmet>
-        <title>Medical Travel with Guidance | MyHealth Haven</title>
-        <meta
-          name="description"
-          content="Understand how travel, safety, and logistics work when you receive care in Mexico with MyHealth Haven."
-        />
-      </Helmet>
+      <Seo
+        title={seoTitle}
+        description={seoDescription}
+        canonicalPath="/medical-travel"
+        image="/medicaltravel.jpg"
+        schema={[
+          createWebPageSchema({
+            path: '/medical-travel',
+            name: seoTitle,
+            description: seoDescription,
+            image: '/medicaltravel.jpg',
+          }),
+          createServiceSchema({
+            path: '/medical-travel',
+            name: language === 'es' ? 'Viaje medico con acompanamiento' : 'Medical Travel with Guidance',
+            description: seoDescription,
+            image: '/medicaltravel.jpg',
+            serviceType:
+              language === 'es'
+                ? 'Planificacion de viaje medico internacional'
+                : 'International medical travel planning',
+          }),
+          createBreadcrumbSchema([
+            { name: 'Home', path: '/' },
+            { name: language === 'es' ? 'Viaje Medico' : 'Medical Travel', path: '/medical-travel' },
+          ]),
+        ]}
+      />
 
       {/* 1. Hero Split */}
       {/* 1. Hero Parallax */}

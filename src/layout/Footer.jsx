@@ -11,8 +11,52 @@ const HEALTH_NAVIGATOR_EMAIL = 'healthnavigator@andersonlg.com';
 const TIKTOK_URL = 'https://www.tiktok.com/@my.health.haven1';
 
 const Footer = () => {
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   const currentYear = new Date().getFullYear();
+  const footerCopy =
+    language === 'es'
+      ? {
+          slogan:
+            'Atencion medica transfronteriza guiada con apoyo bilingue, coordinacion clara y enfoque en el paciente.',
+          subSlogan: 'Ayudamos a pacientes de Estados Unidos a navegar opciones medicas confiables en Mexico.',
+          patients: 'Pacientes',
+          howItWorks: 'Como funciona',
+          procedures: 'Procedimientos',
+          medicalTravel: 'Viaje medico',
+          faqs: 'Preguntas frecuentes',
+          company: 'Empresa',
+          aboutUs: 'Nosotros',
+          forEmployers: 'Para empleadores',
+          forProviders: 'Para proveedores',
+          contact: 'Contacto',
+          speakWithNavigator: 'Hablar con un navigator',
+          whatsapp: 'WhatsApp',
+          privacyPolicy: 'Politica de privacidad',
+          termsOfUse: 'Terminos de uso',
+          legalDisclaimer:
+            'La informacion de este sitio es solo para fines informativos generales y no constituye consejo medico ni una oferta vinculante. Todos los servicios requieren consulta con profesionales de la salud calificados. El uso de este sitio no establece una relacion medico-paciente.',
+        }
+      : {
+          slogan:
+            'Guided cross-border care with bilingual support, clear coordination, and patient-first advocacy.',
+          subSlogan: 'We help U.S. patients navigate trusted medical options in Mexico with confidence.',
+          patients: 'Patients',
+          howItWorks: 'How It Works',
+          procedures: 'Procedures',
+          medicalTravel: 'Medical Travel',
+          faqs: 'FAQs',
+          company: 'Company',
+          aboutUs: 'About Us',
+          forEmployers: 'For Employers',
+          forProviders: 'For Providers',
+          contact: 'Contact',
+          speakWithNavigator: 'Speak With a Navigator',
+          whatsapp: 'WhatsApp',
+          privacyPolicy: 'Privacy Policy',
+          termsOfUse: 'Terms of Use',
+          legalDisclaimer:
+            'Information on this site is provided for general informational purposes only and is not medical advice or a binding offer. All services require consultation with qualified healthcare professionals. Use of this site does not establish a physician-patient relationship.',
+        };
   const copyrightText =
     language === 'es'
       ? `\u00A9 ${currentYear} My Health Haven Management, LLC - Todos los derechos reservados.`
@@ -30,43 +74,43 @@ const Footer = () => {
               </Typography>
             </Box>
             <Typography variant="body2" color="text.secondary" paragraph>
-              {t('footer.slogan')}
+              {footerCopy.slogan}
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {t('footer.subSlogan')}
+              {footerCopy.subSlogan}
             </Typography>
           </Grid>
           
           <Grid size={{ xs: 6, md: 2 }}>
             <Typography variant="subtitle2" color="text.primary" gutterBottom fontWeight="bold">
-              {t('footer.patients')}
+              {footerCopy.patients}
             </Typography>
             <Stack spacing={1}>
-              <MuiLink component={Link} to="/#how-it-works" color="text.secondary" variant="body2" underline="hover">{t('footer.howItWorks')}</MuiLink>
-              <MuiLink component={Link} to="/procedures" color="text.secondary" variant="body2" underline="hover">{t('footer.procedures')}</MuiLink>
-              <MuiLink component={Link} to="/medical-travel" color="text.secondary" variant="body2" underline="hover">{t('footer.medicalTravel')}</MuiLink>
-              <MuiLink component={Link} to="/#faq" color="text.secondary" variant="body2" underline="hover">{t('footer.faqs')}</MuiLink>
+              <MuiLink component={Link} to="/#how-it-works" color="text.secondary" variant="body2" underline="hover">{footerCopy.howItWorks}</MuiLink>
+              <MuiLink component={Link} to="/procedures" color="text.secondary" variant="body2" underline="hover">{footerCopy.procedures}</MuiLink>
+              <MuiLink component={Link} to="/medical-travel" color="text.secondary" variant="body2" underline="hover">{footerCopy.medicalTravel}</MuiLink>
+              <MuiLink component={Link} to="/#faq" color="text.secondary" variant="body2" underline="hover">{footerCopy.faqs}</MuiLink>
             </Stack>
           </Grid>
 
           <Grid size={{ xs: 6, md: 2 }}>
             <Typography variant="subtitle2" color="text.primary" gutterBottom fontWeight="bold">
-              {t('footer.company')}
+              {footerCopy.company}
             </Typography>
             <Stack spacing={1}>
-              <MuiLink component={Link} to="/about" color="text.secondary" variant="body2" underline="hover">{t('footer.aboutUs')}</MuiLink>
-              <MuiLink component={Link} to="/employers" color="text.secondary" variant="body2" underline="hover">{t('footer.forEmployers')}</MuiLink>
-              <MuiLink component={Link} to="/providers" color="text.secondary" variant="body2" underline="hover">{t('footer.forProviders')}</MuiLink>
+              <MuiLink component={Link} to="/about" color="text.secondary" variant="body2" underline="hover">{footerCopy.aboutUs}</MuiLink>
+              <MuiLink component={Link} to="/employers" color="text.secondary" variant="body2" underline="hover">{footerCopy.forEmployers}</MuiLink>
+              <MuiLink component={Link} to="/providers" color="text.secondary" variant="body2" underline="hover">{footerCopy.forProviders}</MuiLink>
             </Stack>
           </Grid>
 
           <Grid size={{ xs: 12, md: 4 }}>
             <Typography variant="subtitle2" color="text.primary" gutterBottom fontWeight="bold">
-              {t('footer.contact')}
+              {footerCopy.contact}
             </Typography>
             <Stack spacing={1}>
-              <MuiLink component={Link} to="/contact" color="text.secondary" variant="body2" underline="hover">{t('footer.speakWithNavigator')}</MuiLink>
-              <MuiLink href="https://wa.me/12142763928" color="text.secondary" variant="body2" underline="hover" target="_blank" rel="noopener noreferrer">{t('footer.whatsapp')}</MuiLink>
+              <MuiLink component={Link} to="/contact" color="text.secondary" variant="body2" underline="hover">{footerCopy.speakWithNavigator}</MuiLink>
+              <MuiLink href="https://wa.me/12142763928" color="text.secondary" variant="body2" underline="hover" target="_blank" rel="noopener noreferrer">{footerCopy.whatsapp}</MuiLink>
               <MuiLink href={TIKTOK_URL} color="text.secondary" variant="body2" underline="hover" target="_blank" rel="noopener noreferrer">
                 TikTok
               </MuiLink>
@@ -108,15 +152,15 @@ const Footer = () => {
 
         <Box sx={{ mt: 5, pt: 3, borderTop: '1px solid', borderColor: 'divider' }}>
            <Typography variant="caption" color="text.secondary" paragraph align="center">
-              Information on this site is provided for general informational purposes only and is not medical advice or a binding offer. All services require consultation with qualified healthcare professionals. Use of this site does not establish a physician-patient relationship.
+              {footerCopy.legalDisclaimer}
            </Typography>
            <Box sx={{ display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap' }}>
           <Typography variant="body2" color="text.secondary">
             {copyrightText}
           </Typography>
           <Box sx={{ display: 'flex', gap: 3 }}>
-            <MuiLink component={Link} to="/privacy" color="text.secondary" variant="body2" underline="hover">{t('footer.privacyPolicy')}</MuiLink>
-            <MuiLink component={Link} to="/terms" color="text.secondary" variant="body2" underline="hover">{t('footer.termsOfUse')}</MuiLink>
+            <MuiLink component={Link} to="/privacy" color="text.secondary" variant="body2" underline="hover">{footerCopy.privacyPolicy}</MuiLink>
+            <MuiLink component={Link} to="/terms" color="text.secondary" variant="body2" underline="hover">{footerCopy.termsOfUse}</MuiLink>
 
           </Box>
           </Box>

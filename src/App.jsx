@@ -1,93 +1,14 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import ErrorBoundary from './components/ErrorBoundary';
-import Layout from './layout/Layout';
-import Home from './pages/Home';
-const Navigators = React.lazy(() => import('./pages/Navigators'));
-const MedicalTravel = React.lazy(() => import('./pages/MedicalTravel'));
-const Procedures = React.lazy(() => import('./pages/Procedures'));
-const ComingSoon = React.lazy(() => import('./pages/ComingSoon'));
-const ForEmployers = React.lazy(() => import('./pages/ForEmployers'));
-const About = React.lazy(() => import('./pages/About'));
-const Library = React.lazy(() => import('./pages/Library'));
-const ArticleDetail = React.lazy(() => import('./pages/ArticleDetail'));
-const NotFound = React.lazy(() => import('./pages/NotFound'));
-const Estimate = React.lazy(() => import('./pages/Estimate'));
-const Contact = React.lazy(() => import('./pages/Contact'));
-const Schedule = React.lazy(() => import('./pages/Schedule'));
-const PrivacyPolicy = React.lazy(() => import('./pages/PrivacyPolicy'));
-const TermsOfUse = React.lazy(() => import('./pages/TermsOfUse'));
-import { LanguageProvider } from './context/LanguageContext';
-import ScrollToHashElement from './components/ScrollToHashElement';
-import AppLoadingScreen from './components/AppLoadingScreen';
-import { prefetchProceduresData } from './hooks/useProcedures';
-
-const isCrawlerUserAgent = () => {
-  if (typeof navigator === 'undefined') return false;
-  return /(bot|crawler|spider|slurp|bingpreview|facebookexternalhit|linkedinbot|twitterbot|whatsapp|telegrambot|discordbot|slackbot)/i.test(
-    navigator.userAgent
-  );
-};
+import { HelmetProvider } from 'react-helmet-async';
+import { BrowserRouter } from 'react-router-dom';
+import AppShell from './AppShell';
 
 function App() {
-  const showLoader = React.useMemo(() => !isCrawlerUserAgent(), []);
-
-  React.useEffect(() => {
-    localStorage.removeItem('userJourney');
-  }, []);
-
-  React.useEffect(() => {
-    if (typeof window === 'undefined') return undefined;
-
-    const warmProceduresPage = () => {
-      void prefetchProceduresData().catch(() => {});
-    };
-
-    if ('requestIdleCallback' in window) {
-      const idleCallbackId = window.requestIdleCallback(warmProceduresPage, { timeout: 2000 });
-
-      return () => {
-        window.cancelIdleCallback(idleCallbackId);
-      };
-    }
-
-    const timeoutId = window.setTimeout(warmProceduresPage, 1200);
-
-    return () => {
-      window.clearTimeout(timeoutId);
-    };
-  }, []);
-
   return (
-    <ErrorBoundary>
-      <LanguageProvider>
-        <Router future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
-          <ScrollToHashElement />
-          <React.Suspense fallback={showLoader ? <AppLoadingScreen /> : null}>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Home />} />
-                <Route path="navigators" element={<Navigators />} />
-                <Route path="medical-travel" element={<MedicalTravel />} />
-                <Route path="procedures" element={<Procedures />} />
-                <Route path="procedures/:slug" element={<ComingSoon />} />
-                <Route path="library" element={<Library />} />
-                <Route path="library/:slug" element={<ArticleDetail />} />
-                <Route path="estimate" element={<Estimate />} />
-                <Route path="contact" element={<Contact />} />
-                <Route path="schedule" element={<Schedule />} />
-                <Route path="privacy" element={<PrivacyPolicy />} />
-                <Route path="terms" element={<TermsOfUse />} />
-                <Route path="about" element={<About />} />
-                <Route path="employers" element={<ForEmployers />} />
-                <Route path="providers" element={<ComingSoon />} />
-                <Route path="*" element={<NotFound />} />
-              </Route>
-            </Routes>
-          </React.Suspense>
-        </Router>
-      </LanguageProvider>
-    </ErrorBoundary>
+    <HelmetProvider>
+      <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+        <AppShell />
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 

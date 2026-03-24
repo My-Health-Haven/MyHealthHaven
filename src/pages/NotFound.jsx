@@ -1,14 +1,16 @@
 import React from 'react';
 import { Box, Container, Typography, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+import Seo from '../seo/Seo';
 
 const NotFound = () => {
   return (
     <>
-      <Helmet>
-        <title>Page Not Found | MyHealth Haven</title>
-      </Helmet>
+      <Seo
+        title="Page Not Found | MyHealth Haven"
+        description="The page you requested could not be found."
+        robots="noindex, follow"
+      />
       <Box sx={{ py: 12, textAlign: 'center', minHeight: '60vh', display: 'flex', alignItems: 'center' }}>
         <Container maxWidth="sm">
           <Typography variant="h1" color="primary.main" sx={{ fontSize: '6rem', fontWeight: 900 }}>404</Typography>
