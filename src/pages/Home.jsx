@@ -435,7 +435,7 @@ const Home = () => {
             <Typography variant="h2" color="primary.main" align="center" gutterBottom>{t('home.testimonialsTitle')}</Typography>
             <Typography variant="h5" align="center" color="text.secondary" sx={{ mb: 8 }}>{t('home.testimonialsSubtitle')}</Typography>
             
-            <TestimonialsContent />
+            <TestimonialsContent hasMounted={hasMounted} />
         </Container>
       </Box>
 
@@ -626,7 +626,7 @@ const Home = () => {
   );
 };
 
-const TestimonialsContent = () => {
+const TestimonialsContent = ({ hasMounted }) => {
   const [shuffled, setShuffled] = React.useState(null);
   const { t, language } = useLanguage();
 
