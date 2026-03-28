@@ -405,6 +405,112 @@ export const translations = {
       title: 'Find your procedure. Keep your independence.',
       subtitle:
         'Browse our procedures to get an idea of our broad offering. Then decide...',
+      filters: 'Filters',
+      clearAll: 'Clear all',
+      searchPlaceholder: 'Search procedures, categories, or keywords...',
+    },
+    contactPage: {
+      title: 'Speak with a Health Navigator',
+      subtitle: 'Schedule a confidential conversation to discuss your options.',
+      formName: 'Name',
+      formEmail: 'Email',
+      formPhone: 'Phone (Optional)',
+      formMessage: 'How can we help?',
+      submitButton: 'Request Consultation',
+    },
+    estimatePage: {
+      title: 'Get a Free Estimate',
+      subtitle: 'A detailed quote will be emailed to you.',
+      form: {
+        name: 'Name',
+        email: 'Email',
+        phone: 'Phone Number',
+        city: 'City',
+        state: 'State',
+        procedure: 'Procedure of Interest',
+        procedurePlaceholder: 'Describe the procedure you are interested in...',
+        selectStateFirst: 'Select a State first',
+        submit: 'Request Estimate',
+        submitting: 'Submitting...',
+      },
+      feedback: {
+        success: 'Thanks. Your estimate request was sent successfully.',
+        error: 'We could not send your request right now. Please try again.',
+        rateLimit: 'Too many submissions. Please wait a minute and try again.',
+      },
+      disclaimer:
+        '* This is a preliminary estimate. Your final quote will be provided after a medical review.',
+    },
+    schedulePage: {
+      title: 'Schedule Your Appointment',
+      subtitle: 'Book a time with your Health Navigator',
+    },
+    whatsapp: {
+      title: 'WhatsApp Chat',
+      placeholder: 'Hello! I have a question...',
+      start: 'Start Chat',
+    },
+    misc: {
+      comingSoon: 'Coming Soon',
+      comingSoonDesc: 'We are working hard to bring you this content. Please check back shortly.',
+      returnHome: 'Return Home',
+    },
+  },
+  es: {
+    proceduresPage: {
+      title: 'Encuentre su procedimiento. Mantenga su autonomia.',
+      subtitle:
+        'Explore nuestros procedimientos para entender la oferta general y luego decidir el siguiente paso.',
+      filters: 'Filtros',
+      clearAll: 'Borrar todo',
+      searchPlaceholder: 'Buscar procedimientos, categorias o palabras clave...',
+    },
+    contactPage: {
+      title: 'Hable con un Navegador de Salud',
+      subtitle: 'Programe una conversacion confidencial para discutir sus opciones.',
+      formName: 'Nombre',
+      formEmail: 'Correo Electronico',
+      formPhone: 'Telefono (Opcional)',
+      formMessage: 'Como podemos ayudar?',
+      submitButton: 'Solicitar Consulta',
+    },
+    estimatePage: {
+      title: 'Obtenga un Presupuesto Gratis',
+      subtitle: 'Se le enviara un presupuesto detallado por correo electronico.',
+      form: {
+        name: 'Nombre',
+        email: 'Correo Electronico',
+        phone: 'Numero de Telefono',
+        city: 'Ciudad',
+        state: 'Estado',
+        procedure: 'Procedimiento de Interes',
+        procedurePlaceholder: 'Describa el procedimiento que le interesa...',
+        selectStateFirst: 'Seleccione primero un estado',
+        submit: 'Solicitar Presupuesto',
+        submitting: 'Enviando...',
+      },
+      feedback: {
+        success: 'Gracias. Su solicitud de presupuesto fue enviada correctamente.',
+        error: 'No pudimos enviar su solicitud. Intente de nuevo.',
+        rateLimit: 'Demasiadas solicitudes. Espere un minuto e intente de nuevo.',
+      },
+      disclaimer:
+        '* Esta es una estimacion preliminar. Su cotizacion final sera proporcionada despues de una revision medica.',
+    },
+    schedulePage: {
+      title: 'Programe su Cita',
+      subtitle: 'Reserve una hora con su Navegador de Salud',
+    },
+    whatsapp: {
+      title: 'Chat de WhatsApp',
+      placeholder: 'Hola! Tengo una pregunta...',
+      start: 'Iniciar Chat',
+    },
+    misc: {
+      comingSoon: 'Proximamente',
+      comingSoonDesc:
+        'Estamos trabajando duro para traerle este contenido. Por favor revise pronto.',
+      returnHome: 'Volver al Inicio',
     },
   },
 };

@@ -23,6 +23,22 @@ const getInitialLanguage = () => {
   return storedLanguage || getBrowserLanguage();
 };
 
+const getNestedTranslation = (languageData, key) => {
+  if (!languageData || typeof key !== 'string') return undefined;
+
+  const keys = key.split('.');
+  let value = languageData;
+
+  for (const keyPart of keys) {
+    if (value == null || !Object.hasOwn(value, keyPart)) {
+      return undefined;
+    }
+    value = value[keyPart];
+  }
+
+  return value;
+};
+
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState(getInitialLanguage);
 
@@ -43,19 +59,11 @@ export const LanguageProvider = ({ children }) => {
   // Translation helper
   const t = useCallback((key) => {
     const activeLanguage = normalizeLanguage(language) || FALLBACK_LANGUAGE;
-    const langData = translations[activeLanguage] || translations[FALLBACK_LANGUAGE];
-    
-    // Support nested keys like 'navbar.home'
-    const keys = key.split('.');
-    let value = langData;
-    for (const k of keys) {
-       if (value && value[k]) {
-         value = value[k];
-       } else {
-         return key; // Return key if not found
-       }
-    }
-    return value;
+    const activeTranslation = getNestedTranslation(translations[activeLanguage], key);
+    if (activeTranslation !== undefined) return activeTranslation;
+
+    const fallbackTranslation = getNestedTranslation(translations[FALLBACK_LANGUAGE], key);
+    return fallbackTranslation !== undefined ? fallbackTranslation : key;
   }, [language]);
 
   const getLocalizedHomeContent = useCallback(() => {
