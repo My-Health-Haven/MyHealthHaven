@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary';
 import ScrollToHashElement from './components/ScrollToHashElement';
 import { LanguageProvider } from './context/LanguageContext';
@@ -8,7 +8,6 @@ import Layout from './layout/Layout';
 import About from './pages/About';
 import ArticleDetail from './pages/ArticleDetail';
 import ComingSoon from './pages/ComingSoon';
-import Contact from './pages/Contact';
 import Estimate from './pages/Estimate';
 import ForEmployers from './pages/ForEmployers';
 import Home from './pages/Home';
@@ -63,7 +62,7 @@ function AppShell() {
             <Route path="library" element={<Library />} />
             <Route path="library/:slug" element={<ArticleDetail />} />
             <Route path="estimate" element={<Estimate />} />
-            <Route path="contact" element={<Contact />} />
+            <Route path="contact" element={<Navigate to="/estimate" replace />} />
             <Route path="schedule" element={<Schedule />} />
             <Route path="privacy" element={<PrivacyPolicy />} />
             <Route path="terms" element={<TermsOfUse />} />

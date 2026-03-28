@@ -198,8 +198,8 @@ const Home = () => {
               </Typography>
 
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 4 }}>
-                <Button variant="contained" size="large" component={Link} to="/contact">
-                  {t('home.speakWithNavigator')}
+                <Button variant="contained" size="large" component={Link} to="/schedule">
+                  {t('home.scheduleConsultation')}
                 </Button>
                 
                 <Button variant="outlined" size="large" component={Link} to="/estimate">
@@ -396,7 +396,7 @@ const Home = () => {
                         <Typography variant="body1" color="text.secondary" paragraph sx={{ maxWidth: 500, mx: 'auto' }}>{item.body}</Typography>
                         {item.cta && (
                           <Box sx={{ mt: 2 }}>
-                            <Button component={Link} to="/contact" variant="contained" color="primary" size="large">
+                            <Button component={Link} to="/schedule" variant="contained" color="primary" size="large">
                               {t('home.scheduleCall')}
                             </Button>
                           </Box>
