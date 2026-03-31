@@ -6,7 +6,6 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
 import FadeIn from '../components/FadeIn';
 import Seo from '../seo/Seo';
@@ -25,7 +24,6 @@ const COPY = {
   en: {
     title: 'For Employers',
     viewerTitle: 'Employer Documentation',
-    sampleDoc: 'Download Sample Document',
     openFrame: 'Open Document',
     metaDescription:
       'Employer resources for evaluating guided cross-border care, cost transparency, and patient support through MyHealth Haven.',
@@ -40,7 +38,6 @@ const COPY = {
   es: {
     title: 'Para Empleadores',
     viewerTitle: 'Documentacion para Empleadores',
-    sampleDoc: 'Descargar Documento de Ejemplo',
     openFrame: 'Abrir Documento',
     metaDescription:
       'Recursos para empleadores sobre atencion transfronteriza guiada, claridad de costos y acompanamiento al paciente con MyHealth Haven.',
@@ -154,23 +151,6 @@ const ForEmployers = () => {
                     }}
                   >
                     {copy.openFrame}
-                  </Button>
-                  <Button
-                    size="small"
-                    variant="contained"
-                    href="/employers-benefits-sample.rtf"
-                    startIcon={<DownloadRoundedIcon />}
-                    sx={{
-                      bgcolor: '#2d2018',
-                      color: 'white',
-                      boxShadow: 'none',
-                      '&:hover': {
-                        bgcolor: '#1a120e',
-                        boxShadow: '0 4px 12px rgba(45,32,24,0.2)',
-                      },
-                    }}
-                  >
-                    {copy.sampleDoc}
                   </Button>
                 </Stack>
               </Box>
