@@ -2,6 +2,7 @@ import React from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import ErrorBoundary from './components/ErrorBoundary';
 import ScrollToHashElement from './components/ScrollToHashElement';
+import ScrollToTop from './components/ScrollToTop';
 import { LanguageProvider } from './context/LanguageContext';
 import { prefetchProceduresData } from './hooks/useProcedures';
 import Layout from './layout/Layout';
@@ -51,6 +52,7 @@ function AppShell() {
   return (
     <ErrorBoundary>
       <LanguageProvider>
+        <ScrollToTop />
         <ScrollToHashElement />
         <Routes>
           <Route path="/" element={<Layout />}>
