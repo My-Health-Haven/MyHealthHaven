@@ -6,7 +6,6 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import DownloadRoundedIcon from '@mui/icons-material/DownloadRounded';
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
 import FadeIn from '../components/FadeIn';
 import Seo from '../seo/Seo';
@@ -17,44 +16,42 @@ import {
 import { useLanguage } from '../context/LanguageContext';
 
 const GOOGLE_DOC_URL =
-  'https://docs.google.com/document/d/1jWAls4pNKGwofLfdTIMVhhCrZvdIfwFF9vjJShqG7qs/edit?usp=sharing';
+  'https://docs.google.com/document/d/1nIfNNsPdV0ZApVAkHKaeWnFv-oR8EI9YqQSOMeCWFTY/edit?usp=sharing';
 const GOOGLE_DOC_PREVIEW_URL =
-  'https://docs.google.com/document/d/1jWAls4pNKGwofLfdTIMVhhCrZvdIfwFF9vjJShqG7qs/preview';
+  'https://docs.google.com/document/d/1nIfNNsPdV0ZApVAkHKaeWnFv-oR8EI9YqQSOMeCWFTY/preview';
 
 const COPY = {
   en: {
-    title: 'For Employers',
-    viewerTitle: 'Employer Documentation',
-    sampleDoc: 'Download Sample Document',
+    title: 'For Providers',
+    viewerTitle: 'Provider Documentation',
     openFrame: 'Open Document',
     metaDescription:
-      'Employer resources for evaluating guided cross-border care, cost transparency, and patient support through MyHealth Haven.',
+      'Provider resources for partnering with MyHealth Haven on guided cross-border care, patient coordination, and quality standards.',
     intro:
-      'Review employer-facing information about how MyHealth Haven supports teams exploring structured, guided access to care in Mexico.',
+      'Review provider-facing information about how MyHealth Haven partners with medical professionals and facilities to deliver structured, guided cross-border care.',
     highlights: [
-      'Program overview and employer-facing documentation',
-      'How care coordination, travel support, and patient guidance work',
-      'A sample resource your team can download and review offline',
+      'Partnership overview and provider-facing documentation',
+      'How care coordination, quality standards, and patient handoff work',
+      'Details on credentialing, vetting, and ongoing performance review',
     ],
   },
   es: {
-    title: 'Para Empleadores',
-    viewerTitle: 'Documentacion para Empleadores',
-    sampleDoc: 'Descargar Documento de Ejemplo',
+    title: 'Para Proveedores',
+    viewerTitle: 'Documentacion para Proveedores',
     openFrame: 'Abrir Documento',
     metaDescription:
-      'Recursos para empleadores sobre atencion transfronteriza guiada, claridad de costos y acompanamiento al paciente con MyHealth Haven.',
+      'Recursos para proveedores sobre la asociacion con MyHealth Haven en atencion transfronteriza guiada, coordinacion de pacientes y estandares de calidad.',
     intro:
-      'Revise informacion orientada a empleadores sobre como MyHealth Haven apoya a equipos que exploran acceso estructurado y guiado a atencion en Mexico.',
+      'Revise informacion orientada a proveedores sobre como MyHealth Haven se asocia con profesionales medicos e instalaciones para brindar atencion transfronteriza estructurada y guiada.',
     highlights: [
-      'Resumen del programa y documentacion orientada a empleadores',
-      'Como funcionan la coordinacion de atencion, el apoyo de viaje y el acompanamiento al paciente',
-      'Un recurso de ejemplo que su equipo puede descargar y revisar sin conexion',
+      'Resumen de la asociacion y documentacion orientada a proveedores',
+      'Como funcionan la coordinacion de atencion, los estandares de calidad y la transferencia de pacientes',
+      'Detalles sobre acreditacion, verificacion y revision continua de desempeno',
     ],
   },
 };
 
-const ForEmployers = () => {
+const ForProviders = () => {
   const { language } = useLanguage();
   const copy = COPY[language] || COPY.en;
 
@@ -63,18 +60,18 @@ const ForEmployers = () => {
       <Seo
         title={`${copy.title} | MyHealth Haven`}
         description={copy.metaDescription}
-        canonicalPath="/employers"
+        canonicalPath="/providers"
         image="/Corporate Medical Plaza.jpg"
         schema={[
           createWebPageSchema({
-            path: '/employers',
+            path: '/providers',
             name: `${copy.title} | MyHealth Haven`,
             description: copy.metaDescription,
             image: '/Corporate Medical Plaza.jpg',
           }),
           createBreadcrumbSchema([
             { name: 'Home', path: '/' },
-            { name: copy.title, path: '/employers' },
+            { name: copy.title, path: '/providers' },
           ]),
         ]}
       />
@@ -155,23 +152,6 @@ const ForEmployers = () => {
                   >
                     {copy.openFrame}
                   </Button>
-                  <Button
-                    size="small"
-                    variant="contained"
-                    href="/employers-benefits-sample.rtf"
-                    startIcon={<DownloadRoundedIcon />}
-                    sx={{
-                      bgcolor: '#2d2018',
-                      color: 'white',
-                      boxShadow: 'none',
-                      '&:hover': {
-                        bgcolor: '#1a120e',
-                        boxShadow: '0 4px 12px rgba(45,32,24,0.2)',
-                      },
-                    }}
-                  >
-                    {copy.sampleDoc}
-                  </Button>
                 </Stack>
               </Box>
 
@@ -181,7 +161,7 @@ const ForEmployers = () => {
                   width: '100%',
                   bgcolor: '#f8f9fa',
                   position: 'relative',
-                  pt: '100%', // Fallback ratio
+                  pt: '100%',
                   height: { xs: '70vh', md: '80vh' },
                   minHeight: 600,
                   p: 0,
@@ -210,5 +190,4 @@ const ForEmployers = () => {
   );
 };
 
-export default ForEmployers;
-
+export default ForProviders;

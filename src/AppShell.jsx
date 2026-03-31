@@ -11,6 +11,7 @@ import ArticleDetail from './pages/ArticleDetail';
 import ComingSoon from './pages/ComingSoon';
 import Estimate from './pages/Estimate';
 import ForEmployers from './pages/ForEmployers';
+import ForProviders from './pages/ForProviders';
 import Home from './pages/Home';
 import Library from './pages/Library';
 import MedicalTravel from './pages/MedicalTravel';
@@ -70,7 +71,7 @@ function AppShell() {
             <Route path="terms" element={<TermsOfUse />} />
             <Route path="about" element={<About />} />
             <Route path="employers" element={<ForEmployers />} />
-            <Route path="providers" element={<ComingSoon />} />
+            <Route path="providers" element={<ForProviders />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
