@@ -149,8 +149,9 @@ const Navigators = () => {
                   <Box
                     component="video"
                     controls
-                    preload="metadata"
+                    preload="none"
                     playsInline
+                    poster="/HealthNavigatorsBG.webp"
                     src="/Meet Your Health Navigator.mp4"
                     sx={{
                       position: 'absolute',

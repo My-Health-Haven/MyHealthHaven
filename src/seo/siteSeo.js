@@ -79,6 +79,7 @@ export const PUBLIC_ROUTE_DEFINITIONS = [
     changefreq: 'monthly',
     priority: '0.8',
     prerender: true,
+    sitemap: false,
   },
   {
     path: '/schedule',
@@ -106,6 +107,12 @@ export const PUBLIC_ROUTE_DEFINITIONS = [
   },
   {
     path: '/employers',
+    changefreq: 'monthly',
+    priority: '0.6',
+    prerender: true,
+  },
+  {
+    path: '/providers',
     changefreq: 'monthly',
     priority: '0.6',
     prerender: true,
@@ -142,6 +149,32 @@ export const createBreadcrumbSchema = (items = []) => {
     })),
   };
 };
+
+export const createMedicalBusinessSchema = () => ({
+  '@context': 'https://schema.org',
+  '@type': 'MedicalBusiness',
+  name: SITE_NAME,
+  url: SITE_ORIGIN,
+  logo: toAbsoluteUrl('/logo.png'),
+  email: SITE_EMAIL,
+  telephone: SITE_PHONE_E164,
+  description: DEFAULT_META_DESCRIPTION,
+  areaServed: [
+    { '@type': 'Country', name: 'United States' },
+    { '@type': 'Country', name: 'Mexico' },
+  ],
+  availableLanguage: ['English', 'Spanish'],
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      telephone: SITE_PHONE_E164,
+      email: SITE_EMAIL,
+      availableLanguage: ['English', 'Spanish'],
+      areaServed: ['US', 'MX'],
+    },
+  ],
+});
 
 export const createOrganizationSchema = () => ({
   '@context': 'https://schema.org',

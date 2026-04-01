@@ -57,6 +57,9 @@ const Seo = ({
       <meta name="googlebot" content={googleBot} />
       {keywords ? <meta name="keywords" content={keywords} /> : null}
       <link rel="canonical" href={canonicalUrl} />
+      <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+      <link rel="alternate" hreflang="en" href={canonicalUrl} />
+      <link rel="alternate" hreflang="es" href={canonicalUrl} />
       <meta property="og:type" content={type} />
       <meta property="og:site_name" content={SITE_NAME} />
       <meta property="og:locale" content={locale} />

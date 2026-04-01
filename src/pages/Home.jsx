@@ -31,6 +31,7 @@ import ErrorBoundary from '../components/ErrorBoundary';
 import Seo from '../seo/Seo';
 import {
   createFAQSchema,
+  createMedicalBusinessSchema,
   createOrganizationSchema,
   createWebPageSchema,
   createWebsiteSchema,
@@ -74,7 +75,7 @@ const Home = () => {
     answer: t(`home.faq${index + 1}A`),
   })).filter((item) => item.question && item.answer);
   const seoSchema = [
-    createOrganizationSchema(),
+    createMedicalBusinessSchema(),
     createWebsiteSchema(),
     createWebPageSchema({
       path: '/',
@@ -541,8 +542,9 @@ const Home = () => {
                   <Box
                     component="video"
                     controls
-                    preload="metadata"
+                    preload="none"
                     playsInline
+                    poster="/HealthNavigatorsBG.webp"
                     src="/Meet Your Health Navigator.mp4"
                     sx={{
                       position: 'absolute',
@@ -674,7 +676,7 @@ const TestimonialsContent = ({ hasMounted }) => {
       {/* Remaining - Marquee Carousel */}
       <FadeIn delay={400}>
         {hasMounted ? (
-          <React.Suspense fallback={null}>
+          <React.Suspense fallback={<Box sx={{ minHeight: 200 }} />}>
             <Marquee speed={40} pauseOnHover={true}>
               {carouselItems.map((testi, i) => (
                 <Box key={i} sx={{ width: 400, flexShrink: 0 }}>
