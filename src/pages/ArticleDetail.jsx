@@ -81,7 +81,7 @@ const ArticleDetail = () => {
             
             <Box sx={{ textAlign: 'center' }}>
               <Typography variant="h5" gutterBottom>Ready to explore your options?</Typography>
-              <Button variant="contained" size="large" component={Link} to="/contact" sx={{ mt: 2 }}>
+              <Button variant="contained" size="large" component={Link} to="/schedule" sx={{ mt: 2 }}>
                 Speak with a Health Navigator
               </Button>
             </Box>

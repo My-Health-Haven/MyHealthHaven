@@ -214,6 +214,7 @@ const WhatsAppWidget = () => {
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
+        title={t('whatsapp.tooltip')}
         sx={{
           position: "fixed",
           left: coords.left,

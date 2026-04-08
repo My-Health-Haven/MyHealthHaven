@@ -107,9 +107,14 @@ const Procedures = () => {
           <Box sx={{ mb: 6, textAlign: 'center', maxWidth: 'md', mx: 'auto' }}>
             <FadeIn>
               <Typography variant="h2" gutterBottom>{t('proceduresPage.title')}</Typography>
-              <Typography variant="h5" color="text.secondary" paragraph>
+              <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.8, mb: 2 }}>
                  {t('proceduresPage.subtitle')}
               </Typography>
+              {(t('proceduresPage.bodyParagraphs') || []).map((para, i) => (
+                <Typography key={i} variant="body1" color="text.secondary" sx={{ lineHeight: 1.8, mb: 2 }}>
+                  {para}
+                </Typography>
+              ))}
             </FadeIn>
           </Box>
 

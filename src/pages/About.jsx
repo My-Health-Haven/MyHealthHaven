@@ -13,23 +13,42 @@ import { useLanguage } from '../context/LanguageContext';
 const pageContent = {
   en: {
     eyebrow: 'About Us',
-    title: 'We make medical care abroad feel structured, supported, and human.',
+    title: 'Medical Care Abroad\u2014Structured, Supported, and Personal',
     intro:
-      'Seeking medical care abroad can be overwhelming. Patients often face language barriers, unfamiliar healthcare systems, logistical complexity, and limited post-procedure support.',
-    sectionTitle: 'How MyHealth Haven responds',
+      'Seeking medical care outside the United States can feel uncertain. Patients often face unfamiliar healthcare systems, language barriers, complex travel logistics, and questions about what happens after the procedure is complete.',
+    introFollow: 'MyHealth Haven exists to remove that uncertainty.',
+    sectionTitle: 'How MyHealth Haven Helps',
     sectionIntro:
-      'MyHealth Haven addresses these challenges head-on by delivering a comprehensive, patient-first experience that includes:',
+      'MyHealth Haven provides a structured, patient-first navigation model designed to support every stage of the experience.',
     pillars: [
-      'Personalized care coordination before, during, and after treatment',
-      'Trusted access to world-class physicians and accredited facilities',
-      'End-to-end logistical support, from travel and lodging to recovery planning',
-      'Cultural and language translation services to ease every interaction',
+      {
+        label: 'Personalized Care Coordination',
+        description:
+          'From the first inquiry through recovery, your Health Navigator\u2122 coordinates the process so you always know what comes next.',
+      },
+      {
+        label: 'Trusted Physicians and Accredited Facilities',
+        description:
+          'We connect patients with carefully selected doctors, hospitals, and clinics that meet rigorous professional and safety standards.',
+      },
+      {
+        label: 'End-to-End Travel and Recovery Planning',
+        description:
+          'Travel arrangements, lodging, scheduling, and recovery logistics are organized in advance so patients and families can focus on care.',
+      },
+      {
+        label: 'Language and Cultural Navigation',
+        description:
+          'Clear communication matters in healthcare. Our team helps bridge language and cultural differences to ensure patients feel confident and understood.',
+      },
     ],
     promiseTitle: 'Our Promise',
     closing:
-      'We do not just book consultations, we curate a healing experience, ensuring every patient is seen, supported, and safe at every step of their medical journey abroad.',
+      'MyHealth Haven is not a travel agency. We are a cross-border care navigation partner.',
+    closingBody:
+      'We guide patients through the entire process\u2014from first conversation to safe recovery\u2014so that medical care abroad is not only more accessible, but also more organized, transparent, and humane.',
     supportLine:
-      'From first inquiry to recovery, our role is to reduce uncertainty and make the full process easier to navigate.',
+      'Our role is simple: reduce uncertainty, protect the patient experience, and help people move through care with confidence.',
     estimateCta: 'Free Estimate',
     contactCta: 'Speak with a Health Navigator\u2122',
     metaTitle: 'About MyHealth Haven | Patient-First Medical Travel Support',
@@ -38,23 +57,42 @@ const pageContent = {
   },
   es: {
     eyebrow: 'Sobre Nosotros',
-    title: 'Hacemos que la atencion medica en el extranjero se sienta estructurada, acompanada y humana.',
+    title: 'Atencion Medica en el Extranjero\u2014Estructurada, Acompanada y Personal',
     intro:
-      'Buscar atencion medica en el extranjero puede ser abrumador. Los pacientes suelen enfrentar barreras de idioma, sistemas de salud desconocidos, complejidad logistica y apoyo limitado despues del procedimiento.',
-    sectionTitle: 'Como responde MyHealth Haven',
+      'Buscar atencion medica fuera de Estados Unidos puede generar incertidumbre. Los pacientes suelen enfrentar sistemas de salud desconocidos, barreras de idioma, logistica de viaje compleja y preguntas sobre que sucede despues del procedimiento.',
+    introFollow: 'MyHealth Haven existe para eliminar esa incertidumbre.',
+    sectionTitle: 'Como Ayuda MyHealth Haven',
     sectionIntro:
-      'MyHealth Haven enfrenta estos desafios de manera directa al ofrecer una experiencia integral, centrada en el paciente, que incluye:',
+      'MyHealth Haven ofrece un modelo de navegacion estructurado, centrado en el paciente, disenado para apoyar cada etapa de la experiencia.',
     pillars: [
-      'Coordinacion personalizada de la atencion antes, durante y despues del tratamiento',
-      'Acceso confiable a medicos de clase mundial y centros acreditados',
-      'Apoyo logistico de principio a fin, desde el viaje y el hospedaje hasta la planificacion de la recuperacion',
-      'Servicios de traduccion cultural y de idioma para facilitar cada interaccion',
+      {
+        label: 'Coordinacion de Atencion Personalizada',
+        description:
+          'Desde la primera consulta hasta la recuperacion, su Health Navigator\u2122 coordina el proceso para que siempre sepa que viene despues.',
+      },
+      {
+        label: 'Medicos de Confianza e Instalaciones Acreditadas',
+        description:
+          'Conectamos a los pacientes con medicos, hospitales y clinicas cuidadosamente seleccionados que cumplen rigurosos estandares profesionales y de seguridad.',
+      },
+      {
+        label: 'Planificacion Integral de Viaje y Recuperacion',
+        description:
+          'Los arreglos de viaje, hospedaje, agenda y logistica de recuperacion se organizan con anticipacion para que los pacientes y sus familias puedan enfocarse en la atencion.',
+      },
+      {
+        label: 'Navegacion Linguistica y Cultural',
+        description:
+          'La comunicacion clara es fundamental en la atencion medica. Nuestro equipo ayuda a superar las diferencias de idioma y cultura para que los pacientes se sientan seguros y comprendidos.',
+      },
     ],
     promiseTitle: 'Nuestro Compromiso',
     closing:
-      'No solo programamos citas, diseniamos una experiencia de recuperacion para asegurar que cada paciente sea visto, acompanado y protegido en cada etapa de su atencion medica en el extranjero.',
+      'MyHealth Haven no es una agencia de viajes. Somos un socio de navegacion de atencion transfronteriza.',
+    closingBody:
+      'Guiamos a los pacientes a traves de todo el proceso\u2014desde la primera conversacion hasta una recuperacion segura\u2014para que la atencion medica en el extranjero no solo sea mas accesible, sino tambien mas organizada, transparente y humana.',
     supportLine:
-      'Desde la primera consulta hasta la recuperacion, nuestra funcion es reducir la incertidumbre y hacer que todo el proceso sea mas claro.',
+      'Nuestro rol es simple: reducir la incertidumbre, proteger la experiencia del paciente y ayudar a las personas a transitar su atencion con confianza.',
     estimateCta: 'Presupuesto Gratis',
     contactCta: 'Hable con un Navegador de Salud\u2122',
     metaTitle: 'Sobre MyHealth Haven | Apoyo centrado en el paciente',
@@ -155,6 +193,14 @@ const About = () => {
               >
                 {content.intro}
               </Typography>
+              {content.introFollow && (
+                <Typography
+                  variant="h5"
+                  sx={{ mt: 3, fontWeight: 700, color: 'primary.dark', maxWidth: 820, mx: 'auto' }}
+                >
+                  {content.introFollow}
+                </Typography>
+              )}
             </Box>
           </FadeIn>
 
@@ -184,7 +230,7 @@ const About = () => {
 
               <Grid container spacing={2.5}>
                 {content.pillars.map((pillar, index) => (
-                  <Grid size={{ xs: 12, sm: 6 }} key={pillar}>
+                  <Grid size={{ xs: 12, sm: 6 }} key={pillar.label || pillar}>
                     <Box sx={featureCardSx}>
                       <Typography
                         variant="overline"
@@ -193,17 +239,26 @@ const About = () => {
                           color: 'primary.main',
                           fontWeight: 800,
                           letterSpacing: 2,
-                          mb: 2,
+                          mb: 1,
                         }}
                       >
                         {String(index + 1).padStart(2, '0')}
                       </Typography>
                       <Typography
                         variant="body1"
-                        sx={{ fontWeight: 700, lineHeight: 1.7, color: 'text.primary' }}
+                        sx={{ fontWeight: 700, lineHeight: 1.7, color: 'text.primary', mb: 1 }}
                       >
-                        {pillar}
+                        {pillar.label || pillar}
                       </Typography>
+                      {pillar.description && (
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ lineHeight: 1.7 }}
+                        >
+                          {pillar.description}
+                        </Typography>
+                      )}
                     </Box>
                   </Grid>
                 ))}
@@ -223,11 +278,19 @@ const About = () => {
                     </Typography>
                     <Typography
                       variant="body1"
-                      color="text.secondary"
-                      sx={{ fontSize: '1.05rem', lineHeight: 1.8, mb: 2 }}
+                      sx={{ fontSize: '1.05rem', lineHeight: 1.8, mb: 2, fontWeight: 700, color: 'text.primary' }}
                     >
                       {content.closing}
                     </Typography>
+                    {content.closingBody && (
+                      <Typography
+                        variant="body1"
+                        color="text.secondary"
+                        sx={{ fontSize: '1.05rem', lineHeight: 1.8, mb: 2 }}
+                      >
+                        {content.closingBody}
+                      </Typography>
+                    )}
                     <Typography
                       variant="body1"
                       sx={{ color: 'primary.dark', fontWeight: 700, lineHeight: 1.75 }}
@@ -244,7 +307,7 @@ const About = () => {
                       <Button variant="contained" size="large" component={Link} to="/estimate">
                         {content.estimateCta}
                       </Button>
-                      <Button variant="outlined" size="large" component={Link} to="/contact">
+                      <Button variant="outlined" size="large" component={Link} to="/schedule">
                         {content.contactCta}
                       </Button>
                     </Stack>

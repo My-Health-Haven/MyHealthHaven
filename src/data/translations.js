@@ -402,9 +402,14 @@ export const translations = {
     },
 
     proceduresPage: {
-      title: 'Find your procedure. Keep your independence.',
+      title: 'Find Your Procedure. Get back to a healthy life!',
       subtitle:
-        'Browse our procedures to get an idea of our broad offering. Then decide...',
+        'Use the search tool below to explore procedures available through our network of trusted physicians and accredited medical facilities. You can browse by procedure name or category to quickly find the treatments you are interested in learning more about.',
+      bodyParagraphs: [
+        'This section is designed to help you understand the range of care available and begin evaluating your options at your own pace.',
+        'When you find a procedure you would like to explore further, you can request additional information or speak with a Health Navigator\u2122 who can help coordinate consultations, answer logistical questions, and guide next steps.',
+        'Your choices remain your own. Our role is simply to make the process clearer and easier to navigate.',
+      ],
       filters: 'Filters',
       clearAll: 'Clear all',
       searchPlaceholder: 'Search procedures, categories, or keywords...',
@@ -449,6 +454,7 @@ export const translations = {
       title: 'WhatsApp Chat',
       placeholder: 'Hello! I have a question...',
       start: 'Start Chat',
+      tooltip: 'Connect now',
     },
     misc: {
       comingSoon: 'Coming Soon',
@@ -458,9 +464,14 @@ export const translations = {
   },
   es: {
     proceduresPage: {
-      title: 'Encuentre su procedimiento. Mantenga su autonomia.',
+      title: 'Encuentre Su Procedimiento. Vuelva a una vida saludable!',
       subtitle:
-        'Explore nuestros procedimientos para entender la oferta general y luego decidir el siguiente paso.',
+        'Use la herramienta de busqueda a continuacion para explorar los procedimientos disponibles a traves de nuestra red de medicos de confianza e instalaciones medicas acreditadas. Puede buscar por nombre de procedimiento o categoria para encontrar rapidamente los tratamientos que le interesan.',
+      bodyParagraphs: [
+        'Esta seccion esta disenada para ayudarle a comprender la variedad de atencion disponible y comenzar a evaluar sus opciones a su propio ritmo.',
+        'Cuando encuentre un procedimiento que desee explorar mas a fondo, puede solicitar informacion adicional o hablar con un Health Navigator\u2122 que puede ayudar a coordinar consultas, responder preguntas logisticas y guiar los proximos pasos.',
+        'Sus decisiones son suyas. Nuestro papel es simplemente hacer que el proceso sea mas claro y facil de navegar.',
+      ],
       filters: 'Filtros',
       clearAll: 'Borrar todo',
       searchPlaceholder: 'Buscar procedimientos, categorias o palabras clave...',
@@ -505,6 +516,7 @@ export const translations = {
       title: 'Chat de WhatsApp',
       placeholder: 'Hola! Tengo una pregunta...',
       start: 'Iniciar Chat',
+      tooltip: 'Conectar ahora',
     },
     misc: {
       comingSoon: 'Proximamente',

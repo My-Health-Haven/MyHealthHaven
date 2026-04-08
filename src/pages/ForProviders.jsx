@@ -91,21 +91,6 @@ const ForProviders = () => {
             </Typography>
           </FadeIn>
 
-          <FadeIn delay={60}>
-            <Box sx={{ maxWidth: 840, mx: 'auto', mb: 5, textAlign: 'center' }}>
-              <Typography variant="body1" sx={{ color: '#4a3b30', lineHeight: 1.8 }}>
-                {copy.intro}
-              </Typography>
-              <Stack spacing={1.5} sx={{ mt: 3, textAlign: 'left' }}>
-                {copy.highlights.map((item) => (
-                  <Typography key={item} variant="body2" sx={{ color: '#4a3b30' }}>
-                    - {item}
-                  </Typography>
-                ))}
-              </Stack>
-            </Box>
-          </FadeIn>
-
           <FadeIn delay={100}>
             <Box
               sx={{
