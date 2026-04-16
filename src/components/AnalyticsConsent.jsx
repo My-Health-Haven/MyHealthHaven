@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Button, Stack, Typography } from '@mui/material';
 
 const CONSENT_KEY = 'analyticsConsent';
-const GTM_ID = import.meta.env.VITE_GTM_ID || 'GTM-NN6Q7KNR';
+const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID || 'GTM-NN6Q7KNR';
 
 const loadGtm = () => {
   if (!GTM_ID || document.querySelector(`script[data-gtm-id="${GTM_ID}"]`)) {

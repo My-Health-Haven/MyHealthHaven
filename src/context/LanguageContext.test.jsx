@@ -1,4 +1,5 @@
-import { renderHook } from '@testing-library/react';
+import React from 'react';
+import { renderHook, act } from '@testing-library/react';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { translations } from '../data/translations';
 import { LanguageProvider, useLanguage } from './LanguageContext';
@@ -48,8 +49,10 @@ describe('LanguageContext', () => {
 
     const { result } = renderUseLanguage();
 
+    // Keys with ES translations return the Spanish value
     expect(result.current.t('contactPage.title')).toBe('Hable con un Navegador de Salud');
-    expect(result.current.t('home.heroTitle')).toBe(translations.en.home.heroTitle);
+    expect(result.current.t('home.heroTitle')).toBe(translations.es.home.heroTitle);
+    // Completely unknown keys return the key itself (no EN or ES)
     expect(result.current.t('missing.section.key')).toBe('missing.section.key');
   });
 });

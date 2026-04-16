@@ -463,6 +463,405 @@ export const translations = {
     },
   },
   es: {
+    navbar: {
+      home: 'Inicio',
+      navigators: 'Tu Navegador de Salud',
+      medicalTravel: 'Viaje Medico',
+      procedures: 'Procedimientos',
+      library: 'Biblioteca',
+      speakWithNavigator: 'Consulta Gratis',
+      freeEstimate: 'Presupuesto Gratis',
+      schedule: 'Agendar una consulta',
+    },
+    home: {
+      heroTitleBadge: 'Health Navigation\u2122 A Traves de Fronteras',
+      heroTitle: 'Atencion medica de clase mundial en Mexico, guiada por expertos de salud de EE.UU.',
+      heroSubtitle:
+        'Ayudamos a los estadounidenses a acceder a medicos, hospitales y clinicas seguros y acreditados en Mexico con precios transparentes, apoyo bilingue y un Health Navigator\u2122 dedicado desde su primera pregunta hasta su recuperacion completa.',
+      problemTitle: 'Cuando la atencion medica en EE.UU. esta fuera de alcance, los pacientes se ven obligados a tomar decisiones dificiles.',
+      problemDesc:
+        'Lamentablemente, muchas personas terminan posponiendo procedimientos necesarios debido a los altos costos, largos tiempos de espera o reglas de seguro confusas.',
+      solutionTitle: 'MyHealth Haven convierte el viaje medico en una experiencia guiada y transparente.',
+      solutionDesc:
+        'Conectamos los sistemas de salud de EE.UU. y Mexico, combinando los estandares estadounidenses con la excelencia clinica y la accesibilidad de Mexico.',
+      chatWithNavigator: 'Chatear con un Navegador',
+      speakWithNavigator: 'Presupuesto Gratis',
+      samplePrices: 'Ver Precios de Ejemplo',
+      getEstimate: 'Presupuesto por Correo',
+      usFounded: 'Fundada en EE.UU., asociada con Mexico',
+      vettedHospitals: 'Hospitales verificados que cumplen estandares de EE.UU.',
+      bilingualSupport: 'Apoyo clinico y logistico bilingue',
+      watchVideo: 'Vea como funciona Health Navigation\u2122',
+      partneringWith: 'Asociados con los principales hospitales y clinicos en Mexico',
+      hospitalLogosParam: '[Logos de Hospitales]',
+
+      withoutGuidance: 'Sin orientacion, los pacientes enfrentan:',
+      unpredictableBills: 'Facturas impredecibles y cargos sorpresa.',
+      unclearCredentials: 'Credenciales hospitalarias poco claras y estandares de control de infecciones.',
+      languageBarriers: 'Barreras idiomaticas y seguimiento fragmentado.',
+
+      whatCanExpect: 'Lo que puede esperar:',
+      expectSafety: 'Seguridad y estandares alineados con las expectativas de EE.UU.',
+      expectPersonalized: 'Navegacion personalizada por profesionales bilingues.',
+      expectClarity: 'Claridad financiera con presupuestos todo incluido.',
+      expectContinuity: 'Continuidad de atencion con sus medicos en EE.UU.',
+
+      differenceTitle: 'Lo que hace diferente a Health Navigation\u2122',
+      differenceSubtitle:
+        'Priorizamos la defensa de su salud a largo plazo a traves de fronteras, operando de manera independiente de agencias de viajes y cadenas hospitalarias.',
+
+      safetyTitle: 'Seguridad y Estandares',
+      safetyBody:
+        'Los hospitales asociados deben cumplir o superar los estandares de EE.UU. en acreditacion, control de infecciones y transparencia.',
+
+      navigatorsTitle: 'Health Navigators\u2122 Personales',
+      navigatorsBody:
+        'Un unico punto de contacto que conoce su caso y lo guia desde la primera llamada hasta la recuperacion.',
+
+      clarityTitle: 'Claridad Financiera',
+      clarityBody:
+        'Presupuestos todo incluido compartidos de forma clara antes de viajar, sin cargos ocultos ni sorpresas.',
+
+      continuityTitle: 'Continuidad de Atencion',
+      continuityBody:
+        'Ayudamos a coordinar con sus medicos en EE.UU. antes y despues de su procedimiento para apoyar resultados seguros.',
+
+      howItWorksTitle: 'Como funciona Health Navigation\u2122',
+      howItWorksSubtitle: 'Un viaje claro y guiado desde la primera pregunta hasta la recuperacion completa.',
+
+      step1Title: 'Hable con un Health Navigator\u2122',
+      step1Body:
+        'Comparta sus objetivos medicos, historial, inquietudes y presupuesto durante una consulta confidencial.',
+      step: 'Paso',
+
+      step2Title: 'Reciba un plan de atencion personalizado',
+      step2Body:
+        'Lo conectamos con hospitales y especialistas verificados, proporcionamos presupuestos todo incluido y detallamos las opciones por escrito.',
+
+      step3Title: 'Viaje, tratamiento y apoyo en la recuperacion',
+      step3Body:
+        'Coordinamos la logistica, lo ayudamos a prepararse para la cirugia y nos mantenemos conectados durante su recuperacion en casa.',
+
+      scheduleCall: 'Agende su llamada \u2192',
+
+      testimonialsTitle: 'Salud restaurada. Confianza renovada.',
+      testimonialsSubtitle: 'Historias de pacientes que eligieron atencion transfronteriza en Cancun.',
+      testimonials: [
+        {
+          quote:
+            'Desde el momento en que llegue, me hicieron sentir importante. Las enfermeras me revisaban sin que yo tuviera que pedir, y el cirujano me explico todo claramente. No me senti apurada, sino cuidada en cada momento.',
+          name: 'Maria',
+          meta: 'Paciente Verificada \u2022 2024 \u2022 Facebook',
+        },
+        {
+          quote:
+            'Pense que solo recibiria buena atencion medica. Lo que no esperaba era tanta calidez humana. El equipo fue respetuoso, respondio cada pregunta con paciencia y mi recuperacion se sintio segura.',
+          name: 'Daniel',
+          meta: 'Paciente Verificado \u2022 Noviembre 2025 \u2022 Doctoralia',
+        },
+        {
+          quote:
+            'Lo que mas me impresiono no fue solo el profesionalismo, sino el aspecto humano. Desde la recepcion hasta enfermeria, me trataron como familia. Entre nervioso... sali agradecido.',
+          name: 'Elena',
+          meta: 'Paciente Verificada \u2022 Noviembre 2025 \u2022 Doctoralia',
+        },
+        {
+          quote:
+            'He tenido cirugias en otros paises, pero aqui fue la primera vez que me senti visto como persona, no solo como un expediente. El personal siempre estuvo atento, y el ambiente me ayudo a recuperarme en paz.',
+          name: 'Javier',
+          meta: 'Paciente Verificado \u2022 2024 \u2022 Facebook',
+        },
+        {
+          quote:
+            'Instalaciones limpias, servicio atento y comunicacion clara me dieron confianza desde el primer minuto. Nunca me senti solo en el proceso, estuvieron atentos a todo.',
+          name: 'Rosa',
+          meta: 'Paciente Verificada \u2022 Noviembre 2025 \u2022 Doctoralia',
+        },
+      ],
+
+      navigatorProfiles: [
+        {
+          name: 'Health Navigator 1',
+          title: 'Health Navigator\u2122 Senior',
+          creds: 'Profesional Medico Certificado',
+          blurb: 'Ayuda a los pacientes a entender sus opciones y prepararse de forma segura para cirugia en el extranjero.',
+          img: '/healthnav1.png',
+          width: 625,
+          height: 625,
+        },
+        {
+          name: 'Health Navigator 2',
+          title: 'Estratega de Viaje Medico',
+          creds: 'Especialista en Salud',
+          blurb: 'Se enfoca en alinear las expectativas de calidad de EE.UU. con los socios clinicos mexicanos.',
+          img: '/healthnav2.png',
+          width: 625,
+          height: 625,
+        },
+      ],
+
+      whyMexicoTitle: '\u00bfPor que Mexico para atencion medica?',
+      whyMexicoSubtitle: 'Donde la medicina de primer nivel se encuentra con la hospitalidad de clase mundial.',
+      whyMexicoDesc1:
+        'Los principales hospitales de Mexico ofrecen instalaciones modernas, especialistas altamente capacitados y resultados comparables a los centros de EE.UU., a menudo a una fraccion del precio.',
+      whyMexicoDesc2:
+        'Nos enfocamos en regiones e instituciones donde la infraestructura de salud y hospitalidad esta bien desarrollada, con conexiones aereas confiables y entornos propicios para la recuperacion.',
+      whyMexicoPoint1: 'Acceso a cirujanos experimentados y equipos multidisciplinarios.',
+      whyMexicoPoint2: 'Tiempos de espera mas cortos para operaciones necesarias.',
+      whyMexicoPoint3: 'Hoteles modernos y alojamientos de recuperacion.',
+
+      costEfficiency: 'Eficiencia de costos',
+      costEfficiencyDesc: 'Rango tipico de ahorro vs. precios de EE.UU.',
+      languageAccess: 'Acceso idiomatico',
+      languageAccessDesc: 'Health Navigators\u2122 y personal bilingue.',
+      supportCities: 'Ciudades de apoyo',
+      supportCitiesDesc: 'Principales centros medicos y turisticos.',
+
+      learnMedicalTravel: 'Conozca sobre Viaje Medico \u2192',
+
+      meetNavigatorsTitle: 'Conozca a sus Health Navigators\u2122',
+      meetNavigatorsSubtitle:
+        'Personas reales con experiencia clinica y en salud, guiandolo en cada paso.',
+      seeHowNavigatorsWork: 'Agendar una consulta',
+
+      faqTitle: 'Preguntas frecuentes',
+      faqSubtitle: 'Si esta considerando atencion en Mexico, merece respuestas claras y honestas.',
+
+      faq1Q: '\u00bfQue es MyHealth Haven\u2122?',
+      faq1A:
+        'MyHealth Haven\u2122 es una empresa independiente de defensa del paciente y navegacion de atencion. Ayudamos a pacientes de EE.UU. a acceder a atencion medica de alta calidad en Mexico a traves de medicos, hospitales y clinicas cuidadosamente seleccionados, sin influencia publicitaria ni referencias de pago.',
+      faq2Q: '\u00bfMyHealth Haven\u2122 es una agencia de turismo medico o de viajes?',
+      faq2A:
+        'No. A diferencia de las agencias de viajes o plataformas de marketing hospitalario, nuestro enfoque principal es su atencion. Gestionamos viajes y logistica unicamente para apoyar resultados medicos seguros y bien coordinados.',
+      faq3Q: '\u00bfComo se diferencia MyHealth Haven\u2122 de otras empresas de turismo medico?',
+      faq3A:
+        'La mayoria de las empresas de turismo medico operan como mercados financiados por publicidad de clinicas o programas de pago. MyHealth Haven\u2122 no acepta tarifas de publicidad ni participa en programas de pago con proveedores. Nos pagan por orientacion, coordinacion y defensa, para que nuestros incentivos esten alineados con usted, el paciente.',
+      faq4Q: '\u00bfComo eligen medicos, hospitales y clinicas?',
+      faq4A:
+        'Seleccionamos intencionalmente una red pequena y exclusiva de proveedores basada en: competencia de la instalacion, historial de calidad y resultados; credenciales y experiencia verificadas; estandares de control de infecciones y seguridad; revision continua del desempeno. Los proveedores son re-evaluados regularmente. La inclusion en nuestra red se gana, no se compra.',
+      faq5Q: '\u00bfLos estandares medicos son comparables a los de EE.UU.?',
+      faq5A:
+        'Si. Los medicos e instalaciones con los que trabajamos siempre cumplen y en algunos casos superan los estandares reconocidos internacionalmente, muchos con formacion en EE.UU. o Europa. Los protocolos de seguridad, practicas de esterilizacion y gobernanza clinica estan alineados con las expectativas de EE.UU.',
+      faq6Q: '\u00bfQuien me ayuda una vez que decido avanzar?',
+      faq6A:
+        'Cada paciente es emparejado con un Health Navigator\u2122 dedicado, un profesional que sirve como su unico punto de contacto antes, durante y despues de la atencion. No es transferido entre departamentos o centros de llamadas.',
+      faq7Q: '\u00bfQue hace un Health Navigator\u2122?',
+      faq7A:
+        'Su Health Navigator\u2122 ayuda a coordinar: opciones de proveedores verificados para seleccionar y programar; precios claros y anticipados; 100% de apoyo en viajes; coordinacion en destino; transferencia de registros medicos; seguimiento post-procedimiento y continuidad. Su rol es reducir la incertidumbre y asegurar que nada se pierda.',
+      faq8Q: '\u00bfComo funcionan los precios?',
+      faq8A:
+        'Recibe un presupuesto claro y todo incluido antes de que comience su viaje de atencion. No hay cargos sorpresa, cambios de ultimo minuto ni incentivos ocultos que influyan en las recomendaciones.',
+      faq9Q: '\u00bfQue sucede despues de mi procedimiento?',
+      faq9A:
+        'La continuidad de atencion importa. Coordinamos los seguimientos necesarios en el pais y ayudamos a asegurar que los registros relevantes esten disponibles para sus medicos en EE.UU. cuando regrese a casa. La atencion no termina cuando sale de la instalacion.',
+      faq10Q: '\u00bfEsto es para atencion de emergencia?',
+      faq10A:
+        'No. MyHealth Haven\u2122 apoya atencion planificada, electiva, diagnostica y preventiva. No coordinamos servicios de emergencia o atencion urgente.',
+      faq11Q: '\u00bfAyudan con viajes y alojamiento?',
+      faq11A:
+        'Apoyamos viajes y alojamiento relacionados con su viaje medico al 100%. Sin embargo, no somos una agencia de viajes. Nuestro enfoque sigue siendo la seguridad medica, el tiempo y la continuidad, no vender viajes o paquetes.',
+      faq12Q: '\u00bfLos testimonios de pacientes son reales?',
+      faq12A:
+        'Si. Los testimonios reflejan experiencias reales de pacientes. El lenguaje puede ser ligeramente editado por claridad o privacidad, pero las historias son autenticas y verificables internamente.',
+      faq13Q: '\u00bfMyHealth Haven\u2122 acepta seguro, Medicare o Medicaid?',
+      faq13A:
+        'No. MyHealth Haven\u2122 opera con un modelo de pago en efectivo y no factura a seguros privados, Medicare o Medicaid. Este enfoque nos permite centrarnos en atencion de alta calidad sin la complejidad administrativa, retrasos y limitaciones de cobertura frecuentemente asociados con sistemas basados en seguros. Muchos pacientes encuentran que incluso sin usar seguro, el costo total de la atencion es menor que los gastos de bolsillo en EE.UU. despues de deducibles, copagos y servicios no cubiertos.',
+
+      ctaBadge: 'El fin de la incertidumbre en la atencion global.',
+      ctaTitle: 'Hable con un Health Navigator\u2122 sobre sus opciones.',
+      ctaDesc:
+        'Una conversacion confidencial puede aclarar si la atencion transfronteriza es adecuada para usted, y como seria realmente.',
+      scheduleConsultation: 'Agendar una consulta gratis',
+      madeInAmerica: 'Hecho en America, Mejorado en Mexico',
+    },
+    navigatorsPage: {
+      title: 'Su defensor a traves de fronteras.',
+      subtitle:
+        'Prioriza la excelencia en la atencion al paciente en cada detalle de su viaje con MyHealth Haven',
+      cta: 'Hable con un Health Navigator\u2122',
+      whatTheyDoTitle: 'Lo que su Health Navigator\u2122 hace por usted',
+      whatTheyDoList: [
+        'Su defensor de atencion dedicado y bilingue.',
+        'Unico punto de contacto para cada aspecto de su viaje medico.',
+        'Escucha sus objetivos, historial medico e inquietudes.',
+        'Explica que procedimientos y ubicaciones pueden ser apropiados.',
+        'Coordina registros medicos, imagenes y requisitos preoperatorios.',
+        'Presenta opciones verificadas de hospitales y cirujanos con precios claros.',
+        'Le ayuda a prepararse para el viaje, la cirugia y la planificacion de la recuperacion.',
+        'Siempre accesible en linea o por telefono.',
+      ],
+      teamTitle: 'Un equipo bilingue que entiende ambos sistemas',
+      teamMembers: [
+        {
+          name: 'Health Navigator 1',
+          role: 'Health Navigator\u2122 Senior',
+          creds: 'Profesional Medico Certificado',
+          bio: 'Ayuda a los pacientes a entender sus opciones y prepararse de forma segura para cirugia en el extranjero.',
+          img: '/healthnav1.png',
+        },
+        {
+          name: 'Health Navigator 2',
+          role: 'Estratega de Viaje Medico',
+          creds: 'Especialista en Salud',
+          bio: 'Se enfoca en alinear las expectativas de calidad de EE.UU. con los socios clinicos mexicanos.',
+          img: '/healthnav2.png',
+        },
+        {
+          name: 'Health Navigator 3',
+          role: 'Coordinador de Pacientes',
+          creds: 'Especialista de Apoyo Bilingue',
+          bio: 'Asegura una comunicacion fluida entre usted y el personal del hospital.',
+        },
+      ],
+      finalCtaTitle: 'Comience con una conversacion de 15 minutos.',
+      finalCtaDesc:
+        'Sin presion, sin compromiso, solo respuestas claras de alguien que conoce el terreno.',
+      finalCtaButton: 'Agende su llamada',
+    },
+    medicalTravelPage: {
+      title: 'Convierta el viaje medico en un recorrido estructurado y con apoyo.',
+      subtitle:
+        'Desde el aeropuerto hasta el hospital y la recuperacion, le ayudamos a entender que esperar y como prepararse.',
+      cta: 'Agende su consulta gratis',
+      locationsTitle: 'Donde operamos',
+      locationsDesc:
+        'Comenzamos en centros medicos establecidos como Cancun, con planes de expandirnos a ciudades adicionales a medida que las asociaciones hospitalarias cumplan nuestros estandares.',
+      cancunHub: 'Centro Medico de Cancun',
+      comingSoon: 'Mas ubicaciones proximamente',
+      timelineTitle: 'Linea de Tiempo Tipica de Atencion Medica',
+      timelineSubtitle: 'Un viaje claro y con apoyo, para que siempre sepa que sigue.',
+      timelineSteps: [
+        {
+          title: 'Consulta Inicial',
+          duration: 'Dia 0',
+          description:
+            'Se comunica a traves de nuestro sitio web, WhatsApp, correo o telefono. Se conecta con uno de nuestros Health Navigators\u2122 dedicados para entender sus objetivos, historial medico y tiempos preferidos.',
+        },
+        {
+          title: 'Revision Medica y Opciones',
+          duration: 'Dias 5-7',
+          description:
+            'La informacion que proporciona es revisada por nuestro equipo de atencion y compartida con medicos de primer nivel en su area de atencion necesaria. Le presentamos las opciones recomendadas, un presupuesto todo incluido y los proximos pasos, de manera clara y transparente.',
+        },
+        {
+          title: 'Consultas Virtuales',
+          duration: 'Dias 7\u201310',
+          description:
+            'Se reune con su(s) medico(s) y Health Navigator\u2122 a traves de videoconferencia segura. Esta es su oportunidad de hacer preguntas, confirmar el plan y sentirse seguro antes de avanzar.',
+        },
+        {
+          title: 'Planificacion y Programacion',
+          duration: 'Dias 7\u201314',
+          description: 'Una vez que decide avanzar, coordinamos:',
+          points: [
+            'Fechas del procedimiento',
+            'Examenes preoperatorios',
+            'Tiempos de viaje',
+            'Hotel y transporte terrestre',
+          ],
+          footer: 'Todo se alinea en torno a su atencion, no al turismo.',
+        },
+        {
+          title: 'Preparacion Pre-Viaje',
+          duration: '2\u20133 Semanas Antes del Viaje',
+          description: 'Su Health Navigator le guia en:',
+          points: [
+            'Instrucciones medicas (a veces con medicos y personal de la clinica)',
+            'Que empacar',
+            'Logistica de llegada',
+            'Contactos de emergencia',
+          ],
+          footer: 'Viaja informado, preparado y con apoyo.',
+        },
+        {
+          title: 'Llegada y Apoyo Local',
+          duration: 'Dia de Llegada',
+          description:
+            'Lo reciben en el Aeropuerto Internacional de Cancun el dia de su llegada con un auto privado y conductor. Dependiendo de su plan de atencion, viajara a un hotel o su hospital y sera recibido alli por su Health Navigator\u2122 personal. Su Health Navigator\u2122 le asistira en el registro y le explicara los detalles sobre su tiempo en Cancun, incluyendo tiempos y logistica. Estara con usted en los puntos criticos durante su estadia y disponible las 24 horas para llamadas y mensajes.',
+        },
+        {
+          title: 'Evaluacion Pre-Procedimiento',
+          duration: '1\u20132 Dias Antes del Procedimiento',
+          description:
+            'Con su Health Navigator\u2122, asiste a evaluaciones en persona y pruebas finales, despues de lo cual su medico confirma la preparacion y revisa el plan nuevamente, sin sorpresas.',
+        },
+        {
+          title: 'Dia del Procedimiento',
+          description:
+            'Su procedimiento se realiza en una instalacion moderna y acreditada por especialistas experimentados. Su Health Navigator\u2122 permanece disponible para usted y su familia durante todo el dia.',
+        },
+        {
+          title: 'Recuperacion y Monitoreo',
+          duration: '3\u201314 Dias, Segun la Atencion',
+          description:
+            'Se recupera bajo supervision medica con revisiones regulares. Su Health Navigator\u2122 coordina visitas de seguimiento, medicamentos y necesidades de comodidad mientras sana en Cancun.',
+        },
+        {
+          title: 'Regreso a Casa y Continuidad de Atencion',
+          description: 'Antes de viajar a casa, recibe:',
+          points: ['Registros medicos', 'Instrucciones de alta', 'Calendario de seguimiento'],
+          footer:
+            'Despues de regresar a casa, su Health Navigator\u2122 permanece disponible para seguimientos virtuales y coordinacion con su medico local.',
+        },
+      ],
+      timelineConclusion: {
+        title: 'Durante Todo el Viaje',
+        subtitle: 'Nunca esta "solo."',
+        description:
+          'MyHealth Haven y su Health Navigator\u2122 actuan como su socio de atencion transfronteriza, asegurando claridad, seguridad y continuidad en cada paso del camino.',
+      },
+      locationsParagraphs: [
+        'MyHealth Haven es una empresa con sede en EE.UU., construida para cumplir con las expectativas estadounidenses de transparencia, seguridad y defensa del paciente. Nuestro modelo operativo es intencional y enfocado: en lugar de distribuir la atencion en multiples paises o regiones, seleccionamos a proposito proveedores medicos de primer nivel exclusivamente en Cancun.',
+        'Cancun ofrece una rara combinacion de ventajas: medicos con formacion internacional, hospitales privados modernos y una infraestructura medica madura, combinados con una facilidad de viaje inigualable desde Estados Unidos. Con vuelos frecuentes sin escalas desde las principales ciudades de EE.UU., minima disrupcion de zona horaria y un ecosistema de hospitalidad acostumbrado a pacientes estadounidenses, la atencion se puede acceder de manera eficiente y con confianza.',
+        'Al concentrar nuestra red en un destino probado, mantenemos una supervision mas profunda, relaciones clinicas mas fuertes y una experiencia mas fluida para cada paciente. El resultado son estandares de atencion de nivel EE.UU., entregados en una ubicacion optimizada para calidad, seguridad y simplicidad.',
+      ],
+      timelineCardTitle: 'Un Viaje Claro y con Apoyo',
+      timelineCardSubtitle: 'Para Que Siempre Sepa Que Sigue',
+      timelineCards: [
+        {
+          title: 'Consulta Inicial',
+          timing: 'Dia 0',
+          caption: 'Conectese con su Health Navigator\u2122.',
+        },
+        {
+          title: 'Revision Medica y Opciones',
+          timing: 'Dias 5-7',
+          caption: 'Reciba opciones de atencion y precios.',
+        },
+        {
+          title: 'Consultas Virtuales',
+          timing: 'Dias 7-10',
+          caption: 'Conozca a su medico por video.',
+        },
+        {
+          title: 'Planificacion y Programacion',
+          timing: 'Dias 7-14',
+          caption: 'Coordine fechas y viaje.',
+        },
+        {
+          title: 'Preparacion Pre-Viaje',
+          timing: '2-3 Semanas Antes',
+          caption: 'Preparese con orientacion detallada.',
+        },
+        {
+          title: 'Llegada y Apoyo Local',
+          timing: 'Dia de Llegada',
+          caption: 'Bienvenida personal y asistencia.',
+        },
+        {
+          title: 'Evaluacion Pre-Procedimiento',
+          timing: '1-2 Dias Antes',
+          caption: 'Pruebas finales y verificacion de preparacion.',
+        },
+        { title: 'Dia del Procedimiento', timing: '', caption: 'Procedimiento con atencion experta.' },
+        {
+          title: 'Recuperacion y Monitoreo',
+          timing: '3-14 Dias',
+          caption: 'Recuperacion supervisada y seguimientos.',
+        },
+        { title: 'Regreso a Casa y Continuidad', timing: '', caption: 'Apoyo continuo despues del regreso.' },
+      ],
+    },
     proceduresPage: {
       title: 'Encuentre Su Procedimiento. Vuelva a una vida saludable!',
       subtitle:

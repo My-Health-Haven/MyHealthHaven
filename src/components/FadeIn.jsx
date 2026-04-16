@@ -1,20 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 
-const shouldBypassAnimation = () => {
-  if (typeof document === 'undefined') {
-    return true;
-  }
-
-  return document.documentElement.dataset.prerendered === 'true';
-};
-
 const FadeIn = ({ children, delay = 0, duration = 800, className = '', style = {} }) => {
-  const [isVisible, setIsVisible] = useState(() => shouldBypassAnimation());
+  // Always start hidden to avoid SSR/client hydration mismatch.
+  // The IntersectionObserver (or mount fallback) reveals after hydration.
+  const [isVisible, setIsVisible] = useState(false);
   const domRef = useRef();
 
   useEffect(() => {
-    if (shouldBypassAnimation() || typeof IntersectionObserver === 'undefined') {
+    if (typeof IntersectionObserver === 'undefined') {
       setIsVisible(true);
       return undefined;
     }

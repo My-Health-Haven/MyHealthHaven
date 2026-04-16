@@ -40,10 +40,21 @@ const getNestedTranslation = (languageData, key) => {
 };
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState(getInitialLanguage);
+  // Always start with fallback language to avoid SSR/client hydration mismatch.
+  // The stored/browser language is applied after mount via useEffect.
+  const [language, setLanguage] = useState(FALLBACK_LANGUAGE);
 
   // Keep first render crawlable: do not block content behind a mandatory modal.
   const showModal = false;
+
+  // On mount, sync language from localStorage or browser preference.
+  useEffect(() => {
+    const stored = getInitialLanguage();
+    if (stored !== language) {
+      setLanguage(stored);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
