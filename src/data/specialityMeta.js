@@ -47,6 +47,7 @@ const StomachIcon = (props) => (
 export const SPECIALITY_META = [
   {
     key: 'Cardiology',
+    name: { en: 'Cardiology', es: 'Cardiología' },
     Icon: HeartPulse,
     color: '#0EA5A5',
     bgColor: '#CCFBF1',
@@ -57,6 +58,7 @@ export const SPECIALITY_META = [
   },
   {
     key: 'Orthopedic',
+    name: { en: 'Orthopedic', es: 'Ortopedia' },
     Icon: Bone,
     color: '#7C3AED',
     bgColor: '#EDE9FE',
@@ -67,6 +69,7 @@ export const SPECIALITY_META = [
   },
   {
     key: 'Preventive Care / Wellness',
+    name: { en: 'Preventive Care / Wellness', es: 'Cuidado Preventivo / Bienestar' },
     Icon: ShieldCheck,
     color: '#10B981',
     bgColor: '#D1FAE5',
@@ -77,6 +80,7 @@ export const SPECIALITY_META = [
   },
   {
     key: 'Cosmetic',
+    name: { en: 'Cosmetic', es: 'Estética' },
     Icon: Sparkles,
     color: '#EC4899',
     bgColor: '#FCE7F3',
@@ -87,6 +91,7 @@ export const SPECIALITY_META = [
   },
   {
     key: 'Dental & Orthodontics',
+    name: { en: 'Dental & Orthodontics', es: 'Odontología y Ortodoncia' },
     Icon: ToothIcon,
     color: '#3B82F6',
     bgColor: '#DBEAFE',
@@ -97,6 +102,7 @@ export const SPECIALITY_META = [
   },
   {
     key: 'Fertility & Women’s Health',
+    name: { en: 'Fertility & Women’s Health', es: 'Fertilidad y Salud de la Mujer' },
     Icon: Venus,
     color: '#A855F7',
     bgColor: '#F3E8FF',
@@ -107,6 +113,7 @@ export const SPECIALITY_META = [
   },
   {
     key: 'Bariatric',
+    name: { en: 'Bariatric', es: 'Bariátrica' },
     Icon: StomachIcon,
     color: '#F59E0B',
     bgColor: '#FEF3C7',

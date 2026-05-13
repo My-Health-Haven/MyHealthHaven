@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Box, Typography, Chip, Stack } from '@mui/material';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { useLanguage } from '../../context/LanguageContext';
 
 const COMPLEXITY_COLORS = {
   high: '#EF4444',
@@ -10,29 +11,32 @@ const COMPLEXITY_COLORS = {
   minimal: '#86EFAC',
 };
 
-const getComplexityColor = (bucket) => {
+const COMPLEXITY_LABELS = {
+  high: { en: 'High Complexity', es: 'Alta complejidad' },
+  moderate: { en: 'Moderate', es: 'Moderada' },
+  low: { en: 'Low', es: 'Baja' },
+  minimal: { en: 'Minimal', es: 'Mínima' },
+};
+
+const classifyComplexity = (bucket) => {
   const key = String(bucket || '').trim().toLowerCase();
   if (!key || key === 'n/a' || key === 'na') return null;
-  if (key.includes('high')) return COMPLEXITY_COLORS.high;
-  if (key.includes('moderate')) return COMPLEXITY_COLORS.moderate;
-  if (key.includes('minimal')) return COMPLEXITY_COLORS.minimal;
-  if (key.includes('low') || key.includes('minor')) return COMPLEXITY_COLORS.low;
+  if (key.includes('high')) return 'high';
+  if (key.includes('moderate')) return 'moderate';
+  if (key.includes('minimal')) return 'minimal';
+  if (key.includes('low') || key.includes('minor')) return 'low';
   return null;
 };
 
-const formatComplexityLabel = (bucket) => {
-  const value = String(bucket || '').trim();
-  if (!value) return '';
-  // Match mockup: append " Complexity" only when the value is plain "High".
-  if (value.toLowerCase() === 'high') return 'High Complexity';
-  return value;
-};
-
 const ProcedureRow = ({ procedure }) => {
+  const { language } = useLanguage();
   const { procedure_id, procedure_name, group_bucket, tags } = procedure;
   const tagList = Array.isArray(tags) ? tags : [];
-  const complexityColor = getComplexityColor(group_bucket);
-  const complexityLabel = formatComplexityLabel(group_bucket);
+  const complexityKey = classifyComplexity(group_bucket);
+  const complexityColor = complexityKey ? COMPLEXITY_COLORS[complexityKey] : null;
+  const complexityLabel = complexityKey
+    ? COMPLEXITY_LABELS[complexityKey][language] || COMPLEXITY_LABELS[complexityKey].en
+    : String(group_bucket || '').trim();
 
   return (
     <Box

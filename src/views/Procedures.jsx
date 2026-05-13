@@ -5,38 +5,31 @@ import {
   Container,
   Typography,
   Button,
-  Grid,
-  Drawer,
-  IconButton,
   Stack,
-  useMediaQuery,
-  useTheme,
+  ToggleButtonGroup,
+  ToggleButton,
+  Tooltip,
 } from '@mui/material';
 import Link from 'next/link';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import CloseIcon from '@mui/icons-material/Close';
+import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
+import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
 import { useLanguage } from '../context/LanguageContext';
 import { useProcedures } from '../lib/useProcedures';
 import { SPECIALITY_META, getSpecialityMeta } from '../data/specialityMeta';
-import ProcedureFilters from '../components/procedures/ProcedureFilters';
 import ProcedureSearch from '../components/procedures/ProcedureSearch';
 import SpecialitySection from '../components/procedures/SpecialitySection';
+import SpecialityCard from '../components/procedures/SpecialityCard';
 
 const Procedures = () => {
   const { language, t } = useLanguage();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
   const [expandedSpecialities, setExpandedSpecialities] = useState(() => new Set());
+  const [viewMode, setViewMode] = useState('grid');
 
   const {
     procedures,
-    availableFilters,
-    columnConfig,
     searchQuery,
     selectedFilters,
     handleSearch,
-    handleFilterChange,
     clearFilters,
     filteredCount,
   } = useProcedures();
@@ -80,36 +73,17 @@ const Procedures = () => {
     });
   };
 
-  const handleDrawerToggle = () => {
-    setMobileFiltersOpen((prev) => !prev);
+  const handleViewModeChange = (_event, nextMode) => {
+    if (nextMode) setViewMode(nextMode);
   };
 
   const isSpecialityExpanded = (key) =>
     isUserSearchingOrFiltering ? true : expandedSpecialities.has(key);
 
-  const renderFilterSidebar = () => (
-    <Box sx={{ p: 2 }}>
-      {isMobile && (
-        <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 1 }}>
-          <IconButton onClick={handleDrawerToggle}>
-            <CloseIcon />
-          </IconButton>
-        </Box>
-      )}
-      <ProcedureFilters
-        availableFilters={availableFilters}
-        selectedFilters={selectedFilters}
-        onFilterChange={handleFilterChange}
-        onClearFilters={clearFilters}
-        columnConfig={columnConfig}
-      />
-    </Box>
-  );
-
   const resultsLabel = useMemo(() => {
     const template =
       t('proceduresPage.showingResults') ||
-      (language === 'es' ? 'Mostrando {count} resultados' : 'Showing {count} results');
+      (language === 'es' ? 'Mostrando {count} procedimientos' : 'Showing {count} procedures');
     return template.replace('{count}', String(filteredCount));
   }, [filteredCount, language, t]);
 
@@ -119,106 +93,142 @@ const Procedures = () => {
       ? 'No se encontraron procedimientos que coincidan con sus criterios.'
       : 'No procedures found matching your criteria.');
 
+  const buildSpecialityMeta = (meta) => {
+    const baseMeta = getSpecialityMeta(meta.key);
+    return {
+      ...baseMeta,
+      displayName: meta.name?.[language] || meta.name?.en || meta.key,
+      description: meta.description?.[language] || meta.description?.en || '',
+    };
+  };
+
+  const countLabel = (count) =>
+    language === 'es'
+      ? `${count} procedimiento${count === 1 ? '' : 's'}`
+      : `${count} procedure${count === 1 ? '' : 's'}`;
+
+  const viewMoreLabel = (hidden) =>
+    language === 'es'
+      ? `Ver ${hidden} procedimiento${hidden === 1 ? '' : 's'} más`
+      : `View ${hidden} more procedure${hidden === 1 ? '' : 's'}`;
+
+  const viewLessLabel = language === 'es' ? 'Ver menos' : 'Show less';
+
   return (
     <Box sx={{ py: { xs: 4, md: 6 }, bgcolor: 'background.default', minHeight: '80vh' }}>
-      <Container maxWidth="xl">
+      <Container
+        maxWidth={false}
+        sx={{
+          maxWidth: { xs: '100%', md: 'clamp(1200px, 85vw, 2400px)' },
+        }}
+      >
         <Box sx={{ mb: 3 }}>
           <ProcedureSearch onSearch={handleSearch} initialValue={searchQuery} />
         </Box>
 
-        {isMobile && (
-          <Box sx={{ mb: 2 }}>
-            <Button
-              variant="outlined"
-              startIcon={<FilterListIcon />}
-              onClick={handleDrawerToggle}
-              fullWidth
-            >
-              {t('proceduresPage.filters') || 'Filters'}
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            mb: 2,
+            gap: 2,
+            flexWrap: 'wrap',
+          }}
+        >
+          <Typography variant="body2" color="text.secondary">
+            {resultsLabel}
+          </Typography>
+
+          <ToggleButtonGroup
+            value={viewMode}
+            exclusive
+            onChange={handleViewModeChange}
+            size="small"
+            aria-label={language === 'es' ? 'Vista' : 'View mode'}
+          >
+            <ToggleButton value="list" aria-label={language === 'es' ? 'Lista' : 'List'}>
+              <Tooltip title={language === 'es' ? 'Lista' : 'List'}>
+                <ViewListRoundedIcon fontSize="small" />
+              </Tooltip>
+            </ToggleButton>
+            <ToggleButton value="grid" aria-label={language === 'es' ? 'Cuadrícula' : 'Grid'}>
+              <Tooltip title={language === 'es' ? 'Cuadrícula' : 'Grid'}>
+                <GridViewRoundedIcon fontSize="small" />
+              </Tooltip>
+            </ToggleButton>
+          </ToggleButtonGroup>
+        </Box>
+
+        {visibleSpecialities.length === 0 ? (
+          <Box
+            sx={{
+              textAlign: 'center',
+              py: 8,
+              bgcolor: 'background.paper',
+              borderRadius: 3,
+              border: '1px solid',
+              borderColor: 'divider',
+            }}
+          >
+            <Typography variant="h6" color="text.secondary" gutterBottom>
+              {noResultsLabel}
+            </Typography>
+            <Button variant="text" onClick={clearFilters}>
+              {t('proceduresPage.clearAll') || 'Clear all filters'}
             </Button>
           </Box>
-        )}
-
-        <Grid container spacing={3}>
-          {!isMobile && (
-            <Grid size={{ md: 3 }}>
-              <Box
-                sx={{
-                  bgcolor: 'background.paper',
-                  borderRadius: 3,
-                  border: '1px solid',
-                  borderColor: 'divider',
-                  position: 'sticky',
-                  top: 100,
-                  maxHeight: 'calc(100vh - 120px)',
-                  overflowY: 'auto',
-                  overflowX: 'hidden',
-                }}
-              >
-                {renderFilterSidebar()}
-              </Box>
-            </Grid>
-          )}
-
-          <Drawer
-            anchor="left"
-            open={mobileFiltersOpen}
-            onClose={handleDrawerToggle}
-            ModalProps={{ keepMounted: true }}
-            PaperProps={{ sx: { width: 300 } }}
+        ) : viewMode === 'list' ? (
+          <Stack spacing={2}>
+            {visibleSpecialities.map(({ meta, procedures: list }) => {
+              const fullMeta = buildSpecialityMeta(meta);
+              return (
+                <SpecialitySection
+                  key={meta.key}
+                  speciality={fullMeta}
+                  procedures={list}
+                  expanded={isSpecialityExpanded(meta.key)}
+                  onToggle={() => toggleSpeciality(meta.key)}
+                  countLabel={countLabel}
+                />
+              );
+            })}
+          </Stack>
+        ) : (
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
+              gap: 2,
+              alignItems: 'start',
+            }}
           >
-            {renderFilterSidebar()}
-          </Drawer>
-
-          <Grid size={{ xs: 12, md: 9 }}>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              {resultsLabel}
-            </Typography>
-
-            {visibleSpecialities.length === 0 ? (
-              <Box
-                sx={{
-                  textAlign: 'center',
-                  py: 8,
-                  bgcolor: 'background.paper',
-                  borderRadius: 3,
-                  border: '1px solid',
-                  borderColor: 'divider',
-                }}
-              >
-                <Typography variant="h6" color="text.secondary" gutterBottom>
-                  {noResultsLabel}
-                </Typography>
-                <Button variant="text" onClick={clearFilters}>
-                  {t('proceduresPage.clearAll') || 'Clear all filters'}
-                </Button>
-              </Box>
-            ) : (
-              <Stack spacing={2}>
-                {visibleSpecialities.map(({ meta, procedures: list }) => {
-                  const fullMeta = {
-                    ...getSpecialityMeta(meta.key),
-                    description: meta.description?.[language] || meta.description?.en || '',
-                  };
-                  return (
-                    <SpecialitySection
-                      key={meta.key}
-                      speciality={fullMeta}
-                      procedures={list}
-                      expanded={isSpecialityExpanded(meta.key)}
-                      onToggle={() => toggleSpeciality(meta.key)}
-                      countLabel={(count) =>
-                        language === 'es'
-                          ? `${count} procedimiento${count === 1 ? '' : 's'}`
-                          : `${count} procedure${count === 1 ? '' : 's'}`
-                      }
-                    />
-                  );
-                })}
-              </Stack>
-            )}
-          </Grid>
-        </Grid>
+            {visibleSpecialities.map(({ meta, procedures: list }, index) => {
+              const fullMeta = buildSpecialityMeta(meta);
+              const isLastOddItem =
+                index === visibleSpecialities.length - 1 &&
+                visibleSpecialities.length % 2 === 1;
+              return (
+                <Box
+                  key={meta.key}
+                  sx={{
+                    gridColumn: isLastOddItem ? { xs: '1', md: '1 / -1' } : 'auto',
+                  }}
+                >
+                  <SpecialityCard
+                    speciality={fullMeta}
+                    procedures={list}
+                    countLabel={countLabel}
+                    viewMoreLabel={viewMoreLabel}
+                    viewLessLabel={viewLessLabel}
+                    wide={isLastOddItem}
+                    forceShowAll={isUserSearchingOrFiltering}
+                  />
+                </Box>
+              );
+            })}
+          </Box>
+        )}
 
         <Box
           sx={{

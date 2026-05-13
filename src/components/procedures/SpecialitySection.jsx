@@ -16,8 +16,9 @@ const SpecialitySection = ({
   onToggle,
   countLabel,
 }) => {
-  const { key, Icon, color, bgColor, description } = speciality;
+  const { key, displayName, Icon, color, bgColor, description } = speciality;
   const count = procedures.length;
+  const title = displayName || key;
 
   return (
     <Paper
@@ -70,7 +71,7 @@ const SpecialitySection = ({
 
         <Box sx={{ flexGrow: 1, minWidth: 0 }}>
           <Typography variant="h6" component="h2" fontWeight={700} sx={{ lineHeight: 1.2 }}>
-            {key}
+            {title}
           </Typography>
           {description && (
             <Typography
