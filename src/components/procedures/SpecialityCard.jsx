@@ -46,16 +46,16 @@ const SpecialityCard = ({
       <Box
         sx={{
           display: 'flex',
-          alignItems: 'center',
-          gap: 2,
+          alignItems: 'flex-start',
+          gap: { xs: 1.5, md: 2 },
           px: { xs: 2, md: 3 },
           py: 2,
         }}
       >
         <Box
           sx={{
-            width: 48,
-            height: 48,
+            width: { xs: 40, md: 48 },
+            height: { xs: 40, md: 48 },
             borderRadius: '50%',
             bgcolor: bgColor,
             color,
@@ -65,38 +65,60 @@ const SpecialityCard = ({
             flexShrink: 0,
           }}
         >
-          <Icon size={24} width={24} height={24} />
+          <Icon size={22} width={22} height={22} />
         </Box>
 
         <Box sx={{ flexGrow: 1, minWidth: 0 }}>
-          <Typography variant="h6" component="h2" fontWeight={700} sx={{ lineHeight: 1.2 }}>
-            {title}
-          </Typography>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              gap: 1,
+              flexWrap: 'wrap',
+            }}
+          >
+            <Typography
+              variant="h6"
+              component="h2"
+              fontWeight={700}
+              sx={{
+                lineHeight: 1.2,
+                fontSize: { xs: '1.05rem', md: '1.25rem' },
+                flexGrow: 1,
+                minWidth: 0,
+              }}
+            >
+              {title}
+            </Typography>
+            <Box
+              sx={{
+                bgcolor: bgColor,
+                color,
+                fontWeight: 600,
+                fontSize: { xs: '0.72rem', md: '0.8rem' },
+                px: { xs: 1.25, md: 1.5 },
+                py: 0.5,
+                borderRadius: 999,
+                whiteSpace: 'nowrap',
+                flexShrink: 0,
+              }}
+            >
+              {countLabel ? countLabel(count) : `${count}`}
+            </Box>
+          </Box>
           {description && (
             <Typography
               variant="body2"
               color="text.secondary"
-              sx={{ mt: 0.25, lineHeight: 1.4 }}
+              sx={{
+                mt: 0.5,
+                lineHeight: 1.4,
+                fontSize: { xs: '0.82rem', md: '0.875rem' },
+              }}
             >
               {description}
             </Typography>
           )}
-        </Box>
-
-        <Box
-          sx={{
-            bgcolor: bgColor,
-            color,
-            fontWeight: 600,
-            fontSize: '0.8rem',
-            px: 1.5,
-            py: 0.5,
-            borderRadius: 999,
-            whiteSpace: 'nowrap',
-            flexShrink: 0,
-          }}
-        >
-          {countLabel ? countLabel(count) : `${count}`}
         </Box>
       </Box>
 

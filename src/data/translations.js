@@ -404,7 +404,7 @@ export const translations = {
     proceduresPage: {
       filters: 'Filters',
       clearAll: 'Clear all',
-      searchPlaceholder: 'Search procedures, categories, or keywords...',
+      searchPlaceholder: 'Search procedures or keywords...',
       showingResults: 'Showing {count} procedures',
       noResults: 'No procedures found matching your criteria.',
     },
@@ -859,7 +859,7 @@ export const translations = {
     proceduresPage: {
       filters: 'Filtros',
       clearAll: 'Borrar todo',
-      searchPlaceholder: 'Buscar procedimientos, categorias o palabras clave...',
+      searchPlaceholder: 'Buscar procedimientos o palabras clave...',
       showingResults: 'Mostrando {count} procedimientos',
       noResults: 'No se encontraron procedimientos que coincidan con sus criterios.',
     },
