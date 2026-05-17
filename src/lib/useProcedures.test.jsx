@@ -1,10 +1,9 @@
-import { renderHook, act, waitFor } from '@testing-library/react';
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { __resetProceduresCache, prefetchProceduresData, useProcedures } from './useProcedures';
+import { renderHook, act } from '@testing-library/react';
+import { describe, it, expect, vi } from 'vitest';
+import { useProcedures } from './useProcedures';
 
-// Mock data
-const MOCK_RESPONSE = {
-  procedures: [
+vi.mock('../data/procedures', () => {
+  const PROCEDURES_VISIBLE = [
     {
       procedure_id: 'p1',
       procedure_name: 'Procedure A',
@@ -12,7 +11,7 @@ const MOCK_RESPONSE = {
       section: 'Category 1',
       tags: ['tag1'],
       visible: true,
-      sort_order: 1
+      sort_order: 1,
     },
     {
       procedure_id: 'p2',
@@ -21,7 +20,7 @@ const MOCK_RESPONSE = {
       section: 'Category 1',
       tags: ['tag2'],
       visible: true,
-      sort_order: 2
+      sort_order: 2,
     },
     {
       procedure_id: 'p3',
@@ -30,71 +29,39 @@ const MOCK_RESPONSE = {
       section: 'Category 2',
       tags: ['tag1', 'tag3'],
       visible: true,
-      sort_order: 3
-    }
-  ],
-  filters: {
-    top_category: ['Area 1', 'Area 2'],
-    section: ['Category 1', 'Category 2'],
-    tags: ['tag1', 'tag2', 'tag3']
-  }
-};
+      sort_order: 3,
+    },
+  ];
+
+  return {
+    PROCEDURES: PROCEDURES_VISIBLE,
+    PROCEDURES_VISIBLE,
+    PROCEDURES_FILTERS: {
+      top_category: ['Area 1', 'Area 2'],
+      section: ['Category 1', 'Category 2'],
+      tags: ['tag1', 'tag2', 'tag3'],
+    },
+    PROCEDURES_COLUMN_CONFIG: {
+      procedure_name: { searchable: true },
+      top_category: { searchable: false },
+      section: { searchable: true },
+      tags: { searchable: true },
+    },
+  };
+});
 
 describe('useProcedures Hook', () => {
-  beforeEach(() => {
-    let store = {};
-    Object.defineProperty(window, 'localStorage', {
-      configurable: true,
-      value: {
-        getItem: vi.fn((key) => store[key] ?? null),
-        setItem: vi.fn((key, value) => {
-          store[key] = String(value);
-        }),
-        removeItem: vi.fn((key) => {
-          delete store[key];
-        }),
-        clear: vi.fn(() => {
-          store = {};
-        }),
-      },
-    });
-
-    __resetProceduresCache();
-    window.localStorage.clear();
-
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        ok: true,
-        headers: {
-          get: (key) => (key.toLowerCase() === 'content-type' ? 'application/json' : null),
-        },
-        json: () => Promise.resolve(MOCK_RESPONSE),
-      })
-    );
-  });
-
-  afterEach(() => {
-    __resetProceduresCache();
-    vi.restoreAllMocks();
-  });
-
-  it('should fetch data on mount', async () => {
+  it('exposes all visible procedures synchronously', () => {
     const { result } = renderHook(() => useProcedures());
 
-    expect(result.current.loading).toBe(true);
-
-    await waitFor(() => {
-      expect(result.current.loading).toBe(false);
-    });
-
+    expect(result.current.loading).toBe(false);
+    expect(result.current.error).toBeNull();
     expect(result.current.procedures).toHaveLength(3);
-    expect(result.current.availableFilters).toEqual(MOCK_RESPONSE.filters);
+    expect(result.current.availableFilters.top_category).toEqual(['Area 1', 'Area 2']);
   });
 
-  it('should filter by search query', async () => {
+  it('filters by search query', () => {
     const { result } = renderHook(() => useProcedures());
-    
-    await waitFor(() => expect(result.current.loading).toBe(false));
 
     act(() => {
       result.current.handleSearch('Procedure A');
@@ -104,108 +71,85 @@ describe('useProcedures Hook', () => {
     expect(result.current.procedures[0].procedure_name).toBe('Procedure A');
 
     act(() => {
-        result.current.handleSearch('tag3');
+      result.current.handleSearch('tag3');
     });
     expect(result.current.procedures).toHaveLength(1);
     expect(result.current.procedures[0].procedure_name).toBe('Procedure C');
   });
 
-  it('should filter by category (OR logic within category)', async () => {
+  it('filters by category (OR logic within category)', () => {
     const { result } = renderHook(() => useProcedures());
-    
-    await waitFor(() => expect(result.current.loading).toBe(false));
 
     act(() => {
       result.current.handleFilterChange('top_category', 'Area 1');
     });
-
-    // Should match p1 and p3
     expect(result.current.procedures).toHaveLength(2);
-    
+
     act(() => {
-        result.current.handleFilterChange('top_category', 'Area 2');
+      result.current.handleFilterChange('top_category', 'Area 2');
     });
-      
-    // Should match p1, p2, p3 (Area 1 OR Area 2)
     expect(result.current.procedures).toHaveLength(3);
   });
 
-  it('should filter across categories (AND logic)', async () => {
-     const { result } = renderHook(() => useProcedures());
-    
-    await waitFor(() => expect(result.current.loading).toBe(false));
+  it('filters across categories (AND logic)', () => {
+    const { result } = renderHook(() => useProcedures());
 
     act(() => {
       result.current.handleFilterChange('top_category', 'Area 1');
     });
-    
-    // p1, p3
 
     act(() => {
-        result.current.handleFilterChange('section', 'Category 2');
+      result.current.handleFilterChange('section', 'Category 2');
     });
 
-    // Area 1 AND Category 2 -> Only p3
     expect(result.current.procedures).toHaveLength(1);
     expect(result.current.procedures[0].procedure_id).toBe('p3');
   });
 
-  it('should filter by tags when procedure tags are arrays', async () => {
+  it('filters by tags when procedure tags are arrays', () => {
     const { result } = renderHook(() => useProcedures());
-
-    await waitFor(() => expect(result.current.loading).toBe(false));
 
     act(() => {
       result.current.handleFilterChange('tags', 'tag1');
     });
-
     expect(result.current.procedures).toHaveLength(2);
 
     act(() => {
       result.current.handleFilterChange('tags', 'tag2');
     });
-
-    // OR logic within tags category -> tag1 OR tag2
     expect(result.current.procedures).toHaveLength(3);
   });
 
-  it('should not fall back to legacy searchable fields when config explicitly disables search', async () => {
-    global.fetch = vi.fn(() =>
-      Promise.resolve({
-        ok: true,
-        headers: {
-          get: (key) => (key.toLowerCase() === 'content-type' ? 'application/json' : null),
-        },
-        json: () =>
-          Promise.resolve({
-            ...MOCK_RESPONSE,
-            columnConfig: {
-              procedure_name: { searchable: true },
-              tags: { searchable: false },
-              section: { searchable: false },
-            },
-          }),
-      })
-    );
-
+  it('respects searchable column config when searching', () => {
     const { result } = renderHook(() => useProcedures());
-    await waitFor(() => expect(result.current.loading).toBe(false));
 
+    // tag values should match since `tags` is configured as searchable
     act(() => {
       result.current.handleSearch('tag3');
     });
+    expect(result.current.procedures).toHaveLength(1);
 
+    // top_category is NOT searchable in the mocked config, so 'Area' should match nothing
+    act(() => {
+      result.current.handleSearch('Area');
+    });
     expect(result.current.procedures).toHaveLength(0);
   });
 
-  it('should hydrate from a fresh cache without refetching on mount', async () => {
-    await prefetchProceduresData();
-    expect(global.fetch).toHaveBeenCalledTimes(1);
-
+  it('clearFilters resets search and filters', () => {
     const { result } = renderHook(() => useProcedures());
 
-    expect(result.current.loading).toBe(false);
+    act(() => {
+      result.current.handleFilterChange('top_category', 'Area 1');
+      result.current.handleSearch('Procedure');
+    });
+
+    act(() => {
+      result.current.clearFilters();
+    });
+
     expect(result.current.procedures).toHaveLength(3);
-    expect(global.fetch).toHaveBeenCalledTimes(1);
+    expect(result.current.searchQuery).toBe('');
+    expect(result.current.selectedFilters).toEqual({});
   });
 });

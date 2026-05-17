@@ -118,12 +118,11 @@ Each page has its own file in `src/pages/`. Most text content is centralized in 
 - Open `src/layout/Navbar.jsx`.
 - Update the `navItems` array.
 
-### 4. Procedures Spreadsheet Operations
+### 4. Procedures Catalog
 
-For the full non-technical editing guide, schema/config tab format, and Google Sheets hardening checklist, see:
-
-- `docs/PROCEDURES_SHEET_GUIDE.md`
-- `docs/PROCEDURES_BOSS_TUTORIAL.md`
+The procedures listed on `/procedures` are committed as static data in
+`src/data/procedures.js`. Edit that file to add, remove, or update procedures —
+no spreadsheet, API route, or build step is involved.
 
 ## License
 
