@@ -31,7 +31,6 @@ const Procedures = () => {
     selectedFilters,
     handleSearch,
     clearFilters,
-    filteredCount,
   } = useProcedures();
 
   const proceduresBySpeciality = useMemo(() => {
@@ -80,13 +79,6 @@ const Procedures = () => {
   const isSpecialityExpanded = (key) =>
     isUserSearchingOrFiltering ? true : expandedSpecialities.has(key);
 
-  const resultsLabel = useMemo(() => {
-    const template =
-      t('proceduresPage.showingResults') ||
-      (language === 'es' ? 'Mostrando {count} procedimientos' : 'Showing {count} procedures');
-    return template.replace('{count}', String(filteredCount));
-  }, [filteredCount, language, t]);
-
   const noResultsLabel =
     t('proceduresPage.noResults') ||
     (language === 'es'
@@ -101,11 +93,6 @@ const Procedures = () => {
       description: meta.description?.[language] || meta.description?.en || '',
     };
   };
-
-  const countLabel = (count) =>
-    language === 'es'
-      ? `${count} procedimiento${count === 1 ? '' : 's'}`
-      : `${count} procedure${count === 1 ? '' : 's'}`;
 
   const viewMoreLabel = (hidden) =>
     language === 'es'
@@ -130,16 +117,12 @@ const Procedures = () => {
           sx={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'space-between',
+            justifyContent: 'flex-end',
             mb: 2,
             gap: 2,
             flexWrap: 'wrap',
           }}
         >
-          <Typography variant="body2" color="text.secondary">
-            {resultsLabel}
-          </Typography>
-
           <ToggleButtonGroup
             value={viewMode}
             exclusive
@@ -189,7 +172,6 @@ const Procedures = () => {
                   procedures={list}
                   expanded={isSpecialityExpanded(meta.key)}
                   onToggle={() => toggleSpeciality(meta.key)}
-                  countLabel={countLabel}
                 />
               );
             })}
@@ -218,7 +200,6 @@ const Procedures = () => {
                   <SpecialityCard
                     speciality={fullMeta}
                     procedures={list}
-                    countLabel={countLabel}
                     viewMoreLabel={viewMoreLabel}
                     viewLessLabel={viewLessLabel}
                     wide={isLastOddItem}

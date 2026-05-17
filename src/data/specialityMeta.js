@@ -46,6 +46,17 @@ const StomachIcon = (props) => (
  */
 export const SPECIALITY_META = [
   {
+    key: 'Bariatric',
+    name: { en: 'Bariatric', es: 'Bariátrica' },
+    Icon: StomachIcon,
+    color: '#F59E0B',
+    bgColor: '#FEF3C7',
+    description: {
+      en: 'Weight loss and bariatric surgery procedures.',
+      es: 'Cirugías bariátricas y procedimientos para pérdida de peso.',
+    },
+  },
+  {
     key: 'Cardiology',
     name: { en: 'Cardiology', es: 'Cardiología' },
     Icon: HeartPulse,
@@ -54,28 +65,6 @@ export const SPECIALITY_META = [
     description: {
       en: 'Procedures related to the heart and cardiovascular system.',
       es: 'Procedimientos relacionados con el corazón y el sistema cardiovascular.',
-    },
-  },
-  {
-    key: 'Orthopedic',
-    name: { en: 'Orthopedic', es: 'Ortopedia' },
-    Icon: Bone,
-    color: '#7C3AED',
-    bgColor: '#EDE9FE',
-    description: {
-      en: 'Procedures related to bones, joints, and muscles.',
-      es: 'Procedimientos relacionados con huesos, articulaciones y músculos.',
-    },
-  },
-  {
-    key: 'Preventive Care / Wellness',
-    name: { en: 'Preventive Care / Wellness', es: 'Cuidado Preventivo / Bienestar' },
-    Icon: ShieldCheck,
-    color: '#10B981',
-    bgColor: '#D1FAE5',
-    description: {
-      en: 'Preventive exams and general wellness diagnostics.',
-      es: 'Exámenes preventivos y diagnósticos generales de bienestar.',
     },
   },
   {
@@ -112,14 +101,25 @@ export const SPECIALITY_META = [
     },
   },
   {
-    key: 'Bariatric',
-    name: { en: 'Bariatric', es: 'Bariátrica' },
-    Icon: StomachIcon,
-    color: '#F59E0B',
-    bgColor: '#FEF3C7',
+    key: 'Orthopedic',
+    name: { en: 'Orthopedic', es: 'Ortopedia' },
+    Icon: Bone,
+    color: '#7C3AED',
+    bgColor: '#EDE9FE',
     description: {
-      en: 'Weight loss and bariatric surgery procedures.',
-      es: 'Cirugías bariátricas y procedimientos para pérdida de peso.',
+      en: 'Procedures related to bones, joints, and muscles.',
+      es: 'Procedimientos relacionados con huesos, articulaciones y músculos.',
+    },
+  },
+  {
+    key: 'Preventative Care/Wellness',
+    name: { en: 'Preventative Care/Wellness', es: 'Cuidado Preventivo / Bienestar' },
+    Icon: ShieldCheck,
+    color: '#10B981',
+    bgColor: '#D1FAE5',
+    description: {
+      en: 'Preventive exams and general wellness diagnostics.',
+      es: 'Exámenes preventivos y diagnósticos generales de bienestar.',
     },
   },
 ];

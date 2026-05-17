@@ -14,10 +14,8 @@ const SpecialitySection = ({
   procedures,
   expanded,
   onToggle,
-  countLabel,
 }) => {
   const { key, displayName, Icon, color, bgColor, description } = speciality;
-  const count = procedures.length;
   const title = displayName || key;
 
   return (
@@ -70,43 +68,17 @@ const SpecialitySection = ({
         </Box>
 
         <Box sx={{ flexGrow: 1, minWidth: 0 }}>
-          <Box
+          <Typography
+            variant="h6"
+            component="h2"
+            fontWeight={700}
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 1,
-              flexWrap: 'wrap',
+              lineHeight: 1.2,
+              fontSize: { xs: '1.05rem', md: '1.25rem' },
             }}
           >
-            <Typography
-              variant="h6"
-              component="h2"
-              fontWeight={700}
-              sx={{
-                lineHeight: 1.2,
-                fontSize: { xs: '1.05rem', md: '1.25rem' },
-                flexGrow: 1,
-                minWidth: 0,
-              }}
-            >
-              {title}
-            </Typography>
-            <Box
-              sx={{
-                bgcolor: bgColor,
-                color,
-                fontWeight: 600,
-                fontSize: { xs: '0.72rem', md: '0.8rem' },
-                px: { xs: 1.25, md: 1.5 },
-                py: 0.5,
-                borderRadius: 999,
-                whiteSpace: 'nowrap',
-                flexShrink: 0,
-              }}
-            >
-              {countLabel ? countLabel(count) : `${count} procedures`}
-            </Box>
-          </Box>
+            {title}
+          </Typography>
           {description && (
             <Typography
               variant="body2"
@@ -140,7 +112,12 @@ const SpecialitySection = ({
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <Box>
           {procedures.map((procedure) => (
-            <ProcedureRow key={procedure.procedure_id} procedure={procedure} />
+            <ProcedureRow
+              key={procedure.procedure_id}
+              procedure={procedure}
+              accentColor={color}
+              accentBgColor={bgColor}
+            />
           ))}
         </Box>
       </Collapse>
