@@ -2,7 +2,42 @@
   "permissions": {
     "allow": [
       "Bash(npm run:*)",
-      "Bash(npx vite:*)"
+      "Bash(npx vite:*)",
+      "Bash(find /c/Users/Sergio/Documents/GitHub/HealthHavenMyVersion2/src/pages -type f -name *.jsx -o -name *.js)",
+      "Bash(find /c/Users/Sergio/Documents/GitHub/HealthHavenMyVersion2/src/components -type f -name *.jsx -o -name *.js)",
+      "Bash(find /c/Users/Sergio/Documents/GitHub/HealthHavenMyVersion2/src/layout -type f -name *.jsx -o -name *.js)",
+      "Bash(grep -E \"\\\\.\\(jsx|js|ts|tsx\\)$\")",
+      "Bash(head -100 /c/Users/Sergio/Documents/GitHub/HealthHavenMyVersion2/src/components/procedures/*.jsx)",
+      "Bash(wc -l /c/Users/Sergio/Documents/GitHub/HealthHavenMyVersion2/src/pages/*.jsx)",
+      "Bash(npm install:*)",
+      "Bash(ls api/)",
+      "Bash(ls scripts/)",
+      "Bash(ls src/seo/)",
+      "Bash(npm uninstall:*)",
+      "Bash(npx next:*)",
+      "Bash(find app:*)",
+      "Bash(NODE_OPTIONS=\"--stack-trace-limit=50\" npx next build)",
+      "Bash(npm ls:*)",
+      "Bash(curl -s http://localhost:3333/library/is-medical-travel-right-for-me)",
+      "Bash(curl -s -o /dev/null -w \"%{http_code}\" http://localhost:3333/library/is-medical-travel-right-for-me)",
+      "Bash(node -e \"const pkg = require\\('./node_modules/next/package.json'\\); console.log\\('next:', pkg.version\\); console.log\\('peerDeps:', JSON.stringify\\(pkg.peerDependencies\\)\\)\")",
+      "Bash(curl -s http://localhost:3334/about)",
+      "Bash(kill %1)",
+      "Bash(wait)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(python -c \"import json,sys; data=json.load\\(sys.stdin\\); errors=[e for e in data if e.get\\('type'\\)=='error']; print\\(f'{len\\(errors\\)} errors total'\\); [print\\(e['text'][:200]\\) for e in errors[:5]]\")",
+      "Bash(node -e ':*)",
+      "Bash(mv api/proceduresParser.test.js src/lib/proceduresParser.test.js)",
+      "Bash(rm -rf api/ scripts/ dist/)",
+      "Bash(npx vitest:*)",
+      "Bash(node -e \"try { require.resolve\\('vite'\\); console.log\\('vite: installed'\\); } catch { console.log\\('vite: NOT installed'\\); }\")",
+      "Bash(mv src/layout/Navbar.jsx src/components/Navbar.jsx)",
+      "Bash(mv src/layout/Footer.jsx src/components/Footer.jsx)",
+      "Bash(rm -rf src/layout)",
+      "Bash(mv src/seo/siteSeo.js src/lib/siteSeo.js)",
+      "Bash(mv src/seo/siteSeo.test.js src/lib/siteSeo.test.js)",
+      "Bash(xargs sed:*)",
+      "Bash(Remove-Item -Recurse -Force \"C:\\\\Users\\\\Sergio\\\\Documents\\\\GitHub\\\\HealthHavenMyVersion2\\\\src\\\\app\\\\\\(main\\)\\\\procedures\\\\[slug]\")"
     ]
   }
 }

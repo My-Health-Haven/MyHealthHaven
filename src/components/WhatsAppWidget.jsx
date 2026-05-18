@@ -7,9 +7,11 @@ import {
   IconButton,
   Typography,
   Fade,
+  Link as MuiLink,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import SendIcon from "@mui/icons-material/Send";
+import Link from "next/link";
 
 import { useLanguage } from "../context/LanguageContext";
 
@@ -29,6 +31,7 @@ const WhatsAppWidget = () => {
   // Constants
   const BUBBLE_SIZE = 60;
   const MARGIN = 20;
+  const NAVBAR_HEIGHT = 100; // utility bar (~32px) + AppBar (~64px) with safety margin
 
   // Keep coords in ref for resize handler to avoid re-attaching listener
   const coordsRef = useRef(coords);
@@ -46,49 +49,28 @@ const WhatsAppWidget = () => {
     setIsReady(true);
   }, []);
 
-  const snapToNearestCorner = useCallback((currentLeft, currentTop) => {
+  const clampToBounds = useCallback((currentLeft, currentTop) => {
     const windowWidth = window.innerWidth;
     const windowHeight = window.innerHeight;
-
-    const corners = [
-      { left: MARGIN, top: MARGIN }, // Top-Left
-      { left: windowWidth - BUBBLE_SIZE - MARGIN, top: MARGIN }, // Top-Right
-      { left: MARGIN, top: windowHeight - BUBBLE_SIZE - MARGIN }, // Bottom-Left
-      {
-        left: windowWidth - BUBBLE_SIZE - MARGIN,
-        top: windowHeight - BUBBLE_SIZE - MARGIN,
-      }, // Bottom-Right
-    ];
-
-    // Find closest corner
-    let closest = corners[0];
-    let minDist = Infinity;
-
-    corners.forEach((corner) => {
-      const dist = Math.hypot(
-        corner.left - currentLeft,
-        corner.top - currentTop
-      );
-      if (dist < minDist) {
-        minDist = dist;
-        closest = corner;
-      }
-    });
-
-    setCoords(closest);
-  }, [BUBBLE_SIZE, MARGIN]);
+    const minLeft = MARGIN;
+    const maxLeft = windowWidth - BUBBLE_SIZE - MARGIN;
+    const minTop = NAVBAR_HEIGHT;
+    const maxTop = windowHeight - BUBBLE_SIZE - MARGIN;
+    return {
+      left: Math.max(minLeft, Math.min(maxLeft, currentLeft)),
+      top: Math.max(minTop, Math.min(maxTop, currentTop)),
+    };
+  }, [BUBBLE_SIZE, MARGIN, NAVBAR_HEIGHT]);
 
   useEffect(() => {
     if (!isReady) return undefined;
 
-    // Initial snap to bottom-right on mount/resize logic could be added here
     const handleResize = () => {
-      // Use ref to access latest coords without re-running effect
-      snapToNearestCorner(coordsRef.current.left, coordsRef.current.top);
+      setCoords(clampToBounds(coordsRef.current.left, coordsRef.current.top));
     };
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [isReady, snapToNearestCorner]);
+  }, [isReady, clampToBounds]);
 
   const handlePointerDown = (e) => {
     // Only left click or touch
@@ -116,7 +98,7 @@ const WhatsAppWidget = () => {
       hasMoved.current = true;
     }
 
-    setCoords({ left: newLeft, top: newTop });
+    setCoords(clampToBounds(newLeft, newTop));
   };
 
   const handlePointerUp = (e) => {
@@ -126,9 +108,8 @@ const WhatsAppWidget = () => {
 
     if (!hasMoved.current) {
       setIsChatOpen(!isChatOpen);
-    } else {
-      snapToNearestCorner(coords.left, coords.top);
     }
+    // No snap — bubble stays at the (already-clamped) drop position
   };
 
   const handleSendMessage = () => {
@@ -206,6 +187,14 @@ const WhatsAppWidget = () => {
           >
             {t('whatsapp.start')}
           </Button>
+          <Box sx={{ mt: 1, pt: 1.5, borderTop: '1px solid', borderColor: 'divider', textAlign: 'center' }}>
+            <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 0.5 }}>
+              {t('whatsapp.alternativeIntro')}
+            </Typography>
+            <MuiLink component={Link} href="/schedule" variant="body2" underline="hover" onClick={() => setIsChatOpen(false)}>
+              {t('whatsapp.scheduleCall')}
+            </MuiLink>
+          </Box>
         </Paper>
       </Fade>
 

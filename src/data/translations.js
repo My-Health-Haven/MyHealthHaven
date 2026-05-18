@@ -260,6 +260,7 @@ export const translations = {
       subtitle:
         'From airport to hospital to recovery, we help you understand what to expect and how to prepare.',
       cta: 'Schedule your free consultation',
+      mapActivate: 'Click to interact with map',
       locationsTitle: 'Where we operate',
       locationsDesc:
         'We begin in established medical hubs such as Cancún, with plans to expand to additional cities as hospital partnerships meet our standards.',
@@ -449,6 +450,8 @@ export const translations = {
       placeholder: 'Hello! I have a question...',
       start: 'Start Chat',
       tooltip: 'Connect now',
+      alternativeIntro: 'Prefer not to use WhatsApp?',
+      scheduleCall: 'Schedule a Call',
     },
     misc: {
       comingSoon: 'Coming Soon',
@@ -717,6 +720,7 @@ export const translations = {
       subtitle:
         'Desde el aeropuerto hasta el hospital y la recuperacion, le ayudamos a entender que esperar y como prepararse.',
       cta: 'Agende su consulta gratis',
+      mapActivate: 'Haga clic para interactuar con el mapa',
       locationsTitle: 'Donde operamos',
       locationsDesc:
         'Comenzamos en centros medicos establecidos como Cancun, con planes de expandirnos a ciudades adicionales a medida que las asociaciones hospitalarias cumplan nuestros estandares.',
@@ -904,6 +908,8 @@ export const translations = {
       placeholder: 'Hola! Tengo una pregunta...',
       start: 'Iniciar Chat',
       tooltip: 'Conectar ahora',
+      alternativeIntro: '¿Prefiere no usar WhatsApp?',
+      scheduleCall: 'Agendar una llamada',
     },
     misc: {
       comingSoon: 'Proximamente',

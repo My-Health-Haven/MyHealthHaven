@@ -18,6 +18,7 @@ import {
   Divider,
   Menu,
   MenuItem,
+  Snackbar,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -27,13 +28,23 @@ import { useLanguage } from '../context/LanguageContext';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 
+const HEALTH_NAVIGATOR_EMAIL = 'healthnavigator@andersonlg.com';
+
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [useInverseNav, setUseInverseNav] = useState(false);
+  const [emailCopied, setEmailCopied] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const pathname = usePathname();
   const { language, selectLanguage, t } = useLanguage();
+
+  const handleEmailClick = () => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(HEALTH_NAVIGATOR_EMAIL).catch(() => {});
+    }
+    setEmailCopied(true);
+  };
   
   // State for Home Dropdown
   const [anchorEl, setAnchorEl] = useState(null);
@@ -182,8 +193,8 @@ const Navbar = () => {
                 </Stack>
                 <Stack direction="row" spacing={1} alignItems="center">
                     <EmailIcon fontSize="small" sx={{ fontSize: 16 }} />
-                    <Typography variant="caption" component="a" href="mailto:healthnavigator@andersonlg.com" sx={{ color: 'white', textDecoration: 'none', fontWeight: 500 }}>
-                        healthnavigator@andersonlg.com
+                    <Typography variant="caption" component="a" href={`mailto:${HEALTH_NAVIGATOR_EMAIL}`} onClick={handleEmailClick} sx={{ color: 'white', textDecoration: 'none', fontWeight: 500 }}>
+                        {HEALTH_NAVIGATOR_EMAIL}
                     </Typography>
                 </Stack>
             </Stack>
@@ -342,6 +353,12 @@ const Navbar = () => {
         {drawer}
       </Drawer>
     </AppBar>
+    <Snackbar
+      open={emailCopied}
+      autoHideDuration={2500}
+      onClose={() => setEmailCopied(false)}
+      message={language === 'es' ? 'Correo copiado al portapapeles' : 'Email copied to clipboard'}
+    />
     </>
   );
 };

@@ -240,6 +240,39 @@ ${payload.procedure}
 IP: ${meta.clientIp}
 `;
 
+const buildUserConfirmationHtml = (payload) => {
+  const isEs = payload.language === 'es';
+  const greeting = isEs ? `Hola ${escapeHtml(payload.name)},` : `Hi ${escapeHtml(payload.name)},`;
+  const intro = isEs
+    ? 'Gracias por solicitar una estimacion gratuita en MyHealth Haven. Hemos recibido su solicitud y nuestro Health Navigator se comunicara con usted en breve con una cotizacion detallada.'
+    : 'Thanks for requesting a free estimate from MyHealth Haven. We have received your request and our Health Navigator will follow up shortly with a detailed quote.';
+  const summaryTitle = isEs ? 'Resumen de su solicitud' : 'Your request summary';
+  const closing = isEs
+    ? 'Si tiene preguntas urgentes, responda a este correo o llamenos al +1 (214) 276 3928.'
+    : 'If you have urgent questions, reply to this email or call us at +1 (214) 276 3928.';
+  return `<div style="font-family:Arial,sans-serif;line-height:1.55;color:#111;max-width:560px;">
+    <h2 style="margin:0 0 12px;color:#00897b;">MyHealth Haven</h2>
+    <p>${greeting}</p>
+    <p>${intro}</p>
+    <h3 style="margin:20px 0 8px;">${summaryTitle}</h3>
+    <table cellpadding="0" cellspacing="0" border="0" style="border-collapse:collapse;">
+      <tr><td style="padding:4px 10px 4px 0;font-weight:600;">${isEs ? 'Procedimiento' : 'Procedure'}:</td><td style="padding:4px 0;">${escapeHtml(payload.procedure).replace(/\n/g, '<br />')}</td></tr>
+      <tr><td style="padding:4px 10px 4px 0;font-weight:600;">${isEs ? 'Estado' : 'State'}:</td><td style="padding:4px 0;">${escapeHtml(payload.state)}</td></tr>
+      <tr><td style="padding:4px 10px 4px 0;font-weight:600;">${isEs ? 'Ciudad' : 'City'}:</td><td style="padding:4px 0;">${escapeHtml(payload.city)}</td></tr>
+      <tr><td style="padding:4px 10px 4px 0;font-weight:600;">${isEs ? 'Telefono' : 'Phone'}:</td><td style="padding:4px 0;">${escapeHtml(payload.phone)}</td></tr>
+    </table>
+    <p style="margin-top:20px;">${closing}</p>
+    <p style="margin-top:24px;color:#555;font-size:12px;">MyHealth Haven Management, LLC</p>
+  </div>`;
+};
+
+const buildUserConfirmationText = (payload) => {
+  const isEs = payload.language === 'es';
+  return isEs
+    ? `Hola ${payload.name},\n\nGracias por solicitar una estimacion gratuita en MyHealth Haven. Hemos recibido su solicitud y nuestro Health Navigator se comunicara con usted en breve con una cotizacion detallada.\n\nResumen de su solicitud:\n- Procedimiento: ${payload.procedure}\n- Estado: ${payload.state}\n- Ciudad: ${payload.city}\n- Telefono: ${payload.phone}\n\nSi tiene preguntas urgentes, responda a este correo o llamenos al +1 (214) 276 3928.\n\nMyHealth Haven Management, LLC`
+    : `Hi ${payload.name},\n\nThanks for requesting a free estimate from MyHealth Haven. We have received your request and our Health Navigator will follow up shortly with a detailed quote.\n\nYour request summary:\n- Procedure: ${payload.procedure}\n- State: ${payload.state}\n- City: ${payload.city}\n- Phone: ${payload.phone}\n\nIf you have urgent questions, reply to this email or call us at +1 (214) 276 3928.\n\nMyHealth Haven Management, LLC`;
+};
+
 function corsHeaders(request) {
   const origin = request.headers.get('origin');
   if (!origin) return {};
@@ -356,6 +389,34 @@ export async function POST(request) {
         { error: 'Failed to deliver submission email' },
         { status: 502, headers: cors }
       );
+    }
+
+    const userConfirmationPayload = {
+      from: fromEmail,
+      to: [payload.email],
+      reply_to: toEmail,
+      subject: payload.language === 'es'
+        ? 'Recibimos su solicitud — MyHealth Haven'
+        : 'We received your request — MyHealth Haven',
+      html: buildUserConfirmationHtml(payload),
+      text: buildUserConfirmationText(payload),
+    };
+
+    try {
+      const userResp = await fetch(RESEND_API_URL, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(userConfirmationPayload),
+      });
+      if (!userResp.ok) {
+        const txt = await userResp.text();
+        console.error('Resend user confirmation error', userResp.status, txt);
+      }
+    } catch (err) {
+      console.error('Resend user confirmation threw', err);
     }
 
     return Response.json({ ok: true }, { headers: cors });

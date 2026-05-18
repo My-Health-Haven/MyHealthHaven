@@ -1,17 +1,30 @@
-import { Box, Container, Grid, Typography, Link as MuiLink, Stack, IconButton } from '@mui/material';
+import { useState } from 'react';
+import { Box, Container, Grid, Typography, Link as MuiLink, Stack, IconButton, Snackbar, SvgIcon } from '@mui/material';
 import Link from 'next/link';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
-import TwitterIcon from '@mui/icons-material/Twitter';
 import { useLanguage } from '../context/LanguageContext';
 
 const HEALTH_NAVIGATOR_EMAIL = 'healthnavigator@andersonlg.com';
-const TIKTOK_URL = 'https://www.tiktok.com/@my.health.haven1';
+const TIKTOK_URL = 'https://www.tiktok.com/@my.health.haven';
+
+const XIcon = (props) => (
+  <SvgIcon {...props} viewBox="0 0 24 24">
+    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+  </SvgIcon>
+);
 
 const Footer = () => {
   const { language } = useLanguage();
+  const [emailCopied, setEmailCopied] = useState(false);
+  const handleEmailClick = () => {
+    if (typeof navigator !== 'undefined' && navigator.clipboard) {
+      navigator.clipboard.writeText(HEALTH_NAVIGATOR_EMAIL).catch(() => {});
+    }
+    setEmailCopied(true);
+  };
   const currentYear = new Date().getFullYear();
   const footerCopy =
     language === 'es'
@@ -109,12 +122,18 @@ const Footer = () => {
               {footerCopy.contact}
             </Typography>
             <Stack spacing={1}>
-              <MuiLink component={Link} href="/contact" color="text.secondary" variant="body2" underline="hover">{footerCopy.speakWithNavigator}</MuiLink>
+              <MuiLink component={Link} href="/schedule" color="text.secondary" variant="body2" underline="hover">{footerCopy.speakWithNavigator}</MuiLink>
               <MuiLink href="https://wa.me/12142763928" color="text.secondary" variant="body2" underline="hover" target="_blank" rel="noopener noreferrer">{footerCopy.whatsapp}</MuiLink>
               <MuiLink href={TIKTOK_URL} color="text.secondary" variant="body2" underline="hover" target="_blank" rel="noopener noreferrer">
                 TikTok
               </MuiLink>
-              <MuiLink href={`mailto:${HEALTH_NAVIGATOR_EMAIL}`} color="text.secondary" variant="body2" underline="hover">
+              <MuiLink
+                href={`mailto:${HEALTH_NAVIGATOR_EMAIL}`}
+                onClick={handleEmailClick}
+                color="text.secondary"
+                variant="body2"
+                underline="hover"
+              >
                 {HEALTH_NAVIGATOR_EMAIL}
               </MuiLink>
             </Stack>
@@ -122,8 +141,8 @@ const Footer = () => {
                <IconButton href="https://www.instagram.com/my.healthhaven?igsh=MTBnZzhlM3ozbWtxeg%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" color="inherit">
                   <InstagramIcon />
                </IconButton>
-               <IconButton href="https://x.com/myhealthhaven1?s=21" target="_blank" rel="noopener noreferrer" color="inherit">
-                  <TwitterIcon />
+               <IconButton href="https://x.com/myhealthhaven1?s=21" target="_blank" rel="noopener noreferrer" color="inherit" aria-label="X" title="X">
+                  <XIcon />
                </IconButton>
                <IconButton href="https://www.facebook.com/profile.php?id=61586308873245&mibextid=LQQJ4d" target="_blank" rel="noopener noreferrer" color="inherit">
                   <FacebookIcon />
@@ -166,6 +185,12 @@ const Footer = () => {
           </Box>
         </Box>
       </Container>
+      <Snackbar
+        open={emailCopied}
+        autoHideDuration={2500}
+        onClose={() => setEmailCopied(false)}
+        message={language === 'es' ? 'Correo copiado al portapapeles' : 'Email copied to clipboard'}
+      />
     </Box>
   );
 };

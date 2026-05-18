@@ -260,7 +260,7 @@ const Estimate = () => {
         <Box
           aria-hidden
           sx={{
-            position: { xs: 'absolute', md: 'fixed' },
+            position: 'absolute',
             inset: 0,
             zIndex: 0,
             pointerEvents: 'none',
