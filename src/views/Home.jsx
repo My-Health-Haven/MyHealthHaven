@@ -176,11 +176,11 @@ const Home = () => {
           background:
             'linear-gradient(135deg, #F0F9FF 0%, #F7ECFF 55%, #E7F5FF 100%)',
           minHeight: { xs: 'auto', md: 'calc(100vh - 64px)' },
-          display: 'flex',
+          display: { xs: 'block', md: 'flex' },
           flexDirection: 'column',
           justifyContent: 'center',
-          pt: { xs: 6, md: 6 },
-          pb: { xs: 6, md: 6 },
+          pt: { xs: 9, md: 6 },
+          pb: { xs: 2, md: 6 },
           overflow: 'hidden',
         }}
       >
@@ -198,9 +198,10 @@ const Home = () => {
             pointerEvents: 'none',
           }}
         />
-        {/* Decorative purple bloom (bottom right) */}
+        {/* Decorative purple bloom (bottom right) — desktop only (extends below on mobile and creates a gap) */}
         <Box
           sx={{
+            display: { xs: 'none', md: 'block' },
             position: 'absolute',
             bottom: -160,
             right: -160,
@@ -264,8 +265,9 @@ const Home = () => {
                   sx={{
                     color: 'text.primary',
                     maxWidth: 560,
-                    lineHeight: 1.1,
+                    lineHeight: { xs: 1.15, md: 1.1 },
                     mb: 3,
+                    fontSize: { xs: '2.1rem', sm: '2.4rem', md: '3.4rem' },
                   }}
                 >
                   {heroContent.title}
@@ -411,6 +413,36 @@ const Home = () => {
             {/* RIGHT: Video card + huge in-frame overlay that slides on play/pause */}
             <Grid size={{ xs: 12, md: 6 }}>
               <FadeIn delay={200}>
+                {/* Mobile-only "Partnering with…" badge ABOVE the video card */}
+                <Box
+                  sx={{
+                    display: { xs: 'inline-flex', md: 'none' },
+                    alignItems: 'center',
+                    gap: 1,
+                    mb: 1.5,
+                    px: 1.75,
+                    py: 1,
+                    borderRadius: 2,
+                    bgcolor: 'rgba(31, 41, 51, 0.92)',
+                    maxWidth: '100%',
+                  }}
+                >
+                  <ApartmentIcon
+                    sx={{ fontSize: 18, color: 'white', flexShrink: 0 }}
+                    aria-hidden="true"
+                  />
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: 'white',
+                      fontWeight: 600,
+                      lineHeight: 1.3,
+                      fontSize: '0.74rem',
+                    }}
+                  >
+                    {t('home.partneringWith')}
+                  </Typography>
+                </Box>
                 <Card
                   sx={{
                     position: 'relative',
@@ -423,11 +455,11 @@ const Home = () => {
                     mb: { xs: 0, md: 0 },
                   }}
                 >
-                  {/* Video frame */}
+                  {/* Video frame — taller (4:3-ish) on desktop, true 16:9 on mobile so it isn't trimmed */}
                   <Box
                     sx={{
                       position: 'relative',
-                      paddingTop: '75%',
+                      paddingTop: { xs: '56.25%', md: '75%' },
                       bgcolor: alpha('#00897B', 0.06),
                       borderRadius: 4,
                       overflow: 'hidden',
@@ -452,13 +484,13 @@ const Home = () => {
                         objectFit: 'cover',
                       }}
                     />
-                    {/* Floating top-left badge */}
+                    {/* Floating top-left badge — desktop only (mobile shows it below) */}
                     <Box
                       sx={{
+                        display: { xs: 'none', md: 'inline-flex' },
                         position: 'absolute',
                         top: 16,
                         left: 16,
-                        display: 'inline-flex',
                         alignItems: 'center',
                         gap: 1,
                         px: 1.5,
@@ -466,7 +498,7 @@ const Home = () => {
                         borderRadius: 2,
                         bgcolor: 'rgba(31, 41, 51, 0.78)',
                         backdropFilter: 'blur(10px)',
-                        maxWidth: { xs: '80%', md: '70%' },
+                        maxWidth: '70%',
                         pointerEvents: 'none',
                         zIndex: 3,
                         transition: 'opacity 0.4s ease',
@@ -490,14 +522,14 @@ const Home = () => {
                       </Typography>
                     </Box>
                   </Box>
-
-                  {/* Compact in-frame 3-stat overlay — frosted glass, slides DOWN when video plays */}
+                  {/* Compact in-frame 3-stat overlay — desktop only (mobile shows it below the card) */}
                   <Box
                     sx={{
+                      display: { xs: 'none', md: 'block' },
                       position: 'absolute',
-                      left: { xs: 10, md: 16 },
-                      right: { xs: 10, md: 16 },
-                      bottom: { xs: 12, md: 16 },
+                      left: 16,
+                      right: 16,
+                      bottom: 16,
                       background:
                         'linear-gradient(135deg, rgba(255, 255, 255, 0.7) 0%, rgba(255, 255, 255, 0.5) 100%)',
                       backdropFilter: 'blur(20px) saturate(180%)',
@@ -506,7 +538,7 @@ const Home = () => {
                       boxShadow:
                         '0 18px 44px rgba(17, 24, 39, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.6)',
                       border: '1px solid rgba(255, 255, 255, 0.5)',
-                      p: { xs: 1.5, md: 1.75 },
+                      p: 1.75,
                       zIndex: 2,
                       transition:
                         'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease',
@@ -598,6 +630,84 @@ const Home = () => {
                     </Grid>
                   </Box>
                 </Card>
+                {/* Mobile-only 3-stat block BELOW the video card (replaces the in-video overlay) */}
+                <Box
+                  sx={{
+                    display: { xs: 'block', md: 'none' },
+                    mt: 2,
+                    p: 1.75,
+                    borderRadius: 2.5,
+                    bgcolor: 'background.paper',
+                    border: '1px solid',
+                    borderColor: alpha('#00897B', 0.14),
+                    boxShadow: '0 6px 20px rgba(17, 24, 39, 0.06)',
+                  }}
+                >
+                  <Stack spacing={1.25}>
+                    {[
+                      {
+                        icon: <ShieldIcon />,
+                        title: t('home.heroOverlayItem1Title'),
+                        desc: t('home.heroOverlayItem1Desc'),
+                      },
+                      {
+                        icon: <PersonIcon />,
+                        title: t('home.heroOverlayItem2Title'),
+                        desc: t('home.heroOverlayItem2Desc'),
+                      },
+                      {
+                        icon: <ChatBubbleOutlineIcon />,
+                        title: t('home.heroOverlayItem3Title'),
+                        desc: t('home.heroOverlayItem3Desc'),
+                      },
+                    ].map((item, i) => (
+                      <Stack key={i} direction="row" spacing={1.25} alignItems="flex-start">
+                        <Box
+                          sx={{
+                            width: 34,
+                            height: 34,
+                            borderRadius: '50%',
+                            background: `radial-gradient(circle at 50% 35%, ${alpha('#FFFFFF', 0.9)} 0%, ${alpha('#00897B', 0.18)} 70%, ${alpha('#00897B', 0.22)} 100%)`,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            flexShrink: 0,
+                            mt: 0.2,
+                            boxShadow: `inset 0 1px 2px ${alpha('#00897B', 0.18)}, inset 0 -1px 2px rgba(255, 255, 255, 0.55)`,
+                          }}
+                          aria-hidden="true"
+                        >
+                          {React.cloneElement(item.icon, {
+                            sx: { fontSize: 17, color: 'primary.main' },
+                          })}
+                        </Box>
+                        <Box sx={{ minWidth: 0 }}>
+                          <Typography
+                            sx={{
+                              fontWeight: 700,
+                              color: 'text.primary',
+                              lineHeight: 1.2,
+                              fontSize: '0.78rem',
+                            }}
+                          >
+                            {item.title}
+                          </Typography>
+                          <Typography
+                            sx={{
+                              color: 'text.secondary',
+                              display: 'block',
+                              mt: 0.25,
+                              lineHeight: 1.35,
+                              fontSize: '0.7rem',
+                            }}
+                          >
+                            {item.desc}
+                          </Typography>
+                        </Box>
+                      </Stack>
+                    ))}
+                  </Stack>
+                </Box>
               </FadeIn>
             </Grid>
           </Grid>
@@ -786,7 +896,7 @@ const Home = () => {
                     borderColor: 'rgba(206, 147, 216, 0.55)',
                   }}
                 >
-                  <Stack direction="row" spacing={2} alignItems="flex-start">
+                  <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} alignItems={{ xs: 'center', md: 'flex-start' }}>
                     {/* Icon fixed on the left */}
                     <Box
                       sx={{
@@ -816,17 +926,17 @@ const Home = () => {
                       />
                     </Box>
                     {/* All text content to the right */}
-                    <Box sx={{ flex: 1 }}>
+                    <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' } }}>
                       <Typography
                         variant="h5"
-                        style={{ fontSize: '1.425rem', lineHeight: 1.25 }}
+                        style={{ fontSize: isMobile ? '1.1rem' : '1.425rem', lineHeight: 1.25 }}
                         sx={{ fontWeight: 700, color: 'text.primary', mb: 1.5 }}
                       >
                         {problemContent.title}
                       </Typography>
                       <Typography
                         paragraph
-                        style={{ fontSize: '0.903rem' }}
+                        style={{ fontSize: isMobile ? '0.8rem' : '0.903rem' }}
                         sx={{ color: 'text.primary', opacity: 0.65, mb: 2.5 }}
                       >
                         {problemContent.desc}
@@ -848,7 +958,7 @@ const Home = () => {
                             t('home.languageBarriers'),
                           ].map((item, i) => (
                             <FadeIn key={i} delay={i * 100}>
-                              <Stack direction="row" spacing={1.5} alignItems="flex-start">
+                              <Stack direction="row" spacing={1.5} alignItems={{ xs: 'center', md: 'flex-start' }} justifyContent={{ xs: 'center', md: 'flex-start' }}>
                                 <Box
                                   sx={{
                                     width: 22,
@@ -865,7 +975,7 @@ const Home = () => {
                                 >
                                   <PriorityHighIcon sx={{ fontSize: 13, color: 'white' }} />
                                 </Box>
-                                <Typography variant="body2" sx={{ color: 'text.primary' }}>
+                                <Typography variant="body2" sx={{ color: 'text.primary', fontSize: '0.78rem' }}>
                                   {item}
                                 </Typography>
                               </Stack>
@@ -898,7 +1008,7 @@ const Home = () => {
                     borderLeft: '4px solid #00897B',
                   }}
                 >
-                  <Stack direction="row" spacing={2} alignItems="flex-start">
+                  <Stack direction={{ xs: 'column', md: 'row' }} spacing={2} alignItems={{ xs: 'center', md: 'flex-start' }}>
                     <Box
                       sx={{
                         width: 56,
@@ -916,24 +1026,24 @@ const Home = () => {
                     >
                       <VerifiedUserIcon sx={{ fontSize: 28, color: 'primary.main' }} />
                     </Box>
-                    <Box sx={{ flex: 1 }}>
+                    <Box sx={{ flex: 1, textAlign: { xs: 'center', md: 'left' } }}>
                       <Typography
                         variant="h5"
-                        style={{ fontSize: '1.354rem', lineHeight: 1.25 }}
+                        style={{ fontSize: isMobile ? '1.05rem' : '1.354rem', lineHeight: 1.25 }}
                         sx={{ fontWeight: 700, color: 'primary.main', mb: 1.5 }}
                       >
                         {solutionContent.title}
                       </Typography>
                       <Typography
                         paragraph
-                        style={{ fontSize: '0.95rem' }}
+                        style={{ fontSize: isMobile ? '0.8rem' : '0.95rem' }}
                         sx={{ color: 'text.secondary', mb: 2 }}
                       >
                         {solutionContent.desc}
                       </Typography>
                       <Typography
                         paragraph
-                        style={{ fontSize: '0.903rem' }}
+                        style={{ fontSize: isMobile ? '0.8rem' : '0.903rem' }}
                         sx={{ color: 'text.secondary', mb: 3 }}
                       >
                         Every patient is paired with a dedicated{' '}
@@ -969,7 +1079,7 @@ const Home = () => {
                       ].map((item, i) => (
                         <Grid size={{ xs: 12, sm: 6 }} key={i}>
                           <FadeIn delay={i * 100}>
-                            <Stack direction="row" spacing={1} alignItems="flex-start">
+                            <Stack direction="row" spacing={1} alignItems={{ xs: 'center', md: 'flex-start' }} justifyContent={{ xs: 'center', md: 'flex-start' }}>
                               <CheckCircleIcon
                                 sx={{ fontSize: 22, color: 'primary.main', mt: 0.1 }}
                                 aria-hidden="true"
