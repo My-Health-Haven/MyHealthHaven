@@ -1,6 +1,5 @@
 import { describe, expect, it } from 'vitest';
 import {
-  PRERENDER_ROUTES,
   SITEMAP_ROUTE_DEFINITIONS,
   getCanonicalUrl,
   normalizePath,
@@ -28,9 +27,10 @@ describe('siteSeo', () => {
     expect(sitemapPaths).toContain('/providers');
   });
 
-  it('prerenders marketing and library routes', () => {
-    expect(PRERENDER_ROUTES).toContain('/');
-    expect(PRERENDER_ROUTES).toContain('/library');
-    expect(PRERENDER_ROUTES).toContain('/library/is-medical-travel-right-for-me');
+  it('includes library articles in the sitemap', () => {
+    const sitemapPaths = SITEMAP_ROUTE_DEFINITIONS.map((route) => route.path);
+    expect(sitemapPaths).toContain('/');
+    expect(sitemapPaths).toContain('/library');
+    expect(sitemapPaths).toContain('/library/is-medical-travel-right-for-me');
   });
 });

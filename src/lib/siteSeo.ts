@@ -10,7 +10,59 @@ export const DEFAULT_META_DESCRIPTION =
   'MyHealth Haven helps U.S. patients navigate trusted medical care in Mexico with bilingual support, transparent planning, and continuity before and after treatment.';
 export const SEO_LASTMOD = '2026-03-24';
 
-export const normalizePath = (path = '/') => {
+// ---------------------------------------------------------------------------
+// Interfaces
+// ---------------------------------------------------------------------------
+
+export interface RouteDefinition {
+  path: string;
+  changefreq: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
+  priority: string;
+  prerender?: boolean;
+  sitemap?: boolean;
+  indexable?: boolean;
+  lastmod?: string;
+}
+
+export interface BreadcrumbItem {
+  name: string;
+  path: string;
+}
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface WebPageSchemaArgs {
+  path: string;
+  name: string;
+  description: string;
+  type?: 'WebPage' | 'CollectionPage' | 'ContactPage';
+  image?: string;
+}
+
+interface ArticleSchemaArgs {
+  path: string;
+  headline: string;
+  description: string;
+  image?: string;
+  dateModified?: string;
+}
+
+interface ServiceSchemaArgs {
+  path: string;
+  name: string;
+  description: string;
+  image?: string;
+  serviceType?: string;
+}
+
+// ---------------------------------------------------------------------------
+// Path helpers
+// ---------------------------------------------------------------------------
+
+export const normalizePath = (path: string = '/'): string => {
   const withoutQuery = String(path || '/')
     .trim()
     .replace(/[?#].*$/, '')
@@ -24,114 +76,123 @@ export const normalizePath = (path = '/') => {
   return normalized.length > 1 && normalized.endsWith('/') ? normalized.slice(0, -1) : normalized;
 };
 
-export const getCanonicalUrl = (path = '/') => `${SITE_ORIGIN}${normalizePath(path)}`;
+export const getCanonicalUrl = (path: string = '/'): string =>
+  `${SITE_ORIGIN}${normalizePath(path)}`;
 
-export const toAbsoluteUrl = (path = DEFAULT_OG_IMAGE) =>
+export const toAbsoluteUrl = (path: string = DEFAULT_OG_IMAGE): string =>
   /^https?:\/\//i.test(path)
     ? path
     : `${SITE_ORIGIN}${path.startsWith('/') ? path : `/${path}`}`;
 
-export const PUBLIC_ROUTE_DEFINITIONS = [
-  {
-    path: '/',
-    changefreq: 'weekly',
-    priority: '1.0',
-    prerender: true,
-  },
-  {
-    path: '/navigators',
-    changefreq: 'monthly',
-    priority: '0.9',
-    prerender: true,
-  },
-  {
-    path: '/medical-travel',
-    changefreq: 'monthly',
-    priority: '0.9',
-    prerender: true,
-  },
-  {
-    path: '/procedures',
-    changefreq: 'weekly',
-    priority: '0.9',
-    prerender: true,
-  },
-  {
-    path: '/library',
-    changefreq: 'weekly',
-    priority: '0.8',
-    prerender: true,
-  },
-  ...LIBRARY_ARTICLES.map((article) => ({
-    path: `/library/${article.slug}`,
-    changefreq: 'monthly',
-    priority: '0.7',
-    prerender: true,
-  })),
-  {
-    path: '/estimate',
-    changefreq: 'monthly',
-    priority: '0.8',
-    prerender: true,
-  },
-  {
-    path: '/contact',
-    changefreq: 'monthly',
-    priority: '0.8',
-    prerender: true,
-    sitemap: false,
-  },
-  {
-    path: '/schedule',
-    changefreq: 'monthly',
-    priority: '0.8',
-    prerender: true,
-  },
-  {
-    path: '/privacy',
-    changefreq: 'yearly',
-    priority: '0.4',
-    prerender: true,
-  },
-  {
-    path: '/terms',
-    changefreq: 'yearly',
-    priority: '0.4',
-    prerender: true,
-  },
-  {
-    path: '/about',
-    changefreq: 'monthly',
-    priority: '0.7',
-    prerender: true,
-  },
-  {
-    path: '/employers',
-    changefreq: 'monthly',
-    priority: '0.6',
-    prerender: true,
-  },
-  {
-    path: '/providers',
-    changefreq: 'monthly',
-    priority: '0.6',
-    prerender: true,
-  },
-].map((route) => ({
+// ---------------------------------------------------------------------------
+// Route definitions
+// ---------------------------------------------------------------------------
+
+export const PUBLIC_ROUTE_DEFINITIONS: RouteDefinition[] = (
+  [
+    {
+      path: '/',
+      changefreq: 'weekly',
+      priority: '1.0',
+      prerender: true,
+    },
+    {
+      path: '/navigators',
+      changefreq: 'monthly',
+      priority: '0.9',
+      prerender: true,
+    },
+    {
+      path: '/medical-travel',
+      changefreq: 'monthly',
+      priority: '0.9',
+      prerender: true,
+    },
+    {
+      path: '/procedures',
+      changefreq: 'weekly',
+      priority: '0.9',
+      prerender: true,
+    },
+    {
+      path: '/library',
+      changefreq: 'weekly',
+      priority: '0.8',
+      prerender: true,
+    },
+    ...LIBRARY_ARTICLES.map((article: { slug: string }) => ({
+      path: `/library/${article.slug}`,
+      changefreq: 'monthly' as const,
+      priority: '0.7',
+      prerender: true,
+    })),
+    {
+      path: '/estimate',
+      changefreq: 'monthly',
+      priority: '0.8',
+      prerender: true,
+    },
+    {
+      path: '/contact',
+      changefreq: 'monthly',
+      priority: '0.8',
+      prerender: true,
+      sitemap: false,
+    },
+    {
+      path: '/schedule',
+      changefreq: 'monthly',
+      priority: '0.8',
+      prerender: true,
+    },
+    {
+      path: '/privacy',
+      changefreq: 'yearly',
+      priority: '0.4',
+      prerender: true,
+    },
+    {
+      path: '/terms',
+      changefreq: 'yearly',
+      priority: '0.4',
+      prerender: true,
+    },
+    {
+      path: '/about',
+      changefreq: 'monthly',
+      priority: '0.7',
+      prerender: true,
+    },
+    {
+      path: '/employers',
+      changefreq: 'monthly',
+      priority: '0.6',
+      prerender: true,
+    },
+    {
+      path: '/providers',
+      changefreq: 'monthly',
+      priority: '0.6',
+      prerender: true,
+    },
+  ] as Omit<RouteDefinition, 'lastmod'>[]
+).map((route) => ({
   ...route,
-  lastmod: route.lastmod || SEO_LASTMOD,
+  lastmod: SEO_LASTMOD,
   path: normalizePath(route.path),
 }));
 
-export const SITEMAP_ROUTE_DEFINITIONS = PUBLIC_ROUTE_DEFINITIONS.filter(
+export const SITEMAP_ROUTE_DEFINITIONS: RouteDefinition[] = PUBLIC_ROUTE_DEFINITIONS.filter(
   (route) => route.sitemap !== false && route.indexable !== false
 );
 
-export const PRERENDER_ROUTES = PUBLIC_ROUTE_DEFINITIONS.filter((route) => route.prerender).map(
-  (route) => route.path
-);
+// ---------------------------------------------------------------------------
+// Schema builders
+// ---------------------------------------------------------------------------
 
-export const createBreadcrumbSchema = (items = []) => {
+export const createBreadcrumbSchema = (
+  items: BreadcrumbItem[] = []
+): Record<string, unknown> | null => {
   const normalizedItems = items.filter((item) => item?.name && item?.path);
 
   if (normalizedItems.length === 0) {
@@ -150,7 +211,7 @@ export const createBreadcrumbSchema = (items = []) => {
   };
 };
 
-export const createMedicalBusinessSchema = () => ({
+export const createMedicalBusinessSchema = (): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': 'MedicalBusiness',
   name: SITE_NAME,
@@ -176,7 +237,7 @@ export const createMedicalBusinessSchema = () => ({
   ],
 });
 
-export const createOrganizationSchema = () => ({
+export const createOrganizationSchema = (): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: SITE_NAME,
@@ -197,7 +258,7 @@ export const createOrganizationSchema = () => ({
   ],
 });
 
-export const createWebsiteSchema = () => ({
+export const createWebsiteSchema = (): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: SITE_NAME,
@@ -216,7 +277,7 @@ export const createWebPageSchema = ({
   description,
   type = 'WebPage',
   image = DEFAULT_OG_IMAGE,
-}) => ({
+}: WebPageSchemaArgs): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': type,
   name,
@@ -236,7 +297,12 @@ export const createWebPageSchema = ({
   inLanguage: 'en-US',
 });
 
-export const createCollectionPageSchema = ({ path, name, description, image = DEFAULT_OG_IMAGE }) =>
+export const createCollectionPageSchema = ({
+  path,
+  name,
+  description,
+  image = DEFAULT_OG_IMAGE,
+}: Omit<WebPageSchemaArgs, 'type'>): Record<string, unknown> =>
   createWebPageSchema({
     path,
     name,
@@ -251,7 +317,7 @@ export const createServiceSchema = ({
   description,
   image = DEFAULT_OG_IMAGE,
   serviceType,
-}) => ({
+}: ServiceSchemaArgs): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': 'Service',
   name,
@@ -268,7 +334,12 @@ export const createServiceSchema = ({
   ...(serviceType ? { serviceType } : {}),
 });
 
-export const createContactPageSchema = ({ path, name, description, image = DEFAULT_OG_IMAGE }) => ({
+export const createContactPageSchema = ({
+  path,
+  name,
+  description,
+  image = DEFAULT_OG_IMAGE,
+}: Omit<WebPageSchemaArgs, 'type'>): Record<string, unknown> => ({
   ...createWebPageSchema({
     path,
     name,
@@ -285,7 +356,9 @@ export const createContactPageSchema = ({ path, name, description, image = DEFAU
   },
 });
 
-export const createFAQSchema = (faqItems = []) => {
+export const createFAQSchema = (
+  faqItems: FAQItem[] = []
+): Record<string, unknown> | null => {
   const normalizedItems = faqItems.filter((item) => item?.question && item?.answer);
 
   if (normalizedItems.length === 0) {
@@ -312,7 +385,7 @@ export const createArticleSchema = ({
   description,
   image = DEFAULT_OG_IMAGE,
   dateModified = SEO_LASTMOD,
-}) => ({
+}: ArticleSchemaArgs): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': 'Article',
   headline,

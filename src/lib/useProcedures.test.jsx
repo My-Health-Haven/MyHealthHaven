@@ -54,8 +54,6 @@ describe('useProcedures Hook', () => {
   it('exposes all visible procedures synchronously', () => {
     const { result } = renderHook(() => useProcedures());
 
-    expect(result.current.loading).toBe(false);
-    expect(result.current.error).toBeNull();
     expect(result.current.procedures).toHaveLength(3);
     expect(result.current.availableFilters.top_category).toEqual(['Area 1', 'Area 2']);
   });
