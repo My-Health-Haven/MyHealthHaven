@@ -210,6 +210,35 @@ export const translations = {
         'One confidential conversation can clarify whether cross-border care is right for you—and what it would actually look like.',
       scheduleConsultation: 'Schedule a free consultation',
       madeInAmerica: 'Made In America, Made Better in Mexico',
+
+      // Hero overlay (new redesign)
+      whyAmericansTrustUs: 'Why Americans Trust Us',
+      heroOverlayItem1Title: 'Safety & Quality First',
+      heroOverlayItem1Desc: 'Rigorous vetting & accreditation standards',
+      heroOverlayItem2Title: 'Your Health Navigator™',
+      heroOverlayItem2Desc: 'One dedicated expert with you every step',
+      heroOverlayItem3Title: 'Patient Support',
+      heroOverlayItem3Desc: 'Bilingual care before, during & after your trip',
+      trustedByPatients: 'Trusted by patients. Backed by partners.',
+      hospitalesAcreditados: 'Hospitales Acreditados',
+
+      // Why Guided Medical Travel section (new redesign)
+      whyGuidedBadge: 'Why Guided Medical Travel',
+      whyGuidedTitlePrefix: 'Medical travel should',
+      whyGuidedTitleEmphasis: 'not',
+      whyGuidedTitleSuffix: 'feel like a gamble.',
+      whyGuidedSubtitle:
+        'When care in the U.S. feels out of reach, patients need clarity, safety, and guidance they can trust.',
+
+      // Trust badge row (new redesign)
+      trustUsFoundedTitle: 'U.S.-Founded',
+      trustUsFoundedDesc: 'Built on American values and patient safety.',
+      trustMexicoPartneredTitle: 'Mexico-Partnered',
+      trustMexicoPartneredDesc: 'Trusted hospitals. Local excellence.',
+      trustPatientFocusedTitle: 'Patient-Focused',
+      trustPatientFocusedDesc: 'Your needs, your voice, your plan.',
+      trustPrivateSecureTitle: 'Private & Secure',
+      trustPrivateSecureDesc: 'Your health information is protected.',
     },
     navigatorsPage: {
       title: 'Your advocate across borders.',
@@ -254,6 +283,31 @@ export const translations = {
       finalCtaDesc:
         'No pressure, no commitment just clear answers from someone who knows the terrain.',
       finalCtaButton: 'Schedule your call',
+
+      // Redesigned "What your Health Navigator does" section
+      whatYouGetEyebrow: 'What Your Health Navigator Does',
+      whatYouGetTitle: 'A dedicated guide for every step of your medical journey.',
+      whatYouGetSubtitle:
+        'Your Health Navigator™ is with you from the very beginning—providing expert guidance, personalized support, and peace of mind every step of the way.',
+      // Aligned 1:1 with whatTheyDoList by index.
+      whatTheyDoDescriptions: [
+        'A trusted partner who understands your needs and speaks your language.',
+        'One expert you can count on—before, during, and after your care.',
+        'We take the time to understand your unique situation and priorities.',
+        'Clear, honest guidance tailored to your condition and goals.',
+        'We handle the details so your care moves forward seamlessly.',
+        'Trusted providers, transparent pricing, no hidden surprises.',
+        'From flights to follow-up care, we help you plan with confidence.',
+        'We are here when you need us—wherever you are, whenever you need support.',
+      ],
+
+      // "Meet your Health Navigators" video section
+      meetDesc:
+        'Watch how our bilingual Health Navigators guide patients through every step of the journey.',
+      indicatorCompassionate: 'Compassionate human support',
+      indicatorAdvocate: 'Your advocate every step',
+      indicatorTrusted: 'Trusted care across borders',
+      meetCloser: 'Real people. Real support. Real peace of mind.',
     },
     medicalTravelPage: {
       title: 'Turn medical travel into a structured, supported journey.',
@@ -400,6 +454,30 @@ export const translations = {
         },
         { title: 'Return Home & Continuity', timing: '', caption: 'Ongoing support after return.' },
       ],
+
+      // Why Cancún card (new redesign)
+      whyCancunTitle: 'Why Cancún',
+      whyCancunPin: 'Cancún, Mexico',
+      whyCancunCard1Title: 'Top-tier vetted providers',
+      whyCancunCard1Desc:
+        'Care from internationally trained, experienced medical professionals.',
+      whyCancunCard2Title: 'Frequent U.S. nonstop flights',
+      whyCancunCard2Desc: 'Convenient access from major U.S. cities.',
+      whyCancunCard3Title: 'Minimal time-zone disruption',
+      whyCancunCard3Desc: 'Easy adjustment for smoother recovery.',
+      whyCancunCard4Title: 'Patient-friendly destination',
+      whyCancunCard4Desc: 'Hospitality and support built for your comfort.',
+
+      // 3-column trust row (new redesign)
+      trustUsFoundedTitle: 'U.S.-Founded',
+      trustUsFoundedDesc:
+        'Built to meet U.S. expectations for transparency, safety, and advocacy.',
+      trustFocusedTitle: 'Focused Destination Model',
+      trustFocusedDesc:
+        'We concentrate in Cancún to ensure deeper oversight, stronger partnerships, and better outcomes.',
+      trustQualityTitle: 'Quality, Safety & Simplicity',
+      trustQualityDesc:
+        'U.S.-level care standards in a location optimized for quality, safety, and simplicity.',
     },
 
     proceduresPage: {
@@ -670,6 +748,35 @@ export const translations = {
         'Una conversacion confidencial puede aclarar si la atencion transfronteriza es adecuada para usted, y como seria realmente.',
       scheduleConsultation: 'Agendar una consulta gratis',
       madeInAmerica: 'Hecho en America, Mejorado en Mexico',
+
+      // Hero overlay (new redesign)
+      whyAmericansTrustUs: 'Por qué los americanos confían en nosotros',
+      heroOverlayItem1Title: 'Seguridad y Calidad Primero',
+      heroOverlayItem1Desc: 'Rigurosos estándares de verificación y acreditación',
+      heroOverlayItem2Title: 'Su Health Navigator™',
+      heroOverlayItem2Desc: 'Un experto dedicado con usted en cada paso',
+      heroOverlayItem3Title: 'Apoyo al Paciente',
+      heroOverlayItem3Desc: 'Atención bilingüe antes, durante y después de su viaje',
+      trustedByPatients: 'Confiado por pacientes. Respaldado por socios.',
+      hospitalesAcreditados: 'Hospitales Acreditados',
+
+      // Why Guided Medical Travel section (new redesign)
+      whyGuidedBadge: 'Por qué el viaje médico guiado',
+      whyGuidedTitlePrefix: 'El viaje médico',
+      whyGuidedTitleEmphasis: 'no debería',
+      whyGuidedTitleSuffix: 'sentirse como una apuesta.',
+      whyGuidedSubtitle:
+        'Cuando la atención en EE.UU. parece inalcanzable, los pacientes necesitan claridad, seguridad y orientación en la que puedan confiar.',
+
+      // Trust badge row (new redesign)
+      trustUsFoundedTitle: 'Fundado en EE.UU.',
+      trustUsFoundedDesc: 'Construido sobre valores estadounidenses y seguridad del paciente.',
+      trustMexicoPartneredTitle: 'Asociado con México',
+      trustMexicoPartneredDesc: 'Hospitales de confianza. Excelencia local.',
+      trustPatientFocusedTitle: 'Enfocado en el Paciente',
+      trustPatientFocusedDesc: 'Sus necesidades, su voz, su plan.',
+      trustPrivateSecureTitle: 'Privado y Seguro',
+      trustPrivateSecureDesc: 'Su información de salud está protegida.',
     },
     navigatorsPage: {
       title: 'Su defensor a traves de fronteras.',
@@ -714,6 +821,31 @@ export const translations = {
       finalCtaDesc:
         'Sin presion, sin compromiso, solo respuestas claras de alguien que conoce el terreno.',
       finalCtaButton: 'Agende su llamada',
+
+      // Redesigned "What your Health Navigator does" section
+      whatYouGetEyebrow: 'Lo que hace su Health Navigator',
+      whatYouGetTitle: 'Una guía dedicada para cada paso de su viaje médico.',
+      whatYouGetSubtitle:
+        'Su Health Navigator™ está con usted desde el principio—brindando orientación experta, apoyo personalizado y tranquilidad en cada paso del camino.',
+      // Aligned 1:1 with whatTheyDoList by index.
+      whatTheyDoDescriptions: [
+        'Un socio de confianza que entiende sus necesidades y habla su idioma.',
+        'Un experto con quien puede contar—antes, durante y después de su atención.',
+        'Nos tomamos el tiempo para entender su situación única y prioridades.',
+        'Orientación clara y honesta adaptada a su condición y objetivos.',
+        'Manejamos los detalles para que su atención avance sin contratiempos.',
+        'Proveedores confiables, precios transparentes, sin sorpresas ocultas.',
+        'Desde vuelos hasta atención de seguimiento, le ayudamos a planificar con confianza.',
+        'Estamos aquí cuando nos necesite—dondequiera que esté, cuando necesite apoyo.',
+      ],
+
+      // "Meet your Health Navigators" video section
+      meetDesc:
+        'Vea cómo nuestros Health Navigators bilingües guían a los pacientes en cada paso del viaje.',
+      indicatorCompassionate: 'Apoyo humano compasivo',
+      indicatorAdvocate: 'Su defensor en cada paso',
+      indicatorTrusted: 'Atención confiable a través de fronteras',
+      meetCloser: 'Personas reales. Apoyo real. Tranquilidad real.',
     },
     medicalTravelPage: {
       title: 'Convierta el viaje medico en un recorrido estructurado y con apoyo.',
@@ -859,6 +991,30 @@ export const translations = {
         },
         { title: 'Regreso a Casa y Continuidad', timing: '', caption: 'Apoyo continuo despues del regreso.' },
       ],
+
+      // Why Cancún card (new redesign)
+      whyCancunTitle: 'Por qué Cancún',
+      whyCancunPin: 'Cancún, México',
+      whyCancunCard1Title: 'Proveedores verificados de primer nivel',
+      whyCancunCard1Desc:
+        'Atención de profesionales médicos con formación internacional y experiencia.',
+      whyCancunCard2Title: 'Vuelos directos frecuentes desde EE.UU.',
+      whyCancunCard2Desc: 'Acceso conveniente desde las principales ciudades de EE.UU.',
+      whyCancunCard3Title: 'Mínima alteración del huso horario',
+      whyCancunCard3Desc: 'Adaptación fácil para una recuperación más fluida.',
+      whyCancunCard4Title: 'Destino amigable para el paciente',
+      whyCancunCard4Desc: 'Hospitalidad y apoyo diseñados para su comodidad.',
+
+      // 3-column trust row (new redesign)
+      trustUsFoundedTitle: 'Fundado en EE.UU.',
+      trustUsFoundedDesc:
+        'Diseñado para cumplir las expectativas de EE.UU. en transparencia, seguridad y defensa del paciente.',
+      trustFocusedTitle: 'Modelo de Destino Enfocado',
+      trustFocusedDesc:
+        'Nos concentramos en Cancún para garantizar mayor supervisión, alianzas más sólidas y mejores resultados.',
+      trustQualityTitle: 'Calidad, Seguridad y Simplicidad',
+      trustQualityDesc:
+        'Estándares de atención de nivel estadounidense en un lugar optimizado para calidad, seguridad y simplicidad.',
     },
     proceduresPage: {
       filters: 'Filtros',
