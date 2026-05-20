@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import Image from 'next/image';
 import { Box, Container, Grid, Typography, Link as MuiLink, Stack, IconButton, Snackbar, SvgIcon } from '@mui/material';
 import Link from 'next/link';
 import InstagramIcon from '@mui/icons-material/Instagram';
@@ -81,7 +82,9 @@ const Footer = () => {
         <Grid container spacing={4}>
           <Grid size={{ xs: 12, md: 4 }}>
             <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
-              <Box component="img" src="/logo.png" alt="MyHealth Haven Logo" sx={{ height: 32, mr: 1 }} />
+              <Box sx={{ mr: 1, display: 'flex', flexShrink: 0 }}>
+                <Image src="/logo.png" width={32} height={32} alt="MyHealth Haven Logo" />
+              </Box>
               <Typography variant="h6" color="primary.main" fontWeight="bold">
                 MyHealth Haven
               </Typography>

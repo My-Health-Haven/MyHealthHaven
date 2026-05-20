@@ -22,6 +22,7 @@ import {
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useLanguage } from '../context/LanguageContext';
@@ -123,7 +124,7 @@ const Navbar = () => {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', pt: 4 }}>
       <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-        <Box component="img" src="/logo.png" alt="MyHealth Haven Logo" sx={{ height: 50 }} />
+        <Image src="/logo.png" width={50} height={50} alt="MyHealth Haven Logo" priority />
       </Box>
       <Typography variant="h6" sx={{ mb: 2, color: 'primary.main', fontWeight: 'bold' }}>
         MyHealth Haven
@@ -218,7 +219,9 @@ const Navbar = () => {
               transition: 'color 0.2s ease',
             }}
           >
-            <Box component="img" src="/logo.png" alt="MyHealth Haven Logo" sx={{ height: 40, mr: 1.5 }} />
+            <Box sx={{ mr: 1.5, display: 'flex', flexShrink: 0 }}>
+              <Image src="/logo.png" width={40} height={40} alt="MyHealth Haven Logo" priority />
+            </Box>
             MyHealth Haven
           </Typography>
 

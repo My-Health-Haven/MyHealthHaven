@@ -12,6 +12,7 @@ import {
   useTheme,
   useMediaQuery,
 } from '@mui/material';
+import Image from 'next/image';
 import Link from 'next/link';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import SupportAgentIcon from '@mui/icons-material/SupportAgent';
@@ -375,12 +376,12 @@ const Navigators = () => {
                           pointerEvents: 'none',
                         }}
                       >
-                        <Box
-                          component="img"
+                        <Image
                           src="/logo.png"
+                          width={22}
+                          height={22}
                           alt=""
-                          aria-hidden="true"
-                          sx={{ width: 22, height: 22, objectFit: 'contain' }}
+                          aria-hidden
                         />
                         <Typography
                           variant="caption"

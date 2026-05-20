@@ -15,22 +15,14 @@ import {
 import { useLanguage } from '../context/LanguageContext';
 import { CITIES_BY_STATE, US_STATES } from '../data/usLocations';
 import { useProcedures } from '../lib/useProcedures';
+import {
+  isValidEmail,
+  isValidPhone,
+  sanitizePhone,
+  PHONE_MAX_LENGTH,
+} from '../lib/validation';
 
 const OTHER_PROCEDURE_OPTION = '__other_procedure__';
-const PHONE_MAX_DIGITS = 15;
-const PHONE_MAX_LENGTH = PHONE_MAX_DIGITS + 1;
-const PHONE_REGEX = /^\+?\d{7,15}$/;
-const EMAIL_REGEX =
-  /^(?=.{1,254}$)(?=.{1,64}@)[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9]))+$/;
-
-const sanitizePhoneInput = (value = '') => {
-  const hasLeadingPlus = value.trim().startsWith('+');
-  const digitsOnly = value.replace(/\D/g, '').slice(0, PHONE_MAX_DIGITS);
-  return `${hasLeadingPlus ? '+' : ''}${digitsOnly}`;
-};
-
-const isValidEmail = (value = '') => EMAIL_REGEX.test(value.trim());
-const isValidPhone = (value = '') => PHONE_REGEX.test(value.trim());
 
 const FormLabel = ({ children }) => (
   <Typography variant="h6" component="label" sx={{ display: 'block', mb: 1, fontWeight: 700, color: 'text.primary' }}>
@@ -75,13 +67,12 @@ const frostedFieldSx = {
 
 const Estimate = () => {
   const { t, language } = useLanguage();
-  const { procedures: allProcedures, loading: proceduresLoading } = useProcedures();
+  const { procedures: allProcedures } = useProcedures();
   const isSpanish = language === 'es';
 
   const procedureSearchPlaceholder = isSpanish
     ? 'Busque y seleccione un procedimiento'
     : 'Search and select a procedure';
-  const procedureLoadingLabel = isSpanish ? 'Cargando procedimientos...' : 'Loading procedures...';
   const procedureNoOptionsLabel = isSpanish
     ? 'No hay procedimientos coincidentes'
     : 'No matching procedures';
@@ -143,7 +134,7 @@ const Estimate = () => {
     let nextValue = value;
 
     if (name === 'phone') {
-      nextValue = sanitizePhoneInput(value);
+      nextValue = sanitizePhone(value);
     }
 
     if (submitStatus !== 'idle') {
@@ -270,7 +261,7 @@ const Estimate = () => {
             sx={{
               position: 'absolute',
               inset: { xs: '-5%', md: '-8%' },
-              backgroundImage: 'url(/EstimateBackgroundIMG.png)',
+              backgroundImage: 'url(/EstimateBackgroundIMG.webp)',
               backgroundPosition: 'center',
               backgroundRepeat: 'no-repeat',
               backgroundSize: 'cover',
@@ -490,8 +481,6 @@ const Estimate = () => {
                       options={procedureOptions}
                       value={formData.procedure || null}
                       onChange={handleProcedureSelect}
-                      loading={proceduresLoading}
-                      loadingText={procedureLoadingLabel}
                       slotProps={{
                         popper: {
                           placement: 'bottom-start',
@@ -526,7 +515,7 @@ const Estimate = () => {
                         option === OTHER_PROCEDURE_OPTION ? procedureOtherLabel : String(option || '')
                       }
                       isOptionEqualToValue={(option, value) => option === value}
-                      noOptionsText={proceduresLoading ? procedureLoadingLabel : procedureNoOptionsLabel}
+                      noOptionsText={procedureNoOptionsLabel}
                       renderOption={(props, option, { index }) => (
                         <Box
                           component="li"
@@ -566,23 +555,9 @@ const Estimate = () => {
                           variant="outlined"
                           hiddenLabel
                           sx={frostedFieldSx}
-                          InputProps={{
-                            ...params.InputProps,
-                            endAdornment: (
-                              <>
-                                {proceduresLoading ? <CircularProgress color="inherit" size={20} /> : null}
-                                {params.InputProps.endAdornment}
-                              </>
-                            ),
-                          }}
                         />
                       )}
                     />
-                    {proceduresLoading && (
-                      <Typography variant="caption" sx={{ display: 'block', mt: 1, color: 'text.secondary' }}>
-                        {procedureLoadingLabel}
-                      </Typography>
-                    )}
                   </Box>
 
                   {isOtherProcedureSelected && (

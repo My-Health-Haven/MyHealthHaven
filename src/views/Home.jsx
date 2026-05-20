@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import {
   Box,
@@ -1308,20 +1309,24 @@ const Home = () => {
                   </Grid>
                   <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex', justifyContent: 'center' }}>
                     <FadeIn delay={400}>
-                      <Box 
-                        component="img"
-                        src={item.img}
-                        alt={item.title}
-                        loading="lazy"
-                        width={item.width}
-                        height={item.height}
+                      <Box
                         sx={{
                           width: '100%',
                           maxWidth: { xs: '100%', md: '800px' },
-                          height: 'auto',
                           borderRadius: 4,
+                          overflow: 'hidden',
+                          lineHeight: 0,
                         }}
-                      />
+                      >
+                        <Image
+                          src={item.img}
+                          alt={item.title}
+                          width={item.width}
+                          height={item.height}
+                          sizes="(max-width: 900px) 100vw, 800px"
+                          style={{ width: '100%', height: 'auto', display: 'block' }}
+                        />
+                      </Box>
                     </FadeIn>
                   </Grid>
                 </Grid>
