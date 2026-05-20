@@ -1,5 +1,10 @@
-import { getCanonicalUrl } from '@/lib/siteSeo';
+import {
+  getCanonicalUrl,
+  createCollectionPageSchema,
+  createBreadcrumbSchema,
+} from '@/lib/siteSeo';
 import Library from '@/views/Library';
+import JsonLd from '@/components/JsonLd';
 
 const canonical = getCanonicalUrl('/library');
 
@@ -19,6 +24,24 @@ export const metadata = {
   },
 };
 
+const librarySchemas = [
+  createCollectionPageSchema({
+    path: '/library',
+    name: 'Learning Library | MyHealth Haven',
+    description:
+      'Articles and guides about medical travel, cross-border healthcare, and navigating medical options in Mexico.',
+  }),
+  createBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Library', path: '/library' },
+  ]),
+];
+
 export default function LibraryPage() {
-  return <Library />;
+  return (
+    <>
+      <JsonLd data={librarySchemas} />
+      <Library />
+    </>
+  );
 }

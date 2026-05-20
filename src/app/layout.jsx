@@ -1,6 +1,12 @@
 import { Inter } from 'next/font/google';
 import '../tailwind.css';
 import Providers from './providers';
+import JsonLd from '@/components/JsonLd';
+import {
+  createMedicalBusinessSchema,
+  createOrganizationSchema,
+  createWebsiteSchema,
+} from '@/lib/siteSeo';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -54,10 +60,17 @@ export const viewport = {
   themeColor: '#00897B',
 };
 
+const siteSchemas = [
+  createOrganizationSchema(),
+  createMedicalBusinessSchema(),
+  createWebsiteSchema(),
+];
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={inter.variable}>
       <body style={{ margin: 0 }}>
+        <JsonLd data={siteSchemas} />
         <Providers>{children}</Providers>
       </body>
     </html>

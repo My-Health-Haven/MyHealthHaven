@@ -37,7 +37,18 @@
       "Bash(mv src/seo/siteSeo.js src/lib/siteSeo.js)",
       "Bash(mv src/seo/siteSeo.test.js src/lib/siteSeo.test.js)",
       "Bash(xargs sed:*)",
-      "Bash(Remove-Item -Recurse -Force \"C:\\\\Users\\\\Sergio\\\\Documents\\\\GitHub\\\\HealthHavenMyVersion2\\\\src\\\\app\\\\\\(main\\)\\\\procedures\\\\[slug]\")"
+      "Bash(Remove-Item -Recurse -Force \"C:\\\\Users\\\\Sergio\\\\Documents\\\\GitHub\\\\HealthHavenMyVersion2\\\\src\\\\app\\\\\\(main\\)\\\\procedures\\\\[slug]\")",
+      "Bash(del jsconfig.json)",
+      "Bash(npx tsc *)",
+      "Bash(git add *)",
+      "Bash(git rm *)",
+      "Bash(git commit -m ' *)",
+      "Bash(node -e ' *)",
+      "Bash(Get-Content \"C:\\\\Users\\\\Sergio\\\\Documents\\\\GitHub\\\\HealthHavenMyVersion2\\\\src\\\\views\\\\Home.jsx\")",
+      "Bash(Measure-Object -Line)",
+      "Bash(Select-Object -ExpandProperty Lines)",
+      "Bash(Get-Content \"C:\\\\Users\\\\Sergio\\\\Documents\\\\GitHub\\\\HealthHavenMyVersion2\\\\src\\\\views\\\\MedicalTravel.jsx\")",
+      "Bash(Get-Content \"C:\\\\Users\\\\Sergio\\\\Documents\\\\GitHub\\\\HealthHavenMyVersion2\\\\src\\\\views\\\\Estimate.jsx\")"
     ]
   }
 }

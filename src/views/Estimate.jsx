@@ -2,68 +2,29 @@
 import React, { useMemo, useState } from 'react';
 import {
   Container,
-  Typography,
   Box,
   Button,
-  TextField,
-  MenuItem,
   Stack,
-  Alert,
   CircularProgress,
-  Autocomplete,
 } from '@mui/material';
-import { useLanguage } from '../context/LanguageContext';
-import { CITIES_BY_STATE, US_STATES } from '../data/usLocations';
-import { useProcedures } from '../lib/useProcedures';
+import { useLanguage } from '@/context/LanguageContext';
+import { CITIES_BY_STATE } from '@/data/usLocations';
+import { useProcedures } from '@/lib/useProcedures';
 import {
   isValidEmail,
   isValidPhone,
   sanitizePhone,
-  PHONE_MAX_LENGTH,
-} from '../lib/validation';
+} from '@/lib/validation';
+import EstimateHero from '@/components/estimate/EstimateHero';
+import NameField from '@/components/estimate/NameField';
+import EmailField from '@/components/estimate/EmailField';
+import PhoneField from '@/components/estimate/PhoneField';
+import LocationFields from '@/components/estimate/LocationFields';
+import ProcedureField from '@/components/estimate/ProcedureField';
+import HoneypotField from '@/components/estimate/HoneypotField';
+import SubmitFeedback from '@/components/estimate/SubmitFeedback';
 
 const OTHER_PROCEDURE_OPTION = '__other_procedure__';
-
-const FormLabel = ({ children }) => (
-  <Typography variant="h6" component="label" sx={{ display: 'block', mb: 1, fontWeight: 700, color: 'text.primary' }}>
-    {children}
-  </Typography>
-);
-
-const frostedFieldSx = {
-  '& .MuiOutlinedInput-root': {
-    borderRadius: 2.5,
-    background: 'linear-gradient(180deg, rgba(255,255,255,0.46) 0%, rgba(255,255,255,0.22) 100%)',
-    backdropFilter: 'blur(14px) saturate(165%)',
-    WebkitBackdropFilter: 'blur(14px) saturate(165%)',
-    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.62), 0 10px 24px rgba(15,23,42,0.05)',
-    transition: 'background 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease',
-    '& fieldset': {
-      borderColor: 'rgba(255,255,255,0.5)',
-      borderWidth: 1.2,
-    },
-    '&:hover fieldset': {
-      borderColor: 'rgba(0,137,123,0.35)',
-    },
-    '&.Mui-focused': {
-      background: 'linear-gradient(180deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.32) 100%)',
-      boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.75), 0 0 0 4px rgba(0,137,123,0.08)',
-    },
-    '&.Mui-focused fieldset': {
-      borderColor: 'rgba(0,137,123,0.5)',
-    },
-    '&.Mui-disabled': {
-      background: 'linear-gradient(180deg, rgba(255,255,255,0.24) 0%, rgba(255,255,255,0.12) 100%)',
-    },
-  },
-  '& .MuiInputBase-input::placeholder': {
-    color: 'rgba(31,41,51,0.56)',
-    opacity: 1,
-  },
-  '& .MuiSvgIcon-root': {
-    color: 'text.secondary',
-  },
-};
 
 const Estimate = () => {
   const { t, language } = useLanguage();
@@ -248,68 +209,9 @@ const Estimate = () => {
           bgcolor: '#09161A',
         }}
       >
-        <Box
-          aria-hidden
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            zIndex: 0,
-            pointerEvents: 'none',
-          }}
-        >
-          <Box
-            sx={{
-              position: 'absolute',
-              inset: { xs: '-5%', md: '-8%' },
-              backgroundImage: 'url(/EstimateBackgroundIMG.webp)',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat',
-              backgroundSize: 'cover',
-              transform: { xs: 'scale(1.04)', md: 'scale(1.1)' },
-              filter: 'blur(5px)',
-              opacity: 0.5,
-            }}
-          />
-          <Box
-            sx={{
-              position: 'absolute',
-              inset: 0,
-              background:
-                'linear-gradient(180deg, rgba(5,16,21,0.78) 0%, rgba(7,24,31,0.58) 26%, rgba(244,249,255,0.88) 100%)',
-            }}
-          />
-        </Box>
-
         <Box sx={{ py: { xs: 8, md: 12 }, position: 'relative', zIndex: 1 }}>
           <Container maxWidth="md">
-            <Box
-              sx={{
-                textAlign: 'center',
-                mb: 6,
-                px: { xs: 3, md: 4 },
-                py: { xs: 3.5, md: 4 },
-                borderRadius: 5,
-                color: 'common.white',
-                border: '1px solid rgba(255,255,255,0.24)',
-                background:
-                  'linear-gradient(180deg, rgba(8,20,28,0.54) 0%, rgba(8,20,28,0.28) 100%)',
-                backdropFilter: 'blur(14px)',
-                boxShadow: '0 24px 60px rgba(3,10,15,0.18)',
-              }}
-            >
-              <Typography
-                variant="overline"
-                sx={{ letterSpacing: 2.4, fontWeight: 800, color: 'rgba(255,255,255,0.74)' }}
-              >
-                Email Estimate
-              </Typography>
-              <Typography variant="h2" gutterBottom sx={{ color: 'common.white', mt: 1 }}>
-                {t('estimatePage.title')}
-              </Typography>
-              <Typography variant="h5" sx={{ color: 'rgba(255,255,255,0.84)' }}>
-                {t('estimatePage.subtitle')}
-              </Typography>
-            </Box>
+            <EstimateHero />
 
             <Box
               sx={{
@@ -350,234 +252,47 @@ const Estimate = () => {
               }}
             >
               <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  name="website"
-                  value={formData.website}
-                  onChange={handleChange}
-                  autoComplete="off"
-                  tabIndex={-1}
-                  aria-hidden="true"
-                  style={{
-                    position: 'absolute',
-                    left: '-9999px',
-                    width: 0,
-                    height: 0,
-                    opacity: 0,
-                    pointerEvents: 'none',
-                  }}
-                />
+                <HoneypotField value={formData.website} onChange={handleChange} />
                 <Stack spacing={4}>
-                  <Box>
-                    <FormLabel>{t('estimatePage.form.name')}</FormLabel>
-                    <TextField
-                      fullWidth
-                      required
-                      placeholder={t('estimatePage.form.name')}
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      variant="outlined"
-                      hiddenLabel
-                      sx={frostedFieldSx}
-                    />
-                  </Box>
+                  <NameField
+                    value={formData.name}
+                    onChange={handleChange}
+                    label={t('estimatePage.form.name')}
+                  />
 
-                  <Box>
-                    <FormLabel>{t('estimatePage.form.phone')}</FormLabel>
-                    <TextField
-                      fullWidth
-                      required
-                      placeholder={t('estimatePage.form.phone')}
-                      name="phone"
-                      type="tel"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      variant="outlined"
-                      hiddenLabel
-                      autoComplete="tel"
-                      sx={frostedFieldSx}
-                      inputProps={{
-                        inputMode: 'tel',
-                        pattern: '^\\+?\\d{7,15}$',
-                        maxLength: PHONE_MAX_LENGTH,
-                      }}
-                    />
-                  </Box>
+                  <PhoneField
+                    value={formData.phone}
+                    onChange={handleChange}
+                    label={t('estimatePage.form.phone')}
+                  />
 
-                  <Box>
-                    <FormLabel>{t('estimatePage.form.email')}</FormLabel>
-                    <TextField
-                      fullWidth
-                      required
-                      placeholder={t('estimatePage.form.email')}
-                      name="email"
-                      type="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      variant="outlined"
-                      hiddenLabel
-                      autoComplete="email"
-                      sx={frostedFieldSx}
-                      inputProps={{
-                        autoCapitalize: 'none',
-                      }}
-                    />
-                  </Box>
+                  <EmailField
+                    value={formData.email}
+                    onChange={handleChange}
+                    label={t('estimatePage.form.email')}
+                  />
 
-                  <Box>
-                    <FormLabel>{t('estimatePage.form.state')}</FormLabel>
-                    <TextField
-                      select
-                      fullWidth
-                      required
-                      placeholder={t('estimatePage.form.state')}
-                      name="state"
-                      value={formData.state}
-                      onChange={handleChange}
-                      variant="outlined"
-                      hiddenLabel
-                      sx={frostedFieldSx}
-                      SelectProps={{
-                        MenuProps: { PaperProps: { style: { maxHeight: 300 } } },
-                      }}
-                    >
-                      {US_STATES.map((state) => (
-                        <MenuItem key={state} value={state}>
-                          {state}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Box>
+                  <LocationFields
+                    state={formData.state}
+                    city={formData.city}
+                    onStateChange={handleChange}
+                    onCityChange={handleChange}
+                    availableCities={availableCities}
+                    t={t}
+                  />
 
-                  <Box>
-                    <FormLabel>{t('estimatePage.form.city')}</FormLabel>
-                    <TextField
-                      select
-                      fullWidth
-                      required
-                      disabled={!formData.state}
-                      placeholder={
-                        !formData.state ? t('estimatePage.form.selectStateFirst') : t('estimatePage.form.city')
-                      }
-                      name="city"
-                      value={formData.city}
-                      onChange={handleChange}
-                      variant="outlined"
-                      hiddenLabel
-                      sx={frostedFieldSx}
-                    >
-                      {availableCities.map((city) => (
-                        <MenuItem key={city} value={city}>
-                          {city}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  </Box>
-
-                  <Box>
-                    <FormLabel>{t('estimatePage.form.procedure')}</FormLabel>
-                    <Autocomplete
-                      options={procedureOptions}
-                      value={formData.procedure || null}
-                      onChange={handleProcedureSelect}
-                      slotProps={{
-                        popper: {
-                          placement: 'bottom-start',
-                          modifiers: [
-                            { name: 'flip', enabled: false },
-                            { name: 'offset', options: { offset: [0, 8] } },
-                          ],
-                          sx: {
-                            zIndex: (theme) => theme.zIndex.modal + 1,
-                          },
-                        },
-                        paper: {
-                          elevation: 0,
-                          sx: {
-                            borderRadius: 2,
-                            border: '1px solid',
-                            borderColor: 'divider',
-                            boxShadow: '0 16px 32px rgba(17, 24, 39, 0.14)',
-                            bgcolor: 'background.paper',
-                            overflow: 'hidden',
-                          },
-                        },
-                        listbox: {
-                          sx: {
-                            py: 0.75,
-                            px: 0.75,
-                            maxHeight: 320,
-                          },
-                        },
-                      }}
-                      getOptionLabel={(option) =>
-                        option === OTHER_PROCEDURE_OPTION ? procedureOtherLabel : String(option || '')
-                      }
-                      isOptionEqualToValue={(option, value) => option === value}
-                      noOptionsText={procedureNoOptionsLabel}
-                      renderOption={(props, option, { index }) => (
-                        <Box
-                          component="li"
-                          {...props}
-                          sx={{
-                            borderRadius: 1.5,
-                            mb: 0.5,
-                            minHeight: 42,
-                            px: 1.5,
-                            py: 1,
-                            opacity: 0,
-                            transform: 'scale(0.94) translateY(4px)',
-                            animation: 'listItemPopIn 0.22s ease forwards',
-                            animationDelay: `${Math.min(index, 12) * 25}ms`,
-                            transition: 'transform 0.2s ease, background-color 0.2s ease',
-                            '&:hover, &.Mui-focused, &[data-focus="true"]': {
-                              transform: 'scale(1.01)',
-                              backgroundColor: 'primary.main !important',
-                              color: 'common.white !important',
-                            },
-                            '&[aria-selected="true"], &[aria-selected="true"]:hover, &[aria-selected="true"].Mui-focused':
-                              {
-                                backgroundColor: 'primary.dark !important',
-                                color: 'common.white !important',
-                                fontWeight: 600,
-                              },
-                          }}
-                        >
-                          {option === OTHER_PROCEDURE_OPTION ? procedureOtherLabel : String(option || '')}
-                        </Box>
-                      )}
-                      renderInput={(params) => (
-                        <TextField
-                          {...params}
-                          required
-                          placeholder={procedureSearchPlaceholder}
-                          variant="outlined"
-                          hiddenLabel
-                          sx={frostedFieldSx}
-                        />
-                      )}
-                    />
-                  </Box>
-
-                  {isOtherProcedureSelected && (
-                    <Box>
-                      <FormLabel>{procedureOtherLabel}</FormLabel>
-                    <TextField
-                      fullWidth
-                      required
-                        multiline
-                        rows={4}
-                        placeholder={procedureOtherPlaceholder}
-                        name="procedureOther"
-                        value={formData.procedureOther}
-                      onChange={handleChange}
-                      variant="outlined"
-                      hiddenLabel
-                      sx={frostedFieldSx}
-                    />
-                  </Box>
-                  )}
+                  <ProcedureField
+                    procedure={formData.procedure}
+                    procedureOther={formData.procedureOther}
+                    onProcedureChange={handleProcedureSelect}
+                    onProcedureOtherChange={handleChange}
+                    procedureOptions={procedureOptions}
+                    procedureSearchPlaceholder={procedureSearchPlaceholder}
+                    procedureNoOptionsLabel={procedureNoOptionsLabel}
+                    procedureOtherLabel={procedureOtherLabel}
+                    procedureOtherPlaceholder={procedureOtherPlaceholder}
+                    label={t('estimatePage.form.procedure')}
+                  />
 
                   <Box sx={{ pt: 2 }}>
                     <Button
@@ -594,13 +309,9 @@ const Estimate = () => {
                     </Button>
                   </Box>
 
-                  {submitStatus === 'success' && <Alert severity="success">{t('estimatePage.feedback.success')}</Alert>}
-                  {submitStatus === 'error' && <Alert severity="error">{submitError}</Alert>}
+                  <SubmitFeedback status={submitStatus} error={submitError} />
                 </Stack>
               </form>
-              <Typography variant="caption" display="block" sx={{ mt: 4, textAlign: 'center', color: 'text.secondary' }}>
-                {t('estimatePage.disclaimer')}
-              </Typography>
             </Box>
           </Container>
         </Box>

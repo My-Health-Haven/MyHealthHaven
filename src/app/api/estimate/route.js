@@ -1,15 +1,13 @@
 import { resolve4, resolve6, resolveMx } from 'node:dns/promises';
+import { isValidEmail, isValidPhone, sanitizePhone } from '@/lib/validation';
 
 const RESEND_API_URL = 'https://api.resend.com/emails';
 const DEFAULT_TO_EMAIL = 'healthnavigator@andersonlg.com';
 const DEFAULT_FROM_EMAIL = 'onboarding@resend.dev';
 const RATE_LIMIT_WINDOW_MS = 60_000;
 const RATE_LIMIT_MAX_REQUESTS = 5;
-const PHONE_MAX_DIGITS = 15;
-const PHONE_REGEX = /^\+?\d{7,15}$/;
-const EMAIL_REGEX =
-  /^(?=.{1,254}$)(?=.{1,64}@)[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9])(?:\.[A-Za-z0-9](?:[A-Za-z0-9-]{0,61}[A-Za-z0-9]))+$/;
 const EMAIL_VERIFIER_DEFAULT_URL = 'https://emailvalidation.abstractapi.com/v1/';
+const EMAIL_VERIFIER_DEFAULT_HOST = 'emailvalidation.abstractapi.com';
 const EMAIL_VERIFIER_TIMEOUT_MS = 3_500;
 const DISPOSABLE_EMAIL_DOMAINS = new Set([
   '10minutemail.com', 'dispostable.com', 'fakeinbox.com', 'guerrillamail.com',
@@ -29,14 +27,6 @@ const normalizeText = (value, { maxLength, keepLineBreaks = false }) => {
   return normalized.slice(0, maxLength);
 };
 
-const sanitizePhone = (value = '') => {
-  const hasLeadingPlus = value.startsWith('+');
-  const digitsOnly = value.replace(/\D/g, '').slice(0, PHONE_MAX_DIGITS);
-  return `${hasLeadingPlus ? '+' : ''}${digitsOnly}`;
-};
-
-const isValidEmail = (value = '') => EMAIL_REGEX.test(value);
-const isValidPhone = (value = '') => PHONE_REGEX.test(value);
 const parseBoolean = (value, fallback) => {
   if (typeof value !== 'string') return fallback;
   const normalized = value.trim().toLowerCase();
@@ -68,18 +58,14 @@ const isDisposableEmailDomain = (domain = '') =>
   DISPOSABLE_EMAIL_DOMAINS.has(String(domain || '').toLowerCase());
 
 const hasDomainDnsRecords = async (domain) => {
-  try {
-    const mxRecords = await resolveMx(domain);
-    if (Array.isArray(mxRecords) && mxRecords.length > 0) return true;
-  } catch {}
-  try {
-    const aRecords = await resolve4(domain);
-    if (Array.isArray(aRecords) && aRecords.length > 0) return true;
-  } catch {}
-  try {
-    const aaaaRecords = await resolve6(domain);
-    if (Array.isArray(aaaaRecords) && aaaaRecords.length > 0) return true;
-  } catch {}
+  for (const resolver of [resolveMx, resolve4, resolve6]) {
+    try {
+      const records = await resolver(domain);
+      if (Array.isArray(records) && records.length > 0) return true;
+    } catch {
+      // resolver missing this record type — try the next one
+    }
+  }
   return false;
 };
 
@@ -90,7 +76,16 @@ const verifyWithAbstractApi = async (email) => {
   const verifierBaseUrl = process.env.EMAIL_VERIFIER_URL || EMAIL_VERIFIER_DEFAULT_URL;
   const verifierTimeoutMs = Number(process.env.EMAIL_VERIFIER_TIMEOUT_MS || EMAIL_VERIFIER_TIMEOUT_MS);
 
-  const verifierUrl = new URL(verifierBaseUrl);
+  let verifierUrl;
+  try {
+    verifierUrl = new URL(verifierBaseUrl);
+  } catch {
+    return { status: 'skipped' };
+  }
+
+  if (verifierUrl.protocol !== 'https:') return { status: 'skipped' };
+  if (verifierUrl.hostname !== EMAIL_VERIFIER_DEFAULT_HOST) return { status: 'skipped' };
+
   verifierUrl.searchParams.set('api_key', apiKey);
   verifierUrl.searchParams.set('email', email);
 
@@ -273,29 +268,18 @@ const buildUserConfirmationText = (payload) => {
     : `Hi ${payload.name},\n\nThanks for requesting a free estimate from MyHealth Haven. We have received your request and our Health Navigator will follow up shortly with a detailed quote.\n\nYour request summary:\n- Procedure: ${payload.procedure}\n- State: ${payload.state}\n- City: ${payload.city}\n- Phone: ${payload.phone}\n\nIf you have urgent questions, reply to this email or call us at +1 (214) 276 3928.\n\nMyHealth Haven Management, LLC`;
 };
 
+const SAME_ORIGIN_FALLBACK = 'https://www.myhealthhaven.org';
+
 function corsHeaders(request) {
   const origin = request.headers.get('origin');
   if (!origin) return {};
 
-  const allowedOrigins = (process.env.ALLOWED_ORIGINS || '')
+  const allowedOrigins = (process.env.ALLOWED_ORIGINS || SAME_ORIGIN_FALLBACK)
     .split(',')
     .map((o) => o.trim())
     .filter(Boolean);
 
-  const host = request.headers.get('host');
-  let allowed = false;
-
-  if (allowedOrigins.includes(origin)) {
-    allowed = true;
-  } else {
-    try {
-      allowed = new URL(origin).host === host;
-    } catch {
-      allowed = false;
-    }
-  }
-
-  if (!allowed) return {};
+  if (!allowedOrigins.includes(origin)) return {};
 
   return {
     'Access-Control-Allow-Origin': origin,

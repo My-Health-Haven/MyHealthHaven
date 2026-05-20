@@ -1,3 +1,46 @@
+const isDev = process.env.NODE_ENV !== 'production';
+
+const scriptSrc = [
+  "'self'",
+  "'unsafe-inline'",
+  isDev && "'unsafe-eval'",
+  'https://www.googletagmanager.com',
+  'https://www.google-analytics.com',
+]
+  .filter(Boolean)
+  .join(' ');
+
+const connectSrc = [
+  "'self'",
+  isDev && 'ws:',
+  isDev && 'wss:',
+  'https://www.google-analytics.com',
+  'https://*.analytics.google.com',
+  'https://*.googletagmanager.com',
+  'https://api.resend.com',
+  'https://emailvalidation.abstractapi.com',
+]
+  .filter(Boolean)
+  .join(' ');
+
+const contentSecurityPolicy = [
+  "default-src 'self'",
+  "base-uri 'self'",
+  "frame-ancestors 'self'",
+  "form-action 'self'",
+  "object-src 'none'",
+  "img-src 'self' data: blob: https:",
+  "font-src 'self' data: https://fonts.gstatic.com",
+  "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+  `script-src ${scriptSrc}`,
+  `connect-src ${connectSrc}`,
+  "media-src 'self' blob:",
+  "manifest-src 'self'",
+  !isDev && 'upgrade-insecure-requests',
+]
+  .filter(Boolean)
+  .join('; ');
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
@@ -22,12 +65,20 @@ const nextConfig = {
           { key: 'Referrer-Policy', value: 'strict-origin-when-cross-origin' },
           {
             key: 'Permissions-Policy',
-            value: 'geolocation=(), microphone=(), camera=()',
+            value:
+              'geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()',
           },
           {
             key: 'Strict-Transport-Security',
             value: 'max-age=31536000; includeSubDomains; preload',
           },
+          {
+            key: 'Content-Security-Policy',
+            value: contentSecurityPolicy,
+          },
+          { key: 'X-DNS-Prefetch-Control', value: 'on' },
+          { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
+          { key: 'Cross-Origin-Resource-Policy', value: 'same-site' },
         ],
       },
       {

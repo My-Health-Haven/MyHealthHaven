@@ -1,5 +1,10 @@
-import { getCanonicalUrl } from '@/lib/siteSeo';
+import {
+  getCanonicalUrl,
+  createContactPageSchema,
+  createBreadcrumbSchema,
+} from '@/lib/siteSeo';
 import Estimate from '@/views/Estimate';
+import JsonLd from '@/components/JsonLd';
 
 const canonical = getCanonicalUrl('/estimate');
 
@@ -19,6 +24,24 @@ export const metadata = {
   },
 };
 
+const estimateSchemas = [
+  createContactPageSchema({
+    path: '/estimate',
+    name: 'Free Estimate | MyHealth Haven',
+    description:
+      'Get a free estimate for your medical procedure in Mexico. Our health navigators will help you understand costs and plan your care.',
+  }),
+  createBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Free Estimate', path: '/estimate' },
+  ]),
+];
+
 export default function EstimatePage() {
-  return <Estimate />;
+  return (
+    <>
+      <JsonLd data={estimateSchemas} />
+      <Estimate />
+    </>
+  );
 }

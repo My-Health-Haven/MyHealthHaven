@@ -1,5 +1,10 @@
-import { getCanonicalUrl } from '@/lib/siteSeo';
+import {
+  getCanonicalUrl,
+  createCollectionPageSchema,
+  createBreadcrumbSchema,
+} from '@/lib/siteSeo';
 import Procedures from '@/views/Procedures';
+import JsonLd from '@/components/JsonLd';
 
 const canonical = getCanonicalUrl('/procedures');
 
@@ -19,6 +24,24 @@ export const metadata = {
   },
 };
 
+const proceduresSchemas = [
+  createCollectionPageSchema({
+    path: '/procedures',
+    name: 'Medical Procedures | MyHealth Haven',
+    description:
+      'Browse medical procedures available through MyHealth Haven. Compare options for surgery, dental, cosmetic, and diagnostic care in Mexico.',
+  }),
+  createBreadcrumbSchema([
+    { name: 'Home', path: '/' },
+    { name: 'Procedures', path: '/procedures' },
+  ]),
+];
+
 export default function ProceduresPage() {
-  return <Procedures />;
+  return (
+    <>
+      <JsonLd data={proceduresSchemas} />
+      <Procedures />
+    </>
+  );
 }
