@@ -2,6 +2,7 @@ import js from '@eslint/js';
 import globals from 'globals';
 import reactHooks from 'eslint-plugin-react-hooks';
 import prettierConfig from 'eslint-config-prettier';
+import tseslint from 'typescript-eslint';
 import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
@@ -27,19 +28,30 @@ export default defineConfig([
     },
   },
   {
-    files: ['*.config.js', '*.config.mjs'],
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      ...tseslint.configs.recommended,
+      prettierConfig,
+    ],
+    languageOptions: {
+      parser: tseslint.parser,
+      globals: globals.browser,
+    },
+  },
+  {
+    files: ['*.config.js', '*.config.mjs', '*.config.ts'],
     languageOptions: {
       globals: globals.node,
     },
   },
   {
-    files: ['src/app/api/**/*.js'],
+    files: ['src/app/api/**/*.{js,ts}'],
     languageOptions: {
       globals: globals.node,
     },
   },
   {
-    files: ['**/*.{test,spec}.{js,jsx}'],
+    files: ['**/*.{test,spec}.{js,jsx,ts,tsx}'],
     languageOptions: {
       globals: {
         ...globals.browser,
