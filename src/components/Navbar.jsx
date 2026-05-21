@@ -108,9 +108,8 @@ const Navbar = () => {
         bgcolor: 'rgba(8, 20, 28, 0.28)',
         backdropFilter: 'blur(25px) saturate(180%)',
         WebkitBackdropFilter: 'blur(25px) saturate(180%)',
-        borderBottom: '1px solid',
-        borderColor: 'rgba(255, 255, 255, 0.14)',
-        boxShadow: '0 8px 30px rgba(0, 0, 0, 0.12)',
+        borderBottom: 'none',
+        boxShadow: 'none',
       }
     : {
         bgcolor: 'rgba(255, 255, 255, 0.1)',
@@ -187,14 +186,14 @@ const Navbar = () => {
         <Container maxWidth="xl">
             <Stack direction="row" spacing={3} justifyContent="flex-start" alignItems="center">
                 <Stack direction="row" spacing={1} alignItems="center">
-                    <PhoneIcon fontSize="small" sx={{ fontSize: 16 }} />
-                    <Typography variant="caption" component="a" href="tel:+12142763928" sx={{ color: 'white', textDecoration: 'none', fontWeight: 500 }}>
+                    <PhoneIcon fontSize="small" sx={{ fontSize: 16, display: { xs: 'none', sm: 'inline-flex' } }} />
+                    <Typography variant="caption" component="a" href="tel:+12142763928" sx={{ color: 'white', textDecoration: 'none', fontWeight: 500, fontSize: { xs: '0.68rem', sm: '0.75rem' } }}>
                         +1 (214) 276 3928
                     </Typography>
                 </Stack>
                 <Stack direction="row" spacing={1} alignItems="center">
-                    <EmailIcon fontSize="small" sx={{ fontSize: 16 }} />
-                    <Typography variant="caption" component="a" href={`mailto:${HEALTH_NAVIGATOR_EMAIL}`} onClick={handleEmailClick} sx={{ color: 'white', textDecoration: 'none', fontWeight: 500 }}>
+                    <EmailIcon fontSize="small" sx={{ fontSize: 16, display: { xs: 'none', sm: 'inline-flex' } }} />
+                    <Typography variant="caption" component="a" href={`mailto:${HEALTH_NAVIGATOR_EMAIL}`} onClick={handleEmailClick} sx={{ color: 'white', textDecoration: 'none', fontWeight: 500, fontSize: { xs: '0.68rem', sm: '0.75rem' } }}>
                         {HEALTH_NAVIGATOR_EMAIL}
                     </Typography>
                 </Stack>

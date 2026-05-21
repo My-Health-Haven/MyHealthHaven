@@ -31,7 +31,7 @@ const SectionEyebrow = ({
             color: accent,
             fontWeight: 700,
             letterSpacing: 1.4,
-            fontSize: '0.78rem',
+            fontSize: { xs: '0.99rem', sm: '0.78rem' },
           }}
         >
           {text}

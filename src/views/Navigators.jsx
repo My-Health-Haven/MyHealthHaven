@@ -77,7 +77,9 @@ const Navigators = () => {
       <Box
         sx={{
           position: 'relative',
-          py: { xs: 10, md: 14 },
+          mt: { xs: -7, sm: 0 },
+          pt: { xs: 17, sm: 10, md: 14 },
+          pb: { xs: 10, md: 14 },
           textAlign: 'center',
           overflow: 'hidden',
           color: 'white',
@@ -241,6 +243,7 @@ const Navigators = () => {
                   color: 'text.primary',
                   mb: 2,
                   lineHeight: 1.2,
+                  fontSize: { xs: '1.23rem' },
                 }}
               >
                 {t('navigatorsPage.whatYouGetTitle')}
