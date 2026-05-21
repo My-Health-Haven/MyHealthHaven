@@ -22,6 +22,7 @@ const WhyCancunIllustration = ({ pinLabel }) => (
     {/* Floating destination label badge */}
     <Box
       sx={{
+        display: { xs: 'none', sm: 'block' },
         position: 'absolute',
         right: 16,
         top: 14,

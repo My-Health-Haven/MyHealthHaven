@@ -288,17 +288,17 @@ export const translations = {
       whatYouGetEyebrow: 'What Your Health Navigator Does',
       whatYouGetTitle: 'A dedicated guide for every step of your medical journey.',
       whatYouGetSubtitle:
-        'Your Health Navigator™ is with you from the very beginning—providing expert guidance, personalized support, and peace of mind every step of the way.',
+        'Your Health Navigator™ is with you from the very beginning, providing expert guidance, personalized support, and peace of mind every step of the way.',
       // Aligned 1:1 with whatTheyDoList by index.
       whatTheyDoDescriptions: [
         'A trusted partner who understands your needs and speaks your language.',
-        'One expert you can count on—before, during, and after your care.',
+        'One expert you can count on, before, during, and after your care.',
         'We take the time to understand your unique situation and priorities.',
         'Clear, honest guidance tailored to your condition and goals.',
         'We handle the details so your care moves forward seamlessly.',
         'Trusted providers, transparent pricing, no hidden surprises.',
         'From flights to follow-up care, we help you plan with confidence.',
-        'We are here when you need us—wherever you are, whenever you need support.',
+        'We are here when you need us, wherever you are, whenever you need support.',
       ],
 
       // "Meet your Health Navigators" video section
@@ -826,17 +826,17 @@ export const translations = {
       whatYouGetEyebrow: 'Lo que hace su Health Navigator',
       whatYouGetTitle: 'Una guía dedicada para cada paso de su viaje médico.',
       whatYouGetSubtitle:
-        'Su Health Navigator™ está con usted desde el principio—brindando orientación experta, apoyo personalizado y tranquilidad en cada paso del camino.',
+        'Su Health Navigator™ está con usted desde el principio, brindando orientación experta, apoyo personalizado y tranquilidad en cada paso del camino.',
       // Aligned 1:1 with whatTheyDoList by index.
       whatTheyDoDescriptions: [
         'Un socio de confianza que entiende sus necesidades y habla su idioma.',
-        'Un experto con quien puede contar—antes, durante y después de su atención.',
+        'Un experto con quien puede contar, antes, durante y después de su atención.',
         'Nos tomamos el tiempo para entender su situación única y prioridades.',
         'Orientación clara y honesta adaptada a su condición y objetivos.',
         'Manejamos los detalles para que su atención avance sin contratiempos.',
         'Proveedores confiables, precios transparentes, sin sorpresas ocultas.',
         'Desde vuelos hasta atención de seguimiento, le ayudamos a planificar con confianza.',
-        'Estamos aquí cuando nos necesite—dondequiera que esté, cuando necesite apoyo.',
+        'Estamos aquí cuando nos necesite, dondequiera que esté, cuando necesite apoyo.',
       ],
 
       // "Meet your Health Navigators" video section

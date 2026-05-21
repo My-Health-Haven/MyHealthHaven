@@ -34,6 +34,7 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   `script-src ${scriptSrc}`,
   `connect-src ${connectSrc}`,
+  "frame-src 'self' https://www.google.com https://maps.google.com https://calendar.google.com",
   "media-src 'self' blob:",
   "manifest-src 'self'",
   !isDev && 'upgrade-insecure-requests',

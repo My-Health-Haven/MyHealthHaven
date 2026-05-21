@@ -251,7 +251,7 @@ const Navigators = () => {
                 variant="body1"
                 sx={{
                   color: 'text.secondary',
-                  fontSize: '1.05rem',
+                  fontSize: { xs: '0.95rem', md: '1.05rem' },
                   lineHeight: 1.6,
                 }}
               >
@@ -261,7 +261,7 @@ const Navigators = () => {
           </Box>
 
           {/* 4x2 feature grid */}
-          <Grid container spacing={3}>
+          <Grid container spacing={{ xs: 1.5, sm: 3 }}>
             {featureMap.map((entry, i) => {
               const title = whatTheyDoList[entry.srcIdx];
               const description = whatTheyDoDescriptions[entry.srcIdx];
@@ -276,7 +276,15 @@ const Navigators = () => {
                       color={entry.color}
                       variant={isMobile ? 'compact' : 'default'}
                       titleColor={theme.palette.text.primary}
-                      sx={{ height: '100%' }}
+                      sx={{
+                        height: '100%',
+                        '& .MuiTypography-subtitle1': {
+                          fontSize: { xs: '0.79rem', sm: '1rem' },
+                        },
+                        '& .MuiTypography-body2': {
+                          fontSize: { xs: '0.79rem', sm: '0.83rem' },
+                        },
+                      }}
                     />
                   </FadeIn>
                 </Grid>
@@ -394,29 +402,6 @@ const Navigators = () => {
                         >
                           MyHealth Haven
                         </Typography>
-                      </Box>
-                      {/* Decorative center play hint (only over poster, video controls override on play) */}
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          top: '50%',
-                          left: '50%',
-                          transform: 'translate(-50%, -50%)',
-                          width: 76,
-                          height: 76,
-                          borderRadius: '50%',
-                          bgcolor: 'rgba(255, 255, 255, 0.95)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
-                          pointerEvents: 'none',
-                        }}
-                        aria-hidden="true"
-                      >
-                        <PlayCircleIcon
-                          sx={{ fontSize: 64, color: 'primary.main' }}
-                        />
                       </Box>
                     </Box>
                   </Card>

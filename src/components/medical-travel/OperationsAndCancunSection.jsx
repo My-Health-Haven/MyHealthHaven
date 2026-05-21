@@ -107,11 +107,11 @@ const OperationsAndCancunSection = () => {
               <Box
                 sx={{
                   flex: 1,
-                  p: { xs: 3, md: 4 },
-                  bgcolor: 'background.paper',
-                  borderRadius: 4,
-                  boxShadow: '0 8px 32px rgba(17, 24, 39, 0.06)',
-                  border: '1px solid',
+                  p: { xs: 0, md: 4 },
+                  bgcolor: { xs: 'transparent', md: 'background.paper' },
+                  borderRadius: { xs: 0, md: 4 },
+                  boxShadow: { xs: 'none', md: '0 8px 32px rgba(17, 24, 39, 0.06)' },
+                  border: { xs: 'none', md: '1px solid' },
                   borderColor: alpha('#00897B', 0.08),
                 }}
               >
@@ -314,13 +314,13 @@ const OperationsAndCancunSection = () => {
           <Box
             sx={{
               mt: { xs: 5, md: 6 },
-              bgcolor: 'background.paper',
-              borderRadius: 3,
-              py: { xs: 3, md: 4 },
-              px: { xs: 2, md: 4 },
-              border: '1px solid',
+              bgcolor: { xs: 'transparent', md: 'background.paper' },
+              borderRadius: { xs: 0, md: 3 },
+              py: { xs: 0, md: 4 },
+              px: { xs: 0, md: 4 },
+              border: { xs: 'none', md: '1px solid' },
               borderColor: 'divider',
-              boxShadow: '0 6px 24px rgba(17, 24, 39, 0.04)',
+              boxShadow: { xs: 'none', md: '0 6px 24px rgba(17, 24, 39, 0.04)' },
             }}
           >
             <Grid container spacing={{ xs: 3, md: 4 }}>

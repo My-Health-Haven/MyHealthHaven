@@ -163,36 +163,28 @@ const MedicalCareTimeline = () => {
         </Box>
       </Box>
 
-      {/* --- MOBILE LAYOUT (1 vertical column) --- */}
-      <Box 
-        sx={{ 
-          display: { xs: 'flex', md: 'none' }, 
-          flexDirection: 'column', 
-          alignItems: 'center', 
-          gap: 0,
+      {/* --- MOBILE LAYOUT (2-column grid) --- */}
+      <Box
+        sx={{
+          display: { xs: 'grid', md: 'none' },
+          gridTemplateColumns: 'repeat(2, 1fr)',
+          gap: 2,
           mt: 2,
-          pb: 2
+          pb: 2,
         }}
       >
         {stepConfigs.map((step, index) => (
-          <React.Fragment key={`mobile-${step.stepNumber}-${index}`}>
-            <FadeIn style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
-              <TimelineCard
-                stepNumber={step.stepNumber}
-                title={step.title}
-                timing={step.timing}
-                icon={step.icon}
-                caption={step.caption}
-                variant={step.variant}
-                sx={{ maxWidth: 320, width: '100%' }} // Let cards be wider on mobile
-              />
-            </FadeIn>
-            {index < stepConfigs.length - 1 && (
-              <FadeIn delay={150} style={{ display: 'flex', justifyContent: 'center' }}>
-                <TimelineArrow sx={{ transform: 'rotate(90deg)', my: 2 }} />
-              </FadeIn>
-            )}
-          </React.Fragment>
+          <FadeIn key={`mobile-${step.stepNumber}-${index}`} delay={index * 60}>
+            <TimelineCard
+              stepNumber={step.stepNumber}
+              title={step.title}
+              timing={step.timing}
+              icon={step.icon}
+              caption={step.caption}
+              variant={step.variant}
+              sx={{ maxWidth: '100%', width: '100%' }}
+            />
+          </FadeIn>
         ))}
       </Box>
     </Box>
