@@ -100,7 +100,7 @@ const OperationsAndCancunSection = () => {
           px: { xs: 2, md: 6, lg: 10 },
         }}
       >
-        <Grid container spacing={4} alignItems="stretch">
+        <Grid container spacing={2} alignItems="stretch">
           {/* LEFT: Where we operate */}
           <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex' }}>
             <FadeIn delay={100} style={{ width: '100%', display: 'flex' }}>
@@ -143,7 +143,7 @@ const OperationsAndCancunSection = () => {
                     sx={{
                       fontWeight: 700,
                       color: 'text.primary',
-                      fontSize: { xs: '1.4rem', md: '1.7rem' },
+                      fontSize: { xs: '1.26rem', md: '1.53rem' },
                     }}
                   >
                     {t('medicalTravelPage.locationsTitle')}
@@ -155,9 +155,9 @@ const OperationsAndCancunSection = () => {
                     <Typography
                       key={i}
                       variant="body1"
-                      style={{ fontSize: '0.9rem' }}
+                      style={{ fontSize: '0.855rem' }}
                       sx={{
-                        color: 'text.secondary',
+                        color: '#4A5568',
                         lineHeight: 1.7,
                       }}
                     >
@@ -175,21 +175,32 @@ const OperationsAndCancunSection = () => {
               <Box
                 sx={{
                   flex: 1,
-                  p: { xs: 3, md: 4 },
-                  bgcolor: 'background.paper',
                   borderRadius: 4,
                   boxShadow: '0 8px 32px rgba(17, 24, 39, 0.06)',
                   border: '1px solid',
                   borderColor: alpha('#00897B', 0.08),
+                  overflow: 'hidden',
+                  position: 'relative',
+                  minHeight: { xs: 480, md: 520 },
                 }}
               >
-                {/* Centered title with gradient underline */}
+                {/* Illustration fills entire card as absolute background */}
+                <WhyCancunIllustration
+                  pinLabel={t('medicalTravelPage.whyCancunPin')}
+                />
+
+                {/* Title + underline overlay */}
                 <Box
                   sx={{
+                    position: 'absolute',
+                    top: { xs: 12, sm: 16 },
+                    left: 0,
+                    right: 0,
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
-                    mb: 3,
+                    zIndex: 2,
+                    pointerEvents: 'none',
                   }}
                 >
                   <Typography
@@ -198,14 +209,15 @@ const OperationsAndCancunSection = () => {
                       fontWeight: 700,
                       color: 'primary.main',
                       fontSize: { xs: '1.4rem', md: '1.7rem' },
-                      mb: 1,
+                      mb: 0.75,
+                      textShadow: '0 1px 8px rgba(255,255,255,0.8)',
                     }}
                   >
                     {t('medicalTravelPage.whyCancunTitle')}
                   </Typography>
                   <Box
                     sx={{
-                      width: 64,
+                      width: 128,
                       height: 2,
                       borderRadius: 2,
                       background:
@@ -215,21 +227,16 @@ const OperationsAndCancunSection = () => {
                   />
                 </Box>
 
-                {/* Map illustration with cards overlapping the bottom half */}
-                <Box sx={{ position: 'relative' }}>
-                  <WhyCancunIllustration
-                    pinLabel={t('medicalTravelPage.whyCancunPin')}
-                  />
-                  {/* 2x2 compact horizontal cards positioned over map bottom */}
-                  <Box
-                    sx={{
-                      position: { xs: 'static', sm: 'absolute' },
-                      bottom: { sm: 10 },
-                      left: { sm: 10 },
-                      right: { sm: 10 },
-                      mt: { xs: 1.5, sm: 0 },
-                    }}
-                  >
+                {/* 2x2 compact cards always pinned to bottom */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: 12,
+                    left: 12,
+                    right: 12,
+                    zIndex: 2,
+                  }}
+                >
                     <Grid container spacing={1.25}>
                       {whyCancunCards.map((card, i) => (
                         <Grid size={{ xs: 12, sm: 6 }} key={i}>
@@ -297,7 +304,6 @@ const OperationsAndCancunSection = () => {
                       ))}
                     </Grid>
                   </Box>
-                </Box>
               </Box>
             </FadeIn>
           </Grid>

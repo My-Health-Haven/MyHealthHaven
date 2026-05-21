@@ -11,6 +11,7 @@ const IconFeatureCard = ({
   titleColor,
   hover = true,
   align = 'left',
+  disableBubble = false,
   sx = {},
 }) => {
   const theme = useTheme();
@@ -46,28 +47,38 @@ const IconFeatureCard = ({
         ...sx,
       }}
     >
-      <Box
-        sx={{
-          width: circleSize,
-          height: circleSize,
-          borderRadius: '50%',
-          background: `radial-gradient(circle at 45% 30%, ${alpha('#FFFFFF', 0.88)} 0%, ${alpha(accent, 0.16)} 58%, ${alpha(accent, 0.26)} 100%)`,
-          border: `1.5px solid ${alpha(accent, 0.38)}`,
-          boxShadow: `inset 0 2px 5px ${alpha(accent, 0.14)}, inset 0 -2px 5px rgba(255,255,255,0.65), 0 4px 14px ${alpha(accent, 0.13)}`,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          mb: 2,
-          flexShrink: 0,
-        }}
-        aria-hidden="true"
-      >
-        {React.isValidElement(icon)
-          ? React.cloneElement(icon, {
-              sx: { fontSize: iconFontSize, color: accent, ...(icon.props?.sx || {}) },
-            })
-          : icon}
-      </Box>
+      {disableBubble ? (
+        <Box sx={{ mb: 2, flexShrink: 0 }} aria-hidden="true">
+          {React.isValidElement(icon)
+            ? React.cloneElement(icon, {
+                sx: { fontSize: 40, color: accent, ...(icon.props?.sx || {}) },
+              })
+            : icon}
+        </Box>
+      ) : (
+        <Box
+          sx={{
+            width: circleSize,
+            height: circleSize,
+            borderRadius: '50%',
+            background: `radial-gradient(circle at 45% 30%, ${alpha('#FFFFFF', 0.88)} 0%, ${alpha(accent, 0.16)} 58%, ${alpha(accent, 0.26)} 100%)`,
+            border: `1.5px solid ${alpha(accent, 0.38)}`,
+            boxShadow: `inset 0 2px 5px ${alpha(accent, 0.14)}, inset 0 -2px 5px rgba(255,255,255,0.65), 0 4px 14px ${alpha(accent, 0.13)}`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            mb: 2,
+            flexShrink: 0,
+          }}
+          aria-hidden="true"
+        >
+          {React.isValidElement(icon)
+            ? React.cloneElement(icon, {
+                sx: { fontSize: iconFontSize, color: accent, ...(icon.props?.sx || {}) },
+              })
+            : icon}
+        </Box>
+      )}
       <Typography
         variant={isCompact ? 'subtitle1' : 'h6'}
         style={!isCompact ? { fontSize: '1.07rem', lineHeight: 1.3 } : undefined}
@@ -98,6 +109,7 @@ IconFeatureCard.propTypes = {
   titleColor: PropTypes.string,
   hover: PropTypes.bool,
   align: PropTypes.oneOf(['left', 'center']),
+  disableBubble: PropTypes.bool,
   sx: PropTypes.object,
 };
 

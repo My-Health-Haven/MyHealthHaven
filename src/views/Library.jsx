@@ -6,22 +6,36 @@ import {
   Typography,
   Button,
   Grid,
-  CardContent,
   Stack,
+  alpha,
+  useTheme,
 } from '@mui/material';
 import Link from 'next/link';
 
-import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
-import GlassCard from '../components/GlassCard';
+import VerifiedUserRoundedIcon from '@mui/icons-material/VerifiedUserRounded';
+
 import FadeIn from '../components/FadeIn';
-import { LIBRARY_ARTICLES, LIBRARY_PAGE_COPY } from '../data/libraryContent';
+import SectionEyebrow from '../components/SectionEyebrow';
+import IconFeatureCard from '../components/IconFeatureCard';
+import LibraryArticleCard from '../components/library/LibraryArticleCard';
+import {
+  LIBRARY_ARTICLES,
+  LIBRARY_PAGE_COPY,
+  LIBRARY_HERO_PILLS,
+  LIBRARY_CATEGORIES,
+} from '../data/libraryContent';
 import { useLanguage } from '../context/LanguageContext';
 
 const Library = () => {
+  const theme = useTheme();
   const { language } = useLanguage();
   const pageCopy = LIBRARY_PAGE_COPY[language] || LIBRARY_PAGE_COPY.en;
+  const primary = theme.palette.primary.main;
+  const primaryDark = theme.palette.primary.dark;
+  const secondary = theme.palette.secondary.main;
+
   return (
     <>
       {/* ── Hero ── */}
@@ -30,15 +44,14 @@ const Library = () => {
           py: { xs: 10, md: 14 },
           textAlign: 'center',
           background:
-            'linear-gradient(180deg, #f5efe5 0%, #ece6da 36%, #f8f6f1 100%)',
+            'linear-gradient(180deg, #e8f5f2 0%, #f4faff 48%, #f3edf7 100%)',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
-        <Container maxWidth="lg" sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
+        <Container maxWidth="lg" sx={{ px: { xs: 2, md: 5, lg: 8 }, position: 'relative' }}>
           <FadeIn>
-            <Typography
-              variant="h1"
-              sx={{ color: '#2d2018', mb: 2 }}
-            >
+            <Typography variant="h1" sx={{ color: primaryDark, mb: 2 }}>
               {pageCopy.title}
             </Typography>
           </FadeIn>
@@ -47,7 +60,7 @@ const Library = () => {
             <Typography
               variant="h5"
               sx={{
-                color: '#4a3b30',
+                color: 'text.secondary',
                 maxWidth: 640,
                 mx: 'auto',
                 lineHeight: 1.7,
@@ -63,131 +76,202 @@ const Library = () => {
               variant="contained"
               size="large"
               component={Link}
-              href="/library/is-medical-travel-right-for-me"
+              href={`/library/${LIBRARY_ARTICLES[0].slug}`}
               endIcon={<ArrowForwardRoundedIcon />}
               sx={{
-                bgcolor: '#2d2018',
+                bgcolor: primaryDark,
                 color: 'white',
                 px: 4,
                 py: 1.5,
                 borderRadius: 2,
                 boxShadow: 'none',
+                mb: 4,
                 '&:hover': {
-                  bgcolor: '#1a120e',
-                  boxShadow: '0 4px 16px rgba(45,32,24,0.2)',
+                  bgcolor: '#004D40',
+                  boxShadow: `0 6px 18px ${alpha(primaryDark, 0.28)}`,
                 },
               }}
             >
               {pageCopy.cta}
             </Button>
           </FadeIn>
+
+          <FadeIn delay={220}>
+            <Stack
+              direction="row"
+              flexWrap="wrap"
+              justifyContent="center"
+              gap={1.25}
+              sx={{ mb: 3 }}
+            >
+              {LIBRARY_HERO_PILLS.map((pill) => {
+                const PillIcon = pill.Icon;
+                return (
+                  <Box
+                    key={pill.key}
+                    sx={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 0.75,
+                      bgcolor: 'background.paper',
+                      border: '1px solid',
+                      borderColor: alpha(primary, 0.18),
+                      borderRadius: 999,
+                      px: 2,
+                      py: 1,
+                      cursor: 'default',
+                      boxShadow: `0 2px 8px ${alpha(primary, 0.06)}`,
+                    }}
+                  >
+                    <PillIcon sx={{ fontSize: 18, color: primary }} />
+                    <Typography
+                      variant="body2"
+                      sx={{ color: primaryDark, fontWeight: 600, fontSize: '0.92rem' }}
+                    >
+                      {pageCopy[pill.labelKey]}
+                    </Typography>
+                  </Box>
+                );
+              })}
+            </Stack>
+          </FadeIn>
+
+          <FadeIn delay={280}>
+            <Stack
+              direction="row"
+              alignItems="center"
+              justifyContent="center"
+              gap={0.75}
+              sx={{ color: 'text.secondary' }}
+            >
+              <VerifiedUserRoundedIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
+              <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.88rem' }}>
+                {pageCopy.trustLine}
+              </Typography>
+            </Stack>
+          </FadeIn>
         </Container>
       </Box>
 
-      {/* ── Article Cards ── */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: '#faf8f5' }}>
+      {/* ── Featured Topics ── */}
+      <Box sx={{ pt: { xs: 8, md: 12 }, pb: { xs: 2, md: 3 }, bgcolor: '#FFFFFF' }}>
         <Container maxWidth="lg" sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
-          <FadeIn>
-            <Typography
-              variant="h2"
-              sx={{ color: '#2d2018', mb: 1 }}
-            >
-              {pageCopy.featuredTopics}
-            </Typography>
-            <Box
-              sx={{
-                width: 48,
-                height: 3,
-                borderRadius: 2,
-                bgcolor: '#2d2018',
-                mb: 5,
-              }}
-            />
-          </FadeIn>
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            justifyContent="space-between"
+            alignItems={{ xs: 'flex-start', sm: 'flex-end' }}
+            spacing={2}
+            sx={{ mb: 5 }}
+          >
+            <FadeIn>
+              <Box>
+                <Typography variant="h2" sx={{ color: primaryDark, mb: 1 }}>
+                  {pageCopy.featuredTopics}
+                </Typography>
+                <Box
+                  sx={{
+                    width: 56,
+                    height: 3,
+                    borderRadius: 2,
+                    background: `linear-gradient(90deg, ${primary} 0%, ${secondary} 100%)`,
+                  }}
+                  aria-hidden="true"
+                />
+              </Box>
+            </FadeIn>
+            <FadeIn delay={80}>
+              <Button
+                component={Link}
+                href="#explore"
+                endIcon={<ArrowForwardRoundedIcon />}
+                sx={{
+                  color: primary,
+                  fontWeight: 600,
+                  px: 0,
+                  '&:hover': { bgcolor: 'transparent', color: primaryDark },
+                }}
+              >
+                {pageCopy.viewAllArticles}
+              </Button>
+            </FadeIn>
+          </Stack>
 
           <Grid container spacing={4}>
             {LIBRARY_ARTICLES.map((article, index) => (
               <Grid size={{ xs: 12, md: 4 }} key={article.slug}>
                 <FadeIn delay={index * 120}>
-                  <GlassCard
-                    sx={{
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                      '&:hover': {
-                        transform: 'translateY(-4px)',
-                        boxShadow: '0 16px 48px rgba(45,32,24,0.10)',
-                      },
-                    }}
-                  >
-                    <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                      {/* Badge */}
-                      <Box
-                        sx={{
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: 0.75,
-                          bgcolor: 'rgba(45,32,24,0.06)',
-                          borderRadius: 6,
-                          px: 1.5,
-                          py: 0.5,
-                          mb: 2.5,
-                        }}
-                      >
-                        <AutoStoriesRoundedIcon
-                          sx={{ fontSize: 16, color: '#6b5744' }}
-                        />
-                        <Typography
-                          variant="caption"
-                          sx={{ color: '#6b5744', fontWeight: 600, letterSpacing: 0.5 }}
-                        >
-                          {pageCopy.guideLabel}
-                        </Typography>
-                      </Box>
-
-                      <Typography
-                        variant="h6"
-                        sx={{
-                          fontWeight: 700,
-                          color: '#2d2018',
-                          mb: 1.5,
-                          lineHeight: 1.4,
-                        }}
-                      >
-                        {article.title}
-                      </Typography>
-
-                      <Typography
-                        variant="body2"
-                        sx={{ color: '#6b5744', lineHeight: 1.7 }}
-                      >
-                        {article.summary}
-                      </Typography>
-                    </CardContent>
-
-                    <Box sx={{ px: 3, pb: 3, pt: 0 }}>
-                      <Button
-                        component={Link}
-                        href={`/library/${article.slug}`}
-                        endIcon={<ArrowForwardRoundedIcon />}
-                        sx={{
-                          color: '#2d2018',
-                          fontWeight: 600,
-                          px: 0,
-                          '&:hover': {
-                            bgcolor: 'transparent',
-                            color: '#6b5744',
-                          },
-                        }}
-                      >
-                        {pageCopy.readArticle}
-                      </Button>
-                    </Box>
-                  </GlassCard>
+                  <LibraryArticleCard
+                    article={article}
+                    guideLabel={pageCopy.guideLabel}
+                    readArticleLabel={pageCopy.readArticle}
+                  />
                 </FadeIn>
               </Grid>
             ))}
+          </Grid>
+        </Container>
+      </Box>
+
+      {/* ── Explore by Category ── */}
+      <Box
+        id="explore"
+        sx={{
+          pt: { xs: 2, md: 3 },
+          pb: { xs: 8, md: 10 },
+          background: `linear-gradient(180deg, #FFFFFF 0%, ${alpha(secondary, 0.05)} 100%)`,
+        }}
+      >
+        <Container maxWidth="lg" sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
+          <FadeIn>
+            <Box sx={{ mb: 5 }}>
+              <Typography variant="h2" sx={{ color: primaryDark, mb: 1 }}>
+                {pageCopy.exploreByCategory}
+              </Typography>
+              <Box
+                sx={{
+                  width: 56,
+                  height: 3,
+                  borderRadius: 2,
+                  background: `linear-gradient(90deg, ${primary} 0%, ${secondary} 100%)`,
+                }}
+                aria-hidden="true"
+              />
+            </Box>
+          </FadeIn>
+
+          <Grid container spacing={3} alignItems="stretch">
+            {LIBRARY_CATEGORIES.map((cat, index) => {
+              const CatIcon = cat.Icon;
+              return (
+                <Grid size={{ xs: 12, sm: 6, md: 3 }} key={cat.key} sx={{ display: 'flex' }}>
+                  <FadeIn delay={index * 100} style={{ height: '100%', width: '100%' }}>
+                    <Box sx={{ position: 'relative', height: '100%' }}>
+                      <IconFeatureCard
+                        variant="compact"
+                        color="secondary"
+                        titleColor={primaryDark}
+                        disableBubble
+                        icon={<CatIcon />}
+                        title={pageCopy[cat.titleKey]}
+                        description={pageCopy[cat.descKey]}
+                        sx={{ pr: 5 }}
+                      />
+                      <ArrowForwardRoundedIcon
+                        aria-hidden="true"
+                        sx={{
+                          position: 'absolute',
+                          right: 16,
+                          bottom: 16,
+                          fontSize: 20,
+                          color: primary,
+                          pointerEvents: 'none',
+                        }}
+                      />
+                    </Box>
+                  </FadeIn>
+                </Grid>
+              );
+            })}
           </Grid>
         </Container>
       </Box>
@@ -196,21 +280,17 @@ const Library = () => {
       <Box
         sx={{
           py: { xs: 8, md: 10 },
-          background:
-            'linear-gradient(180deg, #f5efe5 0%, #f8f6f1 100%)',
+          background: `linear-gradient(180deg, ${alpha(primary, 0.04)} 0%, #FFFFFF 100%)`,
         }}
       >
         <Container maxWidth="lg" sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
           <FadeIn>
-            <Typography
-              variant="h4"
-              sx={{ fontWeight: 700, color: '#2d2018', mb: 1 }}
-            >
+            <Typography variant="h4" sx={{ fontWeight: 700, color: primaryDark, mb: 1 }}>
               {pageCopy.governmentResourcesTitle}
             </Typography>
             <Typography
               variant="body1"
-              sx={{ color: '#4a3b30', mb: 4, maxWidth: 700, lineHeight: 1.7 }}
+              sx={{ color: 'text.secondary', mb: 4, maxWidth: 700, lineHeight: 1.7 }}
             >
               {pageCopy.governmentResourcesBody}
             </Typography>
@@ -225,13 +305,13 @@ const Library = () => {
                 rel="noopener noreferrer"
                 endIcon={<OpenInNewRoundedIcon />}
                 sx={{
-                  borderColor: 'rgba(45,32,24,0.2)',
-                  color: '#2d2018',
+                  borderColor: alpha(primary, 0.3),
+                  color: primaryDark,
                   px: 3,
                   py: 1.2,
                   '&:hover': {
-                    borderColor: 'rgba(45,32,24,0.4)',
-                    bgcolor: 'rgba(45,32,24,0.04)',
+                    borderColor: primary,
+                    bgcolor: alpha(primary, 0.06),
                   },
                 }}
               >
@@ -244,13 +324,13 @@ const Library = () => {
                 rel="noopener noreferrer"
                 endIcon={<OpenInNewRoundedIcon />}
                 sx={{
-                  borderColor: 'rgba(45,32,24,0.2)',
-                  color: '#2d2018',
+                  borderColor: alpha(primary, 0.3),
+                  color: primaryDark,
                   px: 3,
                   py: 1.2,
                   '&:hover': {
-                    borderColor: 'rgba(45,32,24,0.4)',
-                    bgcolor: 'rgba(45,32,24,0.04)',
+                    borderColor: primary,
+                    bgcolor: alpha(primary, 0.06),
                   },
                 }}
               >

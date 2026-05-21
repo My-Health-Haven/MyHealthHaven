@@ -46,14 +46,14 @@ const Navigators = () => {
   // The translations array is preserved as-is; we just present items in the
   // order the reference design shows them.
   const featureMap = [
-    { srcIdx: 0, icon: <SupportAgentIcon /> },
-    { srcIdx: 2, icon: <ForumIcon /> },
-    { srcIdx: 4, icon: <DescriptionIcon /> },
-    { srcIdx: 6, icon: <WorkOutlineIcon /> },
-    { srcIdx: 1, icon: <PersonIcon /> },
-    { srcIdx: 3, icon: <PlaceIcon /> },
-    { srcIdx: 5, icon: <ShieldIcon /> },
-    { srcIdx: 7, icon: <PhoneInTalkIcon /> },
+    { srcIdx: 0, icon: <SupportAgentIcon />, color: 'primary' },
+    { srcIdx: 2, icon: <ForumIcon />,         color: 'secondary' },
+    { srcIdx: 4, icon: <DescriptionIcon />,   color: 'primary' },
+    { srcIdx: 6, icon: <WorkOutlineIcon />,   color: 'secondary' },
+    { srcIdx: 1, icon: <PersonIcon />,        color: 'secondary' },
+    { srcIdx: 3, icon: <PlaceIcon />,         color: 'primary' },
+    { srcIdx: 5, icon: <ShieldIcon />,        color: 'secondary' },
+    { srcIdx: 7, icon: <PhoneInTalkIcon />,   color: 'primary' },
   ];
 
   const meetIndicators = [
@@ -267,13 +267,14 @@ const Navigators = () => {
               const description = whatTheyDoDescriptions[entry.srcIdx];
               if (!title) return null;
               return (
-                <Grid size={{ xs: 12, sm: 6, md: 3 }} key={i}>
+                <Grid size={{ xs: 6, sm: 6, md: 3 }} key={i}>
                   <FadeIn delay={i * 80} style={{ height: '100%' }}>
                     <IconFeatureCard
                       icon={entry.icon}
                       title={title}
                       description={description}
-                      color="primary"
+                      color={entry.color}
+                      variant={isMobile ? 'compact' : 'default'}
                       titleColor={theme.palette.text.primary}
                       sx={{ height: '100%' }}
                     />
@@ -311,7 +312,7 @@ const Navigators = () => {
                 </Typography>
                 <Box
                   sx={{
-                    width: 80,
+                    width: 200,
                     height: 3,
                     borderRadius: 2,
                     background:
@@ -447,23 +448,10 @@ const Navigators = () => {
                         spacing={2}
                         alignItems="center"
                       >
-                        <Box
-                          sx={{
-                            width: 44,
-                            height: 44,
-                            borderRadius: '50%',
-                            bgcolor: alpha('#00897B', 0.12),
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            flexShrink: 0,
-                          }}
-                          aria-hidden="true"
-                        >
-                          {React.cloneElement(item.icon, {
-                            sx: { fontSize: 22, color: 'primary.main' },
-                          })}
-                        </Box>
+                        {React.cloneElement(item.icon, {
+                          'aria-hidden': true,
+                          sx: { fontSize: 34, color: 'primary.main', flexShrink: 0 },
+                        })}
                         <Typography
                           variant="body1"
                           sx={{
@@ -493,7 +481,7 @@ const Navigators = () => {
                     </Typography>
                     <Box
                       sx={{
-                        width: 64,
+                        width: 120,
                         height: 2,
                         borderRadius: 2,
                         background:

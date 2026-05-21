@@ -39,7 +39,7 @@ const SectionEyebrow = ({
         <Box
           sx={{
             mt: 0.5,
-            width: 56,
+            width: 112,
             height: 2,
             borderRadius: 2,
             background: `linear-gradient(90deg, ${accent} 0%, ${secondary} 100%)`,

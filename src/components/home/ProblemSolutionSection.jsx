@@ -205,7 +205,7 @@ const ProblemSolutionSection = ({ isMobile }) => {
                           t('home.languageBarriers'),
                         ].map((item, i) => (
                           <FadeIn key={i} delay={i * 100}>
-                            <Stack direction="row" spacing={1.5} alignItems={{ xs: 'center', md: 'flex-start' }} justifyContent={{ xs: 'center', md: 'flex-start' }}>
+                            <Stack direction="row" spacing={1.5} alignItems="flex-start" justifyContent="flex-start">
                               <Box
                                 sx={{
                                   width: 22,
@@ -326,7 +326,7 @@ const ProblemSolutionSection = ({ isMobile }) => {
                     ].map((item, i) => (
                       <Grid size={{ xs: 12, sm: 6 }} key={i}>
                         <FadeIn delay={i * 100}>
-                          <Stack direction="row" spacing={1} alignItems={{ xs: 'center', md: 'flex-start' }} justifyContent={{ xs: 'center', md: 'flex-start' }}>
+                          <Stack direction="row" spacing={1} alignItems="flex-start" justifyContent="flex-start">
                             <CheckCircleIcon
                               sx={{ fontSize: 22, color: 'primary.main', mt: 0.1 }}
                               aria-hidden="true"
