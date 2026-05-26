@@ -1,11 +1,20 @@
 import { LIBRARY_ARTICLES } from '../data/libraryContent.js';
 
 export const SITE_NAME = 'MyHealth Haven';
+export const SITE_LEGAL_NAME = 'My Health Haven Management, LLC';
 export const SITE_ORIGIN = 'https://www.myhealthhaven.org';
 export const SITE_EMAIL = 'healthnavigator@andersonlg.com';
 export const SITE_PHONE_E164 = '+12142763928';
 export const SITE_PHONE_DISPLAY = '+1 (214) 276 3928';
 export const DEFAULT_OG_IMAGE = '/cancun-skyline.jpg';
+
+export const SITE_ADDRESS = {
+  streetAddress: '30 N Gould St, Ste R',
+  addressLocality: 'Sheridan',
+  addressRegion: 'WY',
+  postalCode: '82801',
+  addressCountry: 'US',
+} as const;
 export const DEFAULT_META_DESCRIPTION =
   'MyHealth Haven helps U.S. patients navigate trusted medical care in Mexico with bilingual support, transparent planning, and continuity before and after treatment.';
 export const SEO_LASTMOD = '2026-03-24';
@@ -211,15 +220,26 @@ export const createBreadcrumbSchema = (
   };
 };
 
+const POSTAL_ADDRESS_SCHEMA = {
+  '@type': 'PostalAddress',
+  streetAddress: SITE_ADDRESS.streetAddress,
+  addressLocality: SITE_ADDRESS.addressLocality,
+  addressRegion: SITE_ADDRESS.addressRegion,
+  postalCode: SITE_ADDRESS.postalCode,
+  addressCountry: SITE_ADDRESS.addressCountry,
+} as const;
+
 export const createMedicalBusinessSchema = (): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': 'MedicalBusiness',
   name: SITE_NAME,
+  legalName: SITE_LEGAL_NAME,
   url: SITE_ORIGIN,
   logo: toAbsoluteUrl('/logo.png'),
   email: SITE_EMAIL,
   telephone: SITE_PHONE_E164,
   description: DEFAULT_META_DESCRIPTION,
+  address: POSTAL_ADDRESS_SCHEMA,
   areaServed: [
     { '@type': 'Country', name: 'United States' },
     { '@type': 'Country', name: 'Mexico' },
@@ -241,10 +261,12 @@ export const createOrganizationSchema = (): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: SITE_NAME,
+  legalName: SITE_LEGAL_NAME,
   url: SITE_ORIGIN,
   logo: toAbsoluteUrl('/logo.png'),
   email: SITE_EMAIL,
   telephone: SITE_PHONE_E164,
+  address: POSTAL_ADDRESS_SCHEMA,
   areaServed: ['United States', 'Mexico'],
   contactPoint: [
     {

@@ -6,6 +6,7 @@ import InstagramIcon from '@mui/icons-material/Instagram';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import { useLanguage } from '../context/LanguageContext';
 
 const HEALTH_NAVIGATOR_EMAIL = 'healthnavigator@andersonlg.com';
@@ -33,6 +34,8 @@ const Footer = () => {
           slogan:
             'Atencion medica transfronteriza guiada con apoyo bilingue, coordinacion clara y enfoque en el paciente.',
           subSlogan: 'Ayudamos a pacientes de Estados Unidos a navegar opciones medicas confiables en Mexico.',
+          addressLabel: 'Oficina Registrada',
+          addressCountry: 'Estados Unidos',
           patients: 'Pacientes',
           howItWorks: 'Como funciona',
           procedures: 'Procedimientos',
@@ -54,6 +57,8 @@ const Footer = () => {
           slogan:
             'Guided cross-border care with bilingual support, clear coordination, and patient-first advocacy.',
           subSlogan: 'We help U.S. patients navigate trusted medical options in Mexico with confidence.',
+          addressLabel: 'Registered Office',
+          addressCountry: 'United States',
           patients: 'Patients',
           howItWorks: 'How It Works',
           procedures: 'Procedures',
@@ -95,8 +100,82 @@ const Footer = () => {
             <Typography variant="body2" color="text.secondary">
               {footerCopy.subSlogan}
             </Typography>
+
+            <Box
+              component="address"
+              itemScope
+              itemType="https://schema.org/PostalAddress"
+              sx={{
+                mt: 3,
+                pt: 2.5,
+                borderTop: '1px solid',
+                borderColor: 'divider',
+                fontStyle: 'normal',
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 1.5,
+              }}
+            >
+              <Box
+                aria-hidden
+                sx={{
+                  mt: 0.25,
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 32,
+                  height: 32,
+                  borderRadius: '50%',
+                  bgcolor: 'rgba(0,137,123,0.10)',
+                  color: 'primary.main',
+                  flexShrink: 0,
+                }}
+              >
+                <LocationOnRoundedIcon sx={{ fontSize: 18 }} />
+              </Box>
+              <Box>
+                <Typography
+                  component="span"
+                  variant="overline"
+                  sx={{
+                    display: 'block',
+                    color: 'primary.dark',
+                    fontWeight: 800,
+                    letterSpacing: 1.6,
+                    fontSize: '0.65rem',
+                    lineHeight: 1.4,
+                    mb: 0.5,
+                  }}
+                >
+                  {footerCopy.addressLabel}
+                </Typography>
+                <Typography
+                  component="span"
+                  itemProp="name"
+                  variant="body2"
+                  sx={{ display: 'block', color: 'text.primary', fontWeight: 600, lineHeight: 1.55 }}
+                >
+                  My Health Haven Management, LLC
+                </Typography>
+                <Typography
+                  component="span"
+                  variant="body2"
+                  color="text.secondary"
+                  sx={{ display: 'block', lineHeight: 1.55 }}
+                >
+                  <span itemProp="streetAddress">30 N Gould St, Ste R</span>
+                  <br />
+                  <span itemProp="addressLocality">Sheridan</span>
+                  ,{' '}
+                  <span itemProp="addressRegion">WY</span>{' '}
+                  <span itemProp="postalCode">82801</span>
+                  <br />
+                  <span itemProp="addressCountry">{footerCopy.addressCountry}</span>
+                </Typography>
+              </Box>
+            </Box>
           </Grid>
-          
+
           <Grid size={{ xs: 6, md: 2 }}>
             <Typography variant="subtitle2" color="text.primary" gutterBottom fontWeight="bold">
               {footerCopy.patients}
