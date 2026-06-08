@@ -1,4 +1,4 @@
-import { LIBRARY_ARTICLES } from '../data/libraryContent.js';
+import { LIBRARY_ARTICLES, getLibraryArticlePath } from '../data/libraryContent.js';
 
 export const SITE_NAME = 'MyHealth Haven';
 export const SITE_LEGAL_NAME = 'My Health Haven Management, LLC';
@@ -89,9 +89,7 @@ export const getCanonicalUrl = (path: string = '/'): string =>
   `${SITE_ORIGIN}${normalizePath(path)}`;
 
 export const toAbsoluteUrl = (path: string = DEFAULT_OG_IMAGE): string =>
-  /^https?:\/\//i.test(path)
-    ? path
-    : `${SITE_ORIGIN}${path.startsWith('/') ? path : `/${path}`}`;
+  /^https?:\/\//i.test(path) ? path : `${SITE_ORIGIN}${path.startsWith('/') ? path : `/${path}`}`;
 
 // ---------------------------------------------------------------------------
 // Route definitions
@@ -129,8 +127,14 @@ export const PUBLIC_ROUTE_DEFINITIONS: RouteDefinition[] = (
       priority: '0.8',
       prerender: true,
     },
-    ...LIBRARY_ARTICLES.map((article: { slug: string }) => ({
-      path: `/library/${article.slug}`,
+    {
+      path: '/library/getting-started',
+      changefreq: 'monthly',
+      priority: '0.7',
+      prerender: true,
+    },
+    ...LIBRARY_ARTICLES.map((article: { slug: string; categorySlug?: string }) => ({
+      path: getLibraryArticlePath(article),
       changefreq: 'monthly' as const,
       priority: '0.7',
       prerender: true,
@@ -378,9 +382,7 @@ export const createContactPageSchema = ({
   },
 });
 
-export const createFAQSchema = (
-  faqItems: FAQItem[] = []
-): Record<string, unknown> | null => {
+export const createFAQSchema = (faqItems: FAQItem[] = []): Record<string, unknown> | null => {
   const normalizedItems = faqItems.filter((item) => item?.question && item?.answer);
 
   if (normalizedItems.length === 0) {

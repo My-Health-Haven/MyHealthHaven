@@ -53,6 +53,23 @@ const nextConfig = {
         destination: '/estimate',
         permanent: true,
       },
+      // Library articles moved from flat /library/[slug] to nested
+      // /library/getting-started/[slug]. Preserve the original URLs.
+      {
+        source: '/library/is-medical-travel-right-for-me',
+        destination: '/library/getting-started/is-medical-travel-right-for-me',
+        permanent: true,
+      },
+      {
+        source: '/library/how-we-vet-hospitals',
+        destination: '/library/getting-started/how-we-vet-hospitals',
+        permanent: true,
+      },
+      {
+        source: '/library/talking-to-your-us-doctor',
+        destination: '/library/getting-started/talking-to-your-us-doctor',
+        permanent: true,
+      },
     ];
   },
 

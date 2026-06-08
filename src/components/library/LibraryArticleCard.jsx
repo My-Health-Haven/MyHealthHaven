@@ -6,6 +6,7 @@ import { Box, Typography, Button, alpha, useTheme } from '@mui/material';
 import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
 import ArticlePlaceholder from './ArticlePlaceholder';
+import { getLibraryArticlePath } from '../../data/libraryContent';
 
 const LibraryArticleCard = ({ article, guideLabel, readArticleLabel }) => {
   const theme = useTheme();
@@ -32,10 +33,7 @@ const LibraryArticleCard = ({ article, guideLabel, readArticleLabel }) => {
         },
       }}
     >
-      <ArticlePlaceholder
-        image={article.image}
-        alt={article.imageAlt}
-      />
+      <ArticlePlaceholder image={article.image} alt={article.imageAlt} />
 
       <Box sx={{ p: 3, display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
         <Box
@@ -55,7 +53,7 @@ const LibraryArticleCard = ({ article, guideLabel, readArticleLabel }) => {
         >
           <AutoStoriesRoundedIcon sx={{ fontSize: 14, color: primary }} />
           <Typography
-            variant="overline"
+            variant='overline'
             sx={{
               color: primary,
               fontWeight: 700,
@@ -64,32 +62,41 @@ const LibraryArticleCard = ({ article, guideLabel, readArticleLabel }) => {
               lineHeight: 1,
             }}
           >
-            {guideLabel}
+            {article.type || guideLabel}
           </Typography>
         </Box>
 
         <Typography
-          variant="h6"
+          variant='h6'
           sx={{
             fontWeight: 700,
             color: primaryDark,
-            mb: 1.25,
+            mb: 0.75,
             lineHeight: 1.35,
           }}
         >
           {article.title}
         </Typography>
 
+        {(article.category || article.readTime) && (
+          <Typography
+            variant='caption'
+            sx={{ color: 'text.secondary', display: 'block', mb: 1.25 }}
+          >
+            {[article.category, article.readTime].filter(Boolean).join('  ·  ')}
+          </Typography>
+        )}
+
         <Typography
-          variant="body2"
+          variant='body2'
           sx={{ color: 'text.secondary', lineHeight: 1.65, mb: 2.5, flexGrow: 1 }}
         >
-          {article.summary}
+          {article.excerpt || article.summary}
         </Typography>
 
         <Button
           component={Link}
-          href={`/library/${article.slug}`}
+          href={getLibraryArticlePath(article)}
           endIcon={<ArrowForwardRoundedIcon />}
           sx={{
             color: primary,
@@ -114,6 +121,11 @@ LibraryArticleCard.propTypes = {
     slug: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     summary: PropTypes.string.isRequired,
+    excerpt: PropTypes.string,
+    category: PropTypes.string,
+    categorySlug: PropTypes.string,
+    type: PropTypes.string,
+    readTime: PropTypes.string,
     image: PropTypes.string,
     imageAlt: PropTypes.string,
   }).isRequired,

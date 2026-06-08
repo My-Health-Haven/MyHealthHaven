@@ -48,7 +48,9 @@
       "Bash(Measure-Object -Line)",
       "Bash(Select-Object -ExpandProperty Lines)",
       "Bash(Get-Content \"C:\\\\Users\\\\Sergio\\\\Documents\\\\GitHub\\\\HealthHavenMyVersion2\\\\src\\\\views\\\\MedicalTravel.jsx\")",
-      "Bash(Get-Content \"C:\\\\Users\\\\Sergio\\\\Documents\\\\GitHub\\\\HealthHavenMyVersion2\\\\src\\\\views\\\\Estimate.jsx\")"
+      "Bash(Get-Content \"C:\\\\Users\\\\Sergio\\\\Documents\\\\GitHub\\\\HealthHavenMyVersion2\\\\src\\\\views\\\\Estimate.jsx\")",
+      "Bash(powershell -Command \"Write-Host 'Starting investigation into Turbopack postcss worker leak...'\")",
+      "Bash(git -C \"C:\\\\Users\\\\Sergio\\\\Documents\\\\GitHub\\\\HealthHavenMyVersion2\" log --oneline -20)"
     ]
   }
 }

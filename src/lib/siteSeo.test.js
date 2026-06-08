@@ -1,9 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  SITEMAP_ROUTE_DEFINITIONS,
-  getCanonicalUrl,
-  normalizePath,
-} from './siteSeo';
+import { SITEMAP_ROUTE_DEFINITIONS, getCanonicalUrl, normalizePath } from './siteSeo';
 
 describe('siteSeo', () => {
   it('normalizes public paths consistently', () => {
@@ -27,10 +23,15 @@ describe('siteSeo', () => {
     expect(sitemapPaths).toContain('/providers');
   });
 
-  it('includes library articles in the sitemap', () => {
+  it('includes the library and its category hub in the sitemap', () => {
     const sitemapPaths = SITEMAP_ROUTE_DEFINITIONS.map((route) => route.path);
     expect(sitemapPaths).toContain('/');
     expect(sitemapPaths).toContain('/library');
-    expect(sitemapPaths).toContain('/library/is-medical-travel-right-for-me');
+    expect(sitemapPaths).toContain('/library/getting-started');
+  });
+
+  it('includes nested library articles in the sitemap', () => {
+    const sitemapPaths = SITEMAP_ROUTE_DEFINITIONS.map((route) => route.path);
+    expect(sitemapPaths).toContain('/library/getting-started/is-medical-travel-right-for-me');
   });
 });

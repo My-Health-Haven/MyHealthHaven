@@ -22,24 +22,19 @@ export const LIBRARY_PAGE_COPY = {
     readArticle: 'Read Article',
     trustLine: 'Evidence-based. Patient-focused. Always in your best interest.',
     governmentResourcesTitle: 'Government Resources',
-    governmentResourcesBody:
-      'Official information on medical travel, safety, and care planning.',
+    governmentResourcesBody: 'Official information on medical travel, safety, and care planning.',
     pillBasics: 'Medical Travel Basics',
     pillVetting: 'Hospital Vetting',
     pillSafety: 'Safety & Recovery',
     pillUsDoctor: 'Working With Your U.S. Doctor',
     categoryGettingStartedTitle: 'Getting Started',
-    categoryGettingStartedDesc:
-      'Essentials to understand your options and next steps.',
+    categoryGettingStartedDesc: 'Essentials to understand your options and next steps.',
     categoryChoosingTitle: 'Choosing a Provider',
-    categoryChoosingDesc:
-      'How we vet hospitals, surgeons, and care teams.',
+    categoryChoosingDesc: 'How we vet hospitals, surgeons, and care teams.',
     categoryCostsTitle: 'Costs & Planning',
-    categoryCostsDesc:
-      'Transparent guidance on costs, payments, and logistics.',
+    categoryCostsDesc: 'Transparent guidance on costs, payments, and logistics.',
     categoryRecoveryTitle: 'Recovery & Follow-up',
-    categoryRecoveryDesc:
-      'Safe recovery and ongoing care after you return home.',
+    categoryRecoveryDesc: 'Safe recovery and ongoing care after you return home.',
   },
   es: {
     title: 'Biblioteca de Aprendizaje',
@@ -60,17 +55,13 @@ export const LIBRARY_PAGE_COPY = {
     pillSafety: 'Seguridad y Recuperacion',
     pillUsDoctor: 'Trabajando Con Su Medico de EE.UU.',
     categoryGettingStartedTitle: 'Primeros Pasos',
-    categoryGettingStartedDesc:
-      'Lo esencial para entender sus opciones y proximos pasos.',
+    categoryGettingStartedDesc: 'Lo esencial para entender sus opciones y proximos pasos.',
     categoryChoosingTitle: 'Eligiendo un Proveedor',
-    categoryChoosingDesc:
-      'Como evaluamos hospitales, cirujanos y equipos de atencion.',
+    categoryChoosingDesc: 'Como evaluamos hospitales, cirujanos y equipos de atencion.',
     categoryCostsTitle: 'Costos y Planificacion',
-    categoryCostsDesc:
-      'Guia transparente sobre costos, pagos y logistica.',
+    categoryCostsDesc: 'Guia transparente sobre costos, pagos y logistica.',
     categoryRecoveryTitle: 'Recuperacion y Seguimiento',
-    categoryRecoveryDesc:
-      'Recuperacion segura y atencion continua despues de regresar a casa.',
+    categoryRecoveryDesc: 'Recuperacion segura y atencion continua despues de regresar a casa.',
   },
 };
 
@@ -122,6 +113,12 @@ export const LIBRARY_CATEGORIES = [
 export const LIBRARY_ARTICLES = [
   {
     slug: 'is-medical-travel-right-for-me',
+    category: 'Getting Started',
+    categorySlug: 'getting-started',
+    type: 'Guide',
+    featured: true,
+    author: 'MyHealth Haven',
+    date: '2026-01-15',
     title: 'Is Medical Travel Right for Me?',
     summary:
       'A balanced guide to understanding benefits, risks, and the less-obvious questions worth answering before you commit.',
@@ -137,6 +134,12 @@ If those questions can be answered clearly and the care pathway is well coordina
   },
   {
     slug: 'how-we-vet-hospitals',
+    category: 'Getting Started',
+    categorySlug: 'getting-started',
+    type: 'Guide',
+    featured: true,
+    author: 'MyHealth Haven',
+    date: '2026-02-05',
     title: 'How We Vet Hospitals and Surgeons',
     summary:
       'Our standards for evaluating physicians, facilities, and communication so patients are not left guessing.',
@@ -152,6 +155,12 @@ The goal is not to present a long list of providers. It is to narrow the field t
   },
   {
     slug: 'talking-to-your-us-doctor',
+    category: 'Getting Started',
+    categorySlug: 'getting-started',
+    type: 'Guide',
+    featured: true,
+    author: 'MyHealth Haven',
+    date: '2026-02-20',
     title: 'Talking to Your U.S. Doctor About Care in Mexico',
     summary:
       'Suggested questions and framing that help preserve continuity of care before you travel and after you return home.',
@@ -165,7 +174,135 @@ It is also helpful to discuss follow-up expectations in advance. Understanding w
 
 When everyone understands the same plan, the conversation becomes less about geography and more about making sure care stays coordinated from start to finish.`,
   },
+  // PLACEHOLDER ARTICLE — generic, non-clinical sample content. Replace the
+  // prose, FAQs, author, and dates with reviewed copy before relying on it.
+  {
+    slug: 'how-to-prepare-for-your-first-medical-travel-conversation',
+    category: 'Getting Started',
+    categorySlug: 'getting-started',
+    type: 'Guide',
+    featured: false,
+    author: 'MyHealth Haven',
+    date: '2026-03-10',
+    updatedDate: '2026-03-24',
+    title: 'How to Prepare for Your First Medical Travel Conversation',
+    summary:
+      'A simple checklist for getting organized before your first conversation about medical travel, so you can ask better questions and compare options calmly.',
+    seoTitle: 'How to Prepare for Your First Medical Travel Conversation',
+    seoDescription:
+      'What to bring, which questions to ask, and what happens next when you have your first conversation about medical travel. A calm, practical preparation guide.',
+    imageAlt: 'Notes and questions prepared for a first medical travel conversation',
+    content: `A first conversation about medical travel works best when you arrive organized rather than certain. The goal is not to decide everything at once. It is to gather the right information so you can compare options calmly and ask better questions as you go.
+
+## What should I bring to a first medical travel conversation?
+
+Having a few basics ready makes the discussion far more productive. Most people find it helpful to gather:
+
+- A short summary of your diagnosis or the procedure you are considering
+- Any recent records, imaging, or test results you already have
+- A list of your current medications and relevant medical history
+- Your main questions and concerns, written down before the call
+
+You do not need a complete file to begin. Even a rough outline helps a navigator point you toward the next useful step.
+
+## What questions are worth asking early?
+
+Early questions tend to be about process rather than price. It is reasonable to ask how care is coordinated, what a realistic timeline looks like, and how records would move between providers. If you are still deciding whether this path fits at all, the guide [Is Medical Travel Right for Me?](/library/getting-started/is-medical-travel-right-for-me) covers the trade-offs in more detail.
+
+## How do I prepare for the conversation emotionally?
+
+It is normal to feel uncertain. A first conversation is meant to be exploratory, not a commitment. Give yourself permission to ask basic questions, to take notes, and to follow up later once you have had time to think things through.
+
+## What usually happens after the first conversation?
+
+Often the next step is simply gathering any missing records and clarifying open questions with your existing care team. Nothing has to be decided immediately. A good process moves at a pace that lets you stay informed and comfortable at each step.`,
+    faqs: [
+      {
+        question: 'Do I need to decide anything during the first conversation?',
+        answer:
+          'No. A first conversation is meant to help you gather information and understand the process. You can take as much time as you need to consider your options afterward.',
+      },
+      {
+        question: 'What information is most useful to have ready?',
+        answer:
+          'A short summary of your diagnosis or the procedure you are considering, any recent records or imaging you already have, and a written list of your questions.',
+      },
+      {
+        question: 'Will this replace the relationship with my current doctor?',
+        answer:
+          'No. Many patients keep their existing care team involved. Preserving continuity of care before and after travel is an important part of planning.',
+      },
+    ],
+    relatedArticles: ['is-medical-travel-right-for-me', 'how-we-vet-hospitals'],
+  },
 ];
 
-export const getLibraryArticleBySlug = (slug) =>
-  LIBRARY_ARTICLES.find((article) => article.slug === slug) || null;
+// ─── Category landing pages ──────────────────────────────────────────────
+// Display copy for category hub pages (e.g. /library/getting-started).
+// Keyed by categorySlug. Currently only "Getting Started" is wired to a route.
+export const LIBRARY_CATEGORY_DETAILS = {
+  'getting-started': {
+    slug: 'getting-started',
+    name: 'Getting Started',
+    description:
+      'Foundational guides that explain how medical travel works and how to evaluate whether it fits your situation.',
+    intro:
+      'Start here to understand your options, the questions worth asking, and how to prepare before you commit to anything.',
+  },
+};
+
+// ─── Article helpers ─────────────────────────────────────────────────────
+// Rough reading-time estimate (~200 words/min). Pure, no dependencies.
+const estimateReadTime = (content = '') => {
+  const words = String(content).trim().split(/\s+/).filter(Boolean).length;
+  const minutes = Math.max(1, Math.round(words / 200));
+  return `${minutes} min read`;
+};
+
+// Fills every field with a sensible default/alias so authors only specify what
+// differs. Missing optional dates/images resolve to `undefined` (never null) so
+// the SEO schema builders fall back to their own defaults.
+export const normalizeArticle = (raw) => {
+  if (!raw) return null;
+  const summary = raw.summary ?? '';
+  const excerpt = raw.excerpt ?? summary;
+  const content = raw.content ?? '';
+  return {
+    slug: raw.slug,
+    title: raw.title,
+    summary,
+    excerpt,
+    content,
+    category: raw.category ?? 'Getting Started',
+    categorySlug: raw.categorySlug ?? 'getting-started',
+    type: raw.type ?? 'Guide',
+    readTime: raw.readTime ?? estimateReadTime(content),
+    author: raw.author ?? undefined,
+    date: raw.date ?? undefined,
+    updatedDate: raw.updatedDate ?? undefined,
+    featured: raw.featured ?? false,
+    image: raw.image ?? undefined,
+    imageAlt: raw.imageAlt ?? undefined,
+    heroImage: raw.heroImage ?? raw.image ?? undefined,
+    heroImageAlt: raw.heroImageAlt ?? raw.imageAlt ?? undefined,
+    seoTitle: raw.seoTitle ?? raw.title,
+    seoDescription: raw.seoDescription ?? excerpt ?? summary,
+    faqs: raw.faqs ?? [],
+    relatedArticles: raw.relatedArticles ?? [],
+  };
+};
+
+// Single source of truth for an article's URL. Used by cards, the article
+// page, the hero CTA, the sitemap, canonicals, and schema.
+export const getLibraryArticlePath = (article) =>
+  `/library/${article.categorySlug || 'getting-started'}/${article.slug}`;
+
+export const getNormalizedArticles = () => LIBRARY_ARTICLES.map(normalizeArticle);
+
+export const getArticlesByCategory = (categorySlug) =>
+  LIBRARY_ARTICLES.map(normalizeArticle).filter((article) => article.categorySlug === categorySlug);
+
+export const getLibraryArticleBySlug = (slug) => {
+  const found = LIBRARY_ARTICLES.find((article) => article.slug === slug);
+  return found ? normalizeArticle(found) : null;
+};

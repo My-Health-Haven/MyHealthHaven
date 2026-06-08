@@ -1,15 +1,6 @@
 'use client';
 import React from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  Grid,
-  Stack,
-  alpha,
-  useTheme,
-} from '@mui/material';
+import { Box, Container, Typography, Button, Grid, Stack, alpha, useTheme } from '@mui/material';
 import Link from 'next/link';
 
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
@@ -21,10 +12,11 @@ import SectionEyebrow from '../components/SectionEyebrow';
 import IconFeatureCard from '../components/IconFeatureCard';
 import LibraryArticleCard from '../components/library/LibraryArticleCard';
 import {
-  LIBRARY_ARTICLES,
   LIBRARY_PAGE_COPY,
   LIBRARY_HERO_PILLS,
   LIBRARY_CATEGORIES,
+  getNormalizedArticles,
+  getLibraryArticlePath,
 } from '../data/libraryContent';
 import { useLanguage } from '../context/LanguageContext';
 
@@ -36,6 +28,10 @@ const Library = () => {
   const primaryDark = theme.palette.primary.dark;
   const secondary = theme.palette.secondary.main;
 
+  const articles = getNormalizedArticles();
+  const featuredArticles = articles.filter((article) => article.featured);
+  const firstArticle = featuredArticles[0] || articles[0];
+
   return (
     <>
       {/* ── Hero ── */}
@@ -43,22 +39,21 @@ const Library = () => {
         sx={{
           py: { xs: 10, md: 14 },
           textAlign: 'center',
-          background:
-            'linear-gradient(180deg, #e8f5f2 0%, #f4faff 48%, #f3edf7 100%)',
+          background: 'linear-gradient(180deg, #e8f5f2 0%, #f4faff 48%, #f3edf7 100%)',
           position: 'relative',
           overflow: 'hidden',
         }}
       >
-        <Container maxWidth="lg" sx={{ px: { xs: 2, md: 5, lg: 8 }, position: 'relative' }}>
+        <Container maxWidth='lg' sx={{ px: { xs: 2, md: 5, lg: 8 }, position: 'relative' }}>
           <FadeIn>
-            <Typography variant="h1" sx={{ color: primaryDark, mb: 2 }}>
+            <Typography variant='h1' sx={{ color: primaryDark, mb: 2 }}>
               {pageCopy.title}
             </Typography>
           </FadeIn>
 
           <FadeIn delay={80}>
             <Typography
-              variant="h5"
+              variant='h5'
               sx={{
                 color: 'text.secondary',
                 maxWidth: 640,
@@ -73,10 +68,10 @@ const Library = () => {
 
           <FadeIn delay={160}>
             <Button
-              variant="contained"
-              size="large"
+              variant='contained'
+              size='large'
               component={Link}
-              href={`/library/${LIBRARY_ARTICLES[0].slug}`}
+              href={getLibraryArticlePath(firstArticle)}
               endIcon={<ArrowForwardRoundedIcon />}
               sx={{
                 bgcolor: primaryDark,
@@ -98,9 +93,9 @@ const Library = () => {
 
           <FadeIn delay={220}>
             <Stack
-              direction="row"
-              flexWrap="wrap"
-              justifyContent="center"
+              direction='row'
+              flexWrap='wrap'
+              justifyContent='center'
               gap={1.25}
               sx={{ mb: 3 }}
             >
@@ -125,7 +120,7 @@ const Library = () => {
                   >
                     <PillIcon sx={{ fontSize: 18, color: primary }} />
                     <Typography
-                      variant="body2"
+                      variant='body2'
                       sx={{ color: primaryDark, fontWeight: 600, fontSize: '0.92rem' }}
                     >
                       {pageCopy[pill.labelKey]}
@@ -138,14 +133,14 @@ const Library = () => {
 
           <FadeIn delay={280}>
             <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="center"
+              direction='row'
+              alignItems='center'
+              justifyContent='center'
               gap={0.75}
               sx={{ color: 'text.secondary' }}
             >
               <VerifiedUserRoundedIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
-              <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: '0.88rem' }}>
+              <Typography variant='body2' sx={{ color: 'text.secondary', fontSize: '0.88rem' }}>
                 {pageCopy.trustLine}
               </Typography>
             </Stack>
@@ -155,17 +150,17 @@ const Library = () => {
 
       {/* ── Featured Topics ── */}
       <Box sx={{ pt: { xs: 8, md: 12 }, pb: { xs: 2, md: 3 }, bgcolor: '#FFFFFF' }}>
-        <Container maxWidth="lg" sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
+        <Container maxWidth='lg' sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
           <Stack
             direction={{ xs: 'column', sm: 'row' }}
-            justifyContent="space-between"
+            justifyContent='space-between'
             alignItems={{ xs: 'flex-start', sm: 'flex-end' }}
             spacing={2}
             sx={{ mb: 5 }}
           >
             <FadeIn>
               <Box>
-                <Typography variant="h2" sx={{ color: primaryDark, mb: 1 }}>
+                <Typography variant='h2' sx={{ color: primaryDark, mb: 1 }}>
                   {pageCopy.featuredTopics}
                 </Typography>
                 <Box
@@ -175,14 +170,14 @@ const Library = () => {
                     borderRadius: 2,
                     background: `linear-gradient(90deg, ${primary} 0%, ${secondary} 100%)`,
                   }}
-                  aria-hidden="true"
+                  aria-hidden='true'
                 />
               </Box>
             </FadeIn>
             <FadeIn delay={80}>
               <Button
                 component={Link}
-                href="#explore"
+                href='/library/getting-started'
                 endIcon={<ArrowForwardRoundedIcon />}
                 sx={{
                   color: primary,
@@ -197,7 +192,7 @@ const Library = () => {
           </Stack>
 
           <Grid container spacing={4}>
-            {LIBRARY_ARTICLES.map((article, index) => (
+            {featuredArticles.map((article, index) => (
               <Grid size={{ xs: 12, md: 4 }} key={article.slug}>
                 <FadeIn delay={index * 120}>
                   <LibraryArticleCard
@@ -214,17 +209,17 @@ const Library = () => {
 
       {/* ── Explore by Category ── */}
       <Box
-        id="explore"
+        id='explore'
         sx={{
           pt: { xs: 2, md: 3 },
           pb: { xs: 8, md: 10 },
           background: `linear-gradient(180deg, #FFFFFF 0%, ${alpha(secondary, 0.05)} 100%)`,
         }}
       >
-        <Container maxWidth="lg" sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
+        <Container maxWidth='lg' sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
           <FadeIn>
             <Box sx={{ mb: 5 }}>
-              <Typography variant="h2" sx={{ color: primaryDark, mb: 1 }}>
+              <Typography variant='h2' sx={{ color: primaryDark, mb: 1 }}>
                 {pageCopy.exploreByCategory}
               </Typography>
               <Box
@@ -234,21 +229,33 @@ const Library = () => {
                   borderRadius: 2,
                   background: `linear-gradient(90deg, ${primary} 0%, ${secondary} 100%)`,
                 }}
-                aria-hidden="true"
+                aria-hidden='true'
               />
             </Box>
           </FadeIn>
 
-          <Grid container spacing={3} alignItems="stretch">
+          <Grid container spacing={3} alignItems='stretch'>
             {LIBRARY_CATEGORIES.map((cat, index) => {
               const CatIcon = cat.Icon;
+              // Only "Getting Started" currently has a category landing page.
+              const categoryHref = cat.key === 'gettingStarted' ? '/library/getting-started' : null;
               return (
                 <Grid size={{ xs: 12, sm: 6, md: 3 }} key={cat.key} sx={{ display: 'flex' }}>
                   <FadeIn delay={index * 100} style={{ height: '100%', width: '100%' }}>
-                    <Box sx={{ position: 'relative', height: '100%' }}>
+                    <Box
+                      {...(categoryHref ? { component: Link, href: categoryHref } : {})}
+                      sx={{
+                        position: 'relative',
+                        height: '100%',
+                        display: 'block',
+                        textDecoration: 'none',
+                        color: 'inherit',
+                        cursor: categoryHref ? 'pointer' : 'default',
+                      }}
+                    >
                       <IconFeatureCard
-                        variant="compact"
-                        color="secondary"
+                        variant='compact'
+                        color='secondary'
                         titleColor={primaryDark}
                         disableBubble
                         icon={<CatIcon />}
@@ -257,7 +264,7 @@ const Library = () => {
                         sx={{ pr: 5 }}
                       />
                       <ArrowForwardRoundedIcon
-                        aria-hidden="true"
+                        aria-hidden='true'
                         sx={{
                           position: 'absolute',
                           right: 16,
@@ -265,6 +272,7 @@ const Library = () => {
                           fontSize: 20,
                           color: primary,
                           pointerEvents: 'none',
+                          opacity: categoryHref ? 1 : 0.4,
                         }}
                       />
                     </Box>
@@ -283,13 +291,13 @@ const Library = () => {
           background: `linear-gradient(180deg, ${alpha(primary, 0.04)} 0%, #FFFFFF 100%)`,
         }}
       >
-        <Container maxWidth="lg" sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
+        <Container maxWidth='lg' sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
           <FadeIn>
-            <Typography variant="h4" sx={{ fontWeight: 700, color: primaryDark, mb: 1 }}>
+            <Typography variant='h4' sx={{ fontWeight: 700, color: primaryDark, mb: 1 }}>
               {pageCopy.governmentResourcesTitle}
             </Typography>
             <Typography
-              variant="body1"
+              variant='body1'
               sx={{ color: 'text.secondary', mb: 4, maxWidth: 700, lineHeight: 1.7 }}
             >
               {pageCopy.governmentResourcesBody}
@@ -299,10 +307,10 @@ const Library = () => {
           <FadeIn delay={100}>
             <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
               <Button
-                variant="outlined"
-                href="https://wwwnc.cdc.gov/travel/page/medical-tourism"
-                target="_blank"
-                rel="noopener noreferrer"
+                variant='outlined'
+                href='https://wwwnc.cdc.gov/travel/page/medical-tourism'
+                target='_blank'
+                rel='noopener noreferrer'
                 endIcon={<OpenInNewRoundedIcon />}
                 sx={{
                   borderColor: alpha(primary, 0.3),
@@ -318,10 +326,10 @@ const Library = () => {
                 CDC Medical Tourism
               </Button>
               <Button
-                variant="outlined"
-                href="https://travel.state.gov/content/travel/en/international-travel/before-you-go/your-health-abroad.html"
-                target="_blank"
-                rel="noopener noreferrer"
+                variant='outlined'
+                href='https://travel.state.gov/content/travel/en/international-travel/before-you-go/your-health-abroad.html'
+                target='_blank'
+                rel='noopener noreferrer'
                 endIcon={<OpenInNewRoundedIcon />}
                 sx={{
                   borderColor: alpha(primary, 0.3),

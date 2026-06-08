@@ -2,14 +2,21 @@ import {
   getCanonicalUrl,
   createArticleSchema,
   createBreadcrumbSchema,
+  createFAQSchema,
 } from '@/lib/siteSeo';
-import { LIBRARY_ARTICLES, getLibraryArticleBySlug } from '@/data/libraryContent';
+import {
+  getArticlesByCategory,
+  getLibraryArticleBySlug,
+  getLibraryArticlePath,
+} from '@/data/libraryContent';
 import ArticleDetail from '@/views/ArticleDetail';
 import JsonLd from '@/components/JsonLd';
 import { notFound } from 'next/navigation';
 
 export function generateStaticParams() {
-  return LIBRARY_ARTICLES.map((article) => ({ slug: article.slug }));
+  return getArticlesByCategory('getting-started').map((article) => ({
+    slug: article.slug,
+  }));
 }
 
 export async function generateMetadata({ params }) {
@@ -17,40 +24,46 @@ export async function generateMetadata({ params }) {
   const article = getLibraryArticleBySlug(slug);
   if (!article) return {};
 
-  const canonical = getCanonicalUrl(`/library/${slug}`);
+  const canonical = getCanonicalUrl(getLibraryArticlePath(article));
 
   return {
-    title: article.title,
-    description: article.summary,
+    title: article.seoTitle,
+    description: article.seoDescription,
     alternates: {
       canonical,
       languages: { 'x-default': canonical, en: canonical, es: canonical },
     },
     openGraph: {
-      title: `${article.title} | MyHealth Haven`,
-      description: article.summary,
+      title: `${article.seoTitle} | MyHealth Haven`,
+      description: article.seoDescription,
       url: canonical,
       type: 'article',
     },
   };
 }
 
-export default async function ArticleDetailPage({ params }) {
+export default async function GettingStartedArticlePage({ params }) {
   const { slug } = await params;
   const article = getLibraryArticleBySlug(slug);
   if (!article) notFound();
 
+  const path = getLibraryArticlePath(article);
+
   const schemas = [
     createArticleSchema({
-      path: `/library/${slug}`,
-      headline: article.title,
-      description: article.summary,
+      path,
+      headline: article.seoTitle,
+      description: article.seoDescription,
+      image: article.heroImage,
+      dateModified: article.updatedDate || undefined,
     }),
     createBreadcrumbSchema([
       { name: 'Home', path: '/' },
       { name: 'Library', path: '/library' },
-      { name: article.title, path: `/library/${slug}` },
+      { name: article.category, path: '/library/getting-started' },
+      { name: article.title, path },
     ]),
+    createFAQSchema(article.faqs),
   ];
 
   return (

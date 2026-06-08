@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 import Image from 'next/image';
 import { Box, alpha, useTheme } from '@mui/material';
 
-const ArticlePlaceholder = ({ image, alt, width = 600, height = 338, sx = {} }) => {
+const ArticlePlaceholder = ({
+  image,
+  alt,
+  width = 600,
+  height = 338,
+  sizes = '(max-width: 900px) 100vw, 33vw',
+  sx = {},
+}) => {
   const theme = useTheme();
   const primary = theme.palette.primary.main;
   const secondary = theme.palette.secondary.main;
@@ -22,20 +29,14 @@ const ArticlePlaceholder = ({ image, alt, width = 600, height = 338, sx = {} }) 
           ...sx,
         }}
       >
-        <Image
-          src={image}
-          alt={alt}
-          fill
-          sizes="(max-width: 900px) 100vw, 33vw"
-          style={{ objectFit: 'cover' }}
-        />
+        <Image src={image} alt={alt} fill sizes={sizes} style={{ objectFit: 'cover' }} />
       </Box>
     );
   }
 
   return (
     <Box
-      role="img"
+      role='img'
       aria-label={alt}
       sx={{
         position: 'relative',
@@ -64,6 +65,7 @@ ArticlePlaceholder.propTypes = {
   alt: PropTypes.string.isRequired,
   width: PropTypes.number,
   height: PropTypes.number,
+  sizes: PropTypes.string,
   sx: PropTypes.object,
 };
 
