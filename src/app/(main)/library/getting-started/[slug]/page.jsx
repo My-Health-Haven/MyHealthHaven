@@ -3,6 +3,7 @@ import {
   createArticleSchema,
   createBreadcrumbSchema,
   createFAQSchema,
+  DEFAULT_OG_IMAGE,
 } from '@/lib/siteSeo';
 import {
   getArticlesByCategory,
@@ -25,19 +26,36 @@ export async function generateMetadata({ params }) {
   if (!article) return {};
 
   const canonical = getCanonicalUrl(getLibraryArticlePath(article));
+  const ogTitle = `${article.seoTitle} | MyHealth Haven`;
+  const ogImage = article.heroImage || DEFAULT_OG_IMAGE;
 
   return {
     title: article.seoTitle,
     description: article.seoDescription,
+    authors: article.author ? [{ name: article.author }] : undefined,
     alternates: {
       canonical,
       languages: { 'x-default': canonical, en: canonical, es: canonical },
     },
     openGraph: {
-      title: `${article.seoTitle} | MyHealth Haven`,
+      title: ogTitle,
       description: article.seoDescription,
       url: canonical,
       type: 'article',
+      publishedTime: article.date,
+      modifiedTime: article.updatedDate || article.date,
+      images: [
+        {
+          url: ogImage,
+          alt: article.heroImageAlt || article.imageAlt || article.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: ogTitle,
+      description: article.seoDescription,
+      images: [ogImage],
     },
   };
 }
@@ -55,7 +73,9 @@ export default async function GettingStartedArticlePage({ params }) {
       headline: article.seoTitle,
       description: article.seoDescription,
       image: article.heroImage,
-      dateModified: article.updatedDate || undefined,
+      datePublished: article.date,
+      dateModified: article.updatedDate || article.date,
+      articleSection: article.category,
     }),
     createBreadcrumbSchema([
       { name: 'Home', path: '/' },

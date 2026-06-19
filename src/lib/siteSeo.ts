@@ -56,7 +56,9 @@ interface ArticleSchemaArgs {
   headline: string;
   description: string;
   image?: string;
+  datePublished?: string;
   dateModified?: string;
+  articleSection?: string;
 }
 
 interface ServiceSchemaArgs {
@@ -133,12 +135,15 @@ export const PUBLIC_ROUTE_DEFINITIONS: RouteDefinition[] = (
       priority: '0.7',
       prerender: true,
     },
-    ...LIBRARY_ARTICLES.map((article: { slug: string; categorySlug?: string }) => ({
-      path: getLibraryArticlePath(article),
-      changefreq: 'monthly' as const,
-      priority: '0.7',
-      prerender: true,
-    })),
+    ...LIBRARY_ARTICLES.map(
+      (article: { slug: string; categorySlug?: string; date?: string; updatedDate?: string }) => ({
+        path: getLibraryArticlePath(article),
+        changefreq: 'monthly' as const,
+        priority: '0.7',
+        prerender: true,
+        lastmod: article.updatedDate || article.date,
+      })
+    ),
     {
       path: '/estimate',
       changefreq: 'monthly',
@@ -188,10 +193,10 @@ export const PUBLIC_ROUTE_DEFINITIONS: RouteDefinition[] = (
       priority: '0.6',
       prerender: true,
     },
-  ] as Omit<RouteDefinition, 'lastmod'>[]
+  ] as RouteDefinition[]
 ).map((route) => ({
   ...route,
-  lastmod: SEO_LASTMOD,
+  lastmod: route.lastmod ?? SEO_LASTMOD,
   path: normalizePath(route.path),
 }));
 
@@ -408,7 +413,9 @@ export const createArticleSchema = ({
   headline,
   description,
   image = DEFAULT_OG_IMAGE,
+  datePublished,
   dateModified = SEO_LASTMOD,
+  articleSection,
 }: ArticleSchemaArgs): Record<string, unknown> => ({
   '@context': 'https://schema.org',
   '@type': 'Article',
@@ -416,7 +423,10 @@ export const createArticleSchema = ({
   description,
   url: getCanonicalUrl(path),
   image: toAbsoluteUrl(image),
+  ...(datePublished ? { datePublished } : {}),
   dateModified,
+  ...(articleSection ? { articleSection } : {}),
+  isAccessibleForFree: true,
   mainEntityOfPage: {
     '@type': 'WebPage',
     '@id': getCanonicalUrl(path),

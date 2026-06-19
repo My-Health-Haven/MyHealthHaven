@@ -191,6 +191,7 @@ When everyone understands the same plan, the conversation becomes less about geo
     seoTitle: 'How to Prepare for Your First Medical Travel Conversation',
     seoDescription:
       'What to bring, which questions to ask, and what happens next when you have your first conversation about medical travel. A calm, practical preparation guide.',
+    image: '/How To Prepare For.png',
     imageAlt: 'Notes and questions prepared for a first medical travel conversation',
     content: `A first conversation about medical travel works best when you arrive organized rather than certain. The goal is not to decide everything at once. It is to gather the right information so you can compare options calmly and ask better questions as you go.
 
@@ -249,6 +250,7 @@ Often the next step is simply gathering any missing records and clarifying open 
     seoTitle: 'Understanding Hospital Accreditation and Standards in Mexico',
     seoDescription:
       '"Accredited" can mean several different things in Mexico. Learn what hospital certification, federal regulation, and physician credentials actually mean before considering care in Mexico.',
+    image: '/What Acreditation Actually.png',
     imageAlt: 'Hospital accreditation and certification standards in Mexico',
     content: `If you have started looking into care in Mexico, there is a good chance one question keeps coming back:
 
@@ -336,6 +338,16 @@ If you want to understand how to evaluate standards at a specific facility, [sch
         question: 'What is COFEPRIS?',
         answer:
           "COFEPRIS (Comisión Federal para la Protección contra Riesgos Sanitarios) is Mexico's federal health authority. It plays a role comparable to the FDA in the United States, covering medication approval, medical-device registration, and aspects of healthcare facility oversight. It represents a baseline layer of regulatory oversight.",
+      },
+      {
+        question: 'What is CSG certification in Mexico?',
+        answer:
+          "The Consejo de Salubridad General (CSG) administers Mexico's national hospital certification. Its current framework, the MUEC (Modelo Único de Evaluación de la Calidad), evaluates a facility against a national quality standard. Certification is point-in-time, so it is worth confirming that a certificate exists, which body issued it, and whether it is current.",
+      },
+      {
+        question: 'What is JCI accreditation?',
+        answer:
+          'Joint Commission International (JCI) is the international arm of the accrediting body widely recognized in the United States. JCI accreditation is an additional, internationally benchmarked layer of review, held by only a smaller subset of hospitals in Mexico — often larger research or teaching facilities.',
       },
       {
         question: 'Does hospital accreditation guarantee a good outcome?',
