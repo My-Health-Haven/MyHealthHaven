@@ -110,7 +110,7 @@ const LibraryCategory = ({ categorySlug }) => {
                 lineHeight: 1.7,
               }}
             >
-              A patient navigator can walk you through your options and answer questions at your own
+              A health navigator can walk you through your options and answer questions at your own
               pace.
             </Typography>
             <Button
@@ -132,7 +132,7 @@ const LibraryCategory = ({ categorySlug }) => {
                 },
               }}
             >
-              Talk to a Patient Navigator
+              Talk to a Health Navigator
             </Button>
           </FadeIn>
         </Container>

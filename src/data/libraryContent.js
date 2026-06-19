@@ -235,6 +235,121 @@ Often the next step is simply gathering any missing records and clarifying open 
     ],
     relatedArticles: ['is-medical-travel-right-for-me', 'how-we-vet-hospitals'],
   },
+  {
+    slug: 'what-accreditation-actually-means-in-mexico',
+    category: 'Getting Started',
+    categorySlug: 'getting-started',
+    type: 'Article',
+    featured: false,
+    author: 'MyHealth Haven',
+    date: '2026-06-13',
+    title: 'What Accreditation Actually Means in Mexico',
+    summary:
+      '"Accredited" can mean several different things in Mexico. Learn what hospital certification, federal regulation, and physician credentials actually mean before considering care in Mexico.',
+    seoTitle: 'Understanding Hospital Accreditation and Standards in Mexico',
+    seoDescription:
+      '"Accredited" can mean several different things in Mexico. Learn what hospital certification, federal regulation, and physician credentials actually mean before considering care in Mexico.',
+    imageAlt: 'Hospital accreditation and certification standards in Mexico',
+    content: `If you have started looking into care in Mexico, there is a good chance one question keeps coming back:
+
+**Is the hospital actually held to a real standard?**
+
+That is a fair question. In fact, it may be one of the most important questions a patient can ask.
+
+When care happens close to home, most people do not think much about accreditation. They assume oversight exists somewhere in the background. But the moment care involves another country, that assumption disappears. The question becomes louder: who is making sure this place meets a real standard?
+
+That is exactly the kind of question you should be asking.
+
+The difficulty is that the answer is not as simple as a single yes or no. One reason patients feel uncertain is that the word "accredited" is often used loosely. It can mean several different things, and those things are not interchangeable.
+
+Understanding the difference is what turns a vague worry into a more informed evaluation.
+
+So let's walk through what actually exists.
+
+## The Federal Regulator
+
+Mexico has a federal health authority called COFEPRIS, the Comisión Federal para la Protección contra Riesgos Sanitarios. In function, COFEPRIS plays a role comparable to what the FDA does in the United States.
+
+It is involved in the approval of medications, the registration of medical devices, and aspects of healthcare facility oversight. When people ask whether Mexico has a healthcare regulatory system, COFEPRIS is a major part of the answer.
+
+It exists, and it represents a baseline layer of regulatory oversight.
+
+## The National Hospital Certification
+
+Separate from federal regulation, Mexico also has a national hospital certification process administered by the Consejo de Salubridad General, often shortened to CSG.
+
+The current evaluation framework is known as the MUEC, or Modelo Único de Evaluación de la Calidad. When a hospital is certified through this process, it means the facility has been evaluated against a national quality standard and has met that standard.
+
+Not every facility participates. Certification is also point-in-time, which means issue dates and expiration dates matter. A responsible review should confirm whether a certificate exists, what body issued it, and whether it is current.
+
+## The International Accreditation
+
+A smaller subset of hospitals in Mexico also hold accreditation from Joint Commission International, or JCI. JCI is the international arm of the same accrediting body widely recognized in the United States.
+
+JCI accreditation represents an additional, internationally benchmarked layer of review. It is not held by most facilities, so its presence or absence tells you something specific: this is a research or teaching facility rather than just a hospital.
+
+## The Credentials of the Treating Physician
+
+Accreditation of a facility is not the same thing as the credentials of the person treating you.
+
+In Mexico, a licensed physician holds a cédula profesional, registered through the country's professional credentialing authority. A specialist will also typically hold certification through the relevant specialty council, often a Consejo Mexicano in that field.
+
+A facility can meet a standard while a patient still needs to confirm that the individual physician has the appropriate credentials, training, and scope of practice for the care being considered.
+
+## Why should this matter to patients?
+
+Notice what happened. One question — "Is it accredited?" — became four different questions:
+
+- Is the facility subject to federal oversight?
+- Is the hospital nationally certified?
+- Does it hold any international accreditation?
+- Is the treating physician properly credentialed for the specific care being considered?
+
+That is not a reason for anxiety. It is the opposite. It means there are concrete things to evaluate instead of relying on a feeling, a brochure, or a price.
+
+Here is the part we want to be very honest about: accreditation is an indicator, not a promise.
+
+Regardless of the country, a certificate only tells you that a facility met a defined standard at a defined point in time. It does not guarantee any individual result. No responsible organization should ever suggest otherwise. Healthcare carries uncertainty everywhere in the world.
+
+What accreditation does provide is a more factual basis for evaluating a facility. It helps replace vague reassurance with specific, verifiable information.
+
+This is where MyHealth Haven's role fits.
+
+We do not certify hospitals. We do not practice medicine. We do not diagnose conditions or make clinical decisions. Providers retain full clinical authority.
+
+What we do is help patients understand the landscape and ask better questions:
+
+- Is the facility certified? Which body issued the certification? Is the certificate current?
+- Does the treating physician hold the relevant credentials? Is what you were told written down and verifiable?
+
+We believe a patient who understands these distinctions is in a stronger position than one who is simply told not to worry.
+
+That understanding is the difference between feeling uncertain and feeling prepared. This is one of the things that MyHealth Haven helps you navigate.
+
+If you are exploring care in Mexico, you do not need to become an expert in Mexican health regulation. But you do need to know what questions have been asked, the answers have been verified, and where reassurance is supported by documentation.
+
+That is one of the reasons MyHealth Haven exists.
+
+If you want to understand how to evaluate standards at a specific facility, [schedule a Health Navigator consultation](/schedule). We will help you understand what to ask, what to verify, and how to approach the process with more structure and confidence.`,
+    faqs: [
+      {
+        question: 'What is COFEPRIS?',
+        answer:
+          "COFEPRIS (Comisión Federal para la Protección contra Riesgos Sanitarios) is Mexico's federal health authority. It plays a role comparable to the FDA in the United States, covering medication approval, medical-device registration, and aspects of healthcare facility oversight. It represents a baseline layer of regulatory oversight.",
+      },
+      {
+        question: 'Does hospital accreditation guarantee a good outcome?',
+        answer:
+          'No. Accreditation is an indicator, not a promise. A certificate only confirms that a facility met a defined standard at a defined point in time; it does not guarantee any individual result. Healthcare carries uncertainty everywhere in the world.',
+      },
+      {
+        question: "Is a hospital's accreditation the same as the treating physician's credentials?",
+        answer:
+          "No. A facility can meet a standard while you still need to confirm the individual physician's credentials. In Mexico, a licensed physician holds a cédula profesional, and a specialist typically holds certification through the relevant Consejo Mexicano (specialty council) for the care being considered.",
+      },
+    ],
+    relatedArticles: ['how-we-vet-hospitals', 'is-medical-travel-right-for-me'],
+  },
 ];
 
 // ─── Category landing pages ──────────────────────────────────────────────
