@@ -6,21 +6,22 @@ import PropTypes from 'prop-types';
  * TimelineCard - A step card for the medical care timeline
  * Features: blue header with step number/title/timing, icon, caption
  */
-const TimelineCard = ({ 
-  stepNumber, 
-  title, 
-  timing, 
-  icon, 
-  caption, 
+const TimelineCard = ({
+  stepNumber,
+  title,
+  timing,
+  icon,
+  caption,
   variant = 'default', // 'default' or 'teal' for steps 5 and 10
-  sx = {} 
+  sx = {},
 }) => {
   const theme = useTheme();
-  
+
   // Header gradient colors based on variant
-  const headerBg = variant === 'teal' 
-    ? 'linear-gradient(135deg, #0097A7 0%, #00838F 100%)'
-    : 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)';
+  const headerBg =
+    variant === 'teal'
+      ? 'linear-gradient(135deg, #0097A7 0%, #00838F 100%)'
+      : 'linear-gradient(135deg, #1565C0 0%, #0D47A1 100%)';
 
   return (
     <Box
@@ -64,9 +65,7 @@ const TimelineCard = ({
             height: 0,
             borderLeft: '12px solid transparent',
             borderRight: '12px solid transparent',
-            borderTop: variant === 'teal' 
-              ? '10px solid #00838F' 
-              : '10px solid #0D47A1',
+            borderTop: variant === 'teal' ? '10px solid #00838F' : '10px solid #0D47A1',
           },
         }}
       >

@@ -84,7 +84,9 @@ export const useProcedures = (): UseProceduresReturn => {
           if (Array.isArray(value)) {
             return value.join(' ').toLowerCase().includes(query);
           }
-          return String(value ?? '').toLowerCase().includes(query);
+          return String(value ?? '')
+            .toLowerCase()
+            .includes(query);
         });
         if (!matchesSearch) return false;
       }
@@ -117,9 +119,7 @@ export const useProcedures = (): UseProceduresReturn => {
       const current = prev[category] ?? [];
       const isSelected = current.includes(value);
 
-      const newValues = isSelected
-        ? current.filter((v) => v !== value)
-        : [...current, value];
+      const newValues = isSelected ? current.filter((v) => v !== value) : [...current, value];
 
       if (newValues.length === 0) {
         const { [category]: _unused, ...rest } = prev;

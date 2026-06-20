@@ -1,5 +1,5 @@
 **MyHealth Haven**  
-*Made in America, Made Better in Mexico*
+_Made in America, Made Better in Mexico_
 
 # **TERMS OF USE**
 
@@ -35,10 +35,10 @@ You must be at least 18 years old to use this Site. By using the Site, you repre
 
 You agree not to:
 
-* Use the Site for unlawful, misleading, or fraudulent purposes  
-* Interfere with the security or operation of the Site  
-* Attempt to access non-public systems or data  
-* Copy, scrape, or reuse content without authorization
+- Use the Site for unlawful, misleading, or fraudulent purposes
+- Interfere with the security or operation of the Site
+- Attempt to access non-public systems or data
+- Copy, scrape, or reuse content without authorization
 
 We reserve the right to suspend or terminate access for violations.
 
@@ -94,4 +94,4 @@ We may update these Terms from time to time. Continued use of the Site after cha
 Questions regarding these Terms may be directed to:  
 **info@andersonlg.com**
 
-© 2026 My Health Haven Management, LLC  \- All Rights Reserved	
+© 2026 My Health Haven Management, LLC \- All Rights Reserved

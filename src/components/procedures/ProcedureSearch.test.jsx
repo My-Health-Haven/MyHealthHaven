@@ -18,18 +18,18 @@ describe('ProcedureSearch', () => {
 
   it('syncs displayed value when initialValue changes externally', () => {
     const onSearch = vi.fn();
-    const { rerender } = render(<ProcedureSearch onSearch={onSearch} initialValue="CABG" />);
+    const { rerender } = render(<ProcedureSearch onSearch={onSearch} initialValue='CABG' />);
 
     const input = screen.getByRole('textbox');
     expect(input).toHaveValue('CABG');
 
-    rerender(<ProcedureSearch onSearch={onSearch} initialValue="" />);
+    rerender(<ProcedureSearch onSearch={onSearch} initialValue='' />);
     expect(input).toHaveValue('');
   });
 
   it('calls onSearch with debounced typed values', () => {
     const onSearch = vi.fn();
-    render(<ProcedureSearch onSearch={onSearch} initialValue="" />);
+    render(<ProcedureSearch onSearch={onSearch} initialValue='' />);
 
     const input = screen.getByRole('textbox');
     fireEvent.change(input, { target: { value: 'knee' } });

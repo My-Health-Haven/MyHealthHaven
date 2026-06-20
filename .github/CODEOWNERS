@@ -1,0 +1,14 @@
+# Code owners are automatically requested for review on matching pull requests.
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+#
+# NOTE: replace @Renusz with the correct GitHub handle(s) if different.
+
+# Default owner for everything in the repo
+*                       @Renusz
+
+# Security-sensitive surfaces — review these with extra care
+/src/app/api/            @Renusz
+/next.config.mjs         @Renusz
+/.github/                @Renusz
+/SECURITY.md             @Renusz
+/docs/adr/               @Renusz

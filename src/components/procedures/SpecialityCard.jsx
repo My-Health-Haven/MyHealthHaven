@@ -22,9 +22,7 @@ const SpecialityCard = ({
 
   const isExpanded = forceShowAll || showAll;
   const hiddenCount = Math.max(count - DEFAULT_VISIBLE, 0);
-  const visibleProcedures = isExpanded
-    ? procedures
-    : procedures.slice(0, DEFAULT_VISIBLE);
+  const visibleProcedures = isExpanded ? procedures : procedures.slice(0, DEFAULT_VISIBLE);
 
   const hasMoreToShow = hiddenCount > 0;
 
@@ -69,8 +67,8 @@ const SpecialityCard = ({
 
         <Box sx={{ flexGrow: 1, minWidth: 0 }}>
           <Typography
-            variant="h6"
-            component="h2"
+            variant='h6'
+            component='h2'
             fontWeight={700}
             sx={{
               lineHeight: 1.2,
@@ -81,8 +79,8 @@ const SpecialityCard = ({
           </Typography>
           {description && (
             <Typography
-              variant="body2"
-              color="text.secondary"
+              variant='body2'
+              color='text.secondary'
               sx={{
                 mt: 0.5,
                 lineHeight: 1.4,
@@ -152,7 +150,7 @@ const SpecialityCard = ({
             onClick={() => setShowAll((prev) => !prev)}
             endIcon={showAll ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
             sx={{ textTransform: 'none', color: color, fontWeight: 600 }}
-            size="small"
+            size='small'
           >
             {showAll
               ? viewLessLabel || 'Show less'

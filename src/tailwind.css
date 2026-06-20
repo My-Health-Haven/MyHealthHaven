@@ -171,8 +171,7 @@ body {
   color: #0f172a;
   background:
     radial-gradient(circle at 20% 20%, rgba(0, 137, 123, 0.22), transparent 45%),
-    radial-gradient(circle at 80% 85%, rgba(142, 36, 170, 0.18), transparent 52%),
-    #f4faff;
+    radial-gradient(circle at 80% 85%, rgba(142, 36, 170, 0.18), transparent 52%), #f4faff;
 }
 
 .app-loader__spinner {

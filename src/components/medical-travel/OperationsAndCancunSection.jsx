@@ -1,13 +1,6 @@
 'use client';
 import React from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  Grid,
-  Stack,
-  alpha,
-} from '@mui/material';
+import { Box, Container, Typography, Grid, Stack, alpha } from '@mui/material';
 import PublicIcon from '@mui/icons-material/Public';
 import FlightIcon from '@mui/icons-material/Flight';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -64,9 +57,7 @@ const OperationsAndCancunSection = () => {
     },
   ];
 
-  const locationsParagraphs = Array.isArray(
-    t('medicalTravelPage.locationsParagraphs')
-  )
+  const locationsParagraphs = Array.isArray(t('medicalTravelPage.locationsParagraphs'))
     ? t('medicalTravelPage.locationsParagraphs')
     : [t('medicalTravelPage.locationsDesc')];
 
@@ -85,8 +76,7 @@ const OperationsAndCancunSection = () => {
           position: 'absolute',
           inset: 0,
           opacity: 0.13,
-          backgroundImage:
-            'radial-gradient(circle, #00897B 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle, #00897B 1px, transparent 1px)',
           backgroundSize: '32px 32px',
           pointerEvents: 'none',
         }}
@@ -100,7 +90,7 @@ const OperationsAndCancunSection = () => {
           px: { xs: 2, md: 6, lg: 10 },
         }}
       >
-        <Grid container spacing={2} alignItems="stretch">
+        <Grid container spacing={2} alignItems='stretch'>
           {/* LEFT: Where we operate */}
           <Grid size={{ xs: 12, md: 6 }} sx={{ display: 'flex' }}>
             <FadeIn delay={100} style={{ width: '100%', display: 'flex' }}>
@@ -115,12 +105,7 @@ const OperationsAndCancunSection = () => {
                   borderColor: alpha('#00897B', 0.08),
                 }}
               >
-                <Stack
-                  direction="row"
-                  spacing={2}
-                  alignItems="center"
-                  sx={{ mb: 3 }}
-                >
+                <Stack direction='row' spacing={2} alignItems='center' sx={{ mb: 3 }}>
                   <Box
                     sx={{
                       width: 56,
@@ -132,14 +117,12 @@ const OperationsAndCancunSection = () => {
                       justifyContent: 'center',
                       flexShrink: 0,
                     }}
-                    aria-hidden="true"
+                    aria-hidden='true'
                   >
-                    <PublicIcon
-                      sx={{ fontSize: 28, color: 'primary.main' }}
-                    />
+                    <PublicIcon sx={{ fontSize: 28, color: 'primary.main' }} />
                   </Box>
                   <Typography
-                    variant="h3"
+                    variant='h3'
                     sx={{
                       fontWeight: 700,
                       color: 'text.primary',
@@ -154,7 +137,7 @@ const OperationsAndCancunSection = () => {
                   {locationsParagraphs.map((para, i) => (
                     <Typography
                       key={i}
-                      variant="body1"
+                      variant='body1'
                       style={{ fontSize: '0.855rem' }}
                       sx={{
                         color: '#4A5568',
@@ -185,9 +168,7 @@ const OperationsAndCancunSection = () => {
                 }}
               >
                 {/* Illustration fills entire card as absolute background */}
-                <WhyCancunIllustration
-                  pinLabel={t('medicalTravelPage.whyCancunPin')}
-                />
+                <WhyCancunIllustration pinLabel={t('medicalTravelPage.whyCancunPin')} />
 
                 {/* Title + underline overlay */}
                 <Box
@@ -204,7 +185,7 @@ const OperationsAndCancunSection = () => {
                   }}
                 >
                   <Typography
-                    variant="h3"
+                    variant='h3'
                     sx={{
                       fontWeight: 700,
                       color: 'primary.main',
@@ -220,10 +201,9 @@ const OperationsAndCancunSection = () => {
                       width: 128,
                       height: 2,
                       borderRadius: 2,
-                      background:
-                        'linear-gradient(90deg, #00897B 0%, #8E24AA 100%)',
+                      background: 'linear-gradient(90deg, #00897B 0%, #8E24AA 100%)',
                     }}
-                    aria-hidden="true"
+                    aria-hidden='true'
                   />
                 </Box>
 
@@ -237,73 +217,73 @@ const OperationsAndCancunSection = () => {
                     zIndex: 2,
                   }}
                 >
-                    <Grid container spacing={1.25}>
-                      {whyCancunCards.map((card, i) => (
-                        <Grid size={{ xs: 12, sm: 6 }} key={i}>
-                          <FadeIn delay={300 + i * 80} style={{ height: '100%' }}>
-                            <Stack
-                              direction="row"
-                              spacing={1.25}
-                              alignItems="flex-start"
+                  <Grid container spacing={1.25}>
+                    {whyCancunCards.map((card, i) => (
+                      <Grid size={{ xs: 12, sm: 6 }} key={i}>
+                        <FadeIn delay={300 + i * 80} style={{ height: '100%' }}>
+                          <Stack
+                            direction='row'
+                            spacing={1.25}
+                            alignItems='flex-start'
+                            sx={{
+                              height: '100%',
+                              bgcolor: 'rgba(255,255,255,0.95)',
+                              backdropFilter: 'blur(4px)',
+                              borderRadius: 2,
+                              p: 1.25,
+                              border: '1px solid',
+                              borderColor: alpha('#00897B', 0.12),
+                              boxShadow: '0 4px 14px rgba(17, 24, 39, 0.08)',
+                            }}
+                          >
+                            <Box
                               sx={{
-                                height: '100%',
-                                bgcolor: 'rgba(255,255,255,0.95)',
-                                backdropFilter: 'blur(4px)',
-                                borderRadius: 2,
-                                p: 1.25,
-                                border: '1px solid',
-                                borderColor: alpha('#00897B', 0.12),
-                                boxShadow: '0 4px 14px rgba(17, 24, 39, 0.08)',
+                                width: 36,
+                                height: 36,
+                                borderRadius: '50%',
+                                background: `radial-gradient(circle at 45% 30%, ${alpha('#FFFFFF', 0.9)} 0%, ${alpha('#00897B', 0.16)} 60%, ${alpha('#00897B', 0.24)} 100%)`,
+                                border: `1px solid ${alpha('#00897B', 0.25)}`,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                flexShrink: 0,
                               }}
+                              aria-hidden='true'
                             >
-                              <Box
+                              {React.isValidElement(card.icon)
+                                ? React.cloneElement(card.icon, {
+                                    sx: { fontSize: 18, color: 'primary.main' },
+                                  })
+                                : card.icon}
+                            </Box>
+                            <Box sx={{ flex: 1, minWidth: 0 }}>
+                              <Typography
                                 sx={{
-                                  width: 36,
-                                  height: 36,
-                                  borderRadius: '50%',
-                                  background: `radial-gradient(circle at 45% 30%, ${alpha('#FFFFFF', 0.9)} 0%, ${alpha('#00897B', 0.16)} 60%, ${alpha('#00897B', 0.24)} 100%)`,
-                                  border: `1px solid ${alpha('#00897B', 0.25)}`,
-                                  display: 'flex',
-                                  alignItems: 'center',
-                                  justifyContent: 'center',
-                                  flexShrink: 0,
+                                  fontWeight: 700,
+                                  fontSize: '0.78rem',
+                                  lineHeight: 1.25,
+                                  color: 'text.primary',
+                                  mb: 0.4,
                                 }}
-                                aria-hidden="true"
                               >
-                                {React.isValidElement(card.icon)
-                                  ? React.cloneElement(card.icon, {
-                                      sx: { fontSize: 18, color: 'primary.main' },
-                                    })
-                                  : card.icon}
-                              </Box>
-                              <Box sx={{ flex: 1, minWidth: 0 }}>
-                                <Typography
-                                  sx={{
-                                    fontWeight: 700,
-                                    fontSize: '0.78rem',
-                                    lineHeight: 1.25,
-                                    color: 'text.primary',
-                                    mb: 0.4,
-                                  }}
-                                >
-                                  {card.title}
-                                </Typography>
-                                <Typography
-                                  sx={{
-                                    fontSize: '0.68rem',
-                                    lineHeight: 1.35,
-                                    color: 'text.secondary',
-                                  }}
-                                >
-                                  {card.description}
-                                </Typography>
-                              </Box>
-                            </Stack>
-                          </FadeIn>
-                        </Grid>
-                      ))}
-                    </Grid>
-                  </Box>
+                                {card.title}
+                              </Typography>
+                              <Typography
+                                sx={{
+                                  fontSize: '0.68rem',
+                                  lineHeight: 1.35,
+                                  color: 'text.secondary',
+                                }}
+                              >
+                                {card.description}
+                              </Typography>
+                            </Box>
+                          </Stack>
+                        </FadeIn>
+                      </Grid>
+                    ))}
+                  </Grid>
+                </Box>
               </Box>
             </FadeIn>
           </Grid>
@@ -326,11 +306,7 @@ const OperationsAndCancunSection = () => {
             <Grid container spacing={{ xs: 3, md: 4 }}>
               {trustRow.map((badge, i) => (
                 <Grid size={{ xs: 12, md: 4 }} key={i}>
-                  <Stack
-                    direction="row"
-                    spacing={2}
-                    alignItems="flex-start"
-                  >
+                  <Stack direction='row' spacing={2} alignItems='flex-start'>
                     <Box
                       sx={{
                         width: 52,
@@ -343,7 +319,7 @@ const OperationsAndCancunSection = () => {
                         flexShrink: 0,
                         mt: 0.3,
                       }}
-                      aria-hidden="true"
+                      aria-hidden='true'
                     >
                       {React.isValidElement(badge.icon)
                         ? React.cloneElement(badge.icon, {
@@ -357,7 +333,7 @@ const OperationsAndCancunSection = () => {
                     </Box>
                     <Box>
                       <Typography
-                        variant="subtitle1"
+                        variant='subtitle1'
                         sx={{
                           fontWeight: 700,
                           color: 'secondary.main',
@@ -368,7 +344,7 @@ const OperationsAndCancunSection = () => {
                         {badge.title}
                       </Typography>
                       <Typography
-                        variant="body2"
+                        variant='body2'
                         sx={{
                           color: 'text.secondary',
                           lineHeight: 1.5,

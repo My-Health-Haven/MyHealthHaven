@@ -13,8 +13,7 @@ export const metadata = {
   },
   openGraph: {
     title: 'Medical Travel Guide | MyHealth Haven',
-    description:
-      'Everything you need to know about traveling to Mexico for medical care.',
+    description: 'Everything you need to know about traveling to Mexico for medical care.',
     url: canonical,
   },
 };

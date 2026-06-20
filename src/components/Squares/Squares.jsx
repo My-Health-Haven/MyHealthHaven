@@ -7,7 +7,7 @@ const Squares = ({
   borderColor = '#999',
   squareSize = 40,
   hoverFillColor = '#222',
-  className = ''
+  className = '',
 }) => {
   const canvasRef = useRef(null);
   const requestRef = useRef(null);
@@ -99,7 +99,7 @@ const Squares = ({
       requestRef.current = requestAnimationFrame(updateAnimation);
     };
 
-    const handleMouseMove = event => {
+    const handleMouseMove = (event) => {
       const rect = canvas.getBoundingClientRect();
       const mouseX = event.clientX - rect.left;
       const mouseY = event.clientY - rect.top;
@@ -141,7 +141,7 @@ const Squares = ({
       },
       { threshold: 0 }
     );
-    
+
     observer.observe(canvas);
 
     return () => {

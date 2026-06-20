@@ -1,9 +1,6 @@
 'use client';
 import React from 'react';
-import {
-  Box,
-  Typography,
-} from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useLanguage } from '@/context/LanguageContext';
 
 const EstimateHero = () => {
@@ -52,22 +49,21 @@ const EstimateHero = () => {
           borderRadius: 5,
           color: 'common.white',
           border: '1px solid rgba(255,255,255,0.24)',
-          background:
-            'linear-gradient(180deg, rgba(8,20,28,0.54) 0%, rgba(8,20,28,0.28) 100%)',
+          background: 'linear-gradient(180deg, rgba(8,20,28,0.54) 0%, rgba(8,20,28,0.28) 100%)',
           backdropFilter: 'blur(14px)',
           boxShadow: '0 24px 60px rgba(3,10,15,0.18)',
         }}
       >
         <Typography
-          variant="overline"
+          variant='overline'
           sx={{ letterSpacing: 2.4, fontWeight: 800, color: 'rgba(255,255,255,0.74)' }}
         >
           Email Estimate
         </Typography>
-        <Typography variant="h2" gutterBottom sx={{ color: 'common.white', mt: 1 }}>
+        <Typography variant='h2' gutterBottom sx={{ color: 'common.white', mt: 1 }}>
           {t('estimatePage.title')}
         </Typography>
-        <Typography variant="h5" sx={{ color: 'rgba(255,255,255,0.84)' }}>
+        <Typography variant='h5' sx={{ color: 'rgba(255,255,255,0.84)' }}>
           {t('estimatePage.subtitle')}
         </Typography>
       </Box>

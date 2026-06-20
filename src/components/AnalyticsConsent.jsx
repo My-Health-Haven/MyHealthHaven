@@ -65,17 +65,18 @@ const AnalyticsConsent = () => {
         p: 2,
       }}
     >
-      <Typography variant="subtitle2" fontWeight={700}>
+      <Typography variant='subtitle2' fontWeight={700}>
         Analytics Consent
       </Typography>
-      <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-        We use analytics cookies to understand site usage and improve the experience. You can accept or decline.
+      <Typography variant='body2' color='text.secondary' sx={{ mt: 0.5 }}>
+        We use analytics cookies to understand site usage and improve the experience. You can accept
+        or decline.
       </Typography>
-      <Stack direction="row" spacing={1.5} sx={{ mt: 2 }}>
-        <Button variant="contained" onClick={() => handleConsent('granted')}>
+      <Stack direction='row' spacing={1.5} sx={{ mt: 2 }}>
+        <Button variant='contained' onClick={() => handleConsent('granted')}>
           Accept
         </Button>
-        <Button variant="outlined" onClick={() => handleConsent('denied')}>
+        <Button variant='outlined' onClick={() => handleConsent('denied')}>
           Decline
         </Button>
       </Stack>

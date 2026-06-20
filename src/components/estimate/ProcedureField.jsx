@@ -64,7 +64,7 @@ const ProcedureField = ({
           noOptionsText={procedureNoOptionsLabel}
           renderOption={(props, option, { index }) => (
             <Box
-              component="li"
+              component='li'
               {...props}
               sx={{
                 borderRadius: 1.5,
@@ -98,7 +98,7 @@ const ProcedureField = ({
               {...params}
               required
               placeholder={procedureSearchPlaceholder}
-              variant="outlined"
+              variant='outlined'
               hiddenLabel
               sx={frostedFieldSx}
             />
@@ -115,10 +115,10 @@ const ProcedureField = ({
             multiline
             rows={4}
             placeholder={procedureOtherPlaceholder}
-            name="procedureOther"
+            name='procedureOther'
             value={procedureOther}
             onChange={onProcedureOtherChange}
-            variant="outlined"
+            variant='outlined'
             hiddenLabel
             sx={frostedFieldSx}
           />

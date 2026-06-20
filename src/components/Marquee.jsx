@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Box } from '@mui/material';
 
 const Marquee = ({ children, speed = 20, direction = 'left', pauseOnHover = false }) => {
-  
   return (
     <Box
       sx={{
@@ -11,7 +10,8 @@ const Marquee = ({ children, speed = 20, direction = 'left', pauseOnHover = fals
         width: '100%',
         display: 'flex',
         maskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
-        WebkitMaskImage: 'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
+        WebkitMaskImage:
+          'linear-gradient(to right, transparent, black 10%, black 90%, transparent)',
       }}
     >
       <Box
@@ -51,4 +51,3 @@ Marquee.propTypes = {
 };
 
 export default Marquee;
-

@@ -11,13 +11,13 @@ const PhoneField = ({ value, onChange, label }) => (
       fullWidth
       required
       placeholder={label}
-      name="phone"
-      type="tel"
+      name='phone'
+      type='tel'
       value={value}
       onChange={onChange}
-      variant="outlined"
+      variant='outlined'
       hiddenLabel
-      autoComplete="tel"
+      autoComplete='tel'
       sx={frostedFieldSx}
       inputProps={{
         inputMode: 'tel',

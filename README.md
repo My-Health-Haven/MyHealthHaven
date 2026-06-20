@@ -1,128 +1,100 @@
 # MyHealth Haven
 
-MyHealth Haven is a web application designed to guide Americans in accessing medical care in Mexico. It serves as a bridge between patients and vetted hospitals, offering transparency, safety, and personalized support.
+MyHealth Haven is a marketing and content website that helps Americans access
+vetted medical care in Mexico. It provides transparency, safety information, and
+a path to request a free estimate, with a health navigator following up
+personally.
 
-## Technology Stack
+> Architecture, security, and operational docs live in
+> [`ARCHITECTURE.md`](ARCHITECTURE.md), [`SECURITY.md`](SECURITY.md), and
+> [`docs/`](docs/).
 
-This project is built with a performance-oriented stack:
+## Technology stack
 
-- **React**: The library for web and native user interfaces.
-- **Vite**: Next Generation Frontend Tooling for fast development and building.
-- **Material UI (MUI)**: A comprehensive library of React UI components.
-- **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
-- **React Router**: For client-side routing.
-- **GSAP**: Professional-grade JavaScript animation.
-- **Lucide React**: Icon library.
+- **Next.js 16 (App Router)** + **React 18** — statically generated / SSG content
+  pages plus one server route for the estimate form.
+- **Material UI (MUI) v7** + **Emotion** and **Tailwind CSS** for styling.
+- **Turbopack** for dev/build.
+- **Resend** for transactional email; **AbstractAPI** (optional) for email
+  validation.
+- **Vitest** + **Testing Library** for tests.
+- Deployed on **Vercel** (automatic TLS + CDN).
 
-## Project Structure
-
-Here is a quick overview of the most important files and folders:
+## Project structure
 
 ```text
 /
-├── public/              # Static assets (images, pdfs, video)
+├── public/                 # Static assets (images, video, PDFs, policy docs)
 ├── src/
-│   ├── components/      # Reusable UI components
-│   ├── context/         # React Context definitions
-│   ├── layout/          # Layout components (Navbar, Footer, Layout)
-│   ├── pages/           # Page components
-│   ├── theme.js         # Global MUI theme configuration
-│   ├── App.jsx          # Main application component and routing setup
-│   └── main.jsx         # Application entry point
-├── Dockerfile           # Docker configuration
-├── tailwind.config.js   # Tailwind configuration
-└── vite.config.js       # Vite configuration
+│   ├── app/                # Next.js App Router (routes, layouts, API)
+│   │   └── api/estimate/    # Estimate form server route (email submission)
+│   ├── components/         # Reusable UI components
+│   ├── views/              # Page-level view components (Home, Estimate, ...)
+│   ├── context/            # React Context (e.g. language)
+│   ├── data/               # Static content data (procedures, locations)
+│   └── lib/                # Helpers (validation, SEO, hooks)
+├── docs/                   # ADRs, disaster recovery, data retention
+├── next.config.mjs         # Security headers, CSP, redirects
+└── vitest.config.js        # Test + coverage configuration
 ```
 
-## Getting Started
-
-To run this project locally on your machine:
-
-### 1. Install Dependencies
+## Getting started
 
 ```bash
 npm install
+npm run dev      # starts the dev server at http://localhost:3000
 ```
 
-### 2. Start Development Server
-
-```bash
-npm run dev
-```
-
-This will start the local server, usually at `http://localhost:5173`.
-
-### 3. Build for Production
+Build and run a production server:
 
 ```bash
 npm run build
+npm run start
 ```
 
-## Estimate Form Email Submission
+## Scripts
 
-The Free Estimate form submits to `/api/estimate`, which sends each request to email via Resend.
+| Script                  | Purpose                                       |
+| ----------------------- | --------------------------------------------- |
+| `npm run dev`           | Start the development server                  |
+| `npm run build`         | Production build                              |
+| `npm run start`         | Serve the production build                    |
+| `npm run lint`          | ESLint                                        |
+| `npm run format`        | Prettier (write); CI runs `format -- --check` |
+| `npm test`              | Run the test suite once                       |
+| `npm run test:watch`    | Run tests in watch mode                       |
+| `npm run test:coverage` | Run tests and enforce coverage thresholds     |
+| `npm run audit:ci`      | Fail on high/critical dependency advisories   |
 
-Set these environment variables in Vercel (or your runtime):
+## Estimate form email submission
 
-- `RESEND_API_KEY` (required): Resend API key.
-- `ESTIMATE_FROM_EMAIL` (recommended): Sender email/domain verified in Resend.
-- `ESTIMATE_TO_EMAIL` (optional): Destination inbox for leads. Defaults to `healthnavigator@andersonlg.com`.
-- `ESTIMATE_RATE_LIMIT_MAX` (optional): Max submissions per IP per minute. Default `5`.
-- `ALLOWED_ORIGINS` (optional): Comma-separated CORS allowlist for API routes.
+The Free Estimate form submits to `/api/estimate`, which validates and sanitizes
+the request and sends it to email via Resend. Configure these environment
+variables in Vercel (or your runtime):
+
+| Variable                           | Required | Purpose                                                                |
+| ---------------------------------- | -------- | ---------------------------------------------------------------------- |
+| `RESEND_API_KEY`                   | yes      | Resend API key for sending email                                       |
+| `ESTIMATE_FROM_EMAIL`              | rec.     | Verified sender address/domain (falls back to `onboarding@resend.dev`) |
+| `ESTIMATE_TO_EMAIL`                | no       | Lead destination inbox (defaults to `healthnavigator@andersonlg.com`)  |
+| `ESTIMATE_RATE_LIMIT_MAX`          | no       | Max submissions per IP per minute (default `5`)                        |
+| `ALLOWED_ORIGINS`                  | no       | Comma-separated CORS allowlist for the API route                       |
+| `EMAIL_VERIFIER_API_KEY`           | no       | AbstractAPI key; enables provider email verification                   |
+| `ESTIMATE_BLOCK_DISPOSABLE_EMAILS` | no       | Block disposable email domains (default `true`)                        |
+| `NEXT_PUBLIC_GTM_ID`               | no       | Google Tag Manager container ID (analytics, consent-gated)             |
 
 Notes:
 
-- If `ESTIMATE_FROM_EMAIL` is not set, the API falls back to `onboarding@resend.dev`.
-- `reply_to` is set to the user's submitted email so you can respond directly from your inbox.
+- `reply_to` on the lead email is set to the requester's email so you can respond
+  directly from your inbox.
+- Email delivery uses retry-with-backoff and a content-derived idempotency key to
+  avoid duplicate or lost leads.
 
-## Docker Deployment
+## Content editing
 
-This application includes a multi-stage `Dockerfile`.
-
-### Build Container
-
-```bash
-docker build -t healthhaven .
-```
-
-### Run Container
-
-```bash
-docker run -p 8080:80 healthhaven
-```
-
-Access the application at `http://localhost:8080`.
-
-## Customization Guide
-
-### 1. Changing Colors & Fonts (Theme)
-
-The global design system is managed by Material UI in `src/theme.js`.
-
-- **Colors**: Edit the `palette` object.
-- **Fonts**: Edit the `typography` object.
-
-### 2. Editing Page Content
-
-Each page has its own file in `src/pages/`. Most text content is centralized in `src/data/translations.js` to support internationalization.
-
-- **Home Page**: `src/pages/Home.jsx`
-- **Medical Travel**: `src/pages/MedicalTravel.jsx`
-- **Procedures**: `src/pages/Procedures.jsx`
-- **Navigators**: `src/pages/Navigators.jsx`
-- **Contact**: `src/pages/Contact.jsx`
-- **Schedule**: `src/pages/Schedule.jsx` (Appointment Calendar)
-
-### 3. Modifying Navigation
-
-- Open `src/layout/Navbar.jsx`.
-- Update the `navItems` array.
-
-### 4. Procedures Catalog
-
-The procedures listed on `/procedures` are committed as static data in
-`src/data/procedures.js`. Edit that file to add, remove, or update procedures —
-no spreadsheet, API route, or build step is involved.
+- **Procedures** catalog: `src/data/procedures.js` (static data; no build step).
+- **Page content / views**: `src/views/` and the route files under `src/app`.
+- **Legal docs**: `public/PRIVACY POLICY.md`, `public/TERMS OF USE .md`.
 
 ## License
 

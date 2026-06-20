@@ -8,9 +8,17 @@ const LinkNav = ({ text }) => {
   return (
     <>
       {parts.map((part, i) =>
-        regex.test(part) ?
-        <Link key={i} href="/navigators" style={{ color: 'inherit', textDecoration: 'underline' }}>{part}</Link> :
-        part
+        regex.test(part) ? (
+          <Link
+            key={i}
+            href='/navigators'
+            style={{ color: 'inherit', textDecoration: 'underline' }}
+          >
+            {part}
+          </Link>
+        ) : (
+          part
+        )
       )}
     </>
   );

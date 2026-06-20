@@ -1,8 +1,4 @@
-import {
-  getCanonicalUrl,
-  createCollectionPageSchema,
-  createBreadcrumbSchema,
-} from '@/lib/siteSeo';
+import { getCanonicalUrl, createCollectionPageSchema, createBreadcrumbSchema } from '@/lib/siteSeo';
 import Procedures from '@/views/Procedures';
 import JsonLd from '@/components/JsonLd';
 
@@ -18,8 +14,7 @@ export const metadata = {
   },
   openGraph: {
     title: 'Medical Procedures | MyHealth Haven',
-    description:
-      'Browse medical procedures available through MyHealth Haven in Mexico.',
+    description: 'Browse medical procedures available through MyHealth Haven in Mexico.',
     url: canonical,
   },
 };

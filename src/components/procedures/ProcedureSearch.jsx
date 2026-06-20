@@ -30,26 +30,26 @@ const ProcedureSearch = ({ onSearch, initialValue = '' }) => {
   return (
     <TextField
       fullWidth
-      variant="outlined"
-      placeholder={t('proceduresPage.searchPlaceholder') || "Search procedures, tags..."}
+      variant='outlined'
+      placeholder={t('proceduresPage.searchPlaceholder') || 'Search procedures, tags...'}
       value={value}
       onChange={(e) => setValue(e.target.value)}
-      sx={{ 
+      sx={{
         bgcolor: 'background.paper',
         borderRadius: 2,
         '& .MuiOutlinedInput-root': {
           borderRadius: 2,
-        }
+        },
       }}
       InputProps={{
         startAdornment: (
-          <InputAdornment position="start">
-            <SearchIcon color="action" />
+          <InputAdornment position='start'>
+            <SearchIcon color='action' />
           </InputAdornment>
         ),
         endAdornment: value && (
-          <InputAdornment position="end">
-            <IconButton onClick={handleClear} edge="end" size="small">
+          <InputAdornment position='end'>
+            <IconButton onClick={handleClear} edge='end' size='small'>
               <ClearIcon />
             </IconButton>
           </InputAdornment>

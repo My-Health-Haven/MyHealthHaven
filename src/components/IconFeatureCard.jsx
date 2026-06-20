@@ -48,7 +48,7 @@ const IconFeatureCard = ({
       }}
     >
       {disableBubble ? (
-        <Box sx={{ mb: 2, flexShrink: 0 }} aria-hidden="true">
+        <Box sx={{ mb: 2, flexShrink: 0 }} aria-hidden='true'>
           {React.isValidElement(icon)
             ? React.cloneElement(icon, {
                 sx: { fontSize: 40, color: accent, ...(icon.props?.sx || {}) },
@@ -70,7 +70,7 @@ const IconFeatureCard = ({
             mb: 2,
             flexShrink: 0,
           }}
-          aria-hidden="true"
+          aria-hidden='true'
         >
           {React.isValidElement(icon)
             ? React.cloneElement(icon, {
@@ -92,7 +92,11 @@ const IconFeatureCard = ({
         {title}
       </Typography>
       {description && (
-        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.55, fontSize: '0.83rem' }}>
+        <Typography
+          variant='body2'
+          color='text.secondary'
+          sx={{ lineHeight: 1.55, fontSize: '0.83rem' }}
+        >
           {description}
         </Typography>
       )}

@@ -1,11 +1,6 @@
 'use client';
 import React from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-} from '@mui/material';
+import { Box, Container, Typography, Button } from '@mui/material';
 import Link from 'next/link';
 import FadeIn from '@/components/FadeIn';
 import GlassCard from '@/components/GlassCard';
@@ -17,10 +12,7 @@ const MedicalCareTimelineSection = () => {
 
   return (
     <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'white' }}>
-      <Container
-        maxWidth={false}
-        sx={{ px: { xs: 2, md: 4, lg: 6 } }}
-      >
+      <Container maxWidth={false} sx={{ px: { xs: 2, md: 4, lg: 6 } }}>
         <FadeIn>
           <MedicalCareTimeline />
         </FadeIn>
@@ -36,13 +28,13 @@ const MedicalCareTimelineSection = () => {
                 borderColor: 'primary.main',
               }}
             >
-              <Typography variant="h5" gutterBottom color="primary.dark">
+              <Typography variant='h5' gutterBottom color='primary.dark'>
                 {t('medicalTravelPage.timelineConclusion.title')}
               </Typography>
-              <Typography variant="subtitle1" fontWeight="bold" paragraph>
+              <Typography variant='subtitle1' fontWeight='bold' paragraph>
                 {t('medicalTravelPage.timelineConclusion.subtitle')}
               </Typography>
-              <Typography variant="body1">
+              <Typography variant='body1'>
                 {t('medicalTravelPage.timelineConclusion.description')}
               </Typography>
             </GlassCard>
@@ -50,11 +42,11 @@ const MedicalCareTimelineSection = () => {
 
           <Box sx={{ textAlign: 'center', mt: 8 }}>
             <Button
-              variant="contained"
-              size="large"
-              color="primary"
+              variant='contained'
+              size='large'
+              color='primary'
               component={Link}
-              href="/schedule"
+              href='/schedule'
               sx={{
                 py: 2,
                 px: 6,

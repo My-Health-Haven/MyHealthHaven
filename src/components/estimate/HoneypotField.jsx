@@ -3,13 +3,13 @@ import React from 'react';
 
 const HoneypotField = ({ value, onChange }) => (
   <input
-    type="text"
-    name="website"
+    type='text'
+    name='website'
     value={value}
     onChange={onChange}
-    autoComplete="off"
+    autoComplete='off'
     tabIndex={-1}
-    aria-hidden="true"
+    aria-hidden='true'
     style={{
       position: 'absolute',
       left: '-9999px',

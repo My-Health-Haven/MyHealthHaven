@@ -1,10 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-} from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import FadeIn from '@/components/FadeIn';
 import { useLanguage } from '@/context/LanguageContext';
 
@@ -14,10 +10,7 @@ const OperationsMapSection = () => {
 
   return (
     <Box sx={{ py: { xs: 6, md: 10 }, bgcolor: 'transparent' }}>
-      <Container
-        maxWidth={false}
-        sx={{ px: { xs: 2, md: 6, lg: 10 } }}
-      >
+      <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
         <Box sx={{ maxWidth: 'xl', mx: 'auto' }}>
           <FadeIn delay={200}>
             <Box
@@ -32,14 +25,14 @@ const OperationsMapSection = () => {
               }}
             >
               <iframe
-                src="https://www.google.com/maps/d/embed?mid=1LWn2Sx3NCenBN4f_Wabr45-v7hhciJY&ehbc=2E312F&noprof=1"
-                width="100%"
-                height="100%"
+                src='https://www.google.com/maps/d/embed?mid=1LWn2Sx3NCenBN4f_Wabr45-v7hhciJY&ehbc=2E312F&noprof=1'
+                width='100%'
+                height='100%'
                 style={{
                   border: 0,
                   pointerEvents: mapActive ? 'auto' : 'none',
                 }}
-                title="MyHealth Haven Operations Map"
+                title='MyHealth Haven Operations Map'
               />
               {!mapActive && (
                 <Box
@@ -67,8 +60,7 @@ const OperationsMapSection = () => {
                       boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
                     }}
                   >
-                    {t('medicalTravelPage.mapActivate') ||
-                      'Click to interact with map'}
+                    {t('medicalTravelPage.mapActivate') || 'Click to interact with map'}
                   </Typography>
                 </Box>
               )}

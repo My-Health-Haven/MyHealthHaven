@@ -13,8 +13,7 @@ export const metadata = {
   },
   openGraph: {
     title: 'Schedule a Consultation | MyHealth Haven',
-    description:
-      'Schedule a free consultation with a MyHealth Haven health navigator.',
+    description: 'Schedule a free consultation with a MyHealth Haven health navigator.',
     url: canonical,
   },
 };

@@ -1,3 +1,7 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
+
+const projectRoot = dirname(fileURLToPath(import.meta.url));
 const isDev = process.env.NODE_ENV !== 'production';
 
 const scriptSrc = [
@@ -45,6 +49,10 @@ const contentSecurityPolicy = [
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+
+  // Pin the workspace root so Turbopack ignores unrelated lockfiles elsewhere
+  // on the machine (e.g. a stray package-lock.json in the user's home dir).
+  turbopack: { root: projectRoot },
 
   async redirects() {
     return [

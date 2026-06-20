@@ -1,38 +1,32 @@
 import React from 'react';
-import {
-  HeartPulse,
-  Bone,
-  ShieldCheck,
-  Sparkles,
-  Venus,
-} from 'lucide-react';
+import { HeartPulse, Bone, ShieldCheck, Sparkles, Venus } from 'lucide-react';
 
 const ToothIcon = (props) => (
   <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth='2'
+    strokeLinecap='round'
+    strokeLinejoin='round'
     {...props}
   >
-    <path d="M12 2c-3.5 0-6 2-6 5 0 2 .5 3 1 5l1 4c.3 1.2 1 4 2.5 4 1 0 1-1 1.5-3l.5-2c.2-.7.5-1 1-1s.8.3 1 1l.5 2c.5 2 .5 3 1.5 3 1.5 0 2.2-2.8 2.5-4l1-4c.5-2 1-3 1-5 0-3-2.5-5-6-5z" />
+    <path d='M12 2c-3.5 0-6 2-6 5 0 2 .5 3 1 5l1 4c.3 1.2 1 4 2.5 4 1 0 1-1 1.5-3l.5-2c.2-.7.5-1 1-1s.8.3 1 1l.5 2c.5 2 .5 3 1.5 3 1.5 0 2.2-2.8 2.5-4l1-4c.5-2 1-3 1-5 0-3-2.5-5-6-5z' />
   </svg>
 );
 
 const StomachIcon = (props) => (
   <svg
-    viewBox="0 0 24 24"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
+    viewBox='0 0 24 24'
+    fill='none'
+    stroke='currentColor'
+    strokeWidth='2'
+    strokeLinecap='round'
+    strokeLinejoin='round'
     {...props}
   >
-    <path d="M9 3v3a3 3 0 0 1-3 3H5a2 2 0 0 0-2 2v2a6 6 0 0 0 6 6h4a7 7 0 0 0 7-7V8a5 5 0 0 0-5-5h-3a3 3 0 0 0-3 3" />
-    <path d="M15 13a2 2 0 1 1-4 0" />
+    <path d='M9 3v3a3 3 0 0 1-3 3H5a2 2 0 0 0-2 2v2a6 6 0 0 0 6 6h4a7 7 0 0 0 7-7V8a5 5 0 0 0-5-5h-3a3 3 0 0 0-3 3' />
+    <path d='M15 13a2 2 0 1 1-4 0' />
   </svg>
 );
 

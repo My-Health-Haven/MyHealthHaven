@@ -7,7 +7,10 @@ const hexToRgba = (hex, alpha) => {
   const value = hex.replace('#', '');
   const normalized =
     value.length === 3
-      ? value.split('').map((c) => c + c).join('')
+      ? value
+          .split('')
+          .map((c) => c + c)
+          .join('')
       : value;
   const r = parseInt(normalized.slice(0, 2), 16);
   const g = parseInt(normalized.slice(2, 4), 16);
@@ -15,7 +18,7 @@ const hexToRgba = (hex, alpha) => {
   return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
 
-const ProcedureRow = ({ procedure, accentColor, accentBgColor }) => {
+const ProcedureRow = ({ procedure, accentColor }) => {
   const { procedure_name, description } = procedure;
   const [expanded, setExpanded] = useState(false);
   const hasDescription = Boolean(description && description.trim());
@@ -61,7 +64,7 @@ const ProcedureRow = ({ procedure, accentColor, accentBgColor }) => {
             : undefined,
         }}
       >
-        <Typography variant="body1" fontWeight={600} color="text.primary">
+        <Typography variant='body1' fontWeight={600} color='text.primary'>
           {procedure_name}
         </Typography>
 
@@ -81,13 +84,13 @@ const ProcedureRow = ({ procedure, accentColor, accentBgColor }) => {
               flexShrink: 0,
             }}
           >
-            <KeyboardArrowDownIcon fontSize="small" />
+            <KeyboardArrowDownIcon fontSize='small' />
           </Box>
         )}
       </Box>
 
       {hasDescription && (
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <Collapse in={expanded} timeout='auto' unmountOnExit>
           <Box
             style={{
               borderLeft: `3px solid ${accentColor || '#64748B'}`,
@@ -103,7 +106,7 @@ const ProcedureRow = ({ procedure, accentColor, accentBgColor }) => {
             }}
           >
             <Typography
-              variant="overline"
+              variant='overline'
               sx={{
                 display: 'block',
                 color: accentColor || 'text.secondary',
@@ -117,7 +120,7 @@ const ProcedureRow = ({ procedure, accentColor, accentBgColor }) => {
               About this procedure
             </Typography>
             <Typography
-              variant="body2"
+              variant='body2'
               sx={{
                 color: 'text.primary',
                 lineHeight: 1.65,

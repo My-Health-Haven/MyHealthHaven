@@ -1,11 +1,6 @@
 'use client';
 import React from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-} from '@mui/material';
+import { Box, Container, Typography, Button } from '@mui/material';
 import Link from 'next/link';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import FadeIn from '@/components/FadeIn';
@@ -45,7 +40,7 @@ const MedicalTravelHero = () => {
         <Box sx={{ maxWidth: 900, mx: 'auto', textAlign: 'center' }}>
           <FadeIn>
             <Typography
-              variant="h1"
+              variant='h1'
               sx={{
                 color: 'white',
                 fontWeight: 700,
@@ -58,7 +53,7 @@ const MedicalTravelHero = () => {
               {t('medicalTravelPage.title')}
             </Typography>
             <Typography
-              variant="h5"
+              variant='h5'
               sx={{
                 maxWidth: 760,
                 mx: 'auto',
@@ -71,11 +66,11 @@ const MedicalTravelHero = () => {
               {t('medicalTravelPage.subtitle')}
             </Typography>
             <Button
-              variant="contained"
-              size="large"
-              color="primary"
+              variant='contained'
+              size='large'
+              color='primary'
               component={Link}
-              href="/schedule"
+              href='/schedule'
               startIcon={<CalendarMonthIcon />}
               sx={{
                 mt: 2,

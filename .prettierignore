@@ -1,0 +1,13 @@
+# Build output & dependencies
+.next
+dist
+node_modules
+
+# Generated test coverage reports
+coverage
+
+# Generated / vendored static assets
+public/employers-word-embed-demo.html
+
+# Lockfiles
+package-lock.json

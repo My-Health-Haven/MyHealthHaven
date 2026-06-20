@@ -144,11 +144,11 @@ const About = () => {
           },
         }}
       >
-        <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <Container maxWidth='lg' sx={{ position: 'relative', zIndex: 1 }}>
           <FadeIn>
             <Box sx={{ textAlign: 'center', maxWidth: 860, mx: 'auto', mb: { xs: 5, md: 7 } }}>
               <Typography
-                variant="overline"
+                variant='overline'
                 sx={{
                   color: 'primary.dark',
                   letterSpacing: 2.6,
@@ -157,19 +157,19 @@ const About = () => {
               >
                 {content.eyebrow}
               </Typography>
-              <Typography variant="h1" sx={{ mt: 1.5, mb: 3 }}>
+              <Typography variant='h1' sx={{ mt: 1.5, mb: 3 }}>
                 {content.title}
               </Typography>
               <Typography
-                variant="h5"
-                color="text.secondary"
+                variant='h5'
+                color='text.secondary'
                 sx={{ lineHeight: 1.75, maxWidth: 820, mx: 'auto' }}
               >
                 {content.intro}
               </Typography>
               {content.introFollow && (
                 <Typography
-                  variant="h5"
+                  variant='h5'
                   sx={{ mt: 3, fontWeight: 700, color: 'primary.dark', maxWidth: 820, mx: 'auto' }}
                 >
                   {content.introFollow}
@@ -190,12 +190,12 @@ const About = () => {
               }}
             >
               <Box sx={{ maxWidth: 760, mb: { xs: 3, md: 4 } }}>
-                <Typography variant="h3" gutterBottom>
+                <Typography variant='h3' gutterBottom>
                   {content.sectionTitle}
                 </Typography>
                 <Typography
-                  variant="body1"
-                  color="text.secondary"
+                  variant='body1'
+                  color='text.secondary'
                   sx={{ fontSize: '1.05rem', lineHeight: 1.8 }}
                 >
                   {content.sectionIntro}
@@ -207,7 +207,7 @@ const About = () => {
                   <Grid size={{ xs: 12, sm: 6 }} key={pillar.label || pillar}>
                     <Box sx={featureCardSx}>
                       <Typography
-                        variant="overline"
+                        variant='overline'
                         sx={{
                           display: 'block',
                           color: 'primary.main',
@@ -219,17 +219,13 @@ const About = () => {
                         {String(index + 1).padStart(2, '0')}
                       </Typography>
                       <Typography
-                        variant="body1"
+                        variant='body1'
                         sx={{ fontWeight: 700, lineHeight: 1.7, color: 'text.primary', mb: 1 }}
                       >
                         {pillar.label || pillar}
                       </Typography>
                       {pillar.description && (
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                          sx={{ lineHeight: 1.7 }}
-                        >
+                        <Typography variant='body2' color='text.secondary' sx={{ lineHeight: 1.7 }}>
                           {pillar.description}
                         </Typography>
                       )}
@@ -245,28 +241,34 @@ const About = () => {
                   borderTop: '1px solid rgba(0,137,123,0.12)',
                 }}
               >
-                <Grid container spacing={3} alignItems="center">
+                <Grid container spacing={3} alignItems='center'>
                   <Grid size={{ xs: 12, md: 8 }}>
-                    <Typography variant="h3" gutterBottom>
+                    <Typography variant='h3' gutterBottom>
                       {content.promiseTitle}
                     </Typography>
                     <Typography
-                      variant="body1"
-                      sx={{ fontSize: '1.05rem', lineHeight: 1.8, mb: 2, fontWeight: 700, color: 'text.primary' }}
+                      variant='body1'
+                      sx={{
+                        fontSize: '1.05rem',
+                        lineHeight: 1.8,
+                        mb: 2,
+                        fontWeight: 700,
+                        color: 'text.primary',
+                      }}
                     >
                       {content.closing}
                     </Typography>
                     {content.closingBody && (
                       <Typography
-                        variant="body1"
-                        color="text.secondary"
+                        variant='body1'
+                        color='text.secondary'
                         sx={{ fontSize: '1.05rem', lineHeight: 1.8, mb: 2 }}
                       >
                         {content.closingBody}
                       </Typography>
                     )}
                     <Typography
-                      variant="body1"
+                      variant='body1'
                       sx={{ color: 'primary.dark', fontWeight: 700, lineHeight: 1.75 }}
                     >
                       {content.supportLine}
@@ -278,10 +280,10 @@ const About = () => {
                       spacing={2}
                       sx={{ height: '100%', justifyContent: 'center' }}
                     >
-                      <Button variant="contained" size="large" component={Link} href="/estimate">
+                      <Button variant='contained' size='large' component={Link} href='/estimate'>
                         {content.estimateCta}
                       </Button>
-                      <Button variant="outlined" size="large" component={Link} href="/schedule">
+                      <Button variant='outlined' size='large' component={Link} href='/schedule'>
                         {content.contactCta}
                       </Button>
                     </Stack>

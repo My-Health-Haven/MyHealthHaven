@@ -108,12 +108,19 @@ const TermsOfUse = () => {
   return (
     <>
       <Box sx={{ py: 12 }}>
-        <Container maxWidth="md">
-           <FadeIn>
-            <Box sx={{ '& h1': { fontSize: '2.5rem', mb: 2 }, '& h2': { fontSize: '1.5rem', mt: 4, mb: 2 }, '& p': { mb: 2 }, '& ul': { mb: 2, pl: 4 } }}>
+        <Container maxWidth='md'>
+          <FadeIn>
+            <Box
+              sx={{
+                '& h1': { fontSize: '2.5rem', mb: 2 },
+                '& h2': { fontSize: '1.5rem', mt: 4, mb: 2 },
+                '& p': { mb: 2 },
+                '& ul': { mb: 2, pl: 4 },
+              }}
+            >
               <ReactMarkdown>{content}</ReactMarkdown>
             </Box>
-           </FadeIn>
+          </FadeIn>
         </Container>
       </Box>
     </>
@@ -121,4 +128,3 @@ const TermsOfUse = () => {
 };
 
 export default TermsOfUse;
-

@@ -46,7 +46,7 @@ const Navbar = () => {
     }
     setEmailCopied(true);
   };
-  
+
   // State for Home Dropdown
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -123,29 +123,29 @@ const Navbar = () => {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', pt: 4 }}>
       <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
-        <Image src="/logo.png" width={50} height={50} alt="MyHealth Haven Logo" priority />
+        <Image src='/logo.png' width={50} height={50} alt='MyHealth Haven Logo' priority />
       </Box>
-      <Typography variant="h6" sx={{ mb: 2, color: 'primary.main', fontWeight: 'bold' }}>
+      <Typography variant='h6' sx={{ mb: 2, color: 'primary.main', fontWeight: 'bold' }}>
         MyHealth Haven
       </Typography>
       <Divider sx={{ mb: 2 }} />
       <List>
         <ListItem disablePadding sx={{ justifyContent: 'center', mb: 2 }}>
-           <Button 
-             onClick={(e) => {
-               e.stopPropagation();
-               toggleLanguage();
-             }}
-             variant="text" 
-             color="primary"
-           >
-             {language === 'en' ? 'Spanish' : 'English'}
-           </Button>
+          <Button
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleLanguage();
+            }}
+            variant='text'
+            color='primary'
+          >
+            {language === 'en' ? 'Spanish' : 'English'}
+          </Button>
         </ListItem>
         <ListItem disablePadding>
-            <ListItemButton component={Link} href="/" sx={{ textAlign: 'center' }}>
-              <ListItemText primary={t('navbar.home')} />
-            </ListItemButton>
+          <ListItemButton component={Link} href='/' sx={{ textAlign: 'center' }}>
+            <ListItemText primary={t('navbar.home')} />
+          </ListItemButton>
         </ListItem>
         {navItems.map((item) => (
           <ListItem key={item.href} disablePadding>
@@ -155,22 +155,22 @@ const Navbar = () => {
           </ListItem>
         ))}
         <ListItem disablePadding>
-            <ListItemButton component={Link} href="/#faq" sx={{ textAlign: 'center' }}>
-              <ListItemText primary="FAQ" />
-            </ListItemButton>
+          <ListItemButton component={Link} href='/#faq' sx={{ textAlign: 'center' }}>
+            <ListItemText primary='FAQ' />
+          </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-            <ListItemButton component={Link} href="/schedule" sx={{ textAlign: 'center' }}>
-              <ListItemText primary={t('navbar.schedule')} />
-            </ListItemButton>
+          <ListItemButton component={Link} href='/schedule' sx={{ textAlign: 'center' }}>
+            <ListItemText primary={t('navbar.schedule')} />
+          </ListItemButton>
         </ListItem>
         <ListItem disablePadding sx={{ px: 2, mt: 2 }}>
           <Button
             fullWidth
-            variant="contained"
-            color="primary"
+            variant='contained'
+            color='primary'
             component={Link}
-            href="/estimate"
+            href='/estimate'
             sx={{ boxShadow: 'none', '&:hover': { boxShadow: 'none' }, color: 'white' }}
           >
             {t('navbar.freeEstimate')}
@@ -182,185 +182,215 @@ const Navbar = () => {
 
   return (
     <>
-    <Box sx={{ bgcolor: 'primary.main', color: 'white', py: 0.5 }}>
-        <Container maxWidth="xl">
-            <Stack direction="row" spacing={3} justifyContent="flex-start" alignItems="center">
-                <Stack direction="row" spacing={1} alignItems="center">
-                    <PhoneIcon fontSize="small" sx={{ fontSize: 16, display: { xs: 'none', sm: 'inline-flex' } }} />
-                    <Typography variant="caption" component="a" href="tel:+12142763928" sx={{ color: 'white', textDecoration: 'none', fontWeight: 500, fontSize: { xs: '0.68rem', sm: '0.75rem' } }}>
-                        +1 (214) 276 3928
-                    </Typography>
-                </Stack>
-                <Stack direction="row" spacing={1} alignItems="center">
-                    <EmailIcon fontSize="small" sx={{ fontSize: 16, display: { xs: 'none', sm: 'inline-flex' } }} />
-                    <Typography variant="caption" component="a" href={`mailto:${HEALTH_NAVIGATOR_EMAIL}`} onClick={handleEmailClick} sx={{ color: 'white', textDecoration: 'none', fontWeight: 500, fontSize: { xs: '0.68rem', sm: '0.75rem' } }}>
-                        {HEALTH_NAVIGATOR_EMAIL}
-                    </Typography>
-                </Stack>
-            </Stack>
-        </Container>
-    </Box>
-    <AppBar position="sticky" color="transparent" elevation={0} sx={navSurfaceStyles}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <Typography
-            variant="h6"
-            component={Link}
-            href="/"
-            sx={{
-              flexGrow: 1,
-              display: 'flex',
-              alignItems: 'center',
-              textDecoration: 'none',
-              color: useInverseNav ? 'common.white' : 'primary.main',
-              fontWeight: 800,
-              letterSpacing: '-0.02em',
-              transition: 'color 0.2s ease',
-            }}
-          >
-            <Box sx={{ mr: 1.5, display: 'flex', flexShrink: 0 }}>
-              <Image src="/logo.png" width={40} height={40} alt="MyHealth Haven Logo" priority />
-            </Box>
-            MyHealth Haven
-          </Typography>
-
-          {isMobile ? (
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ color: useInverseNav ? 'common.white' : 'text.primary' }}
-            >
-              <MenuIcon sx={{ fontSize: '1.25rem' }} />
-            </IconButton>
-          ) : (
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-              
-              {/* Home Dropdown - Split Button */}
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                <Button
-                  component={Link}
-                  href="/"
-                  sx={{
-                    color: pathname === '/' ? navActiveColor : navTextColor,
-                    fontWeight: pathname === '/' ? 700 : 500,
-                    '&:hover': { color: navHoverColor, bgcolor: 'transparent' },
-                    minWidth: 'auto',
-                    mr: 0.5,
-                  }}
-                >
-                  {t('navbar.home')}
-                </Button>
-                <IconButton
-                  id="home-menu-button"
-                  aria-controls={open ? 'home-menu' : undefined}
-                  aria-haspopup="true"
-                  aria-expanded={open ? 'true' : undefined}
-                  onClick={handleMenuClick}
-                  size="small"
-                  sx={{
-                     color: open ? navActiveColor : navMutedTextColor,
-                     '&:hover': { color: navHoverColor }
-                  }}
-                >
-                  <ExpandMoreIcon />
-                </IconButton>
-
-                <Menu
-                  id="home-menu"
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleMenuClose}
-                  MenuListProps={{
-                    'aria-labelledby': 'home-menu-button',
-                  }}
-                >
-                   <MenuItem onClick={handleMenuClose} component={Link} href="/#faq">
-                    FAQ
-                  </MenuItem>
-                </Menu>
-              </Box>
-
-              {navItems.map((item) => (
-                <Button
-                  key={item.href}
-                  component={Link}
-                  href={item.href}
-                  sx={{
-                    color: pathname === item.href ? navActiveColor : navTextColor,
-                    fontWeight: pathname === item.href ? 700 : 500,
-                    '&:hover': { color: navHoverColor, bgcolor: 'transparent' },
-                  }}
-                >
-                  {item.label}
-                </Button>
-              ))}
-
-              <Button
-                component={Link}
-                href="/schedule"
+      <Box sx={{ bgcolor: 'primary.main', color: 'white', py: 0.5 }}>
+        <Container maxWidth='xl'>
+          <Stack direction='row' spacing={3} justifyContent='flex-start' alignItems='center'>
+            <Stack direction='row' spacing={1} alignItems='center'>
+              <PhoneIcon
+                fontSize='small'
+                sx={{ fontSize: 16, display: { xs: 'none', sm: 'inline-flex' } }}
+              />
+              <Typography
+                variant='caption'
+                component='a'
+                href='tel:+12142763928'
                 sx={{
+                  color: 'white',
+                  textDecoration: 'none',
+                  fontWeight: 500,
+                  fontSize: { xs: '0.68rem', sm: '0.75rem' },
+                }}
+              >
+                +1 (214) 276 3928
+              </Typography>
+            </Stack>
+            <Stack direction='row' spacing={1} alignItems='center'>
+              <EmailIcon
+                fontSize='small'
+                sx={{ fontSize: 16, display: { xs: 'none', sm: 'inline-flex' } }}
+              />
+              <Typography
+                variant='caption'
+                component='a'
+                href={`mailto:${HEALTH_NAVIGATOR_EMAIL}`}
+                onClick={handleEmailClick}
+                sx={{
+                  color: 'white',
+                  textDecoration: 'none',
+                  fontWeight: 500,
+                  fontSize: { xs: '0.68rem', sm: '0.75rem' },
+                }}
+              >
+                {HEALTH_NAVIGATOR_EMAIL}
+              </Typography>
+            </Stack>
+          </Stack>
+        </Container>
+      </Box>
+      <AppBar position='sticky' color='transparent' elevation={0} sx={navSurfaceStyles}>
+        <Container maxWidth='xl'>
+          <Toolbar disableGutters>
+            <Typography
+              variant='h6'
+              component={Link}
+              href='/'
+              sx={{
+                flexGrow: 1,
+                display: 'flex',
+                alignItems: 'center',
+                textDecoration: 'none',
+                color: useInverseNav ? 'common.white' : 'primary.main',
+                fontWeight: 800,
+                letterSpacing: '-0.02em',
+                transition: 'color 0.2s ease',
+              }}
+            >
+              <Box sx={{ mr: 1.5, display: 'flex', flexShrink: 0 }}>
+                <Image src='/logo.png' width={40} height={40} alt='MyHealth Haven Logo' priority />
+              </Box>
+              MyHealth Haven
+            </Typography>
+
+            {isMobile ? (
+              <IconButton
+                color='inherit'
+                aria-label='open drawer'
+                edge='start'
+                onClick={handleDrawerToggle}
+                sx={{ color: useInverseNav ? 'common.white' : 'text.primary' }}
+              >
+                <MenuIcon sx={{ fontSize: '1.25rem' }} />
+              </IconButton>
+            ) : (
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                {/* Home Dropdown - Split Button */}
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Button
+                    component={Link}
+                    href='/'
+                    sx={{
+                      color: pathname === '/' ? navActiveColor : navTextColor,
+                      fontWeight: pathname === '/' ? 700 : 500,
+                      '&:hover': { color: navHoverColor, bgcolor: 'transparent' },
+                      minWidth: 'auto',
+                      mr: 0.5,
+                    }}
+                  >
+                    {t('navbar.home')}
+                  </Button>
+                  <IconButton
+                    id='home-menu-button'
+                    aria-controls={open ? 'home-menu' : undefined}
+                    aria-haspopup='true'
+                    aria-expanded={open ? 'true' : undefined}
+                    onClick={handleMenuClick}
+                    size='small'
+                    sx={{
+                      color: open ? navActiveColor : navMutedTextColor,
+                      '&:hover': { color: navHoverColor },
+                    }}
+                  >
+                    <ExpandMoreIcon />
+                  </IconButton>
+
+                  <Menu
+                    id='home-menu'
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleMenuClose}
+                    MenuListProps={{
+                      'aria-labelledby': 'home-menu-button',
+                    }}
+                  >
+                    <MenuItem onClick={handleMenuClose} component={Link} href='/#faq'>
+                      FAQ
+                    </MenuItem>
+                  </Menu>
+                </Box>
+
+                {navItems.map((item) => (
+                  <Button
+                    key={item.href}
+                    component={Link}
+                    href={item.href}
+                    sx={{
+                      color: pathname === item.href ? navActiveColor : navTextColor,
+                      fontWeight: pathname === item.href ? 700 : 500,
+                      '&:hover': { color: navHoverColor, bgcolor: 'transparent' },
+                    }}
+                  >
+                    {item.label}
+                  </Button>
+                ))}
+
+                <Button
+                  component={Link}
+                  href='/schedule'
+                  sx={{
                     color: pathname === '/schedule' ? navActiveColor : navTextColor,
                     fontWeight: pathname === '/schedule' ? 700 : 500,
                     '&:hover': { color: navHoverColor, bgcolor: 'transparent' },
-                }}
-              >
-                {t('navbar.schedule')}
-              </Button>
+                  }}
+                >
+                  {t('navbar.schedule')}
+                </Button>
 
-              <Button
-                onClick={toggleLanguage}
-                sx={{
-                  color: navTextColor,
-                  fontWeight: 500,
-                  '&:hover': { color: navHoverColor, bgcolor: 'transparent' },
-                }}
-              >
-                {language === 'en' ? 'Spanish' : 'English'}
-              </Button>
+                <Button
+                  onClick={toggleLanguage}
+                  sx={{
+                    color: navTextColor,
+                    fontWeight: 500,
+                    '&:hover': { color: navHoverColor, bgcolor: 'transparent' },
+                  }}
+                >
+                  {language === 'en' ? 'Spanish' : 'English'}
+                </Button>
 
-              <Button
-                variant="contained"
-                color="primary"
-                component={Link}
-                href="/estimate"
-                sx={{ ml: 2, boxShadow: 'none', '&:hover': { boxShadow: 'none' }, color: 'white' }}
-              >
-                {t('navbar.freeEstimate')}
-              </Button>
-
-            </Box>
-          )}
-        </Toolbar>
-      </Container>
-      <Drawer
-        variant="temporary"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
-        }}
-        anchor="right"
-        sx={{
-          display: { xs: 'block', md: 'none' },
-          '& .MuiDrawer-paper': {
-            boxSizing: 'border-box',
-            width: 240,
-            bgcolor: 'rgba(255, 255, 255, 0.8)',
-            backdropFilter: 'blur(12px)',
-          },
-        }}
-      >
-        {drawer}
-      </Drawer>
-    </AppBar>
-    <Snackbar
-      open={emailCopied}
-      autoHideDuration={2500}
-      onClose={() => setEmailCopied(false)}
-      message={language === 'es' ? 'Correo copiado al portapapeles' : 'Email copied to clipboard'}
-    />
+                <Button
+                  variant='contained'
+                  color='primary'
+                  component={Link}
+                  href='/estimate'
+                  sx={{
+                    ml: 2,
+                    boxShadow: 'none',
+                    '&:hover': { boxShadow: 'none' },
+                    color: 'white',
+                  }}
+                >
+                  {t('navbar.freeEstimate')}
+                </Button>
+              </Box>
+            )}
+          </Toolbar>
+        </Container>
+        <Drawer
+          variant='temporary'
+          open={mobileOpen}
+          onClose={handleDrawerToggle}
+          ModalProps={{
+            keepMounted: true, // Better open performance on mobile.
+          }}
+          anchor='right'
+          sx={{
+            display: { xs: 'block', md: 'none' },
+            '& .MuiDrawer-paper': {
+              boxSizing: 'border-box',
+              width: 240,
+              bgcolor: 'rgba(255, 255, 255, 0.8)',
+              backdropFilter: 'blur(12px)',
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
+      </AppBar>
+      <Snackbar
+        open={emailCopied}
+        autoHideDuration={2500}
+        onClose={() => setEmailCopied(false)}
+        message={language === 'es' ? 'Correo copiado al portapapeles' : 'Email copied to clipboard'}
+      />
     </>
   );
 };

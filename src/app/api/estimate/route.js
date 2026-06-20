@@ -1,7 +1,11 @@
+import { createHash } from 'node:crypto';
 import { resolve4, resolve6, resolveMx } from 'node:dns/promises';
 import { isValidEmail, isValidPhone, sanitizePhone } from '@/lib/validation';
 
 const RESEND_API_URL = 'https://api.resend.com/emails';
+// Resend delivery is retried on transient upstream failures (429 / 5xx / network).
+const RESEND_MAX_RETRIES = 2;
+const RESEND_RETRY_BASE_MS = 300;
 const DEFAULT_TO_EMAIL = 'healthnavigator@andersonlg.com';
 const DEFAULT_FROM_EMAIL = 'onboarding@resend.dev';
 const RATE_LIMIT_WINDOW_MS = 60_000;
@@ -10,10 +14,21 @@ const EMAIL_VERIFIER_DEFAULT_URL = 'https://emailvalidation.abstractapi.com/v1/'
 const EMAIL_VERIFIER_DEFAULT_HOST = 'emailvalidation.abstractapi.com';
 const EMAIL_VERIFIER_TIMEOUT_MS = 3_500;
 const DISPOSABLE_EMAIL_DOMAINS = new Set([
-  '10minutemail.com', 'dispostable.com', 'fakeinbox.com', 'guerrillamail.com',
-  'maildrop.cc', 'mailinator.com', 'mailnesia.com', 'mintemail.com',
-  'sharklasers.com', 'temp-mail.io', 'temp-mail.org', 'tempmail.com',
-  'throwawaymail.com', 'trashmail.com', 'yopmail.com',
+  '10minutemail.com',
+  'dispostable.com',
+  'fakeinbox.com',
+  'guerrillamail.com',
+  'maildrop.cc',
+  'mailinator.com',
+  'mailnesia.com',
+  'mintemail.com',
+  'sharklasers.com',
+  'temp-mail.io',
+  'temp-mail.org',
+  'tempmail.com',
+  'throwawaymail.com',
+  'trashmail.com',
+  'yopmail.com',
 ]);
 
 const ipSubmissionLog = new Map();
@@ -43,9 +58,58 @@ const withTimeout = async (promiseFactory, timeoutMs) => {
     const timer = setTimeout(() => reject(new Error('timeout')), timeout);
     Promise.resolve()
       .then(promiseFactory)
-      .then((value) => { clearTimeout(timer); resolve(value); })
-      .catch((error) => { clearTimeout(timer); reject(error); });
+      .then((value) => {
+        clearTimeout(timer);
+        resolve(value);
+      })
+      .catch((error) => {
+        clearTimeout(timer);
+        reject(error);
+      });
   });
+};
+
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+// Derive a stable idempotency key from the submission content so an accidental
+// double-submit of the same request is de-duplicated by Resend (24h window)
+// instead of sending the lead twice.
+const buildIdempotencyKey = (payload) =>
+  createHash('sha256')
+    .update([payload.email, payload.phone, payload.name, payload.procedure].join('|'))
+    .digest('hex')
+    .slice(0, 40);
+
+// POST to Resend with bounded exponential backoff. Retries only transient
+// failures (network error, 429, 5xx); 4xx responses are returned as-is.
+const sendResendEmail = async (emailPayload, idempotencyKey) => {
+  let lastError;
+  for (let attempt = 0; attempt <= RESEND_MAX_RETRIES; attempt += 1) {
+    try {
+      const response = await fetch(RESEND_API_URL, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+          ...(idempotencyKey ? { 'Idempotency-Key': idempotencyKey } : {}),
+        },
+        body: JSON.stringify(emailPayload),
+      });
+
+      if ((response.status === 429 || response.status >= 500) && attempt < RESEND_MAX_RETRIES) {
+        await delay(RESEND_RETRY_BASE_MS * 2 ** attempt);
+        continue;
+      }
+      return response;
+    } catch (error) {
+      lastError = error;
+      if (attempt < RESEND_MAX_RETRIES) {
+        await delay(RESEND_RETRY_BASE_MS * 2 ** attempt);
+        continue;
+      }
+    }
+  }
+  throw lastError || new Error('Resend request failed');
 };
 
 const extractEmailDomain = (email = '') => {
@@ -74,7 +138,9 @@ const verifyWithAbstractApi = async (email) => {
   if (!apiKey) return { status: 'skipped' };
 
   const verifierBaseUrl = process.env.EMAIL_VERIFIER_URL || EMAIL_VERIFIER_DEFAULT_URL;
-  const verifierTimeoutMs = Number(process.env.EMAIL_VERIFIER_TIMEOUT_MS || EMAIL_VERIFIER_TIMEOUT_MS);
+  const verifierTimeoutMs = Number(
+    process.env.EMAIL_VERIFIER_TIMEOUT_MS || EMAIL_VERIFIER_TIMEOUT_MS
+  );
 
   let verifierUrl;
   try {
@@ -91,7 +157,8 @@ const verifyWithAbstractApi = async (email) => {
 
   try {
     const response = await withTimeout(
-      () => fetch(verifierUrl.toString(), { method: 'GET', headers: { Accept: 'application/json' } }),
+      () =>
+        fetch(verifierUrl.toString(), { method: 'GET', headers: { Accept: 'application/json' } }),
       verifierTimeoutMs
     );
     if (!response.ok) return { status: 'skipped' };
@@ -356,15 +423,10 @@ export async function POST(request) {
     text: buildEmailText(payload, { submittedAt, clientIp }),
   };
 
+  const idempotencyKey = buildIdempotencyKey(payload);
+
   try {
-    const resendResponse = await fetch(RESEND_API_URL, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(emailPayload),
-    });
+    const resendResponse = await sendResendEmail(emailPayload, `${idempotencyKey}-lead`);
 
     if (!resendResponse.ok) {
       const errorText = await resendResponse.text();
@@ -379,22 +441,16 @@ export async function POST(request) {
       from: fromEmail,
       to: [payload.email],
       reply_to: toEmail,
-      subject: payload.language === 'es'
-        ? 'Recibimos su solicitud — MyHealth Haven'
-        : 'We received your request — MyHealth Haven',
+      subject:
+        payload.language === 'es'
+          ? 'Recibimos su solicitud — MyHealth Haven'
+          : 'We received your request — MyHealth Haven',
       html: buildUserConfirmationHtml(payload),
       text: buildUserConfirmationText(payload),
     };
 
     try {
-      const userResp = await fetch(RESEND_API_URL, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userConfirmationPayload),
-      });
+      const userResp = await sendResendEmail(userConfirmationPayload, `${idempotencyKey}-confirm`);
       if (!userResp.ok) {
         const txt = await userResp.text();
         console.error('Resend user confirmation error', userResp.status, txt);

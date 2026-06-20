@@ -18,8 +18,7 @@ const inter = Inter({
 export const metadata = {
   metadataBase: new URL('https://www.myhealthhaven.org'),
   title: {
-    default:
-      'MyHealth Haven | Health Navigation Between the U.S. and Mexico',
+    default: 'MyHealth Haven | Health Navigation Between the U.S. and Mexico',
     template: '%s | MyHealth Haven',
   },
   description:
@@ -68,7 +67,7 @@ const siteSchemas = [
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang='en' className={inter.variable}>
       <body style={{ margin: 0 }}>
         <JsonLd data={siteSchemas} />
         <Providers>{children}</Providers>

@@ -459,8 +459,7 @@ export const translations = {
       whyCancunTitle: 'Why Cancún',
       whyCancunPin: 'Cancún, Mexico',
       whyCancunCard1Title: 'Top-tier vetted providers',
-      whyCancunCard1Desc:
-        'Care from internationally trained, experienced medical professionals.',
+      whyCancunCard1Desc: 'Care from internationally trained, experienced medical professionals.',
       whyCancunCard2Title: 'Frequent U.S. nonstop flights',
       whyCancunCard2Desc: 'Convenient access from major U.S. cities.',
       whyCancunCard3Title: 'Minimal time-zone disruption',
@@ -470,8 +469,7 @@ export const translations = {
 
       // 3-column trust row (new redesign)
       trustUsFoundedTitle: 'U.S.-Founded',
-      trustUsFoundedDesc:
-        'Built to meet U.S. expectations for transparency, safety, and advocacy.',
+      trustUsFoundedDesc: 'Built to meet U.S. expectations for transparency, safety, and advocacy.',
       trustFocusedTitle: 'Focused Destination Model',
       trustFocusedDesc:
         'We concentrate in Cancún to ensure deeper oversight, stronger partnerships, and better outcomes.',
@@ -550,13 +548,16 @@ export const translations = {
     },
     home: {
       heroTitleBadge: 'Health Navigation\u2122 A Traves de Fronteras',
-      heroTitle: 'Atencion medica de clase mundial en Mexico, guiada por expertos de salud de EE.UU.',
+      heroTitle:
+        'Atencion medica de clase mundial en Mexico, guiada por expertos de salud de EE.UU.',
       heroSubtitle:
         'Ayudamos a los estadounidenses a acceder a medicos, hospitales y clinicas seguros y acreditados en Mexico con precios transparentes, apoyo bilingue y un Health Navigator\u2122 dedicado desde su primera pregunta hasta su recuperacion completa.',
-      problemTitle: 'Cuando la atencion medica en EE.UU. esta fuera de alcance, los pacientes se ven obligados a tomar decisiones dificiles.',
+      problemTitle:
+        'Cuando la atencion medica en EE.UU. esta fuera de alcance, los pacientes se ven obligados a tomar decisiones dificiles.',
       problemDesc:
         'Lamentablemente, muchas personas terminan posponiendo procedimientos necesarios debido a los altos costos, largos tiempos de espera o reglas de seguro confusas.',
-      solutionTitle: 'MyHealth Haven convierte el viaje medico en una experiencia guiada y transparente.',
+      solutionTitle:
+        'MyHealth Haven convierte el viaje medico en una experiencia guiada y transparente.',
       solutionDesc:
         'Conectamos los sistemas de salud de EE.UU. y Mexico, combinando los estandares estadounidenses con la excelencia clinica y la accesibilidad de Mexico.',
       chatWithNavigator: 'Chatear con un Navegador',
@@ -572,7 +573,8 @@ export const translations = {
 
       withoutGuidance: 'Sin orientacion, los pacientes enfrentan:',
       unpredictableBills: 'Facturas impredecibles y cargos sorpresa.',
-      unclearCredentials: 'Credenciales hospitalarias poco claras y estandares de control de infecciones.',
+      unclearCredentials:
+        'Credenciales hospitalarias poco claras y estandares de control de infecciones.',
       languageBarriers: 'Barreras idiomaticas y seguimiento fragmentado.',
 
       whatCanExpect: 'Lo que puede esperar:',
@@ -602,7 +604,8 @@ export const translations = {
         'Ayudamos a coordinar con sus medicos en EE.UU. antes y despues de su procedimiento para apoyar resultados seguros.',
 
       howItWorksTitle: 'Como funciona Health Navigation\u2122',
-      howItWorksSubtitle: 'Un viaje claro y guiado desde la primera pregunta hasta la recuperacion completa.',
+      howItWorksSubtitle:
+        'Un viaje claro y guiado desde la primera pregunta hasta la recuperacion completa.',
 
       step1Title: 'Hable con un Health Navigator\u2122',
       step1Body:
@@ -620,7 +623,8 @@ export const translations = {
       scheduleCall: 'Agende su llamada \u2192',
 
       testimonialsTitle: 'Salud restaurada. Confianza renovada.',
-      testimonialsSubtitle: 'Historias de pacientes que eligieron atencion transfronteriza en Cancun.',
+      testimonialsSubtitle:
+        'Historias de pacientes que eligieron atencion transfronteriza en Cancun.',
       testimonials: [
         {
           quote:
@@ -659,7 +663,8 @@ export const translations = {
           name: 'Health Navigator 1',
           title: 'Health Navigator\u2122 Senior',
           creds: 'Profesional Medico Certificado',
-          blurb: 'Ayuda a los pacientes a entender sus opciones y prepararse de forma segura para cirugia en el extranjero.',
+          blurb:
+            'Ayuda a los pacientes a entender sus opciones y prepararse de forma segura para cirugia en el extranjero.',
           img: '/healthnav1.png',
           width: 625,
           height: 625,
@@ -668,7 +673,8 @@ export const translations = {
           name: 'Health Navigator 2',
           title: 'Estratega de Viaje Medico',
           creds: 'Especialista en Salud',
-          blurb: 'Se enfoca en alinear las expectativas de calidad de EE.UU. con los socios clinicos mexicanos.',
+          blurb:
+            'Se enfoca en alinear las expectativas de calidad de EE.UU. con los socios clinicos mexicanos.',
           img: '/healthnav2.png',
           width: 625,
           height: 625,
@@ -676,7 +682,8 @@ export const translations = {
       ],
 
       whyMexicoTitle: '\u00bfPor que Mexico para atencion medica?',
-      whyMexicoSubtitle: 'Donde la medicina de primer nivel se encuentra con la hospitalidad de clase mundial.',
+      whyMexicoSubtitle:
+        'Donde la medicina de primer nivel se encuentra con la hospitalidad de clase mundial.',
       whyMexicoDesc1:
         'Los principales hospitales de Mexico ofrecen instalaciones modernas, especialistas altamente capacitados y resultados comparables a los centros de EE.UU., a menudo a una fraccion del precio.',
       whyMexicoDesc2:
@@ -983,13 +990,21 @@ export const translations = {
           timing: '1-2 Dias Antes',
           caption: 'Pruebas finales y verificacion de preparacion.',
         },
-        { title: 'Dia del Procedimiento', timing: '', caption: 'Procedimiento con atencion experta.' },
+        {
+          title: 'Dia del Procedimiento',
+          timing: '',
+          caption: 'Procedimiento con atencion experta.',
+        },
         {
           title: 'Recuperacion y Monitoreo',
           timing: '3-14 Dias',
           caption: 'Recuperacion supervisada y seguimientos.',
         },
-        { title: 'Regreso a Casa y Continuidad', timing: '', caption: 'Apoyo continuo despues del regreso.' },
+        {
+          title: 'Regreso a Casa y Continuidad',
+          timing: '',
+          caption: 'Apoyo continuo despues del regreso.',
+        },
       ],
 
       // Why Cancún card (new redesign)
@@ -1075,4 +1090,3 @@ export const translations = {
     },
   },
 };
-

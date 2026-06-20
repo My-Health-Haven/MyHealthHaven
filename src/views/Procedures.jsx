@@ -25,13 +25,7 @@ const Procedures = () => {
   const [expandedSpecialities, setExpandedSpecialities] = useState(() => new Set());
   const [viewMode, setViewMode] = useState('grid');
 
-  const {
-    procedures,
-    searchQuery,
-    selectedFilters,
-    handleSearch,
-    clearFilters,
-  } = useProcedures();
+  const { procedures, searchQuery, selectedFilters, handleSearch, clearFilters } = useProcedures();
 
   const proceduresBySpeciality = useMemo(() => {
     const groups = new Map();
@@ -127,17 +121,17 @@ const Procedures = () => {
             value={viewMode}
             exclusive
             onChange={handleViewModeChange}
-            size="small"
+            size='small'
             aria-label={language === 'es' ? 'Vista' : 'View mode'}
           >
-            <ToggleButton value="list" aria-label={language === 'es' ? 'Lista' : 'List'}>
+            <ToggleButton value='list' aria-label={language === 'es' ? 'Lista' : 'List'}>
               <Tooltip title={language === 'es' ? 'Lista' : 'List'}>
-                <ViewListRoundedIcon fontSize="small" />
+                <ViewListRoundedIcon fontSize='small' />
               </Tooltip>
             </ToggleButton>
-            <ToggleButton value="grid" aria-label={language === 'es' ? 'Cuadrícula' : 'Grid'}>
+            <ToggleButton value='grid' aria-label={language === 'es' ? 'Cuadrícula' : 'Grid'}>
               <Tooltip title={language === 'es' ? 'Cuadrícula' : 'Grid'}>
-                <GridViewRoundedIcon fontSize="small" />
+                <GridViewRoundedIcon fontSize='small' />
               </Tooltip>
             </ToggleButton>
           </ToggleButtonGroup>
@@ -154,10 +148,10 @@ const Procedures = () => {
               borderColor: 'divider',
             }}
           >
-            <Typography variant="h6" color="text.secondary" gutterBottom>
+            <Typography variant='h6' color='text.secondary' gutterBottom>
               {noResultsLabel}
             </Typography>
-            <Button variant="text" onClick={clearFilters}>
+            <Button variant='text' onClick={clearFilters}>
               {t('proceduresPage.clearAll') || 'Clear all filters'}
             </Button>
           </Box>
@@ -188,8 +182,7 @@ const Procedures = () => {
             {visibleSpecialities.map(({ meta, procedures: list }, index) => {
               const fullMeta = buildSpecialityMeta(meta);
               const isLastOddItem =
-                index === visibleSpecialities.length - 1 &&
-                visibleSpecialities.length % 2 === 1;
+                index === visibleSpecialities.length - 1 && visibleSpecialities.length % 2 === 1;
               return (
                 <Box
                   key={meta.key}
@@ -222,21 +215,21 @@ const Procedures = () => {
           }}
         >
           <Button
-            variant="contained"
-            color="primary"
-            size="large"
+            variant='contained'
+            color='primary'
+            size='large'
             component={Link}
-            href="/estimate"
+            href='/estimate'
             sx={{ px: 4, py: 1.5, fontSize: '1.1rem', fontWeight: 'bold' }}
           >
             {t('navbar.freeEstimate')}
           </Button>
           <Button
-            variant="outlined"
-            color="primary"
-            size="large"
+            variant='outlined'
+            color='primary'
+            size='large'
             component={Link}
-            href="/schedule"
+            href='/schedule'
             sx={{ px: 4, py: 1.5, fontSize: '1.1rem', fontWeight: 'bold' }}
           >
             {t('navbar.schedule')}

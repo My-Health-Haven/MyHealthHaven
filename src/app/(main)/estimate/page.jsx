@@ -1,8 +1,4 @@
-import {
-  getCanonicalUrl,
-  createContactPageSchema,
-  createBreadcrumbSchema,
-} from '@/lib/siteSeo';
+import { getCanonicalUrl, createContactPageSchema, createBreadcrumbSchema } from '@/lib/siteSeo';
 import Estimate from '@/views/Estimate';
 import JsonLd from '@/components/JsonLd';
 
@@ -18,8 +14,7 @@ export const metadata = {
   },
   openGraph: {
     title: 'Free Estimate | MyHealth Haven',
-    description:
-      'Get a free estimate for your medical procedure in Mexico.',
+    description: 'Get a free estimate for your medical procedure in Mexico.',
     url: canonical,
   },
 };

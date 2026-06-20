@@ -1,20 +1,9 @@
 import React from 'react';
-import {
-  Box,
-  Typography,
-  Collapse,
-  IconButton,
-  Paper,
-} from '@mui/material';
+import { Box, Typography, Collapse, IconButton, Paper } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import ProcedureRow from './ProcedureRow';
 
-const SpecialitySection = ({
-  speciality,
-  procedures,
-  expanded,
-  onToggle,
-}) => {
+const SpecialitySection = ({ speciality, procedures, expanded, onToggle }) => {
   const { key, displayName, Icon, color, bgColor, description } = speciality;
   const title = displayName || key;
 
@@ -30,7 +19,7 @@ const SpecialitySection = ({
       }}
     >
       <Box
-        role="button"
+        role='button'
         tabIndex={0}
         onClick={onToggle}
         onKeyDown={(event) => {
@@ -69,8 +58,8 @@ const SpecialitySection = ({
 
         <Box sx={{ flexGrow: 1, minWidth: 0 }}>
           <Typography
-            variant="h6"
-            component="h2"
+            variant='h6'
+            component='h2'
             fontWeight={700}
             sx={{
               lineHeight: 1.2,
@@ -81,8 +70,8 @@ const SpecialitySection = ({
           </Typography>
           {description && (
             <Typography
-              variant="body2"
-              color="text.secondary"
+              variant='body2'
+              color='text.secondary'
               sx={{
                 mt: 0.5,
                 lineHeight: 1.4,
@@ -95,7 +84,7 @@ const SpecialitySection = ({
         </Box>
 
         <IconButton
-          size="small"
+          size='small'
           aria-label={expanded ? 'Collapse' : 'Expand'}
           tabIndex={-1}
           sx={{
@@ -109,7 +98,7 @@ const SpecialitySection = ({
         </IconButton>
       </Box>
 
-      <Collapse in={expanded} timeout="auto" unmountOnExit>
+      <Collapse in={expanded} timeout='auto' unmountOnExit>
         <Box>
           {procedures.map((procedure) => (
             <ProcedureRow

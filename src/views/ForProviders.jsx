@@ -1,12 +1,6 @@
 'use client';
 import React from 'react';
-import {
-  Box,
-  Button,
-  Container,
-  Stack,
-  Typography,
-} from '@mui/material';
+import { Box, Button, Container, Stack, Typography } from '@mui/material';
 import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
 import FadeIn from '../components/FadeIn';
 import { useLanguage } from '../context/LanguageContext';
@@ -57,13 +51,12 @@ const ForProviders = () => {
         sx={{
           minHeight: '100vh',
           py: { xs: 8, md: 12 },
-          background:
-            'linear-gradient(180deg, #f5efe5 0%, #ece6da 36%, #f8f6f1 100%)',
+          background: 'linear-gradient(180deg, #f5efe5 0%, #ece6da 36%, #f8f6f1 100%)',
         }}
       >
-        <Container maxWidth="lg" sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
+        <Container maxWidth='lg' sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
           <FadeIn>
-            <Typography variant="h1" sx={{ color: '#2d2018', mb: 6, textAlign: 'center' }}>
+            <Typography variant='h1' sx={{ color: '#2d2018', mb: 6, textAlign: 'center' }}>
               {copy.title}
             </Typography>
           </FadeIn>
@@ -92,16 +85,16 @@ const ForProviders = () => {
                   gap: 2,
                 }}
               >
-                <Typography variant="subtitle1" sx={{ fontWeight: 600, color: '#2d2018' }}>
+                <Typography variant='subtitle1' sx={{ fontWeight: 600, color: '#2d2018' }}>
                   {copy.viewerTitle}
                 </Typography>
-                <Stack direction="row" spacing={1.5} flexWrap="wrap">
+                <Stack direction='row' spacing={1.5} flexWrap='wrap'>
                   <Button
-                    size="small"
-                    variant="outlined"
+                    size='small'
+                    variant='outlined'
                     href={GOOGLE_DOC_URL}
-                    target="_blank"
-                    rel="noreferrer"
+                    target='_blank'
+                    rel='noreferrer'
                     startIcon={<OpenInNewRoundedIcon />}
                     sx={{
                       borderColor: 'rgba(45,32,24,0.2)',
@@ -131,7 +124,7 @@ const ForProviders = () => {
                 }}
               >
                 <Box
-                  component="iframe"
+                  component='iframe'
                   title={copy.viewerTitle}
                   src={GOOGLE_DOC_PREVIEW_URL}
                   sx={{

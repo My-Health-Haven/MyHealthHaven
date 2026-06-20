@@ -10,13 +10,13 @@ const EmailField = ({ value, onChange, label }) => (
       fullWidth
       required
       placeholder={label}
-      name="email"
-      type="email"
+      name='email'
+      type='email'
       value={value}
       onChange={onChange}
-      variant="outlined"
+      variant='outlined'
       hiddenLabel
-      autoComplete="email"
+      autoComplete='email'
       sx={frostedFieldSx}
       inputProps={{
         autoCapitalize: 'none',

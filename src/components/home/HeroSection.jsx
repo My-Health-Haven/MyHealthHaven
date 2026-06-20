@@ -1,16 +1,7 @@
 'use client';
 import React from 'react';
 import Image from 'next/image';
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  Grid,
-  Stack,
-  Card,
-  alpha,
-} from '@mui/material';
+import { Box, Container, Typography, Button, Grid, Stack, Card, alpha } from '@mui/material';
 import Link from 'next/link';
 import ShieldIcon from '@mui/icons-material/Shield';
 import PersonIcon from '@mui/icons-material/Person';
@@ -26,7 +17,7 @@ import FadeIn from '@/components/FadeIn';
 import SectionEyebrow from '@/components/SectionEyebrow';
 import { useLanguage } from '@/context/LanguageContext';
 
-const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) => {
+const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying }) => {
   const { t, getLocalizedHomeContent } = useLanguage();
   const activeContent = getLocalizedHomeContent();
   const heroContent = activeContent.hero;
@@ -35,8 +26,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
     <Box
       sx={{
         position: 'relative',
-        background:
-          'linear-gradient(135deg, #F0F9FF 0%, #F7ECFF 55%, #E7F5FF 100%)',
+        background: 'linear-gradient(135deg, #F0F9FF 0%, #F7ECFF 55%, #E7F5FF 100%)',
         minHeight: { xs: 'auto', md: 'calc(100vh - 64px)' },
         display: { xs: 'block', md: 'flex' },
         flexDirection: 'column',
@@ -92,12 +82,12 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
         maxWidth={false}
         sx={{ position: 'relative', zIndex: 1, px: { xs: 2, md: 6, lg: 10 } }}
       >
-        <Grid container spacing={{ xs: 5, md: 6 }} alignItems="center">
+        <Grid container spacing={{ xs: 5, md: 6 }} alignItems='center'>
           {/* LEFT: Content */}
           <Grid size={{ xs: 12, md: 6 }}>
             <FadeIn delay={0}>
               <Typography
-                variant="overline"
+                variant='overline'
                 sx={{
                   color: 'secondary.main',
                   fontWeight: 700,
@@ -116,14 +106,14 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
                 <SectionEyebrow
                   text={t('home.heroTitleBadge')}
                   icon={<LanguageIcon />}
-                  variant="pill"
+                  variant='pill'
                 />
               </Box>
             </FadeIn>
 
             <FadeIn delay={200}>
               <Typography
-                variant="h1"
+                variant='h1'
                 sx={{
                   color: 'text.primary',
                   maxWidth: 560,
@@ -138,7 +128,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
 
             <FadeIn delay={300}>
               <Typography
-                variant="body1"
+                variant='body1'
                 sx={{
                   color: 'text.secondary',
                   maxWidth: 520,
@@ -151,16 +141,12 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
             </FadeIn>
 
             <FadeIn delay={400}>
-              <Stack
-                direction={{ xs: 'column', sm: 'row' }}
-                spacing={2}
-                sx={{ mb: 4 }}
-              >
+              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 4 }}>
                 <Button
-                  variant="contained"
-                  size="large"
+                  variant='contained'
+                  size='large'
                   component={Link}
-                  href="/schedule"
+                  href='/schedule'
                   startIcon={<CalendarMonthIcon />}
                   sx={{
                     py: 1.4,
@@ -173,10 +159,10 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
                   {t('home.scheduleConsultation')}
                 </Button>
                 <Button
-                  variant="outlined"
-                  size="large"
+                  variant='outlined'
+                  size='large'
                   component={Link}
-                  href="/estimate"
+                  href='/estimate'
                   startIcon={<CalculateIcon />}
                   sx={{
                     py: 1.4,
@@ -202,7 +188,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
                 }}
               >
                 <Typography
-                  variant="overline"
+                  variant='overline'
                   sx={{
                     color: 'text.secondary',
                     fontWeight: 700,
@@ -222,7 +208,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
                     { icon: <GroupsIcon />, label: t('home.bilingualSupport') },
                   ].map((item, i) => (
                     <Grid size={{ xs: 12, sm: 4 }} key={i}>
-                      <Stack direction="row" spacing={1.75} alignItems="center">
+                      <Stack direction='row' spacing={1.75} alignItems='center'>
                         <Box
                           sx={{
                             width: 52,
@@ -231,10 +217,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
                             background: `radial-gradient(circle at 50% 35%, ${alpha(
                               '#FFFFFF',
                               0.9
-                            )} 0%, ${alpha('#00897B', 0.18)} 70%, ${alpha(
-                              '#00897B',
-                              0.22
-                            )} 100%)`,
+                            )} 0%, ${alpha('#00897B', 0.18)} 70%, ${alpha('#00897B', 0.22)} 100%)`,
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
@@ -247,14 +230,14 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
                               0.1
                             )}`,
                           }}
-                          aria-hidden="true"
+                          aria-hidden='true'
                         >
                           {React.cloneElement(item.icon, {
                             sx: { fontSize: 26, color: 'primary.main' },
                           })}
                         </Box>
                         <Typography
-                          variant="body2"
+                          variant='body2'
                           sx={{
                             fontWeight: 500,
                             lineHeight: 1.3,
@@ -291,10 +274,10 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
               >
                 <ApartmentIcon
                   sx={{ fontSize: 18, color: 'white', flexShrink: 0 }}
-                  aria-hidden="true"
+                  aria-hidden='true'
                 />
                 <Typography
-                  variant="caption"
+                  variant='caption'
                   sx={{
                     color: 'white',
                     fontWeight: 600,
@@ -328,12 +311,12 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
                   }}
                 >
                   <Box
-                    component="video"
+                    component='video'
                     controls
-                    preload="metadata"
+                    preload='metadata'
                     playsInline
-                    poster="/HealthNavigatorsBG.webp"
-                    src="/Supported Journey.mp4"
+                    poster='/HealthNavigatorsBG.webp'
+                    src='/Supported Journey.mp4'
                     onPlay={() => setIsHeroVideoPlaying(true)}
                     onPause={() => setIsHeroVideoPlaying(false)}
                     onEnded={() => setIsHeroVideoPlaying(false)}
@@ -367,12 +350,9 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
                       opacity: isHeroVideoPlaying ? 0 : 1,
                     }}
                   >
-                    <ApartmentIcon
-                      sx={{ fontSize: 18, color: 'white' }}
-                      aria-hidden="true"
-                    />
+                    <ApartmentIcon sx={{ fontSize: 18, color: 'white' }} aria-hidden='true' />
                     <Typography
-                      variant="caption"
+                      variant='caption'
                       sx={{
                         color: 'white',
                         fontWeight: 600,
@@ -402,8 +382,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
                     border: '1px solid rgba(255, 255, 255, 0.5)',
                     p: 1.75,
                     zIndex: 2,
-                    transition:
-                      'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease',
+                    transition: 'transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.45s ease',
                     transform: isHeroVideoPlaying
                       ? 'translateY(calc(100% + 40px))'
                       : 'translateY(0)',
@@ -430,11 +409,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
                       },
                     ].map((item, i) => (
                       <Grid size={{ xs: 12, sm: 4 }} key={i}>
-                        <Stack
-                          direction="row"
-                          spacing={1}
-                          alignItems="flex-start"
-                        >
+                        <Stack direction='row' spacing={1} alignItems='flex-start'>
                           <Box
                             sx={{
                               width: 34,
@@ -457,7 +432,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
                                 0.18
                               )}, inset 0 -1px 2px rgba(255, 255, 255, 0.55)`,
                             }}
-                            aria-hidden="true"
+                            aria-hidden='true'
                           >
                             {React.cloneElement(item.icon, {
                               sx: { fontSize: 17, color: 'primary.main' },
@@ -523,7 +498,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
                       desc: t('home.heroOverlayItem3Desc'),
                     },
                   ].map((item, i) => (
-                    <Stack key={i} direction="row" spacing={1.25} alignItems="flex-start">
+                    <Stack key={i} direction='row' spacing={1.25} alignItems='flex-start'>
                       <Box
                         sx={{
                           width: 34,
@@ -537,7 +512,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
                           mt: 0.2,
                           boxShadow: `inset 0 1px 2px ${alpha('#00897B', 0.18)}, inset 0 -1px 2px rgba(255, 255, 255, 0.55)`,
                         }}
-                        aria-hidden="true"
+                        aria-hidden='true'
                       >
                         {React.cloneElement(item.icon, {
                           sx: { fontSize: 17, color: 'primary.main' },
@@ -596,13 +571,10 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
                 '0 12px 40px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.6)',
             }}
           >
-            <Stack direction="row" spacing={1.75} alignItems="center">
-              <VerifiedUserIcon
-                sx={{ color: 'primary.main', fontSize: 36 }}
-                aria-hidden="true"
-              />
+            <Stack direction='row' spacing={1.75} alignItems='center'>
+              <VerifiedUserIcon sx={{ color: 'primary.main', fontSize: 36 }} aria-hidden='true' />
               <Typography
-                variant="body2"
+                variant='body2'
                 sx={{
                   fontWeight: 700,
                   color: 'text.primary',
@@ -624,13 +596,13 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying, isMobile }) =>
               }}
             />
             {/* PLACEHOLDER: swap with real Hospitales Acreditados logo */}
-            <Stack direction="row" spacing={1.75} alignItems="center">
+            <Stack direction='row' spacing={1.75} alignItems='center'>
               <AddIcon
                 sx={{ color: 'secondary.main', fontSize: 40, strokeWidth: 2 }}
-                aria-hidden="true"
+                aria-hidden='true'
               />
               <Typography
-                variant="body2"
+                variant='body2'
                 sx={{
                   fontWeight: 700,
                   color: 'text.primary',

@@ -1,5 +1,5 @@
 **MyHealth Haven**  
-*Made in America, Made Better in Mexico*
+_Made in America, Made Better in Mexico_
 
 # **PRIVACY POLICY**
 
@@ -13,9 +13,9 @@ My Health Haven Management LLC (“My Health Haven,” “we,” “us,” or �
 
 We may collect:
 
-* **Personal information** you voluntarily provide (e.g., name, email, phone number, general inquiry details)  
-* **Technical information** (IP address, browser type, device data)  
-* **Usage data** (pages visited, interactions, referral sources)
+- **Personal information** you voluntarily provide (e.g., name, email, phone number, general inquiry details)
+- **Technical information** (IP address, browser type, device data)
+- **Usage data** (pages visited, interactions, referral sources)
 
 We do **not** require submission of protected health information (PHI) through the public Site.
 
@@ -25,10 +25,10 @@ We do **not** require submission of protected health information (PHI) through t
 
 We use collected information to:
 
-* Respond to inquiries  
-* Provide requested information or services  
-* Improve website functionality and user experience  
-* Communicate updates or relevant information (where permitted)
+- Respond to inquiries
+- Provide requested information or services
+- Improve website functionality and user experience
+- Communicate updates or relevant information (where permitted)
 
 ---
 
@@ -45,9 +45,9 @@ We do **not** sell personal information.
 
 We may share information:
 
-* With service providers assisting in operations  
-* To comply with legal obligations  
-* To protect rights, safety, or security
+- With service providers assisting in operations
+- To comply with legal obligations
+- To protect rights, safety, or security
 
 ---
 
@@ -92,4 +92,4 @@ We may update this Privacy Policy periodically. The “Last Updated” date refl
 Privacy questions or requests may be directed to:  
 **Info@andersonlg.com**
 
-© 2026 My Health Haven Management, LLC  \- All Rights Reserved	
+© 2026 My Health Haven Management, LLC \- All Rights Reserved

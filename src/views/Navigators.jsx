@@ -36,24 +36,23 @@ import { useLanguage } from '../context/LanguageContext';
 const Navigators = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { language, t } = useLanguage();
+  const { t } = useLanguage();
 
   const whatTheyDoList = t('navigatorsPage.whatTheyDoList') || [];
-  const whatTheyDoDescriptions =
-    t('navigatorsPage.whatTheyDoDescriptions') || [];
+  const whatTheyDoDescriptions = t('navigatorsPage.whatTheyDoDescriptions') || [];
 
   // Reference image visual order maps to original whatTheyDoList indices.
   // The translations array is preserved as-is; we just present items in the
   // order the reference design shows them.
   const featureMap = [
     { srcIdx: 0, icon: <SupportAgentIcon />, color: 'primary' },
-    { srcIdx: 2, icon: <ForumIcon />,         color: 'secondary' },
-    { srcIdx: 4, icon: <DescriptionIcon />,   color: 'primary' },
-    { srcIdx: 6, icon: <WorkOutlineIcon />,   color: 'secondary' },
-    { srcIdx: 1, icon: <PersonIcon />,        color: 'secondary' },
-    { srcIdx: 3, icon: <PlaceIcon />,         color: 'primary' },
-    { srcIdx: 5, icon: <ShieldIcon />,        color: 'secondary' },
-    { srcIdx: 7, icon: <PhoneInTalkIcon />,   color: 'primary' },
+    { srcIdx: 2, icon: <ForumIcon />, color: 'secondary' },
+    { srcIdx: 4, icon: <DescriptionIcon />, color: 'primary' },
+    { srcIdx: 6, icon: <WorkOutlineIcon />, color: 'secondary' },
+    { srcIdx: 1, icon: <PersonIcon />, color: 'secondary' },
+    { srcIdx: 3, icon: <PlaceIcon />, color: 'primary' },
+    { srcIdx: 5, icon: <ShieldIcon />, color: 'secondary' },
+    { srcIdx: 7, icon: <PhoneInTalkIcon />, color: 'primary' },
   ];
 
   const meetIndicators = [
@@ -117,8 +116,7 @@ const Navigators = () => {
             width: 220,
             height: '100%',
             opacity: 0.18,
-            backgroundImage:
-              'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)',
             backgroundSize: '24px 24px',
             zIndex: 0,
             pointerEvents: 'none',
@@ -137,7 +135,7 @@ const Navigators = () => {
           <Box sx={{ maxWidth: 900, mx: 'auto' }}>
             <FadeIn>
               <Typography
-                variant="h1"
+                variant='h1'
                 sx={{
                   color: 'white',
                   fontWeight: 700,
@@ -149,7 +147,7 @@ const Navigators = () => {
                 {t('navigatorsPage.title')}
               </Typography>
               <Typography
-                variant="h5"
+                variant='h5'
                 sx={{
                   color: 'rgba(255, 255, 255, 0.92)',
                   mb: 4,
@@ -162,10 +160,10 @@ const Navigators = () => {
                 {t('navigatorsPage.subtitle')}
               </Typography>
               <Button
-                variant="contained"
-                size="large"
+                variant='contained'
+                size='large'
                 component={Link}
-                href="/schedule"
+                href='/schedule'
                 sx={{
                   mt: 2,
                   py: 1.6,
@@ -197,8 +195,7 @@ const Navigators = () => {
             position: 'absolute',
             inset: 0,
             opacity: 0.13,
-            backgroundImage:
-              'radial-gradient(circle, #00897B 1px, transparent 1px)',
+            backgroundImage: 'radial-gradient(circle, #00897B 1px, transparent 1px)',
             backgroundSize: '32px 32px',
             pointerEvents: 'none',
           }}
@@ -230,15 +227,12 @@ const Navigators = () => {
                   mb: 2,
                 }}
               >
-                <SectionEyebrow
-                  text={t('navigatorsPage.whatYouGetEyebrow')}
-                  variant="plain"
-                />
+                <SectionEyebrow text={t('navigatorsPage.whatYouGetEyebrow')} variant='plain' />
               </Box>
             </FadeIn>
             <FadeIn delay={100}>
               <Typography
-                variant="h2"
+                variant='h2'
                 sx={{
                   color: 'text.primary',
                   mb: 2,
@@ -251,7 +245,7 @@ const Navigators = () => {
             </FadeIn>
             <FadeIn delay={200}>
               <Typography
-                variant="body1"
+                variant='body1'
                 sx={{
                   color: 'text.secondary',
                   fontSize: { xs: '0.95rem', md: '1.05rem' },
@@ -299,10 +293,7 @@ const Navigators = () => {
 
       {/* 3. Meet Your Health Navigators (Redesigned video + trust indicators) */}
       <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
-        <Container
-          maxWidth={false}
-          sx={{ px: { xs: 2, md: 6, lg: 10 } }}
-        >
+        <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
           <Box sx={{ maxWidth: 1100, mx: 'auto' }}>
             {/* Centered title with gradient underline */}
             <FadeIn>
@@ -314,11 +305,7 @@ const Navigators = () => {
                   mb: 6,
                 }}
               >
-                <Typography
-                  variant="h2"
-                  align="center"
-                  sx={{ color: 'primary.main', mb: 1.5 }}
-                >
+                <Typography variant='h2' align='center' sx={{ color: 'primary.main', mb: 1.5 }}>
                   {t('home.meetNavigatorsTitle')}
                 </Typography>
                 <Box
@@ -326,15 +313,14 @@ const Navigators = () => {
                     width: 200,
                     height: 3,
                     borderRadius: 2,
-                    background:
-                      'linear-gradient(90deg, #00897B 0%, #8E24AA 100%)',
+                    background: 'linear-gradient(90deg, #00897B 0%, #8E24AA 100%)',
                   }}
-                  aria-hidden="true"
+                  aria-hidden='true'
                 />
               </Box>
             </FadeIn>
 
-            <Grid container spacing={{ xs: 4, md: 6 }} alignItems="center">
+            <Grid container spacing={{ xs: 4, md: 6 }} alignItems='center'>
               {/* LEFT: Video */}
               <Grid size={{ xs: 12, md: 7 }}>
                 <FadeIn delay={100}>
@@ -355,12 +341,12 @@ const Navigators = () => {
                       }}
                     >
                       <Box
-                        component="video"
+                        component='video'
                         controls
-                        preload="none"
+                        preload='none'
                         playsInline
-                        poster="/HealthNavigatorsBG.webp"
-                        src="/Meet Your Health Navigator.mp4"
+                        poster='/HealthNavigatorsBG.webp'
+                        src='/Meet Your Health Navigator.mp4'
                         sx={{
                           position: 'absolute',
                           top: 0,
@@ -388,15 +374,9 @@ const Navigators = () => {
                           pointerEvents: 'none',
                         }}
                       >
-                        <Image
-                          src="/logo.png"
-                          width={22}
-                          height={22}
-                          alt=""
-                          aria-hidden
-                        />
+                        <Image src='/logo.png' width={22} height={22} alt='' aria-hidden />
                         <Typography
-                          variant="caption"
+                          variant='caption'
                           sx={{
                             fontWeight: 700,
                             color: 'primary.main',
@@ -415,7 +395,7 @@ const Navigators = () => {
               <Grid size={{ xs: 12, md: 5 }}>
                 <FadeIn delay={200}>
                   <Typography
-                    variant="h5"
+                    variant='h5'
                     sx={{
                       color: 'text.primary',
                       fontWeight: 700,
@@ -431,17 +411,13 @@ const Navigators = () => {
                 <Stack spacing={2.5} sx={{ mb: 4 }}>
                   {meetIndicators.map((item, i) => (
                     <FadeIn key={i} delay={300 + i * 100}>
-                      <Stack
-                        direction="row"
-                        spacing={2}
-                        alignItems="center"
-                      >
+                      <Stack direction='row' spacing={2} alignItems='center'>
                         {React.cloneElement(item.icon, {
                           'aria-hidden': true,
                           sx: { fontSize: 34, color: 'primary.main', flexShrink: 0 },
                         })}
                         <Typography
-                          variant="body1"
+                          variant='body1'
                           sx={{
                             fontWeight: 600,
                             color: 'text.primary',
@@ -457,7 +433,7 @@ const Navigators = () => {
                 <FadeIn delay={600}>
                   <Box>
                     <Typography
-                      variant="body1"
+                      variant='body1'
                       sx={{
                         fontStyle: 'italic',
                         color: 'text.primary',
@@ -472,10 +448,9 @@ const Navigators = () => {
                         width: 120,
                         height: 2,
                         borderRadius: 2,
-                        background:
-                          'linear-gradient(90deg, #00897B 0%, #8E24AA 100%)',
+                        background: 'linear-gradient(90deg, #00897B 0%, #8E24AA 100%)',
                       }}
-                      aria-hidden="true"
+                      aria-hidden='true'
                     />
                   </Box>
                 </FadeIn>
@@ -493,26 +468,18 @@ const Navigators = () => {
           textAlign: 'center',
         }}
       >
-        <Container
-          maxWidth={false}
-          sx={{ px: { xs: 2, md: 6, lg: 10 } }}
-        >
+        <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
           <Box sx={{ maxWidth: 'md', mx: 'auto' }}>
             <FadeIn>
-              <Typography variant="h2" gutterBottom>
+              <Typography variant='h2' gutterBottom>
                 {t('navigatorsPage.finalCtaTitle')}
               </Typography>
-              <Typography variant="h5" color="text.secondary" paragraph>
+              <Typography variant='h5' color='text.secondary' paragraph>
                 {t('navigatorsPage.finalCtaDesc')}
               </Typography>
               <Box sx={{ mt: 4 }}>
                 <FadeIn delay={300}>
-                  <Button
-                    variant="contained"
-                    size="large"
-                    component={Link}
-                    href="/schedule"
-                  >
+                  <Button variant='contained' size='large' component={Link} href='/schedule'>
                     {t('navigatorsPage.finalCtaButton')}
                   </Button>
                 </FadeIn>

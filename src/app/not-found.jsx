@@ -16,13 +16,13 @@ export default function NotFound() {
         p: 4,
       }}
     >
-      <Typography variant="h2" color="primary" gutterBottom fontWeight="bold">
+      <Typography variant='h2' color='primary' gutterBottom fontWeight='bold'>
         404
       </Typography>
-      <Typography variant="h5" color="text.secondary" paragraph>
+      <Typography variant='h5' color='text.secondary' paragraph>
         Page not found
       </Typography>
-      <Button variant="contained" color="primary" component={Link} href="/">
+      <Button variant='contained' color='primary' component={Link} href='/'>
         Go Home
       </Button>
     </Box>

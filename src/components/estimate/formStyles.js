@@ -37,7 +37,11 @@ export const frostedFieldSx = {
 };
 
 export const FormLabel = ({ children }) => (
-  <Typography variant="h6" component="label" sx={{ display: 'block', mb: 1, fontWeight: 700, color: 'text.primary' }}>
+  <Typography
+    variant='h6'
+    component='label'
+    sx={{ display: 'block', mb: 1, fontWeight: 700, color: 'text.primary' }}
+  >
     {children}
   </Typography>
 );

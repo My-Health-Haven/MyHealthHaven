@@ -17,21 +17,21 @@ import {
   EvalIllustration,
   ProcedureIllustration,
   RecoveryIllustration,
-  HomeIllustration
+  HomeIllustration,
 } from './TimelineIllustrations';
 
 // Icons array for each step (0-indexed)
 const stepIcons = [
-  <PhoneIllustration key="1" />,
-  <ClipboardIllustration key="2" />,
-  <VirtualConsultIllustration key="3" />,
-  <CalendarIllustration key="4" />,
-  <TravelIllustration key="5" />,
-  <ArrivalIllustration key="6" />,
-  <EvalIllustration key="7" />,
-  <ProcedureIllustration key="8" />,
-  <RecoveryIllustration key="9" />,
-  <HomeIllustration key="10" />,
+  <PhoneIllustration key='1' />,
+  <ClipboardIllustration key='2' />,
+  <VirtualConsultIllustration key='3' />,
+  <CalendarIllustration key='4' />,
+  <TravelIllustration key='5' />,
+  <ArrivalIllustration key='6' />,
+  <EvalIllustration key='7' />,
+  <ProcedureIllustration key='8' />,
+  <RecoveryIllustration key='9' />,
+  <HomeIllustration key='10' />,
 ];
 
 // Step variants (teal for certain steps)
@@ -40,12 +40,12 @@ const stepVariants = [
   'default', // 2
   'default', // 3
   'default', // 4
-  'teal',    // 5
-  'teal',    // 6
+  'teal', // 5
+  'teal', // 6
   'default', // 7
-  'teal',    // 8
+  'teal', // 8
   'default', // 9
-  'teal',    // 10
+  'teal', // 10
 ];
 
 /**
@@ -60,7 +60,8 @@ const MedicalCareTimeline = () => {
   // Get timeline card data from translations
   const timelineCards = t('medicalTravelPage.timelineCards') || [];
   const title = t('medicalTravelPage.timelineCardTitle') || 'A Clear, Supportive Journey';
-  const subtitle = t('medicalTravelPage.timelineCardSubtitle') || 'So You Always Know What Comes Next';
+  const subtitle =
+    t('medicalTravelPage.timelineCardSubtitle') || 'So You Always Know What Comes Next';
 
   // Build step configs from translations + icons
   const stepConfigs = timelineCards.map((card, index) => ({
@@ -115,7 +116,7 @@ const MedicalCareTimeline = () => {
       {/* Title Section */}
       <Box sx={{ textAlign: 'center', mb: 6 }}>
         <Typography
-          component="h2"
+          component='h2'
           sx={{
             fontSize: { xs: '1.75rem', md: '2.25rem' },
             color: '#1A365D',
@@ -123,11 +124,11 @@ const MedicalCareTimeline = () => {
             lineHeight: 1.3,
           }}
         >
-          <Box component="span" sx={{ fontWeight: 700 }}>
+          <Box component='span' sx={{ fontWeight: 700 }}>
             {title}
           </Box>
           {': '}
-          <Box component="span" sx={{ fontStyle: 'italic', color: '#2D4A6F' }}>
+          <Box component='span' sx={{ fontStyle: 'italic', color: '#2D4A6F' }}>
             {subtitle}
           </Box>
         </Typography>

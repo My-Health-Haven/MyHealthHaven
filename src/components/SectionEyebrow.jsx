@@ -26,7 +26,7 @@ const SectionEyebrow = ({
         }}
       >
         <Typography
-          variant="overline"
+          variant='overline'
           sx={{
             color: accent,
             fontWeight: 700,
@@ -44,7 +44,7 @@ const SectionEyebrow = ({
             borderRadius: 2,
             background: `linear-gradient(90deg, ${accent} 0%, ${secondary} 100%)`,
           }}
-          aria-hidden="true"
+          aria-hidden='true'
         />
       </Box>
     );
@@ -72,7 +72,7 @@ const SectionEyebrow = ({
           sx: { fontSize: 16, color: accent, ...(icon.props?.sx || {}) },
         })}
       <Typography
-        variant="overline"
+        variant='overline'
         sx={{
           color: accent,
           fontWeight: 700,

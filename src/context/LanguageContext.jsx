@@ -68,14 +68,17 @@ export const LanguageProvider = ({ children }) => {
   };
 
   // Translation helper
-  const t = useCallback((key) => {
-    const activeLanguage = normalizeLanguage(language) || FALLBACK_LANGUAGE;
-    const activeTranslation = getNestedTranslation(translations[activeLanguage], key);
-    if (activeTranslation !== undefined) return activeTranslation;
+  const t = useCallback(
+    (key) => {
+      const activeLanguage = normalizeLanguage(language) || FALLBACK_LANGUAGE;
+      const activeTranslation = getNestedTranslation(translations[activeLanguage], key);
+      if (activeTranslation !== undefined) return activeTranslation;
 
-    const fallbackTranslation = getNestedTranslation(translations[FALLBACK_LANGUAGE], key);
-    return fallbackTranslation !== undefined ? fallbackTranslation : key;
-  }, [language]);
+      const fallbackTranslation = getNestedTranslation(translations[FALLBACK_LANGUAGE], key);
+      return fallbackTranslation !== undefined ? fallbackTranslation : key;
+    },
+    [language]
+  );
 
   const getLocalizedHomeContent = useCallback(() => {
     return {
@@ -99,14 +102,9 @@ export const LanguageProvider = ({ children }) => {
     [language, showModal, t, getLocalizedHomeContent]
   );
 
-  return (
-    <LanguageContext.Provider value={value}>
-      {children}
-    </LanguageContext.Provider>
-  );
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 };
 
-// eslint-disable-next-line react-refresh/only-export-components
 export const useLanguage = () => {
   const context = useContext(LanguageContext);
   if (!context) {

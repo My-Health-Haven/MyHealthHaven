@@ -6,7 +6,7 @@ const JsonLd = ({ data }) => {
   return schemas.map((schema, i) => (
     <script
       key={i}
-      type="application/ld+json"
+      type='application/ld+json'
       dangerouslySetInnerHTML={{
         __html: JSON.stringify(schema).replace(/</g, '\\u003c'),
       }}

@@ -1,8 +1,4 @@
-import {
-  getCanonicalUrl,
-  createCollectionPageSchema,
-  createBreadcrumbSchema,
-} from '@/lib/siteSeo';
+import { getCanonicalUrl, createCollectionPageSchema, createBreadcrumbSchema } from '@/lib/siteSeo';
 import Library from '@/views/Library';
 import JsonLd from '@/components/JsonLd';
 
@@ -18,8 +14,7 @@ export const metadata = {
   },
   openGraph: {
     title: 'Learning Library | MyHealth Haven',
-    description:
-      'Articles and guides about medical travel and cross-border healthcare.',
+    description: 'Articles and guides about medical travel and cross-border healthcare.',
     url: canonical,
   },
 };

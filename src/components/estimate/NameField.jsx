@@ -10,10 +10,10 @@ const NameField = ({ value, onChange, label }) => (
       fullWidth
       required
       placeholder={label}
-      name="name"
+      name='name'
       value={value}
       onChange={onChange}
-      variant="outlined"
+      variant='outlined'
       hiddenLabel
       sx={frostedFieldSx}
     />

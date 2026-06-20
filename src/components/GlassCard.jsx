@@ -21,7 +21,8 @@ const GlassCard = ({ children, sx = {}, noShadow = false, variant = 'gradient', 
   // Preserved for "Why Mexico" section
   const glassStyles = {
     position: 'relative',
-    background: 'linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)',
+    background:
+      'linear-gradient(180deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%)',
     backdropFilter: 'blur(20px) saturate(180%)',
     WebkitBackdropFilter: 'blur(20px) saturate(180%)',
     border: '1px solid rgba(255, 255, 255, 0.4)',
@@ -45,20 +46,18 @@ const GlassCard = ({ children, sx = {}, noShadow = false, variant = 'gradient', 
           top: 0,
           left: 0,
           right: 0,
-          height: isGlass ? '10px' : '3px', 
+          height: isGlass ? '10px' : '3px',
           // Stronger accent line for gradient cards
-          background: isGlass 
+          background: isGlass
             ? 'radial-gradient(50% 100% at 50% 0%, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0) 100%)'
-            : `linear-gradient(90deg, ${alpha(theme.palette.primary.main, 0.2)} 0%, ${alpha(theme.palette.secondary.main, 0.5)} 50%, ${alpha(theme.palette.primary.main, 0.2)} 100%)`, 
+            : `linear-gradient(90deg, ${alpha(theme.palette.primary.main, 0.2)} 0%, ${alpha(theme.palette.secondary.main, 0.5)} 50%, ${alpha(theme.palette.primary.main, 0.2)} 100%)`,
           pointerEvents: 'none',
           zIndex: 0,
         }}
       />
-      
+
       {/* Content wrapper */}
-      <Box sx={{ position: 'relative', zIndex: 1, height: '100%' }}>
-        {children}
-      </Box>
+      <Box sx={{ position: 'relative', zIndex: 1, height: '100%' }}>{children}</Box>
     </Box>
   );
 };
@@ -71,4 +70,3 @@ GlassCard.propTypes = {
 };
 
 export default GlassCard;
-

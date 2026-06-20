@@ -15,9 +15,9 @@ jobs:
         node-version: [20.x]
 
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
@@ -27,7 +27,7 @@ jobs:
         run: npm run format -- --check
       - name: Lint
         run: npm run lint
-      - name: Test
-        run: npm test
+      - name: Test (enforces coverage thresholds)
+        run: npm run test:coverage
       - name: Build
         run: npm run build

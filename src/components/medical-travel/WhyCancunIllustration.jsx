@@ -11,10 +11,10 @@ const WhyCancunIllustration = ({ pinLabel }) => (
     }}
   >
     <Image
-      src="/why cancun map.png"
-      alt="Map showing flight path from USA to Cancún, Mexico"
+      src='/why cancun map.png'
+      alt='Map showing flight path from USA to Cancún, Mexico'
       fill
-      sizes="(max-width: 900px) 100vw, 50vw"
+      sizes='(max-width: 900px) 100vw, 50vw'
       style={{ objectFit: 'cover', objectPosition: 'center' }}
       priority
     />

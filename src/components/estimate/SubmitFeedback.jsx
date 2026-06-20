@@ -8,9 +8,15 @@ const SubmitFeedback = ({ status, error }) => {
 
   return (
     <>
-      {status === 'success' && <Alert severity="success">{t('estimatePage.feedback.success')}</Alert>}
-      {status === 'error' && <Alert severity="error">{error}</Alert>}
-      <Typography variant="caption" display="block" sx={{ mt: 4, textAlign: 'center', color: 'text.secondary' }}>
+      {status === 'success' && (
+        <Alert severity='success'>{t('estimatePage.feedback.success')}</Alert>
+      )}
+      {status === 'error' && <Alert severity='error'>{error}</Alert>}
+      <Typography
+        variant='caption'
+        display='block'
+        sx={{ mt: 4, textAlign: 'center', color: 'text.secondary' }}
+      >
         {t('estimatePage.disclaimer')}
       </Typography>
     </>

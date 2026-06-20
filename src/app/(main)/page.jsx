@@ -1,8 +1,4 @@
-import {
-  SITE_ORIGIN,
-  createWebPageSchema,
-  createServiceSchema,
-} from '@/lib/siteSeo';
+import { SITE_ORIGIN, createWebPageSchema, createServiceSchema } from '@/lib/siteSeo';
 import Home from '@/views/Home';
 import JsonLd from '@/components/JsonLd';
 

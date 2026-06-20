@@ -6,15 +6,13 @@ import {
   Button,
   Stack,
   CircularProgress,
+  Typography,
+  Link as MuiLink,
 } from '@mui/material';
 import { useLanguage } from '@/context/LanguageContext';
 import { CITIES_BY_STATE } from '@/data/usLocations';
 import { useProcedures } from '@/lib/useProcedures';
-import {
-  isValidEmail,
-  isValidPhone,
-  sanitizePhone,
-} from '@/lib/validation';
+import { isValidEmail, isValidPhone, sanitizePhone } from '@/lib/validation';
 import EstimateHero from '@/components/estimate/EstimateHero';
 import NameField from '@/components/estimate/NameField';
 import EmailField from '@/components/estimate/EmailField';
@@ -53,6 +51,10 @@ const Estimate = () => {
   const emailUnverifiedError = isSpanish
     ? 'No pudimos verificar ese correo electronico. Intente con una direccion real y activa.'
     : 'We could not verify that email address. Please use a real, active inbox.';
+  const privacyNoteIntro = isSpanish
+    ? 'Comparta solo una breve descripcion del procedimiento que le interesa. No incluya registros medicos sensibles ni su historial de salud detallado. Consulte nuestra '
+    : 'Please share only a brief description of the procedure you are interested in. Do not include sensitive medical records or detailed health history. See our ';
+  const privacyLinkLabel = isSpanish ? 'Politica de Privacidad' : 'Privacy Policy';
 
   const [formData, setFormData] = useState({
     name: '',
@@ -210,7 +212,7 @@ const Estimate = () => {
         }}
       >
         <Box sx={{ py: { xs: 8, md: 12 }, position: 'relative', zIndex: 1 }}>
-          <Container maxWidth="md">
+          <Container maxWidth='md'>
             <EstimateHero />
 
             <Box
@@ -225,8 +227,7 @@ const Estimate = () => {
                 border: '1px solid rgba(255,255,255,0.52)',
                 backdropFilter: 'blur(28px) saturate(180%)',
                 WebkitBackdropFilter: 'blur(28px) saturate(180%)',
-                boxShadow:
-                  '0 32px 80px rgba(15,23,42,0.18), inset 0 1px 0 rgba(255,255,255,0.68)',
+                boxShadow: '0 32px 80px rgba(15,23,42,0.18), inset 0 1px 0 rgba(255,255,255,0.68)',
                 '&::before': {
                   content: '""',
                   position: 'absolute',
@@ -245,7 +246,8 @@ const Estimate = () => {
                   width: { xs: 180, md: 280 },
                   height: { xs: 180, md: 280 },
                   borderRadius: '50%',
-                  background: 'radial-gradient(circle, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 74%)',
+                  background:
+                    'radial-gradient(circle, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 74%)',
                   pointerEvents: 'none',
                   zIndex: -1,
                 },
@@ -294,18 +296,33 @@ const Estimate = () => {
                     label={t('estimatePage.form.procedure')}
                   />
 
+                  <Typography
+                    variant='caption'
+                    sx={{ color: 'text.secondary', display: 'block', mt: -1 }}
+                  >
+                    {privacyNoteIntro}
+                    <MuiLink href='/privacy' underline='always' color='inherit'>
+                      {privacyLinkLabel}
+                    </MuiLink>
+                    .
+                  </Typography>
+
                   <Box sx={{ pt: 2 }}>
                     <Button
-                      type="submit"
+                      type='submit'
                       fullWidth
-                      variant="contained"
-                      size="large"
-                      color="primary"
+                      variant='contained'
+                      size='large'
+                      color='primary'
                       disabled={isSubmitting}
-                      startIcon={isSubmitting ? <CircularProgress size={18} color="inherit" /> : null}
+                      startIcon={
+                        isSubmitting ? <CircularProgress size={18} color='inherit' /> : null
+                      }
                       sx={{ py: 2, fontSize: '1.2rem', fontWeight: 'bold', boxShadow: 'none' }}
                     >
-                      {isSubmitting ? t('estimatePage.form.submitting') : t('estimatePage.form.submit')}
+                      {isSubmitting
+                        ? t('estimatePage.form.submitting')
+                        : t('estimatePage.form.submit')}
                     </Button>
                   </Box>
 

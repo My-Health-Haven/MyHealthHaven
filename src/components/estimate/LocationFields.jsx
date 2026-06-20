@@ -13,10 +13,10 @@ const LocationFields = ({ state, city, onStateChange, onCityChange, availableCit
         fullWidth
         required
         placeholder={t('estimatePage.form.state')}
-        name="state"
+        name='state'
         value={state}
         onChange={onStateChange}
-        variant="outlined"
+        variant='outlined'
         hiddenLabel
         sx={frostedFieldSx}
         SelectProps={{
@@ -38,13 +38,11 @@ const LocationFields = ({ state, city, onStateChange, onCityChange, availableCit
         fullWidth
         required
         disabled={!state}
-        placeholder={
-          !state ? t('estimatePage.form.selectStateFirst') : t('estimatePage.form.city')
-        }
-        name="city"
+        placeholder={!state ? t('estimatePage.form.selectStateFirst') : t('estimatePage.form.city')}
+        name='city'
         value={city}
         onChange={onCityChange}
-        variant="outlined"
+        variant='outlined'
         hiddenLabel
         sx={frostedFieldSx}
       >

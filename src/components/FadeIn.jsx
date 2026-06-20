@@ -13,14 +13,17 @@ const FadeIn = ({ children, delay = 0, duration = 800, className = '', style = {
       return undefined;
     }
 
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1 }); // Trigger when 10% visible
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsVisible(true);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1 }
+    ); // Trigger when 10% visible
 
     const currentElement = domRef.current;
     if (currentElement) {
@@ -43,7 +46,7 @@ const FadeIn = ({ children, delay = 0, duration = 800, className = '', style = {
         transform: isVisible ? 'scale(1)' : 'scale(0.98)',
         transitionDuration: `${duration}ms`,
         transitionDelay: `${delay}ms`,
-        ...style
+        ...style,
       }}
     >
       {children}
@@ -60,4 +63,3 @@ FadeIn.propTypes = {
 };
 
 export default FadeIn;
-
