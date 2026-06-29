@@ -68,6 +68,21 @@ const articleBodySx = (theme) => ({
   '& strong': { fontWeight: 700 },
 });
 
+// Render Markdown links safely: internal links use next/link (client-side
+// navigation); external links open in a new tab with rel="noopener noreferrer".
+const markdownComponents = {
+  a({ href = '', children }) {
+    if (/^https?:\/\//i.test(href)) {
+      return (
+        <a href={href} target='_blank' rel='noopener noreferrer'>
+          {children}
+        </a>
+      );
+    }
+    return <Link href={href}>{children}</Link>;
+  },
+};
+
 const ArticleDetail = ({ slug }) => {
   const article = getLibraryArticleBySlug(slug);
 
@@ -161,7 +176,7 @@ const ArticleDetail = ({ slug }) => {
 
           {article.content ? (
             <Box sx={articleBodySx}>
-              <ReactMarkdown>{article.content}</ReactMarkdown>
+              <ReactMarkdown components={markdownComponents}>{article.content}</ReactMarkdown>
             </Box>
           ) : (
             <Typography variant='body1' color='text.secondary'>
