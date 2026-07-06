@@ -3,7 +3,7 @@ import { LIBRARY_ARTICLES, getLibraryArticlePath } from '../data/libraryContent.
 export const SITE_NAME = 'MyHealth Haven';
 export const SITE_LEGAL_NAME = 'My Health Haven Management, LLC';
 export const SITE_ORIGIN = 'https://www.myhealthhaven.org';
-export const SITE_EMAIL = 'healthnavigator@andersonlg.com';
+export const SITE_EMAIL = 'healthnavigator@myhealthhaven.org';
 export const SITE_PHONE_E164 = '+12142763928';
 export const SITE_PHONE_DISPLAY = '+1 (214) 276 3928';
 export const DEFAULT_OG_IMAGE = '/cancun-skyline.jpg';

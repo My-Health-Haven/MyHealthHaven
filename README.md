@@ -76,7 +76,7 @@ variables in Vercel (or your runtime):
 | ---------------------------------- | -------- | ---------------------------------------------------------------------- |
 | `RESEND_API_KEY`                   | yes      | Resend API key for sending email                                       |
 | `ESTIMATE_FROM_EMAIL`              | rec.     | Verified sender address/domain (falls back to `onboarding@resend.dev`) |
-| `ESTIMATE_TO_EMAIL`                | no       | Lead destination inbox (defaults to `healthnavigator@andersonlg.com`)  |
+| `ESTIMATE_TO_EMAIL`                | no       | Lead destination inbox (defaults to `healthnavigator@myhealthhaven.org`) |
 | `ESTIMATE_RATE_LIMIT_MAX`          | no       | Max submissions per IP per minute (default `5`)                        |
 | `ALLOWED_ORIGINS`                  | no       | Comma-separated CORS allowlist for the API route                       |
 | `EMAIL_VERIFIER_API_KEY`           | no       | AbstractAPI key; enables provider email verification                   |

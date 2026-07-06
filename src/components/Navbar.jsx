@@ -29,7 +29,7 @@ import { useLanguage } from '../context/LanguageContext';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 
-const HEALTH_NAVIGATOR_EMAIL = 'healthnavigator@andersonlg.com';
+const HEALTH_NAVIGATOR_EMAIL = 'healthnavigator@myhealthhaven.org';
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);

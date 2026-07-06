@@ -19,7 +19,7 @@ import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
 import { useLanguage } from '../context/LanguageContext';
 
-const HEALTH_NAVIGATOR_EMAIL = 'healthnavigator@andersonlg.com';
+const HEALTH_NAVIGATOR_EMAIL = 'healthnavigator@myhealthhaven.org';
 const TIKTOK_URL = 'https://www.tiktok.com/@my.health.haven';
 
 const XIcon = (props) => (
