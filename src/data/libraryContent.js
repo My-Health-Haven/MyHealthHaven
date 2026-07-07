@@ -496,6 +496,97 @@ To learn more about structured, trust-first support for care in Mexico, [talk to
       'how-we-vet-hospitals',
     ],
   },
+  {
+    slug: 'insured-but-still-paying-what-coverage-costs',
+    category: 'Getting Started',
+    categorySlug: 'getting-started',
+    type: 'Article',
+    featured: false,
+    author: 'Darren Anderson',
+    date: '2026-07-01',
+    title: 'Insured but Still Paying? Understanding What Coverage Really Costs',
+    summary:
+      "Being covered isn't the same as being able to afford care. Here's a clear look at why many insured Americans still face high out-of-pocket costs — and what that means for your options.",
+    seoTitle: 'Insured but Still Paying? What Coverage Really Costs',
+    seoDescription:
+      "Being covered isn't the same as being able to afford care. Here's why many insured Americans still face high out-of-pocket costs — and what it means for your options.",
+    imageAlt: 'Insured patient reviewing a medical bill and out-of-pocket costs',
+    content: `If you have ever paid your insurance premium faithfully, walked into an appointment expecting to be covered, and then opened a bill that made your stomach drop — you are not alone, and you did not do anything wrong.
+
+It is one of the most common and least talked-about experiences in American healthcare. You are insured. And you are still paying a lot.
+
+For many people, the quiet assumption underneath this is a sense of personal failure. Maybe I picked the wrong plan. Maybe I should have read the fine print more carefully. Usually, that is not what happened. What happened is that "covered" and "affordable" are not the same thing, and the gap between them is built into how coverage works.
+
+Let us walk through why, calmly and clearly, because understanding this is genuinely useful no matter what you decide to do.
+
+## The Premium Is Only the Beginning
+
+Your monthly premium is what you pay to have insurance at all. It is easy to assume that once it is paid, your costs are mostly handled. In reality, the premium is often just the entry fee. What you pay when you actually use care is shaped by several other pieces, and those pieces are where the surprises usually live.
+
+## The Deductible
+
+A deductible is the amount you pay yourself before your insurance begins to pay a meaningful share. If your plan has a high deductible, you may be responsible for a substantial amount of your care out of pocket before coverage really kicks in. High-deductible plans often come with lower monthly premiums, which is part of why they are appealing and part of why the bills later can feel like a shock.
+
+## Coinsurance and Copays
+
+Even after you meet your deductible, you are often not done paying. Coinsurance means you pay a percentage of the cost, and your insurer pays the rest. A copay is a fixed amount for a visit or service. These continue even when everything is working exactly as designed. Coverage rarely means the cost drops to zero.
+
+## The Out-of-Pocket Maximum
+
+There is a ceiling on what you will pay in a year, called the out-of-pocket maximum. That protection is real and important. It is also worth understanding honestly: for many plans, that ceiling can be high enough that reaching it still represents a serious financial strain for a household.
+
+## In-Network Versus Out-of-Network
+
+Two people can receive the same service and pay very different amounts depending on whether the provider is in their plan's network. Out-of-network care can cost dramatically more, and in some cases may not count toward your deductible or maximum at all. This single detail is behind a large share of surprise bills.
+
+## What Is Not Covered at All
+
+Some services are simply outside what a plan covers. Certain elective procedures, specific treatments, and categories like some dental or specialty care may not be included. In those cases, coverage is not reduced. It is absent, and the full cost falls to the patient.
+
+Put these together, and something becomes clear. Being surprised by a medical bill usually is not a sign that you misunderstood your plan. It is a sign that the system is genuinely complex, with many moving parts that interact in ways few people are ever walked through.
+
+This is where we want to be precise about our role.
+
+MyHealth Haven does not sell you a cheaper version of healthcare, and we are not here to tell you your insurance is bad or to give you financial advice. We are a non-clinical healthcare navigation company. What we do is help people understand the full picture of their real costs and their real options, with transparency and without pressure.
+
+Because here is the deeper point. Once you understand how your actual costs work — premiums, deductibles, coinsurance, networks, and coverage gaps — you are no longer guessing. You can look at any option, including structured cross-border care, and evaluate it on real information rather than assumptions. That understanding is not about finding the lowest price. It is about being able to weigh value, cost, quality, and coordination with clear eyes.
+
+We think people make better healthcare decisions when the math is no longer a mystery. Not rushed decisions. Not fear-driven decisions. Informed ones.
+
+If any of this sounds familiar — if you have ever felt the gap between being covered and being able to afford your care — the most useful first step is simply understanding your own numbers. That is something we are glad to help with. [Make an appointment today](/schedule) with one of our health navigators™.`,
+    faqs: [
+      {
+        question: 'Why am I still paying so much when I have insurance?',
+        answer:
+          "Your premium only buys the coverage; using care adds costs on top. Deductibles, coinsurance, copays, out-of-network charges, and services that aren't covered at all can each add to what you owe. Being surprised by a bill usually reflects how complex the system is, not a mistake you made.",
+      },
+      {
+        question: 'What is a deductible?',
+        answer:
+          'A deductible is the amount you pay yourself before your insurance starts paying a meaningful share. High-deductible plans usually have lower monthly premiums, which is why the later bills can feel like a shock.',
+      },
+      {
+        question: "What's the difference between coinsurance and a copay?",
+        answer:
+          'Coinsurance is a percentage of the cost that you pay while your insurer pays the rest. A copay is a fixed amount for a visit or service. Both can continue even after you meet your deductible, so coverage rarely means your cost drops to zero.',
+      },
+      {
+        question: 'What is an out-of-pocket maximum?',
+        answer:
+          'It is the ceiling on what you pay in a year. The protection is real, but for many plans that ceiling can be high enough that reaching it is still a serious financial strain for a household.',
+      },
+      {
+        question: 'Why does in-network versus out-of-network matter?',
+        answer:
+          "Two people can get the same service and pay very different amounts depending on whether the provider is in their plan's network. Out-of-network care can cost dramatically more and may not count toward your deductible or maximum at all, which is behind a large share of surprise bills.",
+      },
+    ],
+    relatedArticles: [
+      'why-the-same-procedure-costs-less-in-mexico',
+      'is-medical-travel-right-for-me',
+      'what-accreditation-actually-means-in-mexico',
+    ],
+  },
 ];
 
 // ─── Category landing pages ──────────────────────────────────────────────

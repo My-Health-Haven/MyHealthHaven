@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useMemo, useState, useEffect } from 'react';
 import { Box, Container, Typography, Button, Grid, Stack, alpha, useTheme } from '@mui/material';
 import Link from 'next/link';
 
@@ -20,6 +20,20 @@ import {
 } from '../data/libraryContent';
 import { useLanguage } from '../context/LanguageContext';
 
+// How many articles the rotating "Featured Topics" grid shows per visit.
+const FEATURED_COUNT = 3;
+
+// Fisher–Yates shuffle (returns a new array). Runs client-side only, so it
+// never affects the server-rendered HTML.
+const shuffleArray = (input) => {
+  const arr = [...input];
+  for (let i = arr.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+};
+
 const Library = () => {
   const theme = useTheme();
   const { language } = useLanguage();
@@ -28,9 +42,22 @@ const Library = () => {
   const primaryDark = theme.palette.primary.dark;
   const secondary = theme.palette.secondary.main;
 
-  const articles = getNormalizedArticles();
-  const featuredArticles = articles.filter((article) => article.featured);
-  const firstArticle = featuredArticles[0] || articles[0];
+  const articles = useMemo(() => getNormalizedArticles(), []);
+  const curatedFeatured = articles.filter((article) => article.featured);
+  // Stable "start here" target for the hero button (never randomized).
+  const firstArticle = curatedFeatured[0] || articles[0];
+
+  // Rotating "Featured Topics": the server renders a stable, curated set (good
+  // for SEO and to avoid a hydration mismatch); after mount we reshuffle so each
+  // visit surfaces a different mix of articles as the library grows.
+  const initialFeatured = (curatedFeatured.length ? curatedFeatured : articles).slice(
+    0,
+    FEATURED_COUNT
+  );
+  const [displayedArticles, setDisplayedArticles] = useState(initialFeatured);
+  useEffect(() => {
+    setDisplayedArticles(shuffleArray(articles).slice(0, FEATURED_COUNT));
+  }, [articles]);
 
   return (
     <>
@@ -192,7 +219,7 @@ const Library = () => {
           </Stack>
 
           <Grid container spacing={4}>
-            {featuredArticles.map((article, index) => (
+            {displayedArticles.map((article, index) => (
               <Grid size={{ xs: 12, md: 4 }} key={article.slug}>
                 <FadeIn delay={index * 120}>
                   <LibraryArticleCard
