@@ -15,6 +15,7 @@ import {
   LIBRARY_PAGE_COPY,
   LIBRARY_HERO_PILLS,
   LIBRARY_CATEGORIES,
+  LIBRARY_CATEGORY_DETAILS,
   getNormalizedArticles,
   getLibraryArticlePath,
 } from '../data/libraryContent';
@@ -204,7 +205,7 @@ const Library = () => {
             <FadeIn delay={80}>
               <Button
                 component={Link}
-                href='/library/getting-started'
+                href='#explore'
                 endIcon={<ArrowForwardRoundedIcon />}
                 sx={{
                   color: primary,
@@ -265,7 +266,10 @@ const Library = () => {
             {LIBRARY_CATEGORIES.map((cat, index) => {
               const CatIcon = cat.Icon;
               // Only "Getting Started" currently has a category landing page.
-              const categoryHref = cat.key === 'gettingStarted' ? '/library/getting-started' : null;
+              // A card links out only once its category has a real hub page.
+              const categoryHref = LIBRARY_CATEGORY_DETAILS[cat.slug]
+                ? `/library/${cat.slug}`
+                : null;
               return (
                 <Grid size={{ xs: 12, sm: 6, md: 3 }} key={cat.key} sx={{ display: 'flex' }}>
                   <FadeIn delay={index * 100} style={{ height: '100%', width: '100%' }}>

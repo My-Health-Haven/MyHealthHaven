@@ -98,7 +98,7 @@ const LibraryCategory = ({ categorySlug }) => {
         <Container maxWidth='md'>
           <FadeIn>
             <Typography variant='h4' sx={{ fontWeight: 700, color: primaryDark, mb: 2 }}>
-              Have questions about getting started?
+              {details?.ctaTitle || 'Have questions about your options?'}
             </Typography>
             <Typography
               variant='body1'

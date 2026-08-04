@@ -41,12 +41,12 @@ That's it. No other files need editing for a normal article.
 
 ### Required
 
-| Field     | Notes                                                                                                                                 |
-| --------- | ------------------------------------------------------------------------------------------------------------------------------------- |
-| `slug`    | URL segment. Lowercase, hyphenated, stable (don't change after publishing). Must be unique and **never** literally `getting-started`. |
-| `title`   | The article's H1 and card title.                                                                                                      |
-| `summary` | One–two sentence description (used on cards and as the SEO description fallback).                                                     |
-| `content` | The article body, written in Markdown (see below).                                                                                    |
+| Field     | Notes                                                                                                                                     |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `slug`    | URL segment. Lowercase, hyphenated, stable (don't change after publishing). Must be unique and must not collide with a category hub name. |
+| `title`   | The article's H1 and card title.                                                                                                          |
+| `summary` | One–two sentence description (used on cards and as the SEO description fallback).                                                         |
+| `content` | The article body, written in Markdown (see below).                                                                                        |
 
 ### Optional (with defaults)
 
@@ -122,25 +122,36 @@ relatedArticles: ['is-medical-travel-right-for-me', 'how-we-vet-hospitals'],
 
 These render as cards at the bottom of the article. Unknown slugs are skipped.
 
-## Assigning an article to "Getting Started"
+## Assigning an article to a category
 
-Set (or leave the defaults):
+Set both fields to match one of the categories below. The article then appears on
+that category's hub and uses the URL `/library/<categorySlug>/<slug>`.
+
+| Category         | `category`           | `categorySlug`         | Hub URL                       |
+| ---------------- | -------------------- | ---------------------- | ----------------------------- |
+| Getting Started  | `'Getting Started'`  | `'getting-started'`    | `/library/getting-started`    |
+| Costs & Planning | `'Costs & Planning'` | `'costs-and-planning'` | `/library/costs-and-planning` |
 
 ```js
-categorySlug: 'getting-started',
-category: 'Getting Started',
+category: 'Costs & Planning',
+categorySlug: 'costs-and-planning',
 ```
 
-The article then appears on the `/library/getting-started` hub and uses the nested
-URL `/library/getting-started/<slug>`.
+If you omit both, the article defaults to Getting Started.
+
+**Moving a published article between categories changes its URL**, so add a
+redirect from the old path in `next.config.mjs` (see the existing
+`/library/getting-started/... -> /library/costs-and-planning/...` entries).
 
 ## What NOT to edit
 
 - **Don't hand-edit the sitemap** (`src/app/sitemap.js`) — article URLs are
   generated automatically from `LIBRARY_ARTICLES`.
 - **Don't rename the `summary` field** — cards and SEO depend on it.
-- **Don't create a slug literally named `getting-started`** — it collides with the
-  category hub route.
+- **Don't create a slug that collides with a category hub** (`getting-started`,
+  `costs-and-planning`) — the hub route wins.
+- **Don't edit `src/lib/libraryPages.js`** to publish an article — it only holds
+  the shared metadata/JSON-LD builders used by every category route.
 - **Don't change a published article's `slug`** without adding a redirect in
   `next.config.mjs` (see the existing `/library/...` redirects there for the
   pattern).
@@ -150,10 +161,16 @@ URL `/library/getting-started/<slug>`.
 - **Article content is English-only.** Site chrome (navigation, buttons, category
   labels) is bilingual, but article bodies, titles, excerpts, FAQs, and category
   intros are written in English only.
-- **Adding a brand-new category** (other than Getting Started) is out of scope for
-  the current structure. It requires copying the route folder pair
-  `src/app/(main)/library/getting-started/page.jsx` and
-  `src/app/(main)/library/getting-started/[slug]/page.jsx` for the new category,
-  adding a `LIBRARY_CATEGORY_DETAILS` entry, and adding the hub path to
-  `PUBLIC_ROUTE_DEFINITIONS` in `src/lib/siteSeo.ts`. Adding _articles_ to an
-  existing category needs none of this.
+- **Adding _articles_ to an existing category needs no new files** — just the data
+  entry. Adding a **brand-new category** takes four small steps (Next.js needs a
+  literal folder per category):
+  1. Add an entry to `LIBRARY_CATEGORY_DETAILS` in `src/data/libraryContent.js`
+     (`slug`, `name`, `description`, `intro`, `ctaTitle`).
+  2. Set the matching `slug` on that category in `LIBRARY_CATEGORIES` so its card
+     on `/library` becomes clickable.
+  3. Copy `src/app/(main)/library/costs-and-planning/` to a folder named after the
+     new slug and change the `CATEGORY_SLUG` constant in both `page.jsx` files.
+  4. Add the hub path to `PUBLIC_ROUTE_DEFINITIONS` in `src/lib/siteSeo.ts`.
+
+  All metadata and JSON-LD come from the shared builders in
+  `src/lib/libraryPages.js`, so there is no per-category SEO code to maintain.

@@ -16,7 +16,7 @@ import {
 import FadeIn from '../components/FadeIn';
 import ArticlePlaceholder from '../components/library/ArticlePlaceholder';
 import LibraryArticleCard from '../components/library/LibraryArticleCard';
-import { getLibraryArticleBySlug } from '../data/libraryContent';
+import { LIBRARY_CATEGORY_DETAILS, getLibraryArticleBySlug } from '../data/libraryContent';
 
 // Format an ISO date (YYYY-MM-DD) for display; returns null if absent/invalid.
 const formatDate = (value) => {
@@ -90,7 +90,10 @@ const ArticleDetail = ({ slug }) => {
     notFound();
   }
 
-  const isGettingStarted = article.categorySlug === 'getting-started';
+  // Link the category crumb only when that category has a real hub page.
+  const categoryHref = LIBRARY_CATEGORY_DETAILS[article.categorySlug]
+    ? `/library/${article.categorySlug}`
+    : null;
   const metaParts = [
     article.type,
     article.author,
@@ -116,11 +119,8 @@ const ArticleDetail = ({ slug }) => {
             <Link href='/library' style={{ textDecoration: 'none', color: 'inherit' }}>
               Library
             </Link>
-            {isGettingStarted && (
-              <Link
-                href='/library/getting-started'
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
+            {categoryHref && (
+              <Link href={categoryHref} style={{ textDecoration: 'none', color: 'inherit' }}>
                 {article.category}
               </Link>
             )}

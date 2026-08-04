@@ -79,27 +79,34 @@ export const LIBRARY_HERO_PILLS = [
 // ─── Explore by Category cards (4) ───────────────────────────────────────
 // Same swap pattern: replace `Icon` to change the icon; edit copy keys above
 // to change titles/descriptions.
+// `slug` links the card to its category hub at /library/<slug>. A card is only
+// clickable once that slug also exists in LIBRARY_CATEGORY_DETAILS below AND has
+// a matching route folder under src/app/(main)/library/<slug>/.
 export const LIBRARY_CATEGORIES = [
   {
     key: 'gettingStarted',
+    slug: 'getting-started',
     titleKey: 'categoryGettingStartedTitle',
     descKey: 'categoryGettingStartedDesc',
     Icon: ExploreRoundedIcon,
   },
   {
     key: 'choosing',
+    slug: 'choosing-a-provider',
     titleKey: 'categoryChoosingTitle',
     descKey: 'categoryChoosingDesc',
     Icon: VerifiedUserRoundedIcon,
   },
   {
     key: 'costs',
+    slug: 'costs-and-planning',
     titleKey: 'categoryCostsTitle',
     descKey: 'categoryCostsDesc',
     Icon: CalculateRoundedIcon,
   },
   {
     key: 'recovery',
+    slug: 'recovery-and-follow-up',
     titleKey: 'categoryRecoveryTitle',
     descKey: 'categoryRecoveryDesc',
     Icon: MonitorHeartRoundedIcon,
@@ -364,8 +371,8 @@ If you want to understand how to evaluate standards at a specific facility, [sch
   },
   {
     slug: 'why-the-same-procedure-costs-less-in-mexico',
-    category: 'Getting Started',
-    categorySlug: 'getting-started',
+    category: 'Costs & Planning',
+    categorySlug: 'costs-and-planning',
     type: 'Article',
     featured: false,
     author: 'Darren Anderson',
@@ -498,8 +505,8 @@ To learn more about structured, trust-first support for care in Mexico, [talk to
   },
   {
     slug: 'insured-but-still-paying-what-coverage-costs',
-    category: 'Getting Started',
-    categorySlug: 'getting-started',
+    category: 'Costs & Planning',
+    categorySlug: 'costs-and-planning',
     type: 'Article',
     featured: false,
     author: 'Darren Anderson',
@@ -587,6 +594,204 @@ If any of this sounds familiar — if you have ever felt the gap between being c
       'what-accreditation-actually-means-in-mexico',
     ],
   },
+  {
+    slug: 'preventive-screening-cost-us-vs-mexico',
+    category: 'Costs & Planning',
+    categorySlug: 'costs-and-planning',
+    type: 'Article',
+    featured: false,
+    author: 'Darren Anderson',
+    date: '2026-07-01',
+    title: 'Comparing the Price of Preventive Screening: Two Systems, Two Pricing Models',
+    summary:
+      "In the U.S., a preventive screening's price is assembled from separate charges, network rules, and billing codes — and revealed at the end. Mexico's direct-pay model quotes one package price up front. Here's how to compare the two honestly.",
+    seoTitle: 'Preventive Screening Costs: U.S. vs. Mexico Pricing',
+    seoDescription:
+      "A preventive screening's U.S. price is assembled from separate charges, network rules, and billing codes; Mexico's direct-pay model quotes one package up front. Here's how to compare them.",
+    imageAlt: 'Comparing preventive screening pricing in the U.S. and Mexico',
+    content: `Ask a simple question — "what will this preventive screening cost me?" — and you will discover something strange about American healthcare. The question is remarkably hard to answer in advance.
+
+Not because anyone is hiding it. Because in the U.S. system, the price of a preventive package usually does not exist as a single number until after the service is delivered.
+
+That is worth sitting with, because it explains a great deal.
+
+## How a Preventive Package Is Priced in the U.S.
+
+When you get a set of preventive studies — bloodwork, imaging, a physical assessment — you are rarely buying one thing. You are generating several separate charges that only combine into a final number later.
+
+There is often a facility charge for the location where the service happens. There is a professional fee for the physician's interpretation. There are laboratory charges for the panels themselves, sometimes billed by a separate entity entirely. Each of these can be negotiated differently with your insurer, and each can land in a different place on your bill.
+
+Then network rules apply. The same study performed by an in-network or out-of-network provider can produce meaningfully different amounts owed, even when the study itself is identical.
+
+And then there is a detail almost no one is told about in advance: how the study is coded.
+
+## Preventive Versus Diagnostic: The Same Test, Two Categories
+
+Under U.S. rules, many preventive screenings are covered without cost-sharing when performed in-network. That protection is real and valuable.
+
+But the moment a study is performed to investigate something — a symptom, a prior finding, a follow-up — it may be billed as diagnostic rather than preventive. The test can be physically identical. The equipment, the technician, the time, the interpretation: unchanged. What changed is the billing category, and with it, what you owe. In a high-deductible plan, that shift can move a cost from zero to a significant amount you pay yourself.
+
+Most people discover this after the fact. It is one of the most common sources of surprise on a preventive bill, and it is not a mistake anyone made. It is how the pricing system is built.
+
+Put these together and the picture is clear: in the U.S., the price of a preventive package is assembled — from multiple charges, network rules, and billing categories — and typically revealed at the end.
+
+## How a Comparable Package Is Priced in Mexico
+
+Mexico's private healthcare model is built around a different financial structure: direct pay.
+
+In a direct-pay system, there is typically no insurer negotiating a rate on your behalf, no network determining a different price for the same study, and no billing category deciding after the fact what portion is yours. A defined package is priced as a package.
+
+This is why a defined preventive package in Mexico can often be quoted as a single price before you travel, itemized by what is included, with known exclusions identified before care. The administrative layers that shape a U.S. price — negotiation, network adjudication, coding, coordination of benefits — are largely not part of the transaction.
+
+We want to be precise about what this does and does not mean.
+
+It does not mean the final cost can never change. A direct-pay quote reflects a defined scope; if the scope changes, additional testing is required, a provider identifies a new issue, exclusions apply, or your circumstances change, the final number can move. A defined package quoted in advance is more transparent — not a guarantee that nothing will change.
+
+And it does not mean the two options are the same, or that one is better or worse. This comparison addresses pricing structure only. The quality, suitability, and standards of each provider and service must be evaluated separately — provider by provider, study by study.
+
+It means the two systems assemble a price differently. In one, price emerges from a complex chain of intermediaries. In the other, price is set directly between the provider and the patient. Those are different financial architectures, and they produce different numbers for structural reasons. Whether the services themselves are comparable, and how their quality and suitability compare, are separate questions that must be evaluated on their own.
+
+## What an Honest Comparison Actually Requires
+
+If you want to compare the two, comparing headline numbers is not enough. An honest comparison begins by matching the included studies, services, interpretation, follow-up, and exclusions item by item, and then asking:
+
+- What exactly is included in each package — which studies, which panels, which imaging protocols, which contrast use, and which reporting and interpretation? Are the two lists actually comparable once matched item by item?
+- What is your true out-of-pocket cost in the U.S. — after your deductible status, your coinsurance, and whether the study will be coded as preventive or diagnostic?
+- What is the complete cost of the Mexico option — the package, the travel, the stay, the coordination, and any known exclusions — as one total?
+- What does each option include beyond the studies themselves: results delivery, follow-up, and continuity?
+
+Only when both options are itemized and matched the same way are you comparing like for like. Most people never get to that point, because assembling those numbers is genuinely difficult.
+
+That is where we come in, and we want to be exact about our role.
+
+MyHealth Haven is a non-clinical healthcare navigation company. We do not tell you which screenings you need — that is a conversation with a licensed provider, and it stays there. We do not sell you a cheaper version of healthcare, and we do not judge the quality of any provider for you. What we do is help you match what each package includes and see the complete, itemized cost of each option, so a decision that has been fogged by uncertainty becomes one you can actually make.
+
+Preventive care is often where people begin, precisely because the stakes are lower and the value of clarity is high. If you have delayed a screening simply because you could not find out what it would cost, that is a solvable problem.
+
+You should be able to know the number before you decide. That is not too much to ask.
+
+If you want to see a complete, itemized preventive option, [schedule a Health Navigator consultation](/schedule).`,
+    faqs: [
+      {
+        question: 'Why is a preventive screening so hard to price in the U.S.?',
+        answer:
+          "Because the price is assembled from separate pieces rather than set as one number. A facility charge, a professional fee, and lab charges (sometimes billed by different entities) each get negotiated with your insurer, network rules change what you owe, and how the study is coded affects the total — so the final number often isn't clear until after the service.",
+      },
+      {
+        question:
+          "What's the difference between a preventive and a diagnostic screening on a bill?",
+        answer:
+          'Many preventive screenings are covered without cost-sharing when done in-network. But if the same test is performed to investigate a symptom, a prior finding, or a follow-up, it may be billed as diagnostic instead — the test is identical, but the billing category changes what you owe, which in a high-deductible plan can shift a cost from zero to a significant amount.',
+      },
+      {
+        question: 'How is a preventive package priced in Mexico?',
+        answer:
+          "Mexico's private model is typically direct pay: a defined package is quoted as a single price before you travel, itemized by what is included, with known exclusions identified up front. There is usually no insurer negotiation, no network adjudication, and no billing category decided after the fact.",
+      },
+      {
+        question: 'Does a direct-pay quote mean the cost can never change?',
+        answer:
+          'No. A direct-pay quote reflects a defined scope. If the scope changes, additional testing is needed, a provider identifies a new issue, or exclusions apply, the final number can move. A package quoted in advance is more transparent — not a guarantee that nothing will change.',
+      },
+      {
+        question: 'How do I compare U.S. and Mexico screening costs fairly?',
+        answer:
+          'Match the included studies, panels, imaging, interpretation, follow-up, and exclusions item by item. Then work out your true U.S. out-of-pocket cost (deductible status, coinsurance, and whether it will be coded preventive or diagnostic) and the complete Mexico total (package, travel, stay, coordination, and any exclusions) so you are comparing like for like.',
+      },
+    ],
+    relatedArticles: [
+      'why-the-same-procedure-costs-less-in-mexico',
+      'insured-but-still-paying-what-coverage-costs',
+      'is-medical-travel-right-for-me',
+    ],
+  },
+  {
+    slug: 'why-private-healthcare-in-mexico-can-cost-less',
+    category: 'Costs & Planning',
+    categorySlug: 'costs-and-planning',
+    type: 'Article',
+    featured: false,
+    author: 'MyHealth Haven',
+    date: '2026-07-01',
+    title: 'Why Private Healthcare in Mexico Can Cost Less',
+    summary:
+      'A quoted price, what a provider receives, and what a clinician earns are three different things. Understanding what sits between your payment and your care helps you read a price more intelligently.',
+    seoTitle: 'What Sits Between Your Payment and Your Care',
+    seoDescription:
+      'Patient price, provider revenue, and clinician pay are three different things. Learn what sits between your payment and your care, and why private healthcare in Mexico can cost less.',
+    imageAlt: 'Understanding what sits between a healthcare payment and the care delivered',
+    content: `When Americans first compare private healthcare prices in Mexico, the difference can be difficult to interpret. A lower quoted price is sometimes treated as proof of lower quality or evidence that clinicians must be poorly paid. Neither conclusion follows from price alone.
+
+A healthcare price is the result of a particular market and payment structure. Understanding that structure does not tell you where to receive care, but it does help you read a price more intelligently.
+
+## Three Things a Price Does Not Tell You
+
+The first distinction is that three concepts are often collapsed into one: the price a patient pays, the revenue a provider organization receives, and the compensation a clinician earns. They are related, but they are not interchangeable. A quoted price does not show how revenue is allocated inside a hospital or practice, and it cannot establish what an individual clinician takes home.
+
+## What Sits Inside a U.S. Insured Encounter
+
+Consider a typical insured encounter in the United States. The amount paid may reflect a negotiated rate, network rules, coding, claim submission, review, possible resubmission, and administrative work on both the provider and payer sides. Those activities are real, necessary work within that system, and a portion of healthcare spending supports them.
+
+None of that is evidence of a bad doctor, hospital, or insurer. It is the operating structure of a layered, insurance-mediated system. Administrative complexity is one recognized contributor to U.S. healthcare spending, alongside the prices of services and goods and other market factors. It should not be presented as the entire explanation.
+
+## How Mexico's Private Market Can Differ
+
+Mexico's private healthcare market can operate differently. Patients may pay providers more directly, with fewer insurance-related steps in the payment path. Facilities also operate within different labor, real-estate, regulatory, supply, and market conditions. Together, more direct payment and different operating economics can contribute to lower patient prices. The exact structure still varies by provider and service.
+
+That distinction changes the useful question. Instead of asking how a clinician can earn well when a patient pays less, ask which costs and administrative steps are built into the quoted price, what the provider receives, and what remains unknown. Clinician compensation is an internal matter that cannot be inferred from the patient-facing price.
+
+## Price and Quality Are Separate Questions
+
+Price and quality are separate questions. A price alone neither proves nor disproves the quality of a provider, the appropriateness of a treatment, or whether that provider is suitable for a particular patient. Those questions require their own evaluation.
+
+Once the separate roles of patient price, provider revenue, and clinician compensation are clear, several things become easier to evaluate.
+
+A lower price may reflect more direct payment, different operating economics, a different scope of services, or some combination of factors. The price is a reason to ask questions, not a substitute for the answers.
+
+A higher price also does not establish better care. It may include greater administrative complexity, different input costs, different market prices, or a different bundle of services. The amount alone cannot isolate which factor is responsible.
+
+## The Better Question: What Is This Price Paying For?
+
+And the question worth asking is no longer just "how much does this cost?" The more useful question is "what is included in this price, and what is it paying for?" A price that is set close to the point of care and a price that has traveled through many layers can look similar on the surface and mean very different things underneath.
+
+These questions can be difficult to organize across a border, within an unfamiliar system, and sometimes in a second language. MyHealth Haven is a cross-border healthcare navigation company. We are not a clinic or medical provider; we do not diagnose, set clinical prices, or make treatment decisions. We help patients understand how care and cost are structured, coordinate communication, and organize the process with greater structure, transparency, and confidence. Providers retain full clinical authority. Patients retain full authority over their choices.
+
+You do not need to make a decision today to benefit from understanding the distinction. The next time you review a healthcare price, ask what is included, which services are excluded, how payment is structured, and which questions about quality and suitability still require separate answers.
+
+Those questions are worth carrying with you. If you are comparing an actual care option and want help organizing them, [speak with a Health Navigator](/schedule).`,
+    faqs: [
+      {
+        question: 'Does a lower price mean lower-quality care?',
+        answer:
+          'No. Price and quality are separate questions. A price alone neither proves nor disproves the quality of a provider, the appropriateness of a treatment, or whether that provider is suitable for a particular patient. Those questions require their own evaluation.',
+      },
+      {
+        question: 'Does a lower patient price mean the clinician is poorly paid?',
+        answer:
+          'That cannot be inferred from a price. The price a patient pays, the revenue a provider organization receives, and the compensation a clinician earns are three related but different things. A quoted price does not show how revenue is allocated inside a hospital or practice.',
+      },
+      {
+        question: 'Why can private healthcare in Mexico cost less?',
+        answer:
+          'Patients may pay providers more directly, with fewer insurance-related steps in the payment path, and facilities operate within different labor, real-estate, regulatory, supply, and market conditions. Together, more direct payment and different operating economics can contribute to lower patient prices, though the exact structure varies by provider and service.',
+      },
+      {
+        question: 'Does a higher price mean better care?',
+        answer:
+          'Not necessarily. A higher price may reflect greater administrative complexity, different input costs, different market prices, or a different bundle of services. The amount alone cannot isolate which factor is responsible.',
+      },
+      {
+        question: 'What should I ask when reviewing a healthcare price?',
+        answer:
+          'Ask what is included, which services are excluded, how payment is structured, and which questions about quality and suitability still require separate answers. The more useful question is not just "how much does this cost?" but "what is included in this price, and what is it paying for?"',
+      },
+    ],
+    relatedArticles: [
+      'why-the-same-procedure-costs-less-in-mexico',
+      'preventive-screening-cost-us-vs-mexico',
+      'insured-but-still-paying-what-coverage-costs',
+    ],
+  },
 ];
 
 // ─── Category landing pages ──────────────────────────────────────────────
@@ -600,6 +805,16 @@ export const LIBRARY_CATEGORY_DETAILS = {
       'Foundational guides that explain how medical travel works and how to evaluate whether it fits your situation.',
     intro:
       'Start here to understand your options, the questions worth asking, and how to prepare before you commit to anything.',
+    ctaTitle: 'Have questions about getting started?',
+  },
+  'costs-and-planning': {
+    slug: 'costs-and-planning',
+    name: 'Costs & Planning',
+    description:
+      'Transparent explanations of how healthcare prices are built, what a quote actually includes, and how to compare options honestly.',
+    intro:
+      'Understand how prices are assembled on both sides of the border, what your real out-of-pocket cost is, and which questions to ask before you compare numbers.',
+    ctaTitle: 'Want help comparing your real costs?',
   },
 };
 

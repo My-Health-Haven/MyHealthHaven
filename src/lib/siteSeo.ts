@@ -135,6 +135,12 @@ export const PUBLIC_ROUTE_DEFINITIONS: RouteDefinition[] = (
       priority: '0.7',
       prerender: true,
     },
+    {
+      path: '/library/costs-and-planning',
+      changefreq: 'monthly',
+      priority: '0.7',
+      prerender: true,
+    },
     ...LIBRARY_ARTICLES.map(
       (article: { slug: string; categorySlug?: string; date?: string; updatedDate?: string }) => ({
         path: getLibraryArticlePath(article),

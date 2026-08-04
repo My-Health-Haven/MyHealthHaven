@@ -78,6 +78,28 @@ const nextConfig = {
         destination: '/library/getting-started/talking-to-your-us-doctor',
         permanent: true,
       },
+      // Cost/pricing articles moved from Getting Started to the Costs &
+      // Planning category. Preserve the URLs they were first published under.
+      {
+        source: '/library/getting-started/why-the-same-procedure-costs-less-in-mexico',
+        destination: '/library/costs-and-planning/why-the-same-procedure-costs-less-in-mexico',
+        permanent: true,
+      },
+      {
+        source: '/library/getting-started/insured-but-still-paying-what-coverage-costs',
+        destination: '/library/costs-and-planning/insured-but-still-paying-what-coverage-costs',
+        permanent: true,
+      },
+      {
+        source: '/library/getting-started/preventive-screening-cost-us-vs-mexico',
+        destination: '/library/costs-and-planning/preventive-screening-cost-us-vs-mexico',
+        permanent: true,
+      },
+      {
+        source: '/library/getting-started/why-private-healthcare-in-mexico-can-cost-less',
+        destination: '/library/costs-and-planning/why-private-healthcare-in-mexico-can-cost-less',
+        permanent: true,
+      },
     ];
   },
 
