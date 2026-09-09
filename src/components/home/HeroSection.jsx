@@ -300,11 +300,11 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying }) => {
                   mb: { xs: 0, md: 0 },
                 }}
               >
-                {/* Video frame — taller (4:3-ish) on desktop, true 16:9 on mobile so it isn't trimmed */}
+                {/* Preserve the video's native 16:9 frame at every screen size. */}
                 <Box
                   sx={{
                     position: 'relative',
-                    paddingTop: { xs: '56.25%', md: '75%' },
+                    aspectRatio: '16 / 9',
                     bgcolor: alpha('#00897B', 0.06),
                     borderRadius: 4,
                     overflow: 'hidden',
@@ -315,8 +315,8 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying }) => {
                     controls
                     preload='metadata'
                     playsInline
-                    poster='/HealthNavigatorsBG.webp'
-                    src='/Supported Journey.mp4'
+                    poster='/my-health-haven-poster.webp'
+                    src='/my-health-haven.mp4'
                     onPlay={() => setIsHeroVideoPlaying(true)}
                     onPause={() => setIsHeroVideoPlaying(false)}
                     onEnded={() => setIsHeroVideoPlaying(false)}
@@ -326,7 +326,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying }) => {
                       left: 0,
                       width: '100%',
                       height: '100%',
-                      objectFit: 'cover',
+                      objectFit: 'contain',
                     }}
                   />
                   {/* Floating top-left badge — desktop only (mobile shows it below) */}
@@ -387,7 +387,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying }) => {
                       ? 'translateY(calc(100% + 40px))'
                       : 'translateY(0)',
                     opacity: isHeroVideoPlaying ? 0 : 1,
-                    pointerEvents: isHeroVideoPlaying ? 'none' : 'auto',
+                    pointerEvents: 'none',
                   }}
                 >
                   <Grid container spacing={{ xs: 1, md: 1.5 }}>

@@ -37,3 +37,6 @@ coverage
 .claude/settings.local.json
 .claude/settings.local.json
 /.claude
+
+# Original video export; the optimized web copy is public/my-health-haven.mp4.
+/public/My Health Haven My Video .mp4

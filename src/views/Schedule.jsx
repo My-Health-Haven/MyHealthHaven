@@ -28,11 +28,14 @@ const Schedule = () => {
                 : 'Use the live calendar below to pick a time to review procedure options, travel logistics, and the best next step with our team.'}
             </Typography>
 
-            <GlassCard sx={{ p: 0, overflow: 'hidden', height: '1200px' }}>
+            <GlassCard sx={{ p: 0, overflow: 'hidden' }}>
               {/* Google Calendar Appointment Scheduling begin */}
               <iframe
-                src='https://calendar.google.com/calendar/appointments/schedules/AcZssZ16B63n7brNHN9Y_vqxeKi7ymLdMa1b9atimdbiYwKA4RNY6mRKB1ilUFJq6E0X1VGcWuKloAdk?gv=true'
-                style={{ border: 0, width: '100%', height: '100%' }}
+                src='https://calendar.google.com/calendar/appointments/schedules/AcZssZ28J-ANGLgITYbd7PIuSgbWErbc8QVKQu_DQzl5pzXxlQ_mEmhMwi49B0GKipy88u1mv32pA65M?gv=true'
+                title={t('schedulePage.title')}
+                width='100%'
+                height='600'
+                style={{ border: 0, display: 'block' }}
                 frameBorder='0'
               ></iframe>
               {/* end Google Calendar Appointment Scheduling */}
