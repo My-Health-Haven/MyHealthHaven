@@ -25,7 +25,7 @@ import { CATEGORY_FRAMES, libraryLabels } from '@/components/library-paper/label
  * into this view and stay here).
  */
 const LibraryCategory = ({ categorySlug }) => {
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const pageCopy = LIBRARY_PAGE_COPY[language] || LIBRARY_PAGE_COPY.en;
   const labels = libraryLabels(language);
 
@@ -43,7 +43,7 @@ const LibraryCategory = ({ categorySlug }) => {
           <Crumbs
             label={labels.breadcrumb}
             items={[
-              { label: 'Home', href: '/' },
+              { label: t('navbar.home'), href: '/' },
               { label: pageCopy.title, href: '/library' },
               { label: details?.name },
             ]}

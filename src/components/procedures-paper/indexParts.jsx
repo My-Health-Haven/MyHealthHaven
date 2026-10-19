@@ -11,6 +11,33 @@ export function SpecialityMark({ Icon }) {
   );
 }
 
+/* a speciality name that may break after its slashes ("Preventative Care/Wellness"),
+   so large text never has to split a word */
+export function SpecialityName({ children }) {
+  if (typeof children !== 'string' || !children.includes('/')) return children;
+  const parts = children.split('/');
+  return parts.map((part, i) => (
+    <React.Fragment key={i}>
+      {part}
+      {i < parts.length - 1 ? (
+        <>
+          /<wbr />
+        </>
+      ) : null}
+    </React.Fragment>
+  ));
+}
+
+/* the number of entries: a figure on the page, read as "5 procedures" (countWord) */
+export function SpecialityCount({ id, count, countWord }) {
+  return (
+    <span id={id} className='pr-count'>
+      {count}
+      {countWord ? <span className='sr-only'> {countWord(count)}</span> : null}
+    </span>
+  );
+}
+
 /*
  * The entries of one speciality as a role=list (the site theme paints any
  * hovered <li> in <main> solid teal). split: two stacks side by side from

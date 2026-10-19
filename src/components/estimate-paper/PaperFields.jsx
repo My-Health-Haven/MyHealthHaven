@@ -1,9 +1,11 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Box, TextField, MenuItem, Autocomplete } from '@mui/material';
+import { CircleAlert } from 'lucide-react';
 import { US_STATES } from '@/data/usLocations';
 import { PHONE_MAX_LENGTH } from '@/lib/validation';
 import { cls } from '@/components/paper/paperStyles';
+import { bringIntoView } from './PaperSubmitFeedback';
 
 /*
  * Paper versions of the estimate form fields (src/components/estimate/*). Same
@@ -16,6 +18,11 @@ import { cls } from '@/components/paper/paperStyles';
  * The selects also show their placeholder (the originals passed one, but a
  * select never displays it): the State field reads "State", and the City field
  * reads "Select a State first" while it waits for a state.
+ *
+ * When a submit check fails on one field (procedure, phone, email), that field
+ * shows the message between its label and its box (where an open dropdown
+ * cannot cover it), is marked invalid (aria-invalid, aria-describedby), comes
+ * into view and takes focus.
  */
 
 const OTHER_PROCEDURE_OPTION = '__other_procedure__';
@@ -25,6 +32,40 @@ export const PaperLabel = ({ htmlFor, id, children }) => (
     {children}
   </label>
 );
+
+/* a field whose check failed comes into view (label included) and takes focus;
+   attempt changes on every submit, so the same failure is shown again */
+const useErrorFocus = (error, attempt) => {
+  const wrapRef = useRef(null);
+  useEffect(() => {
+    if (!error || !wrapRef.current) return;
+    wrapRef.current.querySelector('input, textarea')?.focus({ preventScroll: true });
+    bringIntoView(wrapRef.current);
+  }, [error, attempt]);
+  return wrapRef;
+};
+
+/* with reduced motion the theme's pop-in of menu rows (which starts them at
+   opacity 0) is dropped: the rows simply appear */
+const stillRows = (selector) => ({
+  '@media (prefers-reduced-motion: reduce)': {
+    [selector]: {
+      animation: 'none !important',
+      opacity: '1 !important',
+      transform: 'none !important',
+      transition: 'none !important',
+    },
+  },
+});
+
+/* the message of a failed check, under the label */
+const FieldError = ({ id, children }) =>
+  children ? (
+    <p id={id} className='hp-est-error'>
+      <CircleAlert aria-hidden='true' />
+      <span>{children}</span>
+    </p>
+  ) : null;
 
 const placeholderValue = (placeholder) => {
   const PlaceholderValue = (selected) =>
@@ -46,10 +87,11 @@ const menuPaperSx = {
     backgroundColor: '#00695c !important',
     color: '#ffffff !important',
   },
+  ...stillRows('& .MuiMenuItem-root'),
 };
 
 export const PaperNameField = ({ value, onChange, label }) => (
-  <div className='hp-est-wide'>
+  <div className='hp-est-wide hp-est-field'>
     <PaperLabel htmlFor='estimate-name'>{label}</PaperLabel>
     <TextField
       id='estimate-name'
@@ -66,63 +108,86 @@ export const PaperNameField = ({ value, onChange, label }) => (
   </div>
 );
 
-export const PaperPhoneField = ({ value, onChange, label }) => (
-  <div>
-    <PaperLabel htmlFor='estimate-phone'>{label}</PaperLabel>
-    <TextField
-      id='estimate-phone'
-      fullWidth
-      required
-      placeholder={label}
-      name='phone'
-      type='tel'
-      value={value}
-      onChange={onChange}
-      variant='outlined'
-      hiddenLabel
-      autoComplete='tel'
-      slotProps={{
-        htmlInput: {
-          inputMode: 'tel',
-          pattern: '^\\+?\\d{7,15}$',
-          maxLength: PHONE_MAX_LENGTH,
-        },
-      }}
-    />
-  </div>
-);
+export const PaperPhoneField = ({ value, onChange, label, hint, error, attempt }) => {
+  const wrapRef = useErrorFocus(error, attempt);
+  return (
+    <div ref={wrapRef} className='hp-est-field'>
+      <PaperLabel htmlFor='estimate-phone'>{label}</PaperLabel>
+      <FieldError id='estimate-phone-error'>{error}</FieldError>
+      <TextField
+        id='estimate-phone'
+        fullWidth
+        required
+        placeholder={label}
+        name='phone'
+        type='tel'
+        value={value}
+        onChange={onChange}
+        variant='outlined'
+        hiddenLabel
+        autoComplete='tel'
+        error={Boolean(error)}
+        slotProps={{
+          htmlInput: {
+            inputMode: 'tel',
+            pattern: '^\\+?\\d{7,15}$',
+            maxLength: PHONE_MAX_LENGTH,
+            /* the browser adds the title to its own "match the format" message */
+            title: hint,
+            'aria-describedby': error ? 'estimate-phone-error' : undefined,
+          },
+        }}
+      />
+    </div>
+  );
+};
 
-export const PaperEmailField = ({ value, onChange, label }) => (
-  <div>
-    <PaperLabel htmlFor='estimate-email'>{label}</PaperLabel>
-    <TextField
-      id='estimate-email'
-      fullWidth
-      required
-      placeholder={label}
-      name='email'
-      type='email'
-      value={value}
-      onChange={onChange}
-      variant='outlined'
-      hiddenLabel
-      autoComplete='email'
-      slotProps={{
-        htmlInput: {
-          autoCapitalize: 'none',
-        },
-      }}
-    />
-  </div>
-);
+export const PaperEmailField = ({ value, onChange, label, error, attempt }) => {
+  const wrapRef = useErrorFocus(error, attempt);
+  return (
+    <div ref={wrapRef} className='hp-est-field'>
+      <PaperLabel htmlFor='estimate-email'>{label}</PaperLabel>
+      <FieldError id='estimate-email-error'>{error}</FieldError>
+      <TextField
+        id='estimate-email'
+        fullWidth
+        required
+        placeholder={label}
+        name='email'
+        type='email'
+        value={value}
+        onChange={onChange}
+        variant='outlined'
+        hiddenLabel
+        autoComplete='email'
+        error={Boolean(error)}
+        slotProps={{
+          htmlInput: {
+            autoCapitalize: 'none',
+            'aria-describedby': error ? 'estimate-email-error' : undefined,
+          },
+        }}
+      />
+    </div>
+  );
+};
 
-export const PaperLocationFields = ({ state, city, onStateChange, onCityChange, availableCities, t }) => {
+export const PaperLocationFields = ({
+  state,
+  city,
+  onStateChange,
+  onCityChange,
+  availableCities,
+  t,
+}) => {
   const statePlaceholder = t('estimatePage.form.state');
-  const cityPlaceholder = !state ? t('estimatePage.form.selectStateFirst') : t('estimatePage.form.city');
+  const cityPlaceholder = !state
+    ? t('estimatePage.form.selectStateFirst')
+    : t('estimatePage.form.city');
 
   return (
     <>
-      <div>
+      <div className='hp-est-field'>
         <PaperLabel id='estimate-state-label'>{t('estimatePage.form.state')}</PaperLabel>
         <TextField
           id='estimate-state'
@@ -152,7 +217,7 @@ export const PaperLocationFields = ({ state, city, onStateChange, onCityChange, 
         </TextField>
       </div>
 
-      <div>
+      <div className='hp-est-field'>
         <PaperLabel id='estimate-city-label'>{t('estimatePage.form.city')}</PaperLabel>
         <TextField
           id='estimate-city'
@@ -186,26 +251,15 @@ export const PaperLocationFields = ({ state, city, onStateChange, onCityChange, 
   );
 };
 
-/* the dropdown, in the page's paper and teal (the global theme's hover teal is
-   too light for white text); the pop-in of the options only runs when motion is
-   allowed, and nothing starts hidden without it */
-const optionSx = (index) => ({
+/* the dropdown rows, in the page's paper and teal (the global theme's hover
+   teal is too light for white text); the theme's pop-in stays when motion is
+   allowed and is dropped with reduced motion (stillRows on the listbox) */
+const optionSx = {
   borderRadius: '8px',
   mb: 0.5,
-  minHeight: 44,
   px: 1.5,
   py: 1,
   color: '#1b4560',
-  opacity: 1,
-  transform: 'none',
-  animation: 'none',
-  '@media (prefers-reduced-motion: no-preference)': {
-    opacity: 0,
-    transform: 'scale(0.94) translateY(4px)',
-    animation: 'listItemPopIn 0.22s ease forwards',
-    animationDelay: `${Math.min(index, 12) * 25}ms`,
-    transition: 'background-color 0.2s ease',
-  },
   '&:hover, &.Mui-focused, &[data-focus="true"]': {
     backgroundColor: '#00796b !important',
     color: '#ffffff !important',
@@ -215,7 +269,7 @@ const optionSx = (index) => ({
     color: '#ffffff !important',
     fontWeight: 600,
   },
-});
+};
 
 export const PaperProcedureField = ({
   procedure,
@@ -228,13 +282,21 @@ export const PaperProcedureField = ({
   procedureOtherLabel,
   procedureOtherPlaceholder,
   label,
+  error,
+  attempt,
 }) => {
   const isOtherSelected = procedure === OTHER_PROCEDURE_OPTION;
+  /* with Other chosen, a blank description is the field that failed */
+  const pickError = isOtherSelected ? '' : error;
+  const otherError = isOtherSelected ? error : '';
+  const wrapRef = useErrorFocus(pickError, attempt);
+  const otherRef = useErrorFocus(otherError, attempt);
 
   return (
     <>
-      <div className='hp-est-wide'>
+      <div ref={wrapRef} className='hp-est-wide hp-est-field'>
         <PaperLabel htmlFor='estimate-procedure'>{label}</PaperLabel>
+        <FieldError id='estimate-procedure-error'>{pickError}</FieldError>
         <Autocomplete
           id='estimate-procedure'
           options={procedureOptions}
@@ -268,6 +330,7 @@ export const PaperProcedureField = ({
                 maxHeight: 320,
                 /* 44px rows at every width (MUI drops them to auto from 600px up) */
                 '&& .MuiAutocomplete-option': { minHeight: 44 },
+                ...stillRows('&& .MuiAutocomplete-option'),
               },
             },
           }}
@@ -276,10 +339,10 @@ export const PaperProcedureField = ({
           }
           isOptionEqualToValue={(option, value) => option === value}
           noOptionsText={procedureNoOptionsLabel}
-          renderOption={(props, option, { index }) => {
+          renderOption={(props, option) => {
             const { key, ...optionProps } = props;
             return (
-              <Box component='li' key={key} {...optionProps} sx={optionSx(index)}>
+              <Box component='li' key={key} {...optionProps} sx={optionSx}>
                 {option === OTHER_PROCEDURE_OPTION ? procedureOtherLabel : String(option || '')}
               </Box>
             );
@@ -291,14 +354,20 @@ export const PaperProcedureField = ({
               placeholder={procedureSearchPlaceholder}
               variant='outlined'
               hiddenLabel
+              error={Boolean(pickError)}
+              inputProps={{
+                ...params.inputProps,
+                'aria-describedby': pickError ? 'estimate-procedure-error' : undefined,
+              }}
             />
           )}
         />
       </div>
 
       {isOtherSelected && (
-        <div className='hp-est-wide'>
+        <div ref={otherRef} className='hp-est-wide hp-est-field'>
           <PaperLabel htmlFor='estimate-procedure-other'>{procedureOtherLabel}</PaperLabel>
+          <FieldError id='estimate-procedure-other-error'>{otherError}</FieldError>
           <TextField
             id='estimate-procedure-other'
             fullWidth
@@ -311,6 +380,12 @@ export const PaperProcedureField = ({
             onChange={onProcedureOtherChange}
             variant='outlined'
             hiddenLabel
+            error={Boolean(otherError)}
+            slotProps={{
+              htmlInput: {
+                'aria-describedby': otherError ? 'estimate-procedure-other-error' : undefined,
+              },
+            }}
           />
         </div>
       )}

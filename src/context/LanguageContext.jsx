@@ -60,6 +60,8 @@ export const LanguageProvider = ({ children }) => {
     if (typeof window === 'undefined') return;
     const normalizedLanguage = normalizeLanguage(language) || FALLBACK_LANGUAGE;
     window.localStorage.setItem('appLanguage', normalizedLanguage);
+    // screen readers pick the voice from <html lang>; keep it in step with the switch
+    document.documentElement.lang = normalizedLanguage;
   }, [language]);
 
   const selectLanguage = (lang) => {

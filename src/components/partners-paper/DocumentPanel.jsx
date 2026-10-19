@@ -105,24 +105,29 @@ export function DocumentFolder({ titleId, title, action, children }) {
   );
 }
 
-/* For Providers: the document held on a navy clipboard, set in the middle of the sheet */
+/* For Providers: the document held on a navy clipboard, set in the middle of the sheet.
+   The title and its action sit as on the folder: title left, "Open Document" right,
+   and on phones the action comes straight under the title, just above the document. */
 export function DocumentClipboard({ titleId, title, action, children }) {
   return (
     <>
       <style>{PANEL_CSS}</style>
       <div className='mx-auto w-full max-w-[920px]'>
-        <div data-reveal='rise' className='text-center'>
-          <h2 id={titleId} className={cls.h2}>
+        <div
+          data-reveal='rise'
+          className='flex flex-col gap-6 md:flex-row md:items-end md:justify-between md:gap-8'
+        >
+          <h2 id={titleId} className={`${cls.h2} min-w-0`}>
             {title}
           </h2>
           {action ? (
-            <div className='mt-7 flex justify-center [&>a]:w-full sm:[&>a]:w-auto'>{action}</div>
+            <div className='min-w-0 max-w-full md:pb-1 [&>a]:w-full md:[&>a]:w-auto'>{action}</div>
           ) : null}
         </div>
         <div
           data-reveal='rise'
           style={{ '--i': 1 }}
-          className='pp-board relative mt-16 rounded-[18px] px-2.5 pb-2.5 pt-10 sm:mt-20 sm:px-5 sm:pb-5 sm:pt-12 lg:px-7 lg:pb-7'
+          className='pp-board relative mt-14 rounded-[18px] px-2.5 pb-2.5 pt-10 sm:mt-16 sm:px-5 sm:pb-5 sm:pt-12 lg:px-7 lg:pb-7'
         >
           <div aria-hidden='true' className='pp-clip'>
             <span className='pp-clip-loop' />

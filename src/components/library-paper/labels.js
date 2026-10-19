@@ -15,7 +15,7 @@ export const LIBRARY_LABELS = {
     frames: {
       questions:
         'Illustration from the MyHealth Haven film: a patient thinks it over, surrounded by thought bubbles of a hospital, a route around the globe, a treatment chair and a talk with a doctor.',
-      thinking: 'Illustration from the MyHealth Haven film: a patient thinks it over, picturing a hospital in a thought bubble.',
+      together: 'Illustration from the MyHealth Haven film: the patient stands beside her Health Navigator, with a small smiling chip at their feet.',
       planning:
         'Illustration from the MyHealth Haven film: a patient stands among the pieces of her plan, her doctor, records, calendar, home, hospital and map, joined by dashed paths.',
     },
@@ -32,7 +32,7 @@ export const LIBRARY_LABELS = {
     frames: {
       questions:
         'Ilustración de la película de MyHealth Haven: una paciente lo piensa, rodeada de burbujas de pensamiento con un hospital, una ruta alrededor del mundo, un sillón de tratamiento y una conversación con una doctora.',
-      thinking: 'Ilustración de la película de MyHealth Haven: una paciente lo piensa e imagina un hospital en una burbuja de pensamiento.',
+      together: 'Ilustración de la película de MyHealth Haven: la paciente junto a su Health Navigator, con un pequeño chip sonriente a sus pies.',
       planning:
         'Ilustración de la película de MyHealth Haven: una paciente rodeada de las piezas de su plan, su doctora, sus expedientes, el calendario, su casa, el hospital y el mapa, unidas por caminos punteados.',
     },
@@ -43,6 +43,6 @@ export const libraryLabels = (language) => LIBRARY_LABELS[language === 'es' ? 'e
 
 /* the film frame for each category hub's hero */
 export const CATEGORY_FRAMES = {
-  'getting-started': { src: '/pages/library-thinking.webp', altKey: 'thinking' },
+  'getting-started': { src: '/pages/together.webp', altKey: 'together' },
   'costs-and-planning': { src: '/pages/library-planning.webp', altKey: 'planning' },
 };

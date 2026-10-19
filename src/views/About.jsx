@@ -111,15 +111,17 @@ const About = () => {
   const { language } = useLanguage();
   const content = pageContent[language] || pageContent.en;
   const [titleHead, titleTail] = content.title.split('—');
+  /* `closing` is two sentences: what MyHealth Haven is not, then what it is */
+  const promise = content.closing.split(/(?<=\.)\s+/).filter(Boolean);
   const alt =
     language === 'es'
       ? {
           hero: 'Ilustración de la película de MyHealth Haven: una Health Navigator rodeada de pacientes y familias de todas las edades.',
-          together: 'Ilustración de la película de MyHealth Haven: la paciente y su Health Navigator conversan con una doctora en una mesa.',
+          clinic: 'Ilustración de la película de MyHealth Haven: una paciente en una clínica mira los retratos de sus médicos.',
         }
       : {
           hero: 'Illustration from the MyHealth Haven film: a Health Navigator surrounded by patients and families of all ages.',
-          together: 'Illustration from the MyHealth Haven film: the patient and her Health Navigator talk with a doctor at a table.',
+          clinic: 'Illustration from the MyHealth Haven film: a patient in a clinic looks at the portraits of her doctors.',
         };
 
   return (
@@ -128,6 +130,10 @@ const About = () => {
         {content.introFollow ? (
           <p className='m-0 max-w-[34rem] font-[family-name:var(--font-hh-display)] text-[1.375rem] leading-[1.35] text-[#1b4560]'>{content.introFollow}</p>
         ) : null}
+        <Link href='/schedule' className={`${cls.btnPrimary} mt-7`}>
+          <CalendarDays aria-hidden='true' className='size-5' />
+          {content.contactCta}
+        </Link>
       </PageHero>
 
       <Sheet tone='kraft' labelledBy='about-helps-title'>
@@ -135,40 +141,59 @@ const About = () => {
           <div>
             <SectionHead id='about-helps-title' title={content.sectionTitle} lead={content.sectionIntro} />
             <div data-reveal='slot' className='mt-10 max-w-[34rem]'>
-              <FilmWindow src='/pages/navigators-table.webp' alt={alt.together} sizes='(min-width: 1024px) 520px, 100vw' />
+              <FilmWindow src='/pages/about-clinic.webp' alt={alt.clinic} sizes='(min-width: 1024px) 520px, 100vw' />
             </div>
           </div>
           <TileList
-            className='lg:pt-3'
+            className='max-w-[38rem] self-start lg:pt-3'
             columns={1}
             items={content.pillars.map((pillar) => ({ title: pillar.label || pillar, body: pillar.description }))}
           />
         </div>
       </Sheet>
 
+      {/* the promise as the film's two tiles: the grey maze tile for what MyHealth Haven
+          is not, the teal path tile for what it is (the two sentences of `closing`) */}
       <Sheet tone='navy' labelledBy='about-promise-title'>
-        <div data-reveal='rise' className='max-w-[52rem]'>
-          <h2 id='about-promise-title' className={`${cls.h2} text-[#f4eee5]`}>
-            {content.promiseTitle}
-          </h2>
-          <p className='mb-0 mt-6 font-[family-name:var(--font-hh-display)] text-[1.5rem] leading-[1.35] text-[#9fdcdc] sm:text-[1.875rem]'>{content.closing}</p>
-          {content.closingBody ? <p className='mb-0 mt-6 max-w-[40rem] text-[1.0625rem] leading-[1.65] text-[#d3dde2]'>{content.closingBody}</p> : null}
-          <p className='mb-0 mt-4 max-w-[40rem] text-[1.0625rem] font-medium leading-[1.65] text-[#f4eee5]'>{content.supportLine}</p>
-          <div className='mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap'>
-            <Link
-              href='/schedule'
-              className='hp-btn inline-flex min-h-[54px] items-center justify-center gap-2.5 rounded-full border-2 border-solid border-transparent bg-[#f4eee5] px-6 text-[1.0625rem] font-semibold text-[#1b4560] no-underline hover:bg-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#f4eee5] [&>svg]:shrink-0'
-            >
-              <CalendarDays aria-hidden='true' className='size-5' />
-              {content.contactCta}
-            </Link>
-            <Link
-              href='/estimate'
-              className='hp-btn inline-flex min-h-[54px] items-center justify-center gap-2.5 rounded-full border-2 border-solid border-[rgba(244,238,229,0.7)] bg-transparent px-6 text-[1.0625rem] font-semibold text-[#f4eee5] no-underline hover:bg-[rgba(244,238,229,0.08)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#f4eee5] [&>svg]:shrink-0'
-            >
-              <BadgeDollarSign aria-hidden='true' className='size-5' />
-              {content.estimateCta}
-            </Link>
+        <div className='grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-20'>
+          <div data-reveal='rise'>
+            <h2 id='about-promise-title' className={`${cls.h2} text-[#f4eee5]`}>
+              {content.promiseTitle}
+            </h2>
+            <div role='list' className='mt-8 flex flex-col gap-6'>
+              {promise.map((line, i) => (
+                <div role='listitem' key={i} className='flex gap-4'>
+                  <span aria-hidden='true' className={`hp-tile ${i === promise.length - 1 ? 'hp-tile-teal' : ''}`} />
+                  <p
+                    className={`m-0 font-[family-name:var(--font-hh-display)] leading-[1.3] [overflow-wrap:break-word] ${
+                      i === promise.length - 1 ? 'text-[1.625rem] text-[#9fdcdc] sm:text-[2rem]' : 'text-[1.25rem] text-[#c6d3da] sm:text-[1.5rem]'
+                    }`}
+                  >
+                    {line}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div data-reveal='rise' style={{ '--i': 1 }} className='lg:pt-3'>
+            {content.closingBody ? <p className='m-0 max-w-[36rem] text-[1.0625rem] leading-[1.65] text-[#d3dde2]'>{content.closingBody}</p> : null}
+            <p className='mb-0 mt-5 max-w-[36rem] text-[1.0625rem] font-medium leading-[1.65] text-[#f4eee5]'>{content.supportLine}</p>
+            <div className='mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap'>
+              <Link
+                href='/schedule'
+                className='hp-btn inline-flex min-h-[54px] max-w-full items-center justify-center gap-2.5 rounded-full border-2 border-solid border-transparent bg-[#f4eee5] px-5 text-center text-[1.0625rem] font-semibold text-[#1b4560] no-underline hover:bg-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#f4eee5] sm:px-6 [&>svg]:shrink-0'
+              >
+                <CalendarDays aria-hidden='true' className='size-5' />
+                {content.contactCta}
+              </Link>
+              <Link
+                href='/estimate'
+                className='hp-btn inline-flex min-h-[54px] max-w-full items-center justify-center gap-2.5 rounded-full border-2 border-solid border-[rgba(244,238,229,0.7)] bg-transparent px-5 text-center text-[1.0625rem] font-semibold text-[#f4eee5] no-underline hover:bg-[rgba(244,238,229,0.08)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#f4eee5] sm:px-6 [&>svg]:shrink-0'
+              >
+                <BadgeDollarSign aria-hidden='true' className='size-5' />
+                {content.estimateCta}
+              </Link>
+            </div>
           </div>
         </div>
       </Sheet>

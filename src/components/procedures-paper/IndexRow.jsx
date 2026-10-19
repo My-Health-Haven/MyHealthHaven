@@ -22,7 +22,7 @@ const IndexRow = ({ procedure, aboutLabel }) => {
     <div role='listitem' className='pr-row'>
       {hasDescription ? (
         <button type='button' aria-expanded={expanded} aria-controls={expanded ? panelId : undefined} onClick={handleToggle} className='pr-row-btn'>
-          <span className='min-w-0'>{procedure_name}</span>
+          <span className='pr-row-name'>{procedure_name}</span>
           <span aria-hidden='true' className='pr-leader' />
           <span aria-hidden='true' className='pr-plus'>
             <Plus className='size-4' />

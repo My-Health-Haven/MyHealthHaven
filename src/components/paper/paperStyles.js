@@ -25,6 +25,8 @@ const EDGE =
 
 const BODY_CSS = `
 .hp-body { --hp-ease: cubic-bezier(.2,.8,.2,1); overflow-x: clip; }
+/* keyboard focus and in-page jumps land below the sticky site header */
+html:has(.hp-body) { scroll-padding-top: 5.5rem; }
 .hp-sheet { position: relative; background-image: ${NOISE}; }
 .hp-cream { background-color: #f4eee5; }
 .hp-kraft { background-color: #e9dfcf; }
@@ -100,13 +102,21 @@ const BODY_CSS = `
   .hp-navy .text-\\[\\#d3dde2\\], .hp-navy .text-\\[\\#c6d3da\\], .hp-navy .text-\\[\\#9fdcdc\\] { color: #f4eee5; }
   .hp-step-num { color: #1b4560; }
   .hp-body [class*='border-[rgba(27,69,96'] { border-color: rgba(27,69,96,.55); }
+  .hp-prose, .hp-prose p { color: #1b4560; }
+  .hp-prose a, .hp-more { text-decoration-color: currentColor !important; }
 }
 
 /* forced colours (Windows high contrast): keep the felt markers and the progress,
    and draw outlines on the paper objects that lose their fills */
 @media (forced-colors: active) {
   .hp-tile, .hp-progress span { forced-color-adjust: none; }
+  /* prose list markers are drawn with a background, which forced colours drop */
+  .hp-prose [role='listitem']::before { forced-color-adjust: none; background: CanvasText; box-shadow: none; }
+  .hp-prose [data-ordered] > [role='listitem']::before { background: none; color: CanvasText; }
   .hp-window, .hp-note, .hp-postcard, .hp-step-on { border: 1px solid CanvasText; }
+  /* sheets lose their fills and deckled edges: keep the break between sections */
+  .hp-sheet { border-top: 1px solid CanvasText; }
+  .hp-sheet.hp-first { border-top: 0; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -166,6 +176,7 @@ const KIT_CSS = `
 
 /* a felt underline that follows wrapped lines (one stroke per line fragment) */
 .hp-felt-text { background-image: ${FELT}; background-repeat: no-repeat; background-position: 0 100%; background-size: 100% .3em; -webkit-box-decoration-break: clone; box-decoration-break: clone; padding-bottom: .12em; }
+.hp-felt-lines { line-height: 1.26; }
 
 /* reading pages: legal text and articles */
 .hp-prose { color: #3f5868; font-size: 1.0625rem; line-height: 1.7; }
@@ -176,13 +187,13 @@ const KIT_CSS = `
 .hp-prose p { margin: 0 0 1.1em; }
 .hp-prose strong { color: #1b4560; font-weight: 600; }
 .hp-prose em { font-style: italic; }
-.hp-prose a { color: #00695c; text-decoration: underline; text-decoration-color: rgba(0,105,92,.35); text-underline-offset: 3px; }
+.hp-prose a { color: #00695c; text-decoration: underline; text-decoration-color: rgba(0,105,92,.7); text-underline-offset: 3px; }
 .hp-prose a:hover { text-decoration-color: #00695c; }
 .hp-prose [role='list'] { margin: 0 0 1.2em; display: flex; flex-direction: column; gap: .5em; counter-reset: hp-ol; }
-.hp-prose [role='listitem'] { display: flex; gap: .8em; }
-.hp-prose [role='listitem']::before { content: ''; flex: none; width: 16px; height: 8px; border-radius: 999px; margin-top: .66em; background: #2fa8b0; box-shadow: inset 0 -2px 0 rgba(0,60,70,.22); }
+.hp-prose [role='listitem'] { position: relative; padding-left: 1.75em; }
+.hp-prose [role='listitem']::before { content: ''; position: absolute; left: 0; top: 0; width: 16px; height: 8px; border-radius: 999px; margin-top: .66em; background: #2fa8b0; box-shadow: inset 0 -2px 0 rgba(0,60,70,.22); }
 .hp-prose [data-ordered] > [role='listitem'] { counter-increment: hp-ol; }
-.hp-prose [data-ordered] > [role='listitem']::before { content: counter(hp-ol) '.'; width: 1.5em; height: auto; margin-top: 0; border-radius: 0; background: none; box-shadow: none; color: #00796b; font-weight: 600; font-variant-numeric: lining-nums; }
+.hp-prose [data-ordered] > [role='listitem']::before { content: counter(hp-ol) '.'; width: 1.5em; height: auto; margin-top: 0; top: 0; border-radius: 0; background: none; box-shadow: none; color: #00796b; font-weight: 600; font-variant-numeric: lining-nums; }
 .hp-prose hr { border: 0; border-top: 1px dashed rgba(27,69,96,.28); margin: 2.2em 0; }
 .hp-prose blockquote { margin: 1.4em 0; padding: 1em 1.25em; background: #fffaf1; border-radius: 8px; color: #1b4560; box-shadow: 0 1px 0 rgba(70,50,30,.10), 0 14px 26px -18px rgba(70,50,30,.55); }
 .hp-prose img { max-width: 100%; height: auto; border-radius: 10px; }
@@ -192,8 +203,8 @@ const KIT_CSS = `
 
 /* MUI form fields on paper (MUI sits in @layer mui, so these plain rules win) */
 .hp-form .MuiOutlinedInput-root { background: #fffaf1; border-radius: 10px; }
-.hp-form .MuiOutlinedInput-notchedOutline { border-color: rgba(27,69,96,.3); }
-.hp-form .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline { border-color: rgba(27,69,96,.55); }
+.hp-form .MuiOutlinedInput-notchedOutline { border-color: rgba(27,69,96,.62); }
+.hp-form .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline { border-color: rgba(27,69,96,.85); }
 .hp-form .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline { border-color: #00796b; border-width: 2px; }
 .hp-form .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline { border-color: #b3261e; }
 .hp-form .MuiInputLabel-root { color: #3f5868; }
@@ -227,10 +238,10 @@ export const cls = {
   body: 'm-0 text-[1rem] leading-[1.6] text-[#3f5868]',
   label: 'm-0 text-[0.9375rem] font-semibold text-[#1b4560]',
   btnPrimary:
-    'hp-btn inline-flex min-h-[54px] items-center justify-center gap-2.5 rounded-full border-2 border-solid border-transparent bg-[#00796b] px-6 [&>svg]:shrink-0 text-[1.0625rem] font-semibold text-white no-underline shadow-[0_10px_24px_-12px_rgba(0,105,92,0.7)] hover:bg-[#00695c] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#1b4560]',
+    'hp-btn inline-flex min-h-[54px] items-center justify-center gap-2.5 rounded-full border-2 border-solid border-transparent bg-[#00796b] max-w-full px-5 text-center sm:px-6 [&>svg]:shrink-0 text-[1.0625rem] font-semibold text-white no-underline shadow-[0_10px_24px_-12px_rgba(0,105,92,0.7)] hover:bg-[#00695c] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#1b4560]',
   btnOutline:
-    'hp-btn inline-flex min-h-[54px] items-center justify-center gap-2.5 rounded-full border-2 border-solid border-[#1b4560] bg-transparent px-6 [&>svg]:shrink-0 text-[1.0625rem] font-semibold text-[#1b4560] no-underline hover:bg-[rgba(27,69,96,0.06)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#1b4560]',
-  more: 'hp-more inline-flex min-h-11 items-center gap-1.5 font-semibold text-[#00695c] underline decoration-[rgba(0,105,92,0.35)] underline-offset-4 hover:decoration-[#00695c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1b4560]',
+    'hp-btn inline-flex min-h-[54px] items-center justify-center gap-2.5 rounded-full border-2 border-solid border-[#1b4560] bg-transparent max-w-full px-5 text-center sm:px-6 [&>svg]:shrink-0 text-[1.0625rem] font-semibold text-[#1b4560] no-underline hover:bg-[rgba(27,69,96,0.06)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#1b4560]',
+  more: 'hp-more inline-flex min-h-11 items-center gap-1.5 font-semibold text-[#00695c] underline decoration-[rgba(0,105,92,0.7)] underline-offset-4 hover:decoration-[#00695c] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1b4560]',
 };
 
 /* the site's copy carries a trailing arrow in a few CTA strings; the icon draws it instead */

@@ -36,14 +36,18 @@ const LEGAL_CSS = `
 .pl-page { background: #fffaf1;
   box-shadow: 0 1px 0 rgba(70,50,30,.10), 7px 9px 0 #efe7da, 7px 10px 0 rgba(70,50,30,.10), 0 22px 34px -20px rgba(70,50,30,.55); }
 
-.pl-prose h2 { scroll-margin-top: 96px; }
+/* the kit's scroll-padding-top already clears the sticky header */
+.pl-prose h2 { scroll-margin-top: 1rem; }
+/* long words still fit the page when text is enlarged (200%) */
+.pl-prose h2, .pl-toc-link { overflow-wrap: anywhere; hyphens: auto; }
 .pl-prose hr + h2 { margin-top: 0; }
 .pl-prose hr { margin: 2.4em 0 2.2em; }
 .pl-num { color: #00796b; font-variant-numeric: lining-nums; }
 .pl-prose > p:last-child { margin: 2.6em 0 0; font-size: .875rem; color: #5b7180; }
-.pl-mail { display: inline-flex; min-height: 44px; align-items: center; }
+.pl-mail { display: inline-block; max-width: 100%; overflow-wrap: anywhere; padding-block: .5em; }
 
 .pl-toc-link { color: #3f5868; text-decoration: none; }
+.pl-toc-num { color: #00695c; }
 .pl-toc-link:hover { color: #1b4560; background: rgba(27,69,96,.06); }
 .pl-toc-tile { flex: none; width: 14px; height: 8px; border-radius: 999px; background: #2fa8b0; box-shadow: inset 0 -2px 0 rgba(0,60,70,.22); visibility: hidden; }
 .pl-toc-link[aria-current] { color: #1b4560; font-weight: 600; background: #fffaf1; box-shadow: 0 1px 0 rgba(70,50,30,.10), 0 10px 18px -14px rgba(70,50,30,.5); }
@@ -54,13 +58,16 @@ const LEGAL_CSS = `
 .pl-toc-m summary::-webkit-details-marker { display: none; }
 .pl-toc-m summary:focus-visible { outline: 2px solid #1b4560; outline-offset: 2px; border-radius: 10px; }
 .pl-toc-m[open] .pl-toc-chev { transform: rotate(180deg); }
+/* the folded list needs no 'you are here' tile; its width goes to the words */
+.pl-toc-m .pl-toc-tile { display: none; }
 
 @media (prefers-reduced-motion: no-preference) {
   .pl-toc-link { transition: background-color .25s ease, color .25s ease, box-shadow .25s ease; }
   .pl-toc-chev { transition: transform .25s var(--hp-ease); }
 }
 @media (prefers-contrast: more) {
-  .pl-toc-link, .pl-prose > p:last-child { color: #1b4560; }
+  .pl-toc-link, .pl-toc-num, .pl-num, .pl-prose > p:last-child { color: #1b4560; }
+  .pl-prose a { text-decoration-color: currentColor; }
 }
 @media (forced-colors: active) {
   .pl-page { border: 1px solid CanvasText; }
@@ -157,14 +164,6 @@ const updatedComponents = {
 
 const bodyComponents = {
   ...proseComponents,
-  /* the kit's list item is a flex row, so a bold lead-in and the words after it
-     would split into two columns: keep the item's words in one inline run */
-  // eslint-disable-next-line no-unused-vars
-  li: ({ node, children, ...props }) => (
-    <div role='listitem' {...props}>
-      <span>{children}</span>
-    </div>
-  ),
   h2: ({ node, children }) => {
     const text = textOf(node).trim();
     const { num, label } = splitNumber(text);
@@ -209,11 +208,11 @@ function ContentsLinks({ headings, active, onPick }) {
           >
             <span aria-hidden='true' className='pl-toc-tile' />
             {h.num ? (
-              <span className='w-[1.6em] shrink-0 font-semibold tabular-nums text-[#00796b]'>
+              <span className='pl-toc-num w-[1.6em] shrink-0 font-semibold tabular-nums'>
                 {h.num}.
               </span>
             ) : null}
-            <span>{h.label}</span>
+            <span className='min-w-0'>{h.label}</span>
           </a>
         </div>
       ))}
@@ -291,10 +290,16 @@ export default function LegalDocument({ content }) {
       </PageHero>
 
       <Sheet tone='kraft'>
-        <div className='grid grid-cols-1 gap-10 lg:grid-cols-[15.5rem_minmax(0,1fr)] lg:gap-12 xl:gap-16'>
+        {/* the sticky list sits beside the page only on wide screens; below that (and
+            whenever the column would get too narrow) it is the fold-out above the page.
+            Widths and padding are capped in px/vw so enlarged text keeps its measure. */}
+        <div className='grid grid-cols-1 gap-6 xl:grid-cols-[min(16.5rem,24%)_minmax(0,1fr)] xl:gap-[clamp(32px,4vw,64px)]'>
           {doc.headings.length ? (
-            <nav aria-label={labels.contents} className='hidden lg:block'>
-              <div data-reveal='rise' className='sticky top-[96px]'>
+            <nav aria-label={labels.contents} className='hidden xl:block'>
+              <div
+                data-reveal='rise'
+                className='sticky top-[96px] max-h-[calc(100vh-112px)] overflow-y-auto p-1'
+              >
                 <p className='m-0 mb-3 px-3 text-[0.9375rem] font-semibold text-[#1b4560]'>
                   {labels.contents}
                 </p>
@@ -303,23 +308,24 @@ export default function LegalDocument({ content }) {
             </nav>
           ) : null}
 
+          {doc.headings.length ? (
+            <details className='pl-toc-m w-full rounded-[10px] border border-solid border-[rgba(27,69,96,0.2)] bg-[#fffaf1] lg:max-w-[44rem] xl:hidden'>
+              <summary className='box-border flex min-h-[48px] cursor-pointer items-center justify-between gap-3 px-4 font-semibold text-[#1b4560]'>
+                {labels.contents}
+                <ChevronDown aria-hidden='true' className='pl-toc-chev size-5 shrink-0' />
+              </summary>
+              <nav aria-label={labels.contents} className='px-1.5 pb-2'>
+                <ContentsLinks headings={doc.headings} active={active} onPick={closeFold} />
+              </nav>
+            </details>
+          ) : null}
+
           <article
             aria-labelledby='hp-page-title'
             data-reveal='rise'
-            className='pl-page w-full rounded-[6px] px-5 py-9 sm:px-10 sm:py-12 lg:max-w-[46rem] lg:px-16 lg:py-16'
+            className='pl-page w-full rounded-[6px] px-[clamp(20px,5vw,80px)] py-[clamp(36px,5vw,64px)] lg:max-w-[44rem] xl:col-start-2'
           >
-            {doc.headings.length ? (
-              <details className='pl-toc-m mb-10 rounded-[10px] border border-solid border-[rgba(27,69,96,0.2)] bg-[#f4eee5] lg:hidden'>
-                <summary className='box-border flex min-h-[48px] cursor-pointer items-center justify-between gap-3 px-4 font-semibold text-[#1b4560]'>
-                  {labels.contents}
-                  <ChevronDown aria-hidden='true' className='pl-toc-chev size-5 shrink-0' />
-                </summary>
-                <nav aria-label={labels.contents} className='px-1.5 pb-2'>
-                  <ContentsLinks headings={doc.headings} active={active} onPick={closeFold} />
-                </nav>
-              </details>
-            ) : null}
-            <div className='hp-prose pl-prose max-w-[38rem]'>
+            <div className='hp-prose pl-prose max-w-[34rem]'>
               <ReactMarkdown components={bodyComponents}>{doc.body}</ReactMarkdown>
             </div>
           </article>

@@ -44,10 +44,10 @@ export default function NavigatorWork({ headingId, heading, lead, card, steps, c
         <div className='np-card-hold'>
           <div data-reveal='drop' className='hp-note-pin max-w-[34rem] xl:ml-auto' style={{ '--r': '-1.1deg' }}>
             <div className='hp-note rounded-[6px] p-6 sm:p-8'>
-              {/* the advocate across the card; the other two side by side where the card is wide */}
-              <div role='list' className='m-0 grid list-none grid-cols-1 gap-x-8 gap-y-5 p-0 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2'>
+              {/* the advocate across the card; the other two side by side on tablets, where the card runs wide; one column elsewhere */}
+              <div role='list' className='m-0 grid list-none grid-cols-1 gap-x-8 gap-y-5 p-0 sm:grid-cols-2 lg:grid-cols-1'>
                 {first ? (
-                  <div role='listitem' className='mb-1 border-0 border-b border-dashed border-[rgba(27,69,96,0.22)] pb-6 sm:col-span-2 lg:col-span-1 xl:col-span-2'>
+                  <div role='listitem' className='mb-1 border-0 border-b border-dashed border-[rgba(27,69,96,0.22)] pb-6 sm:col-span-2 lg:col-span-1'>
                     <p className='m-0 font-[family-name:var(--font-hh-display)] text-[1.5rem] leading-[1.25] text-[#1b4560] [text-wrap:balance] sm:text-[1.75rem] lg:text-[1.5rem] xl:text-[1.75rem]'>{first.title}</p>
                     {first.body ? <p className={`${cls.body} mt-3`}>{first.body}</p> : null}
                   </div>
@@ -56,7 +56,7 @@ export default function NavigatorWork({ headingId, heading, lead, card, steps, c
                   <div role='listitem' key={i} className='flex gap-3.5'>
                     <span aria-hidden='true' className='hp-tile hp-tile-teal' />
                     <div>
-                      <p className='m-0 font-semibold leading-[1.5] text-[#1b4560]'>{item.title}</p>
+                      <p className='m-0 font-semibold leading-[1.5] text-[#1b4560] [text-wrap:pretty]'>{item.title}</p>
                       {item.body ? <p className={`${cls.body} mt-1`}>{item.body}</p> : null}
                     </div>
                   </div>

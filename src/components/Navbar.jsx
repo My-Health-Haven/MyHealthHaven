@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   AppBar,
   Toolbar,
@@ -74,33 +74,35 @@ const Navbar = () => {
     selectLanguage(language === 'en' ? 'es' : 'en');
   };
 
-  /* Pages whose hero is dark, with the scroll depth where it ends. The old dark
-     heroes of /medical-travel (440), /estimate (360) and /navigators (320) are
-     gone: those pages now open on cream paper, so the header keeps its normal
-     colours there. Add a path here if a page gets a dark hero again. */
-  const darkHeroThreshold = useMemo(() => {
-    const darkHeroes = {};
-    const match = Object.keys(darkHeroes).find((path) => pathname.startsWith(path));
-    return match ? darkHeroes[match] : 0;
-  }, [pathname]);
-
+  /* The header switches to its light-on-dark look while a dark surface is behind
+     it: the navy paper sheets (.hp-navy) of the redesigned pages. (The old
+     per-route dark heroes of /medical-travel, /estimate and /navigators are gone;
+     those pages now open on cream paper.) Read from what sits under the header's
+     bottom edge on each scroll frame, so it follows any page without a list. */
   useEffect(() => {
-    if (!darkHeroThreshold) {
-      setUseInverseNav(false);
-      return undefined;
-    }
-
+    let frame = 0;
     const updateNavContrast = () => {
-      setUseInverseNav(window.scrollY < darkHeroThreshold);
+      frame = 0;
+      const header = document.querySelector('header');
+      if (!header) return;
+      const y = Math.max(0, header.getBoundingClientRect().bottom - 2);
+      const under = document.elementsFromPoint(window.innerWidth / 2, y).find((el) => !header.contains(el));
+      setUseInverseNav(Boolean(under && under.closest('.hp-navy')));
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(updateNavContrast);
     };
 
-    updateNavContrast();
-    window.addEventListener('scroll', updateNavContrast, { passive: true });
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
 
     return () => {
-      window.removeEventListener('scroll', updateNavContrast);
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('resize', onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
     };
-  }, [darkHeroThreshold]);
+  }, [pathname]);
 
   const navTextColor = useInverseNav ? 'rgba(255,255,255,0.88)' : 'text.primary';
   const navMutedTextColor = useInverseNav ? 'rgba(255,255,255,0.78)' : 'text.primary';

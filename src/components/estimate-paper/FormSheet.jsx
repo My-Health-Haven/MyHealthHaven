@@ -18,7 +18,18 @@ import { FORM_PAPER_CSS } from './formPaperStyles';
  * PageHero cannot do this (its frame always follows the words and it has no
  * panel slot), hence this local version.
  */
-export default function FormSheet({ id, title, emphasis, sub, lead, frame, frameSizes, layout = 'side', tone = 'cream', children }) {
+export default function FormSheet({
+  id,
+  title,
+  emphasis,
+  sub,
+  lead,
+  frame,
+  frameSizes,
+  layout = 'side',
+  tone = 'cream',
+  children,
+}) {
   return (
     <section aria-labelledby={id} className={`hp-sheet hp-${tone} hp-first hp-fs hp-fs-${layout}`}>
       <style>{FORM_PAPER_CSS}</style>
@@ -45,14 +56,22 @@ export default function FormSheet({ id, title, emphasis, sub, lead, frame, frame
               {sub}
             </p>
           ) : null}
-          {lead ? <p className={`hp-load hp-load-3 ${cls.lead} mt-3 lg:mt-4 lg:max-w-[36rem]`}>{lead}</p> : null}
+          {lead ? (
+            <p className={`hp-load hp-load-3 ${cls.lead} mt-3 lg:mt-4 lg:max-w-[36rem]`}>{lead}</p>
+          ) : null}
         </div>
 
         <div className='hp-fs-panel hp-load hp-load-3'>{children}</div>
 
         {frame ? (
           <div className='hp-fs-frame' data-reveal='slot'>
-            <FilmWindow src={frame.src} alt={frame.alt} sizes={frameSizes || '(min-width: 1024px) 600px, 100vw'} />
+            <FilmWindow
+              src={frame.src}
+              alt={frame.alt}
+              sizes={frameSizes || '(min-width: 1024px) 600px, 100vw'}
+              loading='eager'
+              fetchPriority='high'
+            />
           </div>
         ) : null}
       </div>

@@ -2,11 +2,23 @@
    as the hero's stills do, so they skip the runtime image optimizer. */
 export const frameSrcSet = (src) => `${src.replace(/\.webp$/, '-800.webp')} 800w, ${src} 1600w`;
 
-/* A film frame set into a window cut in the paper (16:9, the film's own ratio). */
-export function FilmWindow({ src, alt, sizes, className = '', children }) {
+/* A film frame set into a window cut in the paper (16:9, the film's own ratio).
+   Frames in the first screen (page heroes) pass loading='eager' fetchPriority='high'. */
+export function FilmWindow({ src, alt, sizes, className = '', loading = 'lazy', fetchPriority, children }) {
   return (
     <div className={`hp-window ${className}`}>
-      <img className='hp-still' src={src} srcSet={frameSrcSet(src)} sizes={sizes} alt={alt} width={1600} height={900} loading='lazy' decoding='async' />
+      <img
+        className='hp-still'
+        src={src}
+        srcSet={frameSrcSet(src)}
+        sizes={sizes}
+        alt={alt}
+        width={1600}
+        height={900}
+        loading={loading}
+        fetchPriority={fetchPriority}
+        decoding='async'
+      />
       {children}
       <span aria-hidden='true' className='hp-window-lip' />
     </div>

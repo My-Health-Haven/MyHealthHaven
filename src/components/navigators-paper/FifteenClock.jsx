@@ -15,6 +15,7 @@ export default function FifteenClock({ figure, className = '' }) {
           {TICKS.map((deg) => (
             <line
               key={deg}
+              className='np-tick'
               x1='110'
               y1={deg % 90 === 0 ? 34 : 37}
               x2='110'

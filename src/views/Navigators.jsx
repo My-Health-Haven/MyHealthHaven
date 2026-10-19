@@ -130,14 +130,15 @@ const Navigators = () => {
       </Sheet>
 
       <Sheet tone='cream' labelledBy='nav-meet-title'>
-        <div className='grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:grid-rows-[auto_1fr] xl:gap-x-20'>
-          <div data-reveal='rise' className='lg:col-start-2 lg:row-start-1'>
+        <div className='grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:grid-rows-[auto_1fr] xl:gap-x-20'>
+          {/* words left, the video right (the closing sheet below puts its figure left); phones: heading, video, promises */}
+          <div data-reveal='rise' className='lg:col-start-1 lg:row-start-1'>
             <h2 id='nav-meet-title' className={cls.h2}>
               {t('home.meetNavigatorsTitle')}
             </h2>
             <p className={cls.lead}>{t('navigatorsPage.meetDesc')}</p>
           </div>
-          <div data-reveal='slot' className='lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:self-center'>
+          <div data-reveal='slot' className='lg:col-start-2 lg:row-span-2 lg:row-start-1 lg:self-center'>
             <VideoWindow
               src='/Meet Your Health Navigator.mp4'
               poster='/pages/navigators-table.webp'
@@ -146,7 +147,7 @@ const Navigators = () => {
               sizes='(min-width: 1024px) 760px, 100vw'
             />
           </div>
-          <div className='lg:col-start-2 lg:row-start-2'>
+          <div className='lg:col-start-1 lg:row-start-2'>
             <TileList items={indicators.filter(Boolean)} />
             <p data-reveal='rise' className='mb-0 mt-9 border-0 border-t border-solid border-[rgba(27,69,96,0.16)] pt-6 font-[family-name:var(--font-hh-display)] text-[1.375rem] leading-[1.3] text-[#1b4560] sm:text-[1.5rem]'>
               {closerLines.map((line, i) => (

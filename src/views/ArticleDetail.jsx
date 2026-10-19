@@ -15,7 +15,7 @@ import { proseComponents } from '@/components/paper/prose';
 import LibraryHero from '@/components/library-paper/LibraryHero';
 import Crumbs from '@/components/library-paper/Crumbs';
 import ArticleNote from '@/components/library-paper/ArticleNote';
-import ArticleRail from '@/components/library-paper/ArticleRail';
+import ArticleRail, { ContentsFold } from '@/components/library-paper/ArticleRail';
 import ArticleFaqs from '@/components/library-paper/ArticleFaqs';
 import NavyCall from '@/components/library-paper/NavyCall';
 import { articlePicture } from '@/components/library-paper/libraryImages';
@@ -27,10 +27,13 @@ const formatDate = (value) => {
   if (!value) return null;
   const parsed = new Date(value);
   if (Number.isNaN(parsed.getTime())) return null;
+  // ISO dates parse as UTC midnight: format them in UTC too, or the day
+  // shown slips back one in American time zones.
   return parsed.toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
+    timeZone: 'UTC',
   });
 };
 
@@ -96,7 +99,7 @@ const toneAfter = (index) => (index % 2 === 0 ? 'kraft' : 'cream');
  */
 const ArticleDetail = ({ slug }) => {
   const article = getLibraryArticleBySlug(slug);
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const labels = libraryLabels(language);
   const toc = useMemo(() => {
     const items = tocFrom(article?.content);
@@ -143,8 +146,8 @@ const ArticleDetail = ({ slug }) => {
               label={labels.breadcrumb}
               compact
               items={[
-                { label: 'Home', href: '/' },
-                { label: 'Library', href: '/library' },
+                { label: t('navbar.home'), href: '/' },
+                { label: t('navbar.library'), href: '/library' },
                 ...(categoryHref ? [{ label: article.category, href: categoryHref }] : []),
                 { label: article.title },
               ]}
@@ -154,7 +157,7 @@ const ArticleDetail = ({ slug }) => {
           lead={article.excerpt}
           meta={
             metaParts.length > 0 ? (
-              <p className='m-0 text-[0.9375rem] leading-[1.6] text-[#5b7180]'>
+              <p className='m-0 text-[0.9375rem] leading-[1.6] text-[#3f5868]'>
                 {metaParts.map((part, i) => (
                   <React.Fragment key={part}>
                     {i > 0 ? '  ·  ' : null}
@@ -181,34 +184,37 @@ const ArticleDetail = ({ slug }) => {
         />
 
         {/* the side note needs room: it joins the page's right anchor from xl up,
-            so the prose keeps its reading measure on small laptops */}
+            so the prose keeps its reading measure on small laptops; below xl a
+            long article's sections fold up under the hero instead. The note
+            comes first in the DOM (its back link and section links are the
+            first tab stops after the hero) and is placed on the right with the
+            grid; at xl it carries the only back link. */}
         <Sheet
           tone='cream'
           className='!pt-14 lg:!pt-20'
           innerClassName='grid grid-cols-1 gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] xl:gap-x-14'
         >
-          <div className='min-w-0'>
+          <aside className='hidden xl:col-start-2 xl:row-start-1 xl:block'>
+            <div className='sticky top-[120px] max-w-[22rem]'>
+              <ArticleRail back={back} toc={toc} tocLabel={labels.onThisPage} meta={metaParts} />
+            </div>
+          </aside>
+          <div className='min-w-0 xl:col-start-1 xl:row-start-1'>
+            <ContentsFold toc={toc} label={labels.onThisPage} />
             {article.content ? (
-              <div className='hp-prose'>
+              <div className='hp-prose' lang='en'>
                 <ReactMarkdown components={markdownComponents}>{article.content}</ReactMarkdown>
               </div>
             ) : (
               <p className={`${cls.body} sm:text-[1.0625rem]`}>Full content coming soon...</p>
             )}
-            <div className='mt-10 border-0 border-t border-dashed border-[rgba(27,69,96,0.24)] pt-6'>
+            <div className='mt-10 max-w-[34rem] border-0 border-t border-dashed border-[rgba(27,69,96,0.24)] pt-6 xl:hidden'>
               <Link href={back.href} className={`${cls.more} text-[1.0625rem]`}>
                 <ArrowLeft aria-hidden='true' className='size-4' />
                 {back.label}
               </Link>
             </div>
           </div>
-          {toc.length ? (
-            <aside className='hidden xl:block'>
-              <div className='sticky top-[120px] max-w-[22rem]'>
-                <ArticleRail back={back} toc={toc} tocLabel={labels.onThisPage} />
-              </div>
-            </aside>
-          ) : null}
         </Sheet>
 
         {faqTone ? <ArticleFaqs id='article-faq-title' title='Frequently Asked Questions' faqs={article.faqs} tone={faqTone} /> : null}
@@ -242,7 +248,6 @@ const ArticleDetail = ({ slug }) => {
                     article={relatedArticle}
                     guideLabel='Guide'
                     readArticleLabel='Read Article'
-                    variant={index}
                     wide={related.length >= 3}
                     sizes='(min-width: 1280px) 400px, (min-width: 768px) 440px, 92vw'
                   />

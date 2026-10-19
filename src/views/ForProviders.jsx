@@ -43,14 +43,17 @@ const COPY = {
   },
 };
 
-/* new UI strings only: the hero frame's alt text and the new-tab hint for screen readers */
+/* new UI strings only: the hero frame's alt text, the jump to the document and the
+   new-tab hint for screen readers */
 const UI = {
   en: {
     alt: 'Illustration from the MyHealth Haven film: a clean, well-equipped clinic exam room with monitors, supplies and a treatment bed.',
+    readDoc: 'Read the document',
     newTab: '(opens in a new tab)',
   },
   es: {
     alt: 'Ilustración de la película de MyHealth Haven: un consultorio clínico limpio y bien equipado, con monitores, insumos y una camilla.',
+    readDoc: 'Leer el documento',
     newTab: '(se abre en una pestaña nueva)',
   },
 };
@@ -58,29 +61,22 @@ const UI = {
 /*
  * For Providers, in the paper world of the home page. The copy above is the
  * site's own, unchanged (intro and highlights stay unrendered, as before). The
- * title's first word leads and the rest takes the felt underline; the Google Doc
+ * short title reads as one felt-underlined phrase. One action each: the hero
+ * leads down to the document, the panel opens it in Google Docs. The Google Doc
  * keeps the same preview src, title and size, now on a clinic clipboard.
  */
 const ForProviders = () => {
   const { language } = useLanguage();
   const copy = COPY[language] || COPY.en;
   const ui = UI[language] || UI.en;
-  const [titleHead, ...titleTail] = copy.title.split(' ');
 
   return (
     <PaperPage>
-      <PageHero
-        title={titleHead}
-        emphasis={titleTail.join(' ')}
-        frame={{ src: '/pages/procedures-clinic.webp', alt: ui.alt }}
-      >
-        <div className='flex flex-col gap-3 sm:flex-row sm:flex-wrap'>
-          <OpenDocumentLink href={GOOGLE_DOC_URL} label={copy.openFrame} newTabLabel={ui.newTab} />
-          <a href='#provider-doc' className={`${cls.btnOutline} py-2 text-center leading-[1.3]`}>
-            <ArrowDown aria-hidden='true' className='size-5' />
-            {copy.viewerTitle}
-          </a>
-        </div>
+      <PageHero emphasis={copy.title} frame={{ src: '/pages/procedures-clinic.webp', alt: ui.alt }}>
+        <a href='#provider-doc' className={`${cls.btnPrimary} w-full sm:w-auto`}>
+          <ArrowDown aria-hidden='true' className='size-5' />
+          {ui.readDoc}
+        </a>
       </PageHero>
 
       <Sheet tone='kraft' id='provider-doc' labelledBy='provider-doc-title'>

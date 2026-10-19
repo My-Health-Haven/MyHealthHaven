@@ -46,23 +46,36 @@ export const FORM_PAPER_CSS = `
 .hp-form.hp-est .MuiOutlinedInput-root { background: #f5efe5; box-shadow: inset 0 2px 3px -1px rgba(70,50,30,.18); color: #1b4560; font-family: inherit; }
 .hp-form.hp-est .MuiOutlinedInput-root.Mui-focused { background: #fffdf8; }
 .hp-form.hp-est .MuiOutlinedInput-root.Mui-disabled { background: #efe8dc; box-shadow: none; }
-.hp-form.hp-est .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline { border-color: rgba(27,69,96,.22); border-style: dashed; }
-.hp-form.hp-est .MuiInputBase-input::placeholder { color: #5b7180; opacity: 1; }
-.hp-form.hp-est .hp-est-ph { color: #5b7180; }
-.hp-form.hp-est .MuiInputBase-input.Mui-disabled { -webkit-text-fill-color: #50677a; }
+/* the outline itself is the kit's (.hp-form, navy at .55); only the locked City field is dashed */
+.hp-form.hp-est .MuiOutlinedInput-root.Mui-disabled .MuiOutlinedInput-notchedOutline { border-color: rgba(27,69,96,.4); border-style: dashed; }
+/* placeholders at 4.5:1 or more on the field (#536a7a: 4.95 on the well, 4.65 on the locked field) */
+.hp-form.hp-est .MuiInputBase-input::placeholder { color: #536a7a; opacity: 1; }
+.hp-form.hp-est .hp-est-ph { color: #536a7a; }
+.hp-form.hp-est .MuiInputBase-input.Mui-disabled { -webkit-text-fill-color: #536a7a; }
+/* a failed check, written under the field's label */
+.hp-est-error { display: flex; gap: 6px; align-items: flex-start; margin: -2px 0 8px; color: #b3261e; font-size: .875rem; font-weight: 500; line-height: 1.45; }
+.hp-est-error svg { flex: none; width: 16px; height: 16px; margin-top: 2px; }
+/* anything brought into view clears the sticky header */
+.hp-est-field, .hp-est-note, .hp-est-done { scroll-margin: 104px 0 24px; }
 .hp-form.hp-est .MuiSvgIcon-root { color: #3f5868; }
 .hp-form.hp-est .Mui-disabled .MuiSvgIcon-root { color: rgba(63,88,104,.45); }
 
 .hp-est-submit { width: 100%; cursor: pointer; }
 .hp-est .hp-est-submit:disabled { cursor: wait; opacity: .85; transform: none; }
 
-/* answers after a submit: a slip on the form */
+/* an error that belongs to no single field: a slip under the button */
 .hp-est-note { display: flex; gap: 12px; align-items: flex-start; margin: 16px 0 0; padding: 14px 16px; border-radius: 10px; font-size: .9375rem; line-height: 1.55; }
 .hp-est-note svg { flex: none; width: 20px; height: 20px; margin-top: 1px; }
-.hp-est-ok { background: rgba(47,168,176,.14); color: #1b4560; box-shadow: inset 3px 0 0 #00796b; }
-.hp-est-ok svg { color: #00796b; }
-.hp-est-err { background: rgba(179,38,30,.07); color: #7a1d17; box-shadow: inset 3px 0 0 #b3261e; }
+.hp-est-err { background: rgba(179,38,30,.06); color: #7a1d17; border: 1px solid rgba(179,38,30,.38); }
 .hp-est-err svg { color: #b3261e; }
+.hp-est-note:focus-visible, .hp-est-done:focus-visible { outline: 2px solid #1b4560; outline-offset: 3px; }
+.hp-est-note:focus:not(:focus-visible), .hp-est-done:focus:not(:focus-visible) { outline: none; }
+
+/* sent: the note takes the place of the emptied fields */
+/* (the padding and matching negative margin give a focus ring room without moving the note) */
+.hp-est-done { display: flex; flex-direction: column; align-items: flex-start; margin: -12px; padding: 20px 12px 16px; border-radius: 12px; }
+.hp-est-done-mark { display: grid; place-items: center; width: 52px; height: 52px; margin-bottom: 18px; border-radius: 999px; background: rgba(47,168,176,.16); color: #00796b; }
+.hp-est-done-mark svg { width: 28px; height: 28px; }
 
 /* the booking calendar: Google's page shows through a window cut in a paper panel */
 .hp-cal-panel { background: #fffaf1; border-radius: 16px; padding: 8px; box-shadow: 0 1px 0 rgba(70,50,30,.10), 0 26px 44px -28px rgba(70,50,30,.6); }
@@ -71,12 +84,21 @@ export const FORM_PAPER_CSS = `
   box-shadow: inset 3px 4px 8px -2px rgba(70,50,30,.32), inset 0 0 0 1px rgba(70,50,30,.16); }
 @media (min-width: 640px) { .hp-cal-panel { padding: 12px; } }
 @media (min-width: 1024px) { .hp-cal-panel { padding: 16px; } }
+/* Google's page lays out by the iframe's width: under 600px wide it stacks
+   (about 1,110-1,240px tall), from 600px it is about 685-740px tall. The iframe
+   is made that tall so its dates and times are not in a scroller inside the
+   page (heights measured 2026-10-19; the HTML height="600" is the fallback). */
+.hp-cal-window iframe { height: 1160px; }
+@media (min-width: 480px) { .hp-cal-window iframe { height: 1250px; } }
+@media (min-width: 688px) { .hp-cal-window iframe { height: 750px; } }
+@media (min-width: 1024px) { .hp-cal-window iframe { height: 720px; } }
 
 @media (prefers-contrast: more) {
-  .hp-form.hp-est .MuiInputBase-input::placeholder, .hp-form.hp-est .hp-est-ph { color: #1b4560; }
-  .hp-form.hp-est .MuiOutlinedInput-notchedOutline { border-color: rgba(27,69,96,.6); }
+  .hp-form.hp-est .MuiInputBase-input::placeholder, .hp-form.hp-est .hp-est-ph { color: #3f5868; }
+  .hp-form.hp-est .MuiInputBase-input.Mui-disabled { -webkit-text-fill-color: #3f5868; }
+  .hp-form.hp-est .MuiOutlinedInput-notchedOutline { border-color: rgba(27,69,96,.8); }
 }
 @media (forced-colors: active) {
-  .hp-est-card, .hp-cal-panel, .hp-est-note { border: 1px solid CanvasText; }
+  .hp-est-card, .hp-cal-panel { border: 1px solid CanvasText; }
 }
 `;

@@ -26,8 +26,7 @@ export default function TravelHero() {
   const title =
     at > 0 ? (
       <>
-        <span className='mt-bal'>{fullTitle.slice(0, at)}</span>
-        <br />
+        <span className='mt-bal'>{fullTitle.slice(0, at)}</span> <br />
         <span className='mt-bal'>
           <span className='hp-felt-text'>{fullTitle.slice(at + 1)}</span>
         </span>
@@ -42,7 +41,12 @@ export default function TravelHero() {
       className='mt-hero'
       title={title}
       lead={t('medicalTravelPage.subtitle')}
-      frame={{ src: '/pages/travel-map.webp', alt: labels.heroAlt }}
+      frame={{
+        src: '/pages/travel-map.webp',
+        alt: labels.heroAlt,
+        loading: 'eager',
+        fetchPriority: 'high',
+      }}
     >
       <Link href='/schedule' className={cls.btnPrimary}>
         <CalendarDays aria-hidden='true' className='size-5' />

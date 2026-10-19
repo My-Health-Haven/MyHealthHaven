@@ -24,18 +24,23 @@ export default function LibraryHero({ id = 'hp-page-title', tone = 'cream', crum
               {title}
               {emphasis ? (
                 <>
-                  {title ? <br /> : null}
-                  <span className='hp-felt-text'>{emphasis}</span>
+                  {title ? (
+                    <>
+                      {' '}
+                      <br />
+                    </>
+                  ) : null}
+                  <span className='hp-felt-text hp-felt-lines'>{emphasis}</span>
                 </>
               ) : null}
             </h1>
-            {lead ? <p className={`hp-load hp-load-2 ${cls.lead} mt-6 lg:max-w-[36rem]`}>{lead}</p> : null}
-            {meta ? <div className='hp-load hp-load-2 mt-5'>{meta}</div> : null}
+            {lead ? <p className={`hp-load hp-load-2 ${cls.lead} !mt-7 lg:max-w-[36rem]`}>{lead}</p> : null}
+            {meta ? <div className='hp-load hp-load-2 mt-6'>{meta}</div> : null}
             {children ? <div className='hp-load hp-load-3 mt-8'>{children}</div> : null}
           </div>
           {frame ? (
             <div className='hp-load-window'>
-              <FilmWindow src={frame.src} alt={frame.alt} sizes='(min-width: 1024px) 640px, 100vw' />
+              <FilmWindow src={frame.src} alt={frame.alt} sizes='(min-width: 1024px) 640px, 100vw' loading='eager' fetchPriority='high' />
             </div>
           ) : null}
           {!frame && media ? <div className='hp-load hp-load-3'>{media}</div> : null}

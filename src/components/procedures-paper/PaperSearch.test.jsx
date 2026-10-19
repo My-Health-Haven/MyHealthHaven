@@ -43,13 +43,14 @@ describe('PaperSearch', () => {
     expect(onSearch).toHaveBeenLastCalledWith('knee');
   });
 
-  it('clears the field and the search at once', () => {
+  it('clears the field and the search at once, focus back in the field', () => {
     const onSearch = vi.fn();
     render(<PaperSearch onSearch={onSearch} initialValue='knee' />);
 
     fireEvent.click(screen.getByRole('button', { name: 'Clear search' }));
 
     expect(screen.getByRole('textbox')).toHaveValue('');
+    expect(screen.getByRole('textbox')).toHaveFocus();
     expect(onSearch).toHaveBeenLastCalledWith('');
   });
 });

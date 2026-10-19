@@ -19,10 +19,18 @@ export default function JourneyClose() {
   const labels = labelsFor(language);
 
   return (
-    <Sheet tone='kraft' labelledBy='mt-close-title' innerClassName='grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16'>
+    <Sheet
+      tone='kraft'
+      labelledBy='mt-close-title'
+      innerClassName='grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16'
+    >
       <div data-scrub className='hp-scrub-zoom'>
         <div data-reveal='slot'>
-          <FilmWindow src='/pages/travel-walk.webp' alt={labels.walkAlt} sizes='(min-width: 1024px) 680px, 100vw' />
+          <FilmWindow
+            src='/pages/travel-walk.webp'
+            alt={labels.walkAlt}
+            sizes='(min-width: 1024px) 680px, 100vw'
+          />
         </div>
       </div>
 
@@ -33,7 +41,9 @@ export default function JourneyClose() {
         <p className='mb-0 mt-5 font-[family-name:var(--font-hh-display)] text-[1.5rem] leading-[1.35] text-[#1b4560] sm:text-[1.75rem]'>
           <span className='hp-felt-text'>{t('medicalTravelPage.timelineConclusion.subtitle')}</span>
         </p>
-        <p className={`${cls.lead} mt-6`}>{t('medicalTravelPage.timelineConclusion.description')}</p>
+        <p className={`${cls.lead} mt-6`}>
+          {t('medicalTravelPage.timelineConclusion.description')}
+        </p>
         <div className='mt-9'>
           <Link href='/schedule' className={cls.btnPrimary}>
             <CalendarDays aria-hidden='true' className='size-5' />

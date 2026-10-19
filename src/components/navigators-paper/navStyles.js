@@ -13,12 +13,13 @@ export const NAV_CSS = `
 .np-path { grid-area: path; }
 @media (min-width: 1024px) {
   .np-work { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); grid-template-areas: 'head head' 'path card'; column-gap: 64px; row-gap: 56px; }
-  .np-card { align-self: start; }
+  /* the card's cell runs the height of the path, so the card can stay beside the later steps */
+  .np-card { align-self: stretch; }
   .np-card-hold { position: sticky; top: 120px; }
 }
 @media (min-width: 1280px) {
   .np-work { grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); grid-template-areas: 'head card' 'path path'; column-gap: 80px; row-gap: 88px; }
-  .np-head { align-self: center; }
+  .np-head, .np-card { align-self: center; }
   .np-card-hold { position: static; }
 }
 
@@ -47,6 +48,7 @@ export const NAV_CSS = `
 
 @media (forced-colors: active) {
   .np-stop, .np-clock { border: 2px solid CanvasText; }
+  .np-tick { stroke: CanvasText; stroke-opacity: 1; }
 }
 
 @media (min-width: 1280px) and (prefers-reduced-motion: no-preference) {

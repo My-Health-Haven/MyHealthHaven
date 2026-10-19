@@ -27,17 +27,22 @@ export default function PageHero({ id = 'hp-page-title', title, emphasis, lead, 
             {/* like the home hero, the underlined part starts its own line */}
             {emphasis ? (
               <>
-                {title ? <br /> : null}
-                <span className='hp-felt-text'>{emphasis}</span>
+                {title ? (
+                  <>
+                    {' '}
+                    <br />
+                  </>
+                ) : null}
+                <span className='hp-felt-text hp-felt-lines'>{emphasis}</span>
               </>
             ) : null}
           </h1>
-          {lead ? <p className={`hp-load hp-load-2 ${cls.lead} mt-6 lg:max-w-[36rem]`}>{lead}</p> : null}
+          {lead ? <p className={`hp-load hp-load-2 ${cls.lead} !mt-7 lg:max-w-[36rem]`}>{lead}</p> : null}
           {children ? <div className='hp-load hp-load-3 mt-8'>{children}</div> : null}
         </div>
         {frame ? (
           <div className='hp-load-window'>
-            <FilmWindow src={frame.src} alt={frame.alt} sizes='(min-width: 1024px) 640px, 100vw' />
+            <FilmWindow src={frame.src} alt={frame.alt} sizes='(min-width: 1024px) 640px, 100vw' loading='eager' fetchPriority='high' />
           </div>
         ) : null}
         {!frame && media ? <div className='hp-load hp-load-3'>{media}</div> : null}

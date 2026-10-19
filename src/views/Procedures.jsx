@@ -19,13 +19,13 @@ import { PROC_CSS } from '@/components/procedures-paper/procStyles';
 const UI = {
   en: {
     about: 'About this procedure',
-    nextSteps: 'Next steps',
+    countWord: (n) => (n === 1 ? 'procedure' : 'procedures'),
     consultAlt: 'Illustration from the MyHealth Haven film: a doctor talks with a patient across her desk.',
     labAlt: 'Illustration from the MyHealth Haven film: a lab technician looks through a microscope beside a rack of samples.',
   },
   es: {
     about: 'Acerca de este procedimiento',
-    nextSteps: 'Próximos pasos',
+    countWord: (n) => (n === 1 ? 'procedimiento' : 'procedimientos'),
     consultAlt: 'Ilustración de la película de MyHealth Haven: una doctora conversa con una paciente en su consultorio.',
     labAlt: 'Ilustración de la película de MyHealth Haven: una técnica de laboratorio mira por un microscopio junto a una gradilla de muestras.',
   },
@@ -37,7 +37,8 @@ const UI = {
  * sheet beside the film frame, the specialities follow on kraft (grid view: two
  * columns, five entries each until "View more"; list view: one drawer per
  * speciality), and the page's two calls close it on the navy sheet with the lab
- * frame. Search, grouping, the view switch, the drawers and the entries behave
+ * frame, under the site's own closing words (home.ctaTitle / home.ctaDesc, as
+ * the Library's navy close uses them). Search, grouping, the view switch, the drawers and the entries behave
  * exactly as before; only the look changed.
  */
 const Procedures = () => {
@@ -145,7 +146,7 @@ const Procedures = () => {
         </div>
       </PageHero>
 
-      <Sheet tone='kraft' className='!pt-14 lg:!pt-20'>
+      <Sheet tone='kraft' className='!pt-10 md:!pt-14 lg:!pt-20'>
         {visibleSpecialities.length === 0 ? (
           <div data-reveal='rise' className='pr-empty'>
             <p className={`${cls.h3} m-0`}>{noResultsLabel}</p>
@@ -166,6 +167,7 @@ const Procedures = () => {
                   expanded={isSpecialityExpanded(meta.key)}
                   onToggle={() => toggleSpeciality(meta.key)}
                   aboutLabel={ui.about}
+                  countWord={ui.countWord}
                 />
               );
             })}
@@ -187,6 +189,7 @@ const Procedures = () => {
                   wide={isLastOddItem}
                   forceShowAll={isUserSearchingOrFiltering}
                   aboutLabel={ui.about}
+                  countWord={ui.countWord}
                 />
               );
             })}
@@ -194,26 +197,32 @@ const Procedures = () => {
         )}
       </Sheet>
 
-      <section aria-label={ui.nextSteps} className={`hp-sheet hp-navy ${cls.pad}`}>
-        <div className={`${cls.wrap} grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16`}>
+      <section aria-labelledby='pr-close-title' className={`hp-sheet hp-navy ${cls.pad}`}>
+        <div className={`${cls.wrap} grid grid-cols-1 items-center gap-10 lg:grid-cols-2 lg:gap-16`}>
           <div data-reveal='slot'>
-            <FilmWindow src='/pages/procedures-lab.webp' alt={ui.labAlt} sizes='(min-width: 1024px) 720px, 100vw' />
+            <FilmWindow src='/pages/procedures-lab.webp' alt={ui.labAlt} sizes='(min-width: 1024px) 640px, 100vw' />
           </div>
-          <div data-reveal='rise' className='flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:mx-auto lg:w-full lg:max-w-[24rem] lg:flex-col'>
-            <Link
-              href='/estimate'
-              className='hp-btn inline-flex min-h-[60px] items-center justify-center gap-2.5 rounded-full border-2 border-solid border-transparent bg-[#f4eee5] px-7 text-[1.125rem] font-semibold text-[#1b4560] no-underline hover:bg-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#f4eee5] [&>svg]:shrink-0'
-            >
-              <BadgeDollarSign aria-hidden='true' className='size-5' />
-              {t('navbar.freeEstimate')}
-            </Link>
-            <Link
-              href='/schedule'
-              className='hp-btn inline-flex min-h-[60px] items-center justify-center gap-2.5 rounded-full border-2 border-solid border-[rgba(244,238,229,0.7)] bg-transparent px-7 text-[1.125rem] font-semibold text-[#f4eee5] no-underline hover:bg-[rgba(244,238,229,0.08)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#f4eee5] [&>svg]:shrink-0'
-            >
-              <CalendarDays aria-hidden='true' className='size-5' />
-              {t('navbar.schedule')}
-            </Link>
+          <div data-reveal='rise'>
+            <h2 id='pr-close-title' className={`${cls.h2} max-w-[34rem] text-[#f4eee5]`}>
+              {t('home.ctaTitle')}
+            </h2>
+            <p className='mb-0 mt-5 max-w-[36rem] text-[1.0625rem] leading-[1.65] text-[#d3dde2] sm:text-[1.1875rem]'>{t('home.ctaDesc')}</p>
+            <div className='mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap'>
+              <Link
+                href='/estimate'
+                className='hp-btn inline-flex min-h-[54px] max-w-full items-center justify-center gap-2.5 rounded-full border-2 border-solid border-transparent bg-[#f4eee5] px-6 text-[1.0625rem] font-semibold text-[#1b4560] no-underline hover:bg-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#f4eee5] lg:px-5 lg:text-[1rem] [&>svg]:shrink-0'
+              >
+                <BadgeDollarSign aria-hidden='true' className='size-5' />
+                {t('navbar.freeEstimate')}
+              </Link>
+              <Link
+                href='/schedule'
+                className='hp-btn inline-flex min-h-[54px] max-w-full items-center justify-center gap-2.5 rounded-full border-2 border-solid border-[rgba(244,238,229,0.7)] bg-transparent px-6 text-[1.0625rem] font-semibold text-[#f4eee5] no-underline hover:bg-[rgba(244,238,229,0.08)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#f4eee5] lg:px-5 lg:text-[1rem] [&>svg]:shrink-0'
+              >
+                <CalendarDays aria-hidden='true' className='size-5' />
+                {t('navbar.schedule')}
+              </Link>
+            </div>
           </div>
         </div>
       </section>

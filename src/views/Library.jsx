@@ -155,7 +155,6 @@ const Library = () => {
                 article={article}
                 guideLabel={pageCopy.guideLabel}
                 readArticleLabel={pageCopy.readArticle}
-                variant={index}
                 wide
                 sizes='(min-width: 1280px) 400px, (min-width: 768px) 440px, 92vw'
               />
@@ -172,7 +171,7 @@ const Library = () => {
           </h2>
         </div>
         <div className='mt-10 lg:mt-12'>
-          <CategoryPath items={categories} label={labels.categories} />
+          <CategoryPath items={categories} label={labels.categories} soonLabel={t('misc.comingSoon')} />
         </div>
       </Sheet>
 

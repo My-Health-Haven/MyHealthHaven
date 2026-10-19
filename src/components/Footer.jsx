@@ -313,6 +313,7 @@ const Footer = () => {
                 color='text.secondary'
                 variant='body2'
                 underline='hover'
+                sx={{ overflowWrap: 'anywhere' }}
               >
                 {HEALTH_NAVIGATOR_EMAIL}
               </MuiLink>

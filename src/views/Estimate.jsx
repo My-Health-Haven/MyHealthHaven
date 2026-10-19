@@ -17,7 +17,11 @@ import {
   PaperLocationFields,
   PaperProcedureField,
 } from '@/components/estimate-paper/PaperFields';
-import PaperSubmitFeedback from '@/components/estimate-paper/PaperSubmitFeedback';
+import {
+  ErrorSlip,
+  SuccessNote,
+  Disclaimer,
+} from '@/components/estimate-paper/PaperSubmitFeedback';
 
 const OTHER_PROCEDURE_OPTION = '__other_procedure__';
 
@@ -198,6 +202,31 @@ const Estimate = () => {
     }
   };
 
+  /*
+   * Where a failed check shows (presentation only; the checks above are
+   * unchanged): an error that belongs to one field is shown on that field, any
+   * other error in a slip under the button. attempt counts submits, so the same
+   * error is brought back into view on a repeat submit.
+   */
+  const [attempt, setAttempt] = useState(0);
+  const onFormSubmit = (e) => {
+    setAttempt((n) => n + 1);
+    handleSubmit(e);
+  };
+  let fieldWithError = null;
+  if (submitStatus === 'error') {
+    if (submitError === procedureRequiredError) fieldWithError = 'procedure';
+    else if (submitError === phoneInvalidError) fieldWithError = 'phone';
+    else if (submitError === emailInvalidError || submitError === emailUnverifiedError)
+      fieldWithError = 'email';
+  }
+  const errorFor = (field) => (fieldWithError === field ? submitError : '');
+  const sendAnotherLabel = isSpanish ? 'Enviar otra solicitud' : 'Send another request';
+  const sendAnother = () => {
+    setSubmitStatus('idle');
+    setSubmitError('');
+  };
+
   /* the title's last two words carry the felt underline on their own line */
   const titleWords = t('estimatePage.title').trim().split(/\s+/);
   const titleHead = titleWords.length > 2 ? titleWords.slice(0, -2).join(' ') : '';
@@ -224,80 +253,97 @@ const Estimate = () => {
         frameSizes='(min-width: 1024px) 560px, (min-width: 768px) 704px, 100vw'
       >
         <form
-          onSubmit={handleSubmit}
+          onSubmit={onFormSubmit}
           aria-labelledby='estimate-title'
           className='hp-form hp-est hp-est-card px-5 pb-6 pt-6 sm:px-8 sm:pb-8 sm:pt-8 xl:px-10 xl:pb-9 xl:pt-10'
         >
           <HoneypotField value={formData.website} onChange={handleChange} />
-          <div className='hp-est-fields'>
-            <div className='hp-est-grid'>
-              <PaperNameField
-                value={formData.name}
-                onChange={handleChange}
-                label={t('estimatePage.form.name')}
-              />
+          {submitStatus === 'success' ? (
+            <SuccessNote againLabel={sendAnotherLabel} onAgain={sendAnother} />
+          ) : (
+            <>
+              <div className='hp-est-fields'>
+                <div className='hp-est-grid'>
+                  <PaperNameField
+                    value={formData.name}
+                    onChange={handleChange}
+                    label={t('estimatePage.form.name')}
+                  />
 
-              <PaperPhoneField
-                value={formData.phone}
-                onChange={handleChange}
-                label={t('estimatePage.form.phone')}
-              />
+                  <PaperPhoneField
+                    value={formData.phone}
+                    onChange={handleChange}
+                    label={t('estimatePage.form.phone')}
+                    hint={phoneInvalidError}
+                    error={errorFor('phone')}
+                    attempt={attempt}
+                  />
 
-              <PaperEmailField
-                value={formData.email}
-                onChange={handleChange}
-                label={t('estimatePage.form.email')}
-              />
+                  <PaperEmailField
+                    value={formData.email}
+                    onChange={handleChange}
+                    label={t('estimatePage.form.email')}
+                    error={errorFor('email')}
+                    attempt={attempt}
+                  />
 
-              <PaperLocationFields
-                state={formData.state}
-                city={formData.city}
-                onStateChange={handleChange}
-                onCityChange={handleChange}
-                availableCities={availableCities}
-                t={t}
-              />
+                  <PaperLocationFields
+                    state={formData.state}
+                    city={formData.city}
+                    onStateChange={handleChange}
+                    onCityChange={handleChange}
+                    availableCities={availableCities}
+                    t={t}
+                  />
 
-              <PaperProcedureField
-                procedure={formData.procedure}
-                procedureOther={formData.procedureOther}
-                onProcedureChange={handleProcedureSelect}
-                onProcedureOtherChange={handleChange}
-                procedureOptions={procedureOptions}
-                procedureSearchPlaceholder={procedureSearchPlaceholder}
-                procedureNoOptionsLabel={procedureNoOptionsLabel}
-                procedureOtherLabel={procedureOtherLabel}
-                procedureOtherPlaceholder={procedureOtherPlaceholder}
-                label={t('estimatePage.form.procedure')}
-              />
-            </div>
-          </div>
+                  <PaperProcedureField
+                    procedure={formData.procedure}
+                    procedureOther={formData.procedureOther}
+                    onProcedureChange={handleProcedureSelect}
+                    onProcedureOtherChange={handleChange}
+                    procedureOptions={procedureOptions}
+                    procedureSearchPlaceholder={procedureSearchPlaceholder}
+                    procedureNoOptionsLabel={procedureNoOptionsLabel}
+                    procedureOtherLabel={procedureOtherLabel}
+                    procedureOtherPlaceholder={procedureOtherPlaceholder}
+                    label={t('estimatePage.form.procedure')}
+                    error={errorFor('procedure')}
+                    attempt={attempt}
+                  />
+                </div>
+              </div>
 
-          <p className='mb-0 mt-5 text-[0.875rem] leading-[1.6] text-[#3f5868]'>
-            {privacyNoteIntro}
-            <a
-              href='/privacy'
-              className='font-medium text-[#00695c] underline decoration-[rgba(0,105,92,0.45)] underline-offset-2 hover:decoration-[#00695c]'
-            >
-              {privacyLinkLabel}
-            </a>
-            .
-          </p>
+              <p className='mb-0 mt-5 max-w-[36rem] text-[0.875rem] leading-[1.6] text-[#3f5868]'>
+                {privacyNoteIntro}
+                <a
+                  href='/privacy'
+                  className='font-medium text-[#00695c] underline decoration-[rgba(0,105,92,0.45)] underline-offset-2 hover:decoration-[#00695c]'
+                >
+                  {privacyLinkLabel}
+                </a>
+                .
+              </p>
 
-          <button
-            type='submit'
-            disabled={isSubmitting}
-            className={`${cls.btnPrimary} hp-est-submit mt-6 min-h-[56px]`}
-          >
-            {isSubmitting ? (
-              <CircularProgress size={18} color='inherit' />
-            ) : (
-              <Mail aria-hidden='true' className='size-5' />
-            )}
-            {isSubmitting ? t('estimatePage.form.submitting') : t('estimatePage.form.submit')}
-          </button>
+              <button
+                type='submit'
+                disabled={isSubmitting}
+                className={`${cls.btnPrimary} hp-est-submit mt-6 min-h-[56px]`}
+              >
+                {isSubmitting ? (
+                  <CircularProgress size={18} color='inherit' />
+                ) : (
+                  <Mail aria-hidden='true' className='size-5' />
+                )}
+                {isSubmitting ? t('estimatePage.form.submitting') : t('estimatePage.form.submit')}
+              </button>
 
-          <PaperSubmitFeedback status={submitStatus} error={submitError} />
+              {submitStatus === 'error' && !fieldWithError ? (
+                <ErrorSlip message={submitError} attempt={attempt} />
+              ) : null}
+            </>
+          )}
+
+          <Disclaimer />
         </form>
       </FormSheet>
     </PaperPage>
