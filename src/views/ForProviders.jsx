@@ -69,7 +69,11 @@ const ForProviders = () => {
 
   return (
     <PaperPage>
-      <PageHero title={titleHead} emphasis={titleTail.join(' ')} frame={{ src: '/pages/procedures-clinic.webp', alt: ui.alt }}>
+      <PageHero
+        title={titleHead}
+        emphasis={titleTail.join(' ')}
+        frame={{ src: '/pages/procedures-clinic.webp', alt: ui.alt }}
+      >
         <div className='flex flex-col gap-3 sm:flex-row sm:flex-wrap'>
           <OpenDocumentLink href={GOOGLE_DOC_URL} label={copy.openFrame} newTabLabel={ui.newTab} />
           <a href='#provider-doc' className={`${cls.btnOutline} py-2 text-center leading-[1.3]`}>
@@ -83,12 +87,26 @@ const ForProviders = () => {
         <DocumentClipboard
           titleId='provider-doc-title'
           title={copy.viewerTitle}
-          action={<OpenDocumentLink href={GOOGLE_DOC_URL} label={copy.openFrame} newTabLabel={ui.newTab} variant='outline' />}
+          action={
+            <OpenDocumentLink
+              href={GOOGLE_DOC_URL}
+              label={copy.openFrame}
+              newTabLabel={ui.newTab}
+              variant='outline'
+            />
+          }
         >
           <iframe
             title={copy.viewerTitle}
             src={GOOGLE_DOC_PREVIEW_URL}
-            style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', border: 0 }}
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              border: 0,
+            }}
           />
         </DocumentClipboard>
       </Sheet>

@@ -77,7 +77,8 @@ const slugify = (s) =>
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/^-+|-+$/g, '');
-const textOf = (node) => (node?.type === 'text' ? node.value : (node?.children || []).map(textOf).join(''));
+const textOf = (node) =>
+  node?.type === 'text' ? node.value : (node?.children || []).map(textOf).join('');
 const splitNumber = (text) => {
   const match = text.match(/^(\d+)\.\s+(.+)$/);
   return match ? { num: match[1], label: match[2] } : { num: null, label: text };
@@ -89,7 +90,8 @@ function parseLegal(markdown) {
   const [front, ...sections] = markdown.split(/\n---\n/);
   const h1 = front.match(/^#\s+(.+)$/m);
   const body = sections.join('\n---\n');
-  if (!h1) return { title: '', letterhead: '', updated: '', intro: [front.trim()], body, headings: [] };
+  if (!h1)
+    return { title: '', letterhead: '', updated: '', intro: [front.trim()], body, headings: [] };
   const [updated = '', ...intro] = front
     .slice(h1.index + h1[0].length)
     .trim()
@@ -98,7 +100,14 @@ function parseLegal(markdown) {
     const text = stripMarks(m[1]);
     return { ...splitNumber(text), id: sectionId(text) };
   });
-  return { title: stripMarks(h1[1]), letterhead: front.slice(0, h1.index).trim(), updated, intro, body, headings };
+  return {
+    title: stripMarks(h1[1]),
+    letterhead: front.slice(0, h1.index).trim(),
+    updated,
+    intro,
+    body,
+    headings,
+  };
 }
 
 /* an all-caps document title, shown in title case without changing its words */
@@ -107,7 +116,11 @@ function TitleCase({ text }) {
   const words = text.split(' ');
   return words.map((word, i) => (
     <span key={i}>
-      <span className={`pl-word ${i > 0 && SMALL_WORDS.has(word.toLowerCase()) ? 'pl-word-small' : ''}`}>{word}</span>
+      <span
+        className={`pl-word ${i > 0 && SMALL_WORDS.has(word.toLowerCase()) ? 'pl-word-small' : ''}`}
+      >
+        {word}
+      </span>
       {i < words.length - 1 ? ' ' : null}
     </span>
   ));
@@ -123,14 +136,21 @@ const letterheadComponents = {
   // eslint-disable-next-line no-unused-vars
   p: ({ node, ...props }) => <p className='m-0 leading-[1.5]' {...props} />,
   // eslint-disable-next-line no-unused-vars
-  strong: ({ node, ...props }) => <strong className='font-[family-name:var(--font-hh-display)] text-[1.375rem] font-normal leading-[1.4] text-[#1b4560]' {...props} />,
+  strong: ({ node, ...props }) => (
+    <strong
+      className='font-[family-name:var(--font-hh-display)] text-[1.375rem] font-normal leading-[1.4] text-[#1b4560]'
+      {...props}
+    />
+  ),
   // eslint-disable-next-line no-unused-vars
   em: ({ node, ...props }) => <em className='text-[1rem] italic text-[#3f5868]' {...props} />,
 };
 
 const updatedComponents = {
   // eslint-disable-next-line no-unused-vars
-  p: ({ node, ...props }) => <p className='m-0 text-[0.9375rem] leading-[1.5] text-[#3f5868]' {...props} />,
+  p: ({ node, ...props }) => (
+    <p className='m-0 text-[0.9375rem] leading-[1.5] text-[#3f5868]' {...props} />
+  ),
   // eslint-disable-next-line no-unused-vars
   strong: ({ node, ...props }) => <strong className='font-semibold text-[#1b4560]' {...props} />,
 };
@@ -188,7 +208,11 @@ function ContentsLinks({ headings, active, onPick }) {
             className='pl-toc-link box-border flex min-h-11 items-center gap-2.5 rounded-[8px] px-3 py-2 text-[0.9375rem] leading-[1.35]'
           >
             <span aria-hidden='true' className='pl-toc-tile' />
-            {h.num ? <span className='w-[1.6em] shrink-0 font-semibold tabular-nums text-[#00796b]'>{h.num}.</span> : null}
+            {h.num ? (
+              <span className='w-[1.6em] shrink-0 font-semibold tabular-nums text-[#00796b]'>
+                {h.num}.
+              </span>
+            ) : null}
             <span>{h.label}</span>
           </a>
         </div>
@@ -243,7 +267,9 @@ export default function LegalDocument({ content }) {
       <style>{LEGAL_CSS}</style>
       <PageHero
         emphasis={<TitleCase text={doc.title} />}
-        lead={leadPara ? <ReactMarkdown components={inlineComponents}>{leadPara}</ReactMarkdown> : null}
+        lead={
+          leadPara ? <ReactMarkdown components={inlineComponents}>{leadPara}</ReactMarkdown> : null
+        }
       >
         {moreIntro.length ? (
           <div className='hp-prose mb-8 max-w-[36rem]'>
@@ -269,13 +295,19 @@ export default function LegalDocument({ content }) {
           {doc.headings.length ? (
             <nav aria-label={labels.contents} className='hidden lg:block'>
               <div data-reveal='rise' className='sticky top-[96px]'>
-                <p className='m-0 mb-3 px-3 text-[0.9375rem] font-semibold text-[#1b4560]'>{labels.contents}</p>
+                <p className='m-0 mb-3 px-3 text-[0.9375rem] font-semibold text-[#1b4560]'>
+                  {labels.contents}
+                </p>
                 <ContentsLinks headings={doc.headings} active={active} />
               </div>
             </nav>
           ) : null}
 
-          <article aria-labelledby='hp-page-title' data-reveal='rise' className='pl-page w-full rounded-[6px] px-5 py-9 sm:px-10 sm:py-12 lg:max-w-[46rem] lg:px-16 lg:py-16'>
+          <article
+            aria-labelledby='hp-page-title'
+            data-reveal='rise'
+            className='pl-page w-full rounded-[6px] px-5 py-9 sm:px-10 sm:py-12 lg:max-w-[46rem] lg:px-16 lg:py-16'
+          >
             {doc.headings.length ? (
               <details className='pl-toc-m mb-10 rounded-[10px] border border-solid border-[rgba(27,69,96,0.2)] bg-[#f4eee5] lg:hidden'>
                 <summary className='box-border flex min-h-[48px] cursor-pointer items-center justify-between gap-3 px-4 font-semibold text-[#1b4560]'>

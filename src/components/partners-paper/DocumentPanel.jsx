@@ -47,13 +47,28 @@ const PANEL_CSS = `
 
 /* the iframe's frame, at the old viewer's size */
 function DocViewport({ children }) {
-  return <div className='relative h-[70vh] min-h-[600px] w-full bg-[#f8f9fa] min-[900px]:h-[80vh]'>{children}</div>;
+  return (
+    <div className='relative h-[70vh] min-h-[600px] w-full bg-[#f8f9fa] min-[900px]:h-[80vh]'>
+      {children}
+    </div>
+  );
 }
 
 /* "Open Document": the Google Doc in a new tab (same href, target and rel as before) */
-export function OpenDocumentLink({ href, label, newTabLabel, variant = 'primary', className = '' }) {
+export function OpenDocumentLink({
+  href,
+  label,
+  newTabLabel,
+  variant = 'primary',
+  className = '',
+}) {
   return (
-    <a href={href} target='_blank' rel='noreferrer' className={`${variant === 'primary' ? cls.btnPrimary : cls.btnOutline} ${className}`}>
+    <a
+      href={href}
+      target='_blank'
+      rel='noreferrer'
+      className={`${variant === 'primary' ? cls.btnPrimary : cls.btnOutline} ${className}`}
+    >
       <ExternalLink aria-hidden='true' className='size-5' />
       {label}
       {newTabLabel ? <span className='sr-only'>{newTabLabel}</span> : null}
@@ -75,7 +90,11 @@ export function DocumentFolder({ titleId, title, action, children }) {
             {title}
           </h2>
         </div>
-        {action ? <div className='pp-folder-act px-3 pt-3 md:px-0 md:pb-4 md:pt-0 [&>a]:w-full md:[&>a]:w-auto'>{action}</div> : null}
+        {action ? (
+          <div className='pp-folder-act px-3 pt-3 md:px-0 md:pb-4 md:pt-0 [&>a]:w-full md:[&>a]:w-auto'>
+            {action}
+          </div>
+        ) : null}
         <div className='pp-folder-body p-3 sm:p-5 lg:p-6'>
           <div className='pp-doc'>
             <DocViewport>{children}</DocViewport>
@@ -96,9 +115,15 @@ export function DocumentClipboard({ titleId, title, action, children }) {
           <h2 id={titleId} className={cls.h2}>
             {title}
           </h2>
-          {action ? <div className='mt-7 flex justify-center [&>a]:w-full sm:[&>a]:w-auto'>{action}</div> : null}
+          {action ? (
+            <div className='mt-7 flex justify-center [&>a]:w-full sm:[&>a]:w-auto'>{action}</div>
+          ) : null}
         </div>
-        <div data-reveal='rise' style={{ '--i': 1 }} className='pp-board relative mt-16 rounded-[18px] px-2.5 pb-2.5 pt-10 sm:mt-20 sm:px-5 sm:pb-5 sm:pt-12 lg:px-7 lg:pb-7'>
+        <div
+          data-reveal='rise'
+          style={{ '--i': 1 }}
+          className='pp-board relative mt-16 rounded-[18px] px-2.5 pb-2.5 pt-10 sm:mt-20 sm:px-5 sm:pb-5 sm:pt-12 lg:px-7 lg:pb-7'
+        >
           <div aria-hidden='true' className='pp-clip'>
             <span className='pp-clip-loop' />
             <span className='pp-clip-plate' />
