@@ -22,6 +22,23 @@ const loadGtm = () => {
 const AnalyticsConsent = () => {
   const [isReady, setIsReady] = useState(false);
   const [consent, setConsent] = useState('pending');
+  // The banner waits until the visitor scrolls or 12s pass, so it never covers the
+  // hero's buttons on a phone's first screen. Analytics still load only after Accept.
+  const [armed, setArmed] = useState(false);
+
+  useEffect(() => {
+    if (armed) return undefined;
+    const arm = () => setArmed(true);
+    const onScroll = () => {
+      if (window.scrollY > 160) arm();
+    };
+    const timer = window.setTimeout(arm, 12000);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [armed]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -45,7 +62,7 @@ const AnalyticsConsent = () => {
     setConsent(nextConsent);
   };
 
-  if (!isReady || consent !== 'pending') {
+  if (!isReady || !armed || consent !== 'pending') {
     return null;
   }
 
