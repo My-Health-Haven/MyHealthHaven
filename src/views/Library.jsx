@@ -1,16 +1,9 @@
 'use client';
 import React, { useMemo, useState, useEffect } from 'react';
-import { Box, Container, Typography, Button, Grid, Stack, alpha, useTheme } from '@mui/material';
 import Link from 'next/link';
+import { ArrowDown, ArrowRight, ShieldCheck } from 'lucide-react';
 
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
-import OpenInNewRoundedIcon from '@mui/icons-material/OpenInNewRounded';
-import VerifiedUserRoundedIcon from '@mui/icons-material/VerifiedUserRounded';
-
-import FadeIn from '../components/FadeIn';
-import SectionEyebrow from '../components/SectionEyebrow';
-import IconFeatureCard from '../components/IconFeatureCard';
-import LibraryArticleCard from '../components/library/LibraryArticleCard';
+import { useLanguage } from '../context/LanguageContext';
 import {
   LIBRARY_PAGE_COPY,
   LIBRARY_HERO_PILLS,
@@ -19,7 +12,16 @@ import {
   getNormalizedArticles,
   getLibraryArticlePath,
 } from '../data/libraryContent';
-import { useLanguage } from '../context/LanguageContext';
+import PaperPage from '@/components/paper/PaperPage';
+import Sheet from '@/components/paper/Sheet';
+import { cls } from '@/components/paper/paperStyles';
+import LibraryHero from '@/components/library-paper/LibraryHero';
+import ArticleNote from '@/components/library-paper/ArticleNote';
+import CategoryPath from '@/components/library-paper/CategoryPath';
+import ResourceLeaflets from '@/components/library-paper/ResourceLeaflets';
+import NavyCall from '@/components/library-paper/NavyCall';
+import { LibraryStyles, LIB_GRID } from '@/components/library-paper/libraryStyles';
+import { libraryLabels } from '@/components/library-paper/labels';
 
 // How many articles the rotating "Featured Topics" grid shows per visit.
 const FEATURED_COUNT = 3;
@@ -35,13 +37,27 @@ const shuffleArray = (input) => {
   return arr;
 };
 
+const GOVERNMENT_LINKS = [
+  { href: 'https://wwwnc.cdc.gov/travel/page/medical-tourism', label: 'CDC Medical Tourism' },
+  {
+    href: 'https://travel.state.gov/content/travel/en/international-travel/before-you-go/your-health-abroad.html',
+    label: 'State Dept. - Health Abroad',
+  },
+];
+
+/* the featured notes sit a little crooked on the kraft sheet, like the home notes */
+const NOTE_TILT = ['-0.9deg', '0.7deg', '-0.5deg'];
+
+/*
+ * The Learning Library in the paper world of the home page. Copy and data are
+ * the library's own (src/data/libraryContent.js), unchanged; the featured
+ * shuffle, the category links and the official links work as before. The
+ * closing call reuses the home page's own call (home.ctaTitle and friends).
+ */
 const Library = () => {
-  const theme = useTheme();
-  const { language } = useLanguage();
+  const { language, t } = useLanguage();
   const pageCopy = LIBRARY_PAGE_COPY[language] || LIBRARY_PAGE_COPY.en;
-  const primary = theme.palette.primary.main;
-  const primaryDark = theme.palette.primary.dark;
-  const secondary = theme.palette.secondary.main;
+  const labels = libraryLabels(language);
 
   const articles = useMemo(() => getNormalizedArticles(), []);
   const curatedFeatured = articles.filter((article) => article.featured);
@@ -60,326 +76,126 @@ const Library = () => {
     setDisplayedArticles(shuffleArray(articles).slice(0, FEATURED_COUNT));
   }, [articles]);
 
+  // Only categories with a hub page link out (as before).
+  const categories = LIBRARY_CATEGORIES.map((cat) => ({
+    key: cat.key,
+    title: pageCopy[cat.titleKey],
+    description: pageCopy[cat.descKey],
+    href: LIBRARY_CATEGORY_DETAILS[cat.slug] ? `/library/${cat.slug}` : null,
+  }));
+
+  // The title's first word stays plain; the rest carries the felt underline.
+  const space = pageCopy.title.indexOf(' ');
+  const titleHead = space > 0 ? pageCopy.title.slice(0, space) : '';
+  const titleTail = space > 0 ? pageCopy.title.slice(space + 1) : pageCopy.title;
+
   return (
-    <>
+    <PaperPage>
+      <LibraryStyles />
+
       {/* ── Hero ── */}
-      <Box
-        sx={{
-          py: { xs: 10, md: 14 },
-          textAlign: 'center',
-          background: 'linear-gradient(180deg, #e8f5f2 0%, #f4faff 48%, #f3edf7 100%)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
+      <LibraryHero
+        title={titleHead}
+        emphasis={titleTail}
+        lead={pageCopy.subtitle}
+        frame={{ src: '/pages/library-questions.webp', alt: labels.frames.questions }}
+        footer={
+          <div
+            role='list'
+            aria-label={labels.topics}
+            className='m-0 grid list-none grid-cols-1 gap-x-8 gap-y-4 border-0 border-t border-dashed border-[rgba(27,69,96,0.24)] p-0 pt-7 sm:grid-cols-2 lg:grid-cols-4'
+          >
+            {LIBRARY_HERO_PILLS.map((pill) => (
+              <div role='listitem' key={pill.key} className='flex items-start gap-3.5'>
+                <span aria-hidden='true' className='hp-tile hp-tile-teal !mt-[0.42em]' />
+                <span className='text-[1rem] font-semibold leading-[1.5] text-[#1b4560]'>{pageCopy[pill.labelKey]}</span>
+              </div>
+            ))}
+          </div>
+        }
       >
-        <Container maxWidth='lg' sx={{ px: { xs: 2, md: 5, lg: 8 }, position: 'relative' }}>
-          <FadeIn>
-            <Typography variant='h1' sx={{ color: primaryDark, mb: 2 }}>
-              {pageCopy.title}
-            </Typography>
-          </FadeIn>
-
-          <FadeIn delay={80}>
-            <Typography
-              variant='h5'
-              sx={{
-                color: 'text.secondary',
-                maxWidth: 640,
-                mx: 'auto',
-                lineHeight: 1.7,
-                mb: 5,
-              }}
-            >
-              {pageCopy.subtitle}
-            </Typography>
-          </FadeIn>
-
-          <FadeIn delay={160}>
-            <Button
-              variant='contained'
-              size='large'
-              component={Link}
-              href={getLibraryArticlePath(firstArticle)}
-              endIcon={<ArrowForwardRoundedIcon />}
-              sx={{
-                bgcolor: primaryDark,
-                color: 'white',
-                px: 4,
-                py: 1.5,
-                borderRadius: 2,
-                boxShadow: 'none',
-                mb: 4,
-                '&:hover': {
-                  bgcolor: '#004D40',
-                  boxShadow: `0 6px 18px ${alpha(primaryDark, 0.28)}`,
-                },
-              }}
-            >
-              {pageCopy.cta}
-            </Button>
-          </FadeIn>
-
-          <FadeIn delay={220}>
-            <Stack
-              direction='row'
-              flexWrap='wrap'
-              justifyContent='center'
-              gap={1.25}
-              sx={{ mb: 3 }}
-            >
-              {LIBRARY_HERO_PILLS.map((pill) => {
-                const PillIcon = pill.Icon;
-                return (
-                  <Box
-                    key={pill.key}
-                    sx={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 0.75,
-                      bgcolor: 'background.paper',
-                      border: '1px solid',
-                      borderColor: alpha(primary, 0.18),
-                      borderRadius: 999,
-                      px: 2,
-                      py: 1,
-                      cursor: 'default',
-                      boxShadow: `0 2px 8px ${alpha(primary, 0.06)}`,
-                    }}
-                  >
-                    <PillIcon sx={{ fontSize: 18, color: primary }} />
-                    <Typography
-                      variant='body2'
-                      sx={{ color: primaryDark, fontWeight: 600, fontSize: '0.92rem' }}
-                    >
-                      {pageCopy[pill.labelKey]}
-                    </Typography>
-                  </Box>
-                );
-              })}
-            </Stack>
-          </FadeIn>
-
-          <FadeIn delay={280}>
-            <Stack
-              direction='row'
-              alignItems='center'
-              justifyContent='center'
-              gap={0.75}
-              sx={{ color: 'text.secondary' }}
-            >
-              <VerifiedUserRoundedIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
-              <Typography variant='body2' sx={{ color: 'text.secondary', fontSize: '0.88rem' }}>
-                {pageCopy.trustLine}
-              </Typography>
-            </Stack>
-          </FadeIn>
-        </Container>
-      </Box>
+        <Link href={getLibraryArticlePath(firstArticle)} className={cls.btnPrimary}>
+          {pageCopy.cta}
+          <ArrowRight aria-hidden='true' className='size-5' />
+        </Link>
+        <p className='m-0 mt-6 flex max-w-[34rem] items-start gap-2.5 text-[0.9375rem] leading-[1.5] text-[#3f5868]'>
+          <ShieldCheck aria-hidden='true' className='mt-[1px] size-[18px] shrink-0 text-[#00796b]' />
+          {pageCopy.trustLine}
+        </p>
+      </LibraryHero>
 
       {/* ── Featured Topics ── */}
-      <Box sx={{ pt: { xs: 8, md: 12 }, pb: { xs: 2, md: 3 }, bgcolor: '#FFFFFF' }}>
-        <Container maxWidth='lg' sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
-          <Stack
-            direction={{ xs: 'column', sm: 'row' }}
-            justifyContent='space-between'
-            alignItems={{ xs: 'flex-start', sm: 'flex-end' }}
-            spacing={2}
-            sx={{ mb: 5 }}
-          >
-            <FadeIn>
-              <Box>
-                <Typography variant='h2' sx={{ color: primaryDark, mb: 1 }}>
-                  {pageCopy.featuredTopics}
-                </Typography>
-                <Box
-                  sx={{
-                    width: 56,
-                    height: 3,
-                    borderRadius: 2,
-                    background: `linear-gradient(90deg, ${primary} 0%, ${secondary} 100%)`,
-                  }}
-                  aria-hidden='true'
-                />
-              </Box>
-            </FadeIn>
-            <FadeIn delay={80}>
-              <Button
-                component={Link}
-                href='#explore'
-                endIcon={<ArrowForwardRoundedIcon />}
-                sx={{
-                  color: primary,
-                  fontWeight: 600,
-                  px: 0,
-                  '&:hover': { bgcolor: 'transparent', color: primaryDark },
-                }}
-              >
-                {pageCopy.viewAllArticles}
-              </Button>
-            </FadeIn>
-          </Stack>
+      <Sheet tone='kraft' labelledBy='library-featured-title'>
+        <div className='flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end'>
+          <div data-reveal='rise'>
+            <h2 id='library-featured-title' className={cls.h2}>
+              {pageCopy.featuredTopics}
+            </h2>
+          </div>
+          <Link href='#explore' className={`${cls.more} text-[1.0625rem]`}>
+            {pageCopy.viewAllArticles}
+            <ArrowDown aria-hidden='true' className='size-4' />
+          </Link>
+        </div>
 
-          <Grid container spacing={4}>
-            {displayedArticles.map((article, index) => (
-              <Grid size={{ xs: 12, md: 4 }} key={article.slug}>
-                <FadeIn delay={index * 120}>
-                  <LibraryArticleCard
-                    article={article}
-                    guideLabel={pageCopy.guideLabel}
-                    readArticleLabel={pageCopy.readArticle}
-                  />
-                </FadeIn>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+        <div
+          role='list'
+          aria-label={labels.featured}
+          className='m-0 mt-10 grid list-none grid-cols-1 gap-8 p-0 lg:mt-12 xl:grid-cols-3'
+        >
+          {displayedArticles.map((article, index) => (
+            <div
+              role='listitem'
+              key={article.slug}
+              data-reveal='drop'
+              style={{ '--i': index, '--r': NOTE_TILT[index % NOTE_TILT.length] }}
+              className={`hp-note-pin ${index === 1 ? 'xl:mt-10' : ''}`}
+            >
+              <ArticleNote
+                article={article}
+                guideLabel={pageCopy.guideLabel}
+                readArticleLabel={pageCopy.readArticle}
+                variant={index}
+                wide
+                sizes='(min-width: 1280px) 400px, (min-width: 768px) 440px, 92vw'
+              />
+            </div>
+          ))}
+        </div>
+      </Sheet>
 
       {/* ── Explore by Category ── */}
-      <Box
-        id='explore'
-        sx={{
-          pt: { xs: 2, md: 3 },
-          pb: { xs: 8, md: 10 },
-          background: `linear-gradient(180deg, #FFFFFF 0%, ${alpha(secondary, 0.05)} 100%)`,
-        }}
-      >
-        <Container maxWidth='lg' sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
-          <FadeIn>
-            <Box sx={{ mb: 5 }}>
-              <Typography variant='h2' sx={{ color: primaryDark, mb: 1 }}>
-                {pageCopy.exploreByCategory}
-              </Typography>
-              <Box
-                sx={{
-                  width: 56,
-                  height: 3,
-                  borderRadius: 2,
-                  background: `linear-gradient(90deg, ${primary} 0%, ${secondary} 100%)`,
-                }}
-                aria-hidden='true'
-              />
-            </Box>
-          </FadeIn>
-
-          <Grid container spacing={3} alignItems='stretch'>
-            {LIBRARY_CATEGORIES.map((cat, index) => {
-              const CatIcon = cat.Icon;
-              // Only "Getting Started" currently has a category landing page.
-              // A card links out only once its category has a real hub page.
-              const categoryHref = LIBRARY_CATEGORY_DETAILS[cat.slug]
-                ? `/library/${cat.slug}`
-                : null;
-              return (
-                <Grid size={{ xs: 12, sm: 6, md: 3 }} key={cat.key} sx={{ display: 'flex' }}>
-                  <FadeIn delay={index * 100} style={{ height: '100%', width: '100%' }}>
-                    <Box
-                      {...(categoryHref ? { component: Link, href: categoryHref } : {})}
-                      sx={{
-                        position: 'relative',
-                        height: '100%',
-                        display: 'block',
-                        textDecoration: 'none',
-                        color: 'inherit',
-                        cursor: categoryHref ? 'pointer' : 'default',
-                      }}
-                    >
-                      <IconFeatureCard
-                        variant='compact'
-                        color='secondary'
-                        titleColor={primaryDark}
-                        disableBubble
-                        icon={<CatIcon />}
-                        title={pageCopy[cat.titleKey]}
-                        description={pageCopy[cat.descKey]}
-                        sx={{ pr: 5 }}
-                      />
-                      <ArrowForwardRoundedIcon
-                        aria-hidden='true'
-                        sx={{
-                          position: 'absolute',
-                          right: 16,
-                          bottom: 16,
-                          fontSize: 20,
-                          color: primary,
-                          pointerEvents: 'none',
-                          opacity: categoryHref ? 1 : 0.4,
-                        }}
-                      />
-                    </Box>
-                  </FadeIn>
-                </Grid>
-              );
-            })}
-          </Grid>
-        </Container>
-      </Box>
+      <Sheet tone='cream' id='explore' labelledBy='library-explore-title'>
+        <div data-reveal='rise'>
+          <h2 id='library-explore-title' className={cls.h2}>
+            {pageCopy.exploreByCategory}
+          </h2>
+        </div>
+        <div className='mt-10 lg:mt-12'>
+          <CategoryPath items={categories} label={labels.categories} />
+        </div>
+      </Sheet>
 
       {/* ── Government Resources ── */}
-      <Box
-        sx={{
-          py: { xs: 8, md: 10 },
-          background: `linear-gradient(180deg, ${alpha(primary, 0.04)} 0%, #FFFFFF 100%)`,
-        }}
-      >
-        <Container maxWidth='lg' sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
-          <FadeIn>
-            <Typography variant='h4' sx={{ fontWeight: 700, color: primaryDark, mb: 1 }}>
-              {pageCopy.governmentResourcesTitle}
-            </Typography>
-            <Typography
-              variant='body1'
-              sx={{ color: 'text.secondary', mb: 4, maxWidth: 700, lineHeight: 1.7 }}
-            >
-              {pageCopy.governmentResourcesBody}
-            </Typography>
-          </FadeIn>
+      <Sheet tone='kraft' labelledBy='library-gov-title' innerClassName={`${LIB_GRID} items-center gap-10`}>
+        <div data-reveal='rise'>
+          <h2 id='library-gov-title' className={cls.h2}>
+            {pageCopy.governmentResourcesTitle}
+          </h2>
+          <p className={cls.lead}>{pageCopy.governmentResourcesBody}</p>
+        </div>
+        <ResourceLeaflets links={GOVERNMENT_LINKS} newTabLabel={labels.newTab} />
+      </Sheet>
 
-          <FadeIn delay={100}>
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2}>
-              <Button
-                variant='outlined'
-                href='https://wwwnc.cdc.gov/travel/page/medical-tourism'
-                target='_blank'
-                rel='noopener noreferrer'
-                endIcon={<OpenInNewRoundedIcon />}
-                sx={{
-                  borderColor: alpha(primary, 0.3),
-                  color: primaryDark,
-                  px: 3,
-                  py: 1.2,
-                  '&:hover': {
-                    borderColor: primary,
-                    bgcolor: alpha(primary, 0.06),
-                  },
-                }}
-              >
-                CDC Medical Tourism
-              </Button>
-              <Button
-                variant='outlined'
-                href='https://travel.state.gov/content/travel/en/international-travel/before-you-go/your-health-abroad.html'
-                target='_blank'
-                rel='noopener noreferrer'
-                endIcon={<OpenInNewRoundedIcon />}
-                sx={{
-                  borderColor: alpha(primary, 0.3),
-                  color: primaryDark,
-                  px: 3,
-                  py: 1.2,
-                  '&:hover': {
-                    borderColor: primary,
-                    bgcolor: alpha(primary, 0.06),
-                  },
-                }}
-              >
-                State Dept. - Health Abroad
-              </Button>
-            </Stack>
-          </FadeIn>
-        </Container>
-      </Box>
-    </>
+      {/* ── Next step ── */}
+      <NavyCall
+        id='library-close-title'
+        title={t('home.ctaTitle')}
+        lead={t('home.ctaDesc')}
+        href='/schedule'
+        label={t('home.scheduleConsultation')}
+      />
+    </PaperPage>
   );
 };
 

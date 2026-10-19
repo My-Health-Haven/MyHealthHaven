@@ -3,8 +3,8 @@
 import { Flag, Handshake, HeartHandshake, LockKeyhole } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import LinkNav from '@/components/home/LinkNav';
-import { cls } from './paperStyles';
-import { FilmWindow, Underlined } from './parts';
+import { cls } from '@/components/paper/paperStyles';
+import { FilmWindow, Underlined } from '@/components/paper/parts';
 
 const ALT = {
   en: {

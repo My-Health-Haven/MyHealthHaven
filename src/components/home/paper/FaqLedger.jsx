@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { CalendarDays, Plus } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
-import { cls } from './paperStyles';
+import { cls } from '@/components/paper/paperStyles';
 
 const FAQ_COUNT = 13;
 

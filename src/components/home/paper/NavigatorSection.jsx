@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { Play, X } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import LinkNav from '@/components/home/LinkNav';
-import { cls } from './paperStyles';
-import { frameSrcSet } from './parts';
+import { cls } from '@/components/paper/paperStyles';
+import { frameSrcSet } from '@/components/paper/parts';
 
 const COPY = {
   en: {

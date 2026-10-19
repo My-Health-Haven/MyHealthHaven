@@ -23,7 +23,7 @@ const NOISE =
 const EDGE =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12'%3E%3Cpath d='M0 12V6C20 9 40 9 60 6S100 3 120 6S160 9 180 6S220 3 240 6V12Z'/%3E%3C/svg%3E\")";
 
-export const PAPER_CSS = `
+const BODY_CSS = `
 .hp-body { --hp-ease: cubic-bezier(.2,.8,.2,1); overflow-x: clip; }
 .hp-sheet { position: relative; background-image: ${NOISE}; }
 .hp-cream { background-color: #f4eee5; }
@@ -155,9 +155,72 @@ export const PAPER_CSS = `
 }
 `;
 
+const FELT =
+  "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 18' preserveAspectRatio='none'%3E%3Cpath d='M3 11c40-8 70 4 104-2s58-9 92-3 60 6 98-4' fill='none' stroke='%232fa8b0' stroke-width='6.5' stroke-linecap='round'/%3E%3Cpath d='M6 9.6c40-8 70 4 102-2s58-9 92-3 58 6 96-4' fill='none' stroke='%2371cfcf' stroke-opacity='.55' stroke-width='1.4' stroke-linecap='round'/%3E%3C/svg%3E\")";
+
+/* The page kit (PageHero, Sheet, SectionHead, ClosingCall, prose, forms) shared by
+   the inner pages. Same rules as above: every load-time animation is a plain CSS
+   animation that ends visible, and every scroll state needs [data-armed]. */
+const KIT_CSS = `
+.hp-sheet.hp-first::before { display: none; }
+
+/* a felt underline that follows wrapped lines (one stroke per line fragment) */
+.hp-felt-text { background-image: ${FELT}; background-repeat: no-repeat; background-position: 0 100%; background-size: 100% .3em; -webkit-box-decoration-break: clone; box-decoration-break: clone; padding-bottom: .12em; }
+
+/* reading pages: legal text and articles */
+.hp-prose { color: #3f5868; font-size: 1.0625rem; line-height: 1.7; }
+.hp-prose > :first-child { margin-top: 0; }
+.hp-prose h2 { font-family: var(--font-hh-display); font-weight: 400; color: #1b4560; font-size: clamp(1.5rem, 2.4vw, 1.875rem); line-height: 1.2; margin: 2.2em 0 .6em; }
+.hp-prose h3 { font-family: var(--font-hh-display); font-weight: 400; color: #1b4560; font-size: 1.3rem; line-height: 1.25; margin: 1.8em 0 .5em; }
+.hp-prose h4 { color: #1b4560; font-size: 1.0625rem; font-weight: 600; margin: 1.5em 0 .4em; }
+.hp-prose p { margin: 0 0 1.1em; }
+.hp-prose strong { color: #1b4560; font-weight: 600; }
+.hp-prose em { font-style: italic; }
+.hp-prose a { color: #00695c; text-decoration: underline; text-decoration-color: rgba(0,105,92,.35); text-underline-offset: 3px; }
+.hp-prose a:hover { text-decoration-color: #00695c; }
+.hp-prose [role='list'] { margin: 0 0 1.2em; display: flex; flex-direction: column; gap: .5em; counter-reset: hp-ol; }
+.hp-prose [role='listitem'] { display: flex; gap: .8em; }
+.hp-prose [role='listitem']::before { content: ''; flex: none; width: 16px; height: 8px; border-radius: 999px; margin-top: .66em; background: #2fa8b0; box-shadow: inset 0 -2px 0 rgba(0,60,70,.22); }
+.hp-prose [data-ordered] > [role='listitem'] { counter-increment: hp-ol; }
+.hp-prose [data-ordered] > [role='listitem']::before { content: counter(hp-ol) '.'; width: 1.5em; height: auto; margin-top: 0; border-radius: 0; background: none; box-shadow: none; color: #00796b; font-weight: 600; font-variant-numeric: lining-nums; }
+.hp-prose hr { border: 0; border-top: 1px dashed rgba(27,69,96,.28); margin: 2.2em 0; }
+.hp-prose blockquote { margin: 1.4em 0; padding: 1em 1.25em; background: #fffaf1; border-radius: 8px; color: #1b4560; box-shadow: 0 1px 0 rgba(70,50,30,.10), 0 14px 26px -18px rgba(70,50,30,.55); }
+.hp-prose img { max-width: 100%; height: auto; border-radius: 10px; }
+.hp-prose table { width: 100%; border-collapse: collapse; margin: 0 0 1.4em; font-size: .9375rem; }
+.hp-prose th, .hp-prose td { text-align: left; padding: .6em .75em; border-bottom: 1px solid rgba(27,69,96,.16); }
+.hp-prose th { color: #1b4560; font-weight: 600; }
+
+/* MUI form fields on paper (MUI sits in @layer mui, so these plain rules win) */
+.hp-form .MuiOutlinedInput-root { background: #fffaf1; border-radius: 10px; }
+.hp-form .MuiOutlinedInput-notchedOutline { border-color: rgba(27,69,96,.3); }
+.hp-form .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline { border-color: rgba(27,69,96,.55); }
+.hp-form .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline { border-color: #00796b; border-width: 2px; }
+.hp-form .MuiOutlinedInput-root.Mui-error .MuiOutlinedInput-notchedOutline { border-color: #b3261e; }
+.hp-form .MuiInputLabel-root { color: #3f5868; }
+.hp-form .MuiInputLabel-root.Mui-focused { color: #00695c; }
+.hp-form .MuiInputLabel-root.Mui-error, .hp-form .MuiFormHelperText-root.Mui-error { color: #b3261e; }
+
+@keyframes hp-rise { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+@keyframes hp-slot { from { clip-path: inset(100% 0 0 0 round 10px); } to { clip-path: inset(0 0 0 0 round 10px); } }
+@keyframes hp-felt { from { background-size: 0% .3em; } to { background-size: 100% .3em; } }
+@media (prefers-reduced-motion: no-preference) {
+  /* page heroes on load */
+  .hp-load { animation: hp-rise .8s var(--hp-ease) both; }
+  .hp-load-2 { animation-delay: .1s; } .hp-load-3 { animation-delay: .2s; } .hp-load-4 { animation-delay: .3s; }
+  .hp-load-window .hp-window { animation: hp-slot 1.1s var(--hp-ease) .15s both; }
+  .hp-load .hp-felt-text { animation: hp-felt 1.1s cubic-bezier(.65,.05,.25,1) .6s both; }
+  /* section headings draw their felt line when revealed */
+  .hp-body [data-reveal] .hp-felt-text { transition: background-size 1.1s cubic-bezier(.65,.05,.25,1) .45s; }
+  .hp-body [data-reveal][data-armed]:not([data-in]) .hp-felt-text { background-size: 0% .3em; }
+}
+`;
+
+export const PAPER_CSS = BODY_CSS + KIT_CSS;
+
 export const cls = {
   wrap: 'mx-auto w-full max-w-[1360px] px-4 sm:px-8 lg:px-12',
   pad: 'py-[72px] lg:py-[112px]',
+  h1: 'm-0 font-[family-name:var(--font-hh-display)] text-[clamp(2.1rem,3.6vw,3.2rem)] font-normal leading-[1.08] tracking-[-0.01em] text-[#1b4560] [overflow-wrap:break-word] [text-wrap:balance]',
   h2: 'm-0 font-[family-name:var(--font-hh-display)] text-[clamp(1.9rem,3.2vw,2.8rem)] font-normal leading-[1.1] tracking-[-0.01em] text-[#1b4560] [overflow-wrap:break-word] [text-wrap:balance]',
   h3: 'm-0 font-[family-name:var(--font-hh-display)] text-[1.375rem] font-normal leading-[1.22] text-[#1b4560] lg:text-[1.5rem]',
   lead: 'mb-0 mt-4 max-w-[40rem] text-[1.0625rem] leading-[1.6] text-[#3f5868] [text-wrap:pretty] sm:text-[1.1875rem]',

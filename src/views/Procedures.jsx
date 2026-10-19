@@ -1,25 +1,45 @@
 'use client';
 import React, { useMemo, useState } from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  Stack,
-  ToggleButtonGroup,
-  ToggleButton,
-  Tooltip,
-} from '@mui/material';
 import Link from 'next/link';
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
-import ViewListRoundedIcon from '@mui/icons-material/ViewListRounded';
+import { BadgeDollarSign, CalendarDays, LayoutGrid, List } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import { useProcedures } from '../lib/useProcedures';
 import { SPECIALITY_META, getSpecialityMeta } from '../data/specialityMeta';
-import ProcedureSearch from '../components/procedures/ProcedureSearch';
-import SpecialitySection from '../components/procedures/SpecialitySection';
-import SpecialityCard from '../components/procedures/SpecialityCard';
+import PaperPage from '@/components/paper/PaperPage';
+import PageHero from '@/components/paper/PageHero';
+import Sheet from '@/components/paper/Sheet';
+import { FilmWindow } from '@/components/paper/parts';
+import { cls } from '@/components/paper/paperStyles';
+import PaperSearch from '@/components/procedures-paper/PaperSearch';
+import IndexGroup from '@/components/procedures-paper/IndexGroup';
+import IndexDrawer from '@/components/procedures-paper/IndexDrawer';
+import { PROC_CSS } from '@/components/procedures-paper/procStyles';
 
+/* UI labels and alt text only (the catalog itself comes from data/procedures) */
+const UI = {
+  en: {
+    about: 'About this procedure',
+    nextSteps: 'Next steps',
+    consultAlt: 'Illustration from the MyHealth Haven film: a doctor talks with a patient across her desk.',
+    labAlt: 'Illustration from the MyHealth Haven film: a lab technician looks through a microscope beside a rack of samples.',
+  },
+  es: {
+    about: 'Acerca de este procedimiento',
+    nextSteps: 'Próximos pasos',
+    consultAlt: 'Ilustración de la película de MyHealth Haven: una doctora conversa con una paciente en su consultorio.',
+    labAlt: 'Ilustración de la película de MyHealth Haven: una técnica de laboratorio mira por un microscopio junto a una gradilla de muestras.',
+  },
+};
+
+/*
+ * Procedures, in the paper world of the home page. The catalog is the heart of
+ * the page and is set like an index on paper: the search is cut into the hero
+ * sheet beside the film frame, the specialities follow on kraft (grid view: two
+ * columns, five entries each until "View more"; list view: one drawer per
+ * speciality), and the page's two calls close it on the navy sheet with the lab
+ * frame. Search, grouping, the view switch, the drawers and the entries behave
+ * exactly as before; only the look changed.
+ */
 const Procedures = () => {
   const { language, t } = useLanguage();
   const [expandedSpecialities, setExpandedSpecialities] = useState(() => new Set());
@@ -95,148 +115,109 @@ const Procedures = () => {
 
   const viewLessLabel = language === 'es' ? 'Ver menos' : 'Show less';
 
+  const ui = UI[language] || UI.en;
+  const [tallyHead, tallyTail = ''] = String(t('proceduresPage.showingResults')).split('{count}');
+
   return (
-    <Box sx={{ py: { xs: 4, md: 6 }, bgcolor: 'background.default', minHeight: '80vh' }}>
-      <Container
-        maxWidth={false}
-        sx={{
-          maxWidth: { xs: '100%', md: 'clamp(1200px, 85vw, 2400px)' },
-        }}
-      >
-        <Box sx={{ mb: 3 }}>
-          <ProcedureSearch onSearch={handleSearch} initialValue={searchQuery} />
-        </Box>
+    <PaperPage>
+      <style>{PROC_CSS}</style>
 
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'flex-end',
-            mb: 2,
-            gap: 2,
-            flexWrap: 'wrap',
-          }}
-        >
-          <ToggleButtonGroup
-            value={viewMode}
-            exclusive
-            onChange={handleViewModeChange}
-            size='small'
-            aria-label={language === 'es' ? 'Vista' : 'View mode'}
-          >
-            <ToggleButton value='list' aria-label={language === 'es' ? 'Lista' : 'List'}>
-              <Tooltip title={language === 'es' ? 'Lista' : 'List'}>
-                <ViewListRoundedIcon fontSize='small' />
-              </Tooltip>
-            </ToggleButton>
-            <ToggleButton value='grid' aria-label={language === 'es' ? 'Cuadrícula' : 'Grid'}>
-              <Tooltip title={language === 'es' ? 'Cuadrícula' : 'Grid'}>
-                <GridViewRoundedIcon fontSize='small' />
-              </Tooltip>
-            </ToggleButton>
-          </ToggleButtonGroup>
-        </Box>
+      <PageHero className='pr-hero' emphasis={t('navbar.procedures')} frame={{ src: '/pages/procedures-consult.webp', alt: ui.consultAlt }}>
+        <div className='max-w-[38rem]'>
+          <PaperSearch onSearch={handleSearch} initialValue={searchQuery} />
+          <div className='mt-5 flex flex-wrap items-center justify-between gap-x-6 gap-y-4'>
+            <p className='pr-tally' aria-live='polite'>
+              {tallyHead}
+              <strong>{procedures.length}</strong>
+              {tallyTail}
+            </p>
+            <div role='group' aria-label={language === 'es' ? 'Vista' : 'View mode'} className='pr-switch'>
+              <button type='button' aria-pressed={viewMode === 'list'} onClick={(event) => handleViewModeChange(event, 'list')}>
+                <List aria-hidden='true' className='size-[18px]' />
+                {language === 'es' ? 'Lista' : 'List'}
+              </button>
+              <button type='button' aria-pressed={viewMode === 'grid'} onClick={(event) => handleViewModeChange(event, 'grid')}>
+                <LayoutGrid aria-hidden='true' className='size-[18px]' />
+                {language === 'es' ? 'Cuadrícula' : 'Grid'}
+              </button>
+            </div>
+          </div>
+        </div>
+      </PageHero>
 
+      <Sheet tone='kraft' className='!pt-14 lg:!pt-20'>
         {visibleSpecialities.length === 0 ? (
-          <Box
-            sx={{
-              textAlign: 'center',
-              py: 8,
-              bgcolor: 'background.paper',
-              borderRadius: 3,
-              border: '1px solid',
-              borderColor: 'divider',
-            }}
-          >
-            <Typography variant='h6' color='text.secondary' gutterBottom>
-              {noResultsLabel}
-            </Typography>
-            <Button variant='text' onClick={clearFilters}>
+          <div data-reveal='rise' className='pr-empty'>
+            <p className={`${cls.h3} m-0`}>{noResultsLabel}</p>
+            <button type='button' onClick={clearFilters} className={`${cls.btnOutline} mt-7 cursor-pointer`}>
               {t('proceduresPage.clearAll') || 'Clear all filters'}
-            </Button>
-          </Box>
+            </button>
+          </div>
         ) : viewMode === 'list' ? (
-          <Stack spacing={2}>
-            {visibleSpecialities.map(({ meta, procedures: list }) => {
+          <div className='pr-drawers'>
+            {visibleSpecialities.map(({ meta, procedures: list }, index) => {
               const fullMeta = buildSpecialityMeta(meta);
               return (
-                <SpecialitySection
+                <IndexDrawer
                   key={meta.key}
+                  index={index}
                   speciality={fullMeta}
                   procedures={list}
                   expanded={isSpecialityExpanded(meta.key)}
                   onToggle={() => toggleSpeciality(meta.key)}
+                  aboutLabel={ui.about}
                 />
               );
             })}
-          </Stack>
+          </div>
         ) : (
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
-              gap: 2,
-              alignItems: 'start',
-            }}
-          >
+          <div className='pr-groups'>
             {visibleSpecialities.map(({ meta, procedures: list }, index) => {
               const fullMeta = buildSpecialityMeta(meta);
               const isLastOddItem =
                 index === visibleSpecialities.length - 1 && visibleSpecialities.length % 2 === 1;
               return (
-                <Box
+                <IndexGroup
                   key={meta.key}
-                  sx={{
-                    gridColumn: isLastOddItem ? { xs: '1', md: '1 / -1' } : 'auto',
-                  }}
-                >
-                  <SpecialityCard
-                    speciality={fullMeta}
-                    procedures={list}
-                    viewMoreLabel={viewMoreLabel}
-                    viewLessLabel={viewLessLabel}
-                    wide={isLastOddItem}
-                    forceShowAll={isUserSearchingOrFiltering}
-                  />
-                </Box>
+                  index={index}
+                  speciality={fullMeta}
+                  procedures={list}
+                  viewMoreLabel={viewMoreLabel}
+                  viewLessLabel={viewLessLabel}
+                  wide={isLastOddItem}
+                  forceShowAll={isUserSearchingOrFiltering}
+                  aboutLabel={ui.about}
+                />
               );
             })}
-          </Box>
+          </div>
         )}
+      </Sheet>
 
-        <Box
-          sx={{
-            mt: 6,
-            textAlign: 'center',
-            display: 'flex',
-            justifyContent: 'center',
-            gap: 2,
-            flexWrap: 'wrap',
-          }}
-        >
-          <Button
-            variant='contained'
-            color='primary'
-            size='large'
-            component={Link}
-            href='/estimate'
-            sx={{ px: 4, py: 1.5, fontSize: '1.1rem', fontWeight: 'bold' }}
-          >
-            {t('navbar.freeEstimate')}
-          </Button>
-          <Button
-            variant='outlined'
-            color='primary'
-            size='large'
-            component={Link}
-            href='/schedule'
-            sx={{ px: 4, py: 1.5, fontSize: '1.1rem', fontWeight: 'bold' }}
-          >
-            {t('navbar.schedule')}
-          </Button>
-        </Box>
-      </Container>
-    </Box>
+      <section aria-label={ui.nextSteps} className={`hp-sheet hp-navy ${cls.pad}`}>
+        <div className={`${cls.wrap} grid grid-cols-1 items-center gap-10 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16`}>
+          <div data-reveal='slot'>
+            <FilmWindow src='/pages/procedures-lab.webp' alt={ui.labAlt} sizes='(min-width: 1024px) 720px, 100vw' />
+          </div>
+          <div data-reveal='rise' className='flex flex-col gap-3 sm:flex-row sm:flex-wrap lg:mx-auto lg:w-full lg:max-w-[24rem] lg:flex-col'>
+            <Link
+              href='/estimate'
+              className='hp-btn inline-flex min-h-[60px] items-center justify-center gap-2.5 rounded-full border-2 border-solid border-transparent bg-[#f4eee5] px-7 text-[1.125rem] font-semibold text-[#1b4560] no-underline hover:bg-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#f4eee5] [&>svg]:shrink-0'
+            >
+              <BadgeDollarSign aria-hidden='true' className='size-5' />
+              {t('navbar.freeEstimate')}
+            </Link>
+            <Link
+              href='/schedule'
+              className='hp-btn inline-flex min-h-[60px] items-center justify-center gap-2.5 rounded-full border-2 border-solid border-[rgba(244,238,229,0.7)] bg-transparent px-7 text-[1.125rem] font-semibold text-[#f4eee5] no-underline hover:bg-[rgba(244,238,229,0.08)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#f4eee5] [&>svg]:shrink-0'
+            >
+              <CalendarDays aria-hidden='true' className='size-5' />
+              {t('navbar.schedule')}
+            </Link>
+          </div>
+        </div>
+      </section>
+    </PaperPage>
   );
 };
 

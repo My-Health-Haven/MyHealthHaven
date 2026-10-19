@@ -1,143 +1,79 @@
 'use client';
 import React from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  Grid,
-  Breadcrumbs,
-  alpha,
-  useTheme,
-} from '@mui/material';
-import Link from 'next/link';
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded';
+import { CalendarDays } from 'lucide-react';
 
-import FadeIn from '../components/FadeIn';
-import LibraryArticleCard from '../components/library/LibraryArticleCard';
 import {
   LIBRARY_CATEGORY_DETAILS,
   LIBRARY_PAGE_COPY,
   getArticlesByCategory,
 } from '../data/libraryContent';
 import { useLanguage } from '../context/LanguageContext';
+import PaperPage from '@/components/paper/PaperPage';
+import Sheet from '@/components/paper/Sheet';
+import LibraryHero from '@/components/library-paper/LibraryHero';
+import Crumbs from '@/components/library-paper/Crumbs';
+import ReadingList from '@/components/library-paper/ReadingList';
+import NavyCall from '@/components/library-paper/NavyCall';
+import { LibraryStyles } from '@/components/library-paper/libraryStyles';
+import { CATEGORY_FRAMES, libraryLabels } from '@/components/library-paper/labels';
 
+/*
+ * A library category hub (/library/getting-started, /library/costs-and-planning)
+ * in the paper world: the category's own film frame beside its name, its
+ * articles as a reading list, then the call. Copy is the page's own, unchanged
+ * (the hub copy lives in LIBRARY_CATEGORY_DETAILS; the call lines were written
+ * into this view and stay here).
+ */
 const LibraryCategory = ({ categorySlug }) => {
-  const theme = useTheme();
   const { language } = useLanguage();
   const pageCopy = LIBRARY_PAGE_COPY[language] || LIBRARY_PAGE_COPY.en;
-  const primaryDark = theme.palette.primary.dark;
-  const secondary = theme.palette.secondary.main;
+  const labels = libraryLabels(language);
 
   const details = LIBRARY_CATEGORY_DETAILS[categorySlug];
   const articles = getArticlesByCategory(categorySlug);
+  const frame = CATEGORY_FRAMES[categorySlug];
 
   return (
-    <>
-      {/* ── Hero ── */}
-      <Box
-        sx={{
-          py: { xs: 8, md: 12 },
-          background: 'linear-gradient(180deg, #e8f5f2 0%, #f4faff 48%, #f3edf7 100%)',
-          position: 'relative',
-          overflow: 'hidden',
-        }}
-      >
-        <Container maxWidth='lg' sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
-          <FadeIn>
-            <Breadcrumbs aria-label='breadcrumb' sx={{ mb: 3 }}>
-              <Link href='/' style={{ textDecoration: 'none', color: 'inherit' }}>
-                Home
-              </Link>
-              <Link href='/library' style={{ textDecoration: 'none', color: 'inherit' }}>
-                {pageCopy.title}
-              </Link>
-              <Typography color='text.primary'>{details?.name}</Typography>
-            </Breadcrumbs>
+    <PaperPage>
+      <LibraryStyles />
 
-            <Typography variant='h1' sx={{ color: primaryDark, mb: 2 }}>
-              {details?.name}
-            </Typography>
-            <Typography
-              variant='h5'
-              sx={{ color: 'text.secondary', maxWidth: 680, lineHeight: 1.7 }}
-            >
-              {details?.intro}
-            </Typography>
-          </FadeIn>
-        </Container>
-      </Box>
+      {/* ── Hero ── */}
+      <LibraryHero
+        crumbs={
+          <Crumbs
+            label={labels.breadcrumb}
+            items={[
+              { label: 'Home', href: '/' },
+              { label: pageCopy.title, href: '/library' },
+              { label: details?.name },
+            ]}
+          />
+        }
+        emphasis={details?.name}
+        lead={details?.intro}
+        frame={frame ? { src: frame.src, alt: labels.frames[frame.altKey] } : undefined}
+      />
 
       {/* ── Articles ── */}
-      <Box sx={{ py: { xs: 8, md: 10 }, bgcolor: '#FFFFFF' }}>
-        <Container maxWidth='lg' sx={{ px: { xs: 2, md: 5, lg: 8 } }}>
-          <Grid container spacing={4}>
-            {articles.map((article, index) => (
-              <Grid size={{ xs: 12, md: 4 }} key={article.slug}>
-                <FadeIn delay={index * 120}>
-                  <LibraryArticleCard
-                    article={article}
-                    guideLabel={pageCopy.guideLabel}
-                    readArticleLabel={pageCopy.readArticle}
-                  />
-                </FadeIn>
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </Box>
+      <Sheet tone='kraft' className='!pt-10 lg:!pt-14'>
+        <ReadingList
+          articles={articles}
+          guideLabel={pageCopy.guideLabel}
+          readArticleLabel={pageCopy.readArticle}
+          label={labels.articles}
+        />
+      </Sheet>
 
       {/* ── CTA ── */}
-      <Box
-        sx={{
-          py: { xs: 8, md: 10 },
-          background: `linear-gradient(180deg, ${alpha(secondary, 0.05)} 0%, #FFFFFF 100%)`,
-          textAlign: 'center',
-        }}
-      >
-        <Container maxWidth='md'>
-          <FadeIn>
-            <Typography variant='h4' sx={{ fontWeight: 700, color: primaryDark, mb: 2 }}>
-              {details?.ctaTitle || 'Have questions about your options?'}
-            </Typography>
-            <Typography
-              variant='body1'
-              sx={{
-                color: 'text.secondary',
-                mb: 4,
-                maxWidth: 600,
-                mx: 'auto',
-                lineHeight: 1.7,
-              }}
-            >
-              A health navigator can walk you through your options and answer questions at your own
-              pace.
-            </Typography>
-            <Button
-              variant='contained'
-              size='large'
-              component={Link}
-              href='/schedule'
-              endIcon={<ArrowForwardRoundedIcon />}
-              sx={{
-                bgcolor: primaryDark,
-                color: 'white',
-                px: 4,
-                py: 1.5,
-                borderRadius: 2,
-                boxShadow: 'none',
-                '&:hover': {
-                  bgcolor: '#004D40',
-                  boxShadow: `0 6px 18px ${alpha(primaryDark, 0.28)}`,
-                },
-              }}
-            >
-              Talk to a Health Navigator
-            </Button>
-          </FadeIn>
-        </Container>
-      </Box>
-    </>
+      <NavyCall
+        id='library-category-close-title'
+        title={details?.ctaTitle || 'Have questions about your options?'}
+        lead='A health navigator can walk you through your options and answer questions at your own pace.'
+        href='/schedule'
+        label='Talk to a Health Navigator'
+        icon={CalendarDays}
+      />
+    </PaperPage>
   );
 };
 

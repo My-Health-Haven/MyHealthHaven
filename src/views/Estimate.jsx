@@ -1,26 +1,23 @@
 'use client';
 import React, { useMemo, useState } from 'react';
-import {
-  Container,
-  Box,
-  Button,
-  Stack,
-  CircularProgress,
-  Typography,
-  Link as MuiLink,
-} from '@mui/material';
+import { CircularProgress } from '@mui/material';
+import { Mail } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { CITIES_BY_STATE } from '@/data/usLocations';
 import { useProcedures } from '@/lib/useProcedures';
 import { isValidEmail, isValidPhone, sanitizePhone } from '@/lib/validation';
-import EstimateHero from '@/components/estimate/EstimateHero';
-import NameField from '@/components/estimate/NameField';
-import EmailField from '@/components/estimate/EmailField';
-import PhoneField from '@/components/estimate/PhoneField';
-import LocationFields from '@/components/estimate/LocationFields';
-import ProcedureField from '@/components/estimate/ProcedureField';
 import HoneypotField from '@/components/estimate/HoneypotField';
-import SubmitFeedback from '@/components/estimate/SubmitFeedback';
+import PaperPage from '@/components/paper/PaperPage';
+import { cls } from '@/components/paper/paperStyles';
+import FormSheet from '@/components/estimate-paper/FormSheet';
+import {
+  PaperNameField,
+  PaperPhoneField,
+  PaperEmailField,
+  PaperLocationFields,
+  PaperProcedureField,
+} from '@/components/estimate-paper/PaperFields';
+import PaperSubmitFeedback from '@/components/estimate-paper/PaperSubmitFeedback';
 
 const OTHER_PROCEDURE_OPTION = '__other_procedure__';
 
@@ -201,139 +198,109 @@ const Estimate = () => {
     }
   };
 
+  /* the title's last two words carry the felt underline on their own line */
+  const titleWords = t('estimatePage.title').trim().split(/\s+/);
+  const titleHead = titleWords.length > 2 ? titleWords.slice(0, -2).join(' ') : '';
+  const titleTail = titleWords.length > 2 ? titleWords.slice(-2).join(' ') : titleWords.join(' ');
+  const frameAlt = isSpanish
+    ? 'Ilustración de la película de MyHealth Haven: una paciente en un camino que une su casa, su doctora, un calendario y el hospital.'
+    : 'Illustration from the MyHealth Haven film: a patient on a road that links her home, her doctor, a calendar and the hospital.';
+
+  /*
+   * Paper world (branch redesign/without-the-maze-hero): the form lies on a
+   * sheet of note paper beside the title, the road frame from the film under
+   * the title (after the form on a phone). The form's state, validation,
+   * honeypot, fetch and feedback above are unchanged.
+   */
   return (
-    <>
-      <Box
-        sx={{
-          position: 'relative',
-          minHeight: '80vh',
-          overflow: 'hidden',
-          bgcolor: '#09161A',
-        }}
+    <PaperPage>
+      <FormSheet
+        id='estimate-title'
+        layout='side'
+        title={titleHead}
+        emphasis={titleTail}
+        sub={t('estimatePage.subtitle')}
+        frame={{ src: '/pages/travel-road.webp', alt: frameAlt }}
+        frameSizes='(min-width: 1024px) 560px, (min-width: 768px) 704px, 100vw'
       >
-        <Box sx={{ py: { xs: 8, md: 12 }, position: 'relative', zIndex: 1 }}>
-          <Container maxWidth='md'>
-            <EstimateHero />
+        <form
+          onSubmit={handleSubmit}
+          aria-labelledby='estimate-title'
+          className='hp-form hp-est hp-est-card px-5 pb-6 pt-6 sm:px-8 sm:pb-8 sm:pt-8 xl:px-10 xl:pb-9 xl:pt-10'
+        >
+          <HoneypotField value={formData.website} onChange={handleChange} />
+          <div className='hp-est-fields'>
+            <div className='hp-est-grid'>
+              <PaperNameField
+                value={formData.name}
+                onChange={handleChange}
+                label={t('estimatePage.form.name')}
+              />
 
-            <Box
-              sx={{
-                position: 'relative',
-                overflow: 'hidden',
-                isolation: 'isolate',
-                p: { xs: 3, md: 6 },
-                borderRadius: 5,
-                background:
-                  'linear-gradient(180deg, rgba(248,250,255,0.58) 0%, rgba(238,245,255,0.4) 100%)',
-                border: '1px solid rgba(255,255,255,0.52)',
-                backdropFilter: 'blur(28px) saturate(180%)',
-                WebkitBackdropFilter: 'blur(28px) saturate(180%)',
-                boxShadow: '0 32px 80px rgba(15,23,42,0.18), inset 0 1px 0 rgba(255,255,255,0.68)',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  inset: 0,
-                  borderRadius: 'inherit',
-                  background:
-                    'linear-gradient(135deg, rgba(255,255,255,0.26) 0%, rgba(255,255,255,0.06) 42%, rgba(255,255,255,0.18) 100%)',
-                  pointerEvents: 'none',
-                  zIndex: -1,
-                },
-                '&::after': {
-                  content: '""',
-                  position: 'absolute',
-                  top: -80,
-                  left: -40,
-                  width: { xs: 180, md: 280 },
-                  height: { xs: 180, md: 280 },
-                  borderRadius: '50%',
-                  background:
-                    'radial-gradient(circle, rgba(255,255,255,0.28) 0%, rgba(255,255,255,0) 74%)',
-                  pointerEvents: 'none',
-                  zIndex: -1,
-                },
-              }}
+              <PaperPhoneField
+                value={formData.phone}
+                onChange={handleChange}
+                label={t('estimatePage.form.phone')}
+              />
+
+              <PaperEmailField
+                value={formData.email}
+                onChange={handleChange}
+                label={t('estimatePage.form.email')}
+              />
+
+              <PaperLocationFields
+                state={formData.state}
+                city={formData.city}
+                onStateChange={handleChange}
+                onCityChange={handleChange}
+                availableCities={availableCities}
+                t={t}
+              />
+
+              <PaperProcedureField
+                procedure={formData.procedure}
+                procedureOther={formData.procedureOther}
+                onProcedureChange={handleProcedureSelect}
+                onProcedureOtherChange={handleChange}
+                procedureOptions={procedureOptions}
+                procedureSearchPlaceholder={procedureSearchPlaceholder}
+                procedureNoOptionsLabel={procedureNoOptionsLabel}
+                procedureOtherLabel={procedureOtherLabel}
+                procedureOtherPlaceholder={procedureOtherPlaceholder}
+                label={t('estimatePage.form.procedure')}
+              />
+            </div>
+          </div>
+
+          <p className='mb-0 mt-5 text-[0.875rem] leading-[1.6] text-[#3f5868]'>
+            {privacyNoteIntro}
+            <a
+              href='/privacy'
+              className='font-medium text-[#00695c] underline decoration-[rgba(0,105,92,0.45)] underline-offset-2 hover:decoration-[#00695c]'
             >
-              <form onSubmit={handleSubmit}>
-                <HoneypotField value={formData.website} onChange={handleChange} />
-                <Stack spacing={4}>
-                  <NameField
-                    value={formData.name}
-                    onChange={handleChange}
-                    label={t('estimatePage.form.name')}
-                  />
+              {privacyLinkLabel}
+            </a>
+            .
+          </p>
 
-                  <PhoneField
-                    value={formData.phone}
-                    onChange={handleChange}
-                    label={t('estimatePage.form.phone')}
-                  />
+          <button
+            type='submit'
+            disabled={isSubmitting}
+            className={`${cls.btnPrimary} hp-est-submit mt-6 min-h-[56px]`}
+          >
+            {isSubmitting ? (
+              <CircularProgress size={18} color='inherit' />
+            ) : (
+              <Mail aria-hidden='true' className='size-5' />
+            )}
+            {isSubmitting ? t('estimatePage.form.submitting') : t('estimatePage.form.submit')}
+          </button>
 
-                  <EmailField
-                    value={formData.email}
-                    onChange={handleChange}
-                    label={t('estimatePage.form.email')}
-                  />
-
-                  <LocationFields
-                    state={formData.state}
-                    city={formData.city}
-                    onStateChange={handleChange}
-                    onCityChange={handleChange}
-                    availableCities={availableCities}
-                    t={t}
-                  />
-
-                  <ProcedureField
-                    procedure={formData.procedure}
-                    procedureOther={formData.procedureOther}
-                    onProcedureChange={handleProcedureSelect}
-                    onProcedureOtherChange={handleChange}
-                    procedureOptions={procedureOptions}
-                    procedureSearchPlaceholder={procedureSearchPlaceholder}
-                    procedureNoOptionsLabel={procedureNoOptionsLabel}
-                    procedureOtherLabel={procedureOtherLabel}
-                    procedureOtherPlaceholder={procedureOtherPlaceholder}
-                    label={t('estimatePage.form.procedure')}
-                  />
-
-                  <Typography
-                    variant='caption'
-                    sx={{ color: 'text.secondary', display: 'block', mt: -1 }}
-                  >
-                    {privacyNoteIntro}
-                    <MuiLink href='/privacy' underline='always' color='inherit'>
-                      {privacyLinkLabel}
-                    </MuiLink>
-                    .
-                  </Typography>
-
-                  <Box sx={{ pt: 2 }}>
-                    <Button
-                      type='submit'
-                      fullWidth
-                      variant='contained'
-                      size='large'
-                      color='primary'
-                      disabled={isSubmitting}
-                      startIcon={
-                        isSubmitting ? <CircularProgress size={18} color='inherit' /> : null
-                      }
-                      sx={{ py: 2, fontSize: '1.2rem', fontWeight: 'bold', boxShadow: 'none' }}
-                    >
-                      {isSubmitting
-                        ? t('estimatePage.form.submitting')
-                        : t('estimatePage.form.submit')}
-                    </Button>
-                  </Box>
-
-                  <SubmitFeedback status={submitStatus} error={submitError} />
-                </Stack>
-              </form>
-            </Box>
-          </Container>
-        </Box>
-      </Box>
-    </>
+          <PaperSubmitFeedback status={submitStatus} error={submitError} />
+        </form>
+      </FormSheet>
+    </PaperPage>
   );
 };
 

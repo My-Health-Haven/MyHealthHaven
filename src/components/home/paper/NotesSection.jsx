@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
-import { cls } from './paperStyles';
+import { cls } from '@/components/paper/paperStyles';
 
 /* each note sits a little crooked on the board; hover straightens it */
 const TILT = ['-1.1deg', '0.9deg', '1.3deg', '-0.8deg', '0.6deg'];

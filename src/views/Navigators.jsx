@@ -1,494 +1,186 @@
 'use client';
-import React from 'react';
-import {
-  Box,
-  Container,
-  Typography,
-  Button,
-  Grid,
-  Card,
-  Stack,
-  alpha,
-  useTheme,
-  useMediaQuery,
-} from '@mui/material';
-import Image from 'next/image';
 import Link from 'next/link';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import SupportAgentIcon from '@mui/icons-material/SupportAgent';
-import ForumIcon from '@mui/icons-material/Forum';
-import DescriptionIcon from '@mui/icons-material/Description';
-import WorkOutlineIcon from '@mui/icons-material/WorkOutline';
-import PersonIcon from '@mui/icons-material/Person';
-import PlaceIcon from '@mui/icons-material/Place';
-import ShieldIcon from '@mui/icons-material/Shield';
-import PhoneInTalkIcon from '@mui/icons-material/PhoneInTalk';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import VerifiedUserIcon from '@mui/icons-material/VerifiedUser';
-import LanguageIcon from '@mui/icons-material/Language';
-import PlayCircleIcon from '@mui/icons-material/PlayCircle';
-import FadeIn from '../components/FadeIn';
-import GlassCard from '../components/GlassCard';
-import IconFeatureCard from '../components/IconFeatureCard';
-import SectionEyebrow from '../components/SectionEyebrow';
+import { CalendarDays } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import PaperPage from '@/components/paper/PaperPage';
+import PageHero from '@/components/paper/PageHero';
+import Sheet from '@/components/paper/Sheet';
+import TileList from '@/components/paper/TileList';
+import VideoWindow from '@/components/paper/VideoWindow';
+import { cls } from '@/components/paper/paperStyles';
+import NavigatorWork from '@/components/navigators-paper/NavigatorWork';
+import FifteenClock from '@/components/navigators-paper/FifteenClock';
+import { NAV_CSS } from '@/components/navigators-paper/navStyles';
 
+/* UI labels and alt text only; every other word on the page is the site's own copy
+   (navigatorsPage.* and home.meetNavigatorsTitle in src/data/translations.js) */
+const UI = {
+  en: {
+    heroAlt:
+      "Illustration from the MyHealth Haven film: a laptop screen shows a Health Navigator's portrait beside the patient's journey, a path of stops from care to home.",
+    play: 'Play the video Meet Your Health Navigator, 2 minutes 10 seconds',
+    video: 'Meet Your Health Navigator, 2 minutes 10 seconds',
+    close: 'Close the video',
+  },
+  es: {
+    heroAlt:
+      'Ilustración de la película de MyHealth Haven: la pantalla de una laptop muestra el retrato de una Health Navigator junto al recorrido del paciente, un camino de paradas desde la atención hasta el hogar.',
+    play: 'Reproducir el video Conozca a su Health Navigator, 2 minutos 10 segundos',
+    video: 'Conozca a su Health Navigator, 2 minutos 10 segundos',
+    close: 'Cerrar el video',
+  },
+};
+
+/* where the hero title breaks onto its underlined line, and the words the "what
+   they do" heading underlines; if the copy changes, the text simply runs plain */
+const HERO_HEAD = { en: 'Your advocate', es: 'Su defensor' };
+const STEP_WORDS = { en: 'every step', es: 'cada paso' };
+
+const splitAt = (text, phrase) => {
+  if (typeof text !== 'string' || !phrase) return null;
+  const at = text.indexOf(phrase);
+  return at < 0 ? null : [text.slice(0, at), phrase, text.slice(at + phrase.length)];
+};
+
+/*
+ * Your Health Navigator, in the paper world of the home page. The copy is the
+ * site's own, unchanged; the old eyebrow label is not shown (the heading leads;
+ * it names the path for screen readers instead).
+ *
+ * 1. hero: the Navigator's laptop with the patient's journey, and the call
+ * 2. kraft: what the Navigator does (the Navigator's card + a path of five stops)
+ * 3. cream: the Navigator video in a window, with the three promises
+ * 4. navy: the fifteen-minute conversation
+ */
 const Navigators = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
+  const lang = language === 'es' ? 'es' : 'en';
+  const ui = UI[lang];
 
-  const whatTheyDoList = t('navigatorsPage.whatTheyDoList') || [];
-  const whatTheyDoDescriptions = t('navigatorsPage.whatTheyDoDescriptions') || [];
+  const list = t('navigatorsPage.whatTheyDoList');
+  const notes = t('navigatorsPage.whatTheyDoDescriptions');
+  const item = (i) => ({ title: Array.isArray(list) ? list[i] : '', body: Array.isArray(notes) ? notes[i] : '' });
+  /* the Navigator (the advocate, the single point of contact, always reachable) */
+  const card = [0, 1, 7].map(item).filter((x) => x.title);
+  /* what the Navigator does, in the list's own order */
+  const steps = [2, 3, 4, 5, 6].map(item).filter((x) => x.title);
 
-  // Reference image visual order maps to original whatTheyDoList indices.
-  // The translations array is preserved as-is; we just present items in the
-  // order the reference design shows them.
-  const featureMap = [
-    { srcIdx: 0, icon: <SupportAgentIcon />, color: 'primary' },
-    { srcIdx: 2, icon: <ForumIcon />, color: 'secondary' },
-    { srcIdx: 4, icon: <DescriptionIcon />, color: 'primary' },
-    { srcIdx: 6, icon: <WorkOutlineIcon />, color: 'secondary' },
-    { srcIdx: 1, icon: <PersonIcon />, color: 'secondary' },
-    { srcIdx: 3, icon: <PlaceIcon />, color: 'primary' },
-    { srcIdx: 5, icon: <ShieldIcon />, color: 'secondary' },
-    { srcIdx: 7, icon: <PhoneInTalkIcon />, color: 'primary' },
-  ];
+  const title = t('navigatorsPage.title');
+  const head = HERO_HEAD[lang];
+  const heroSplit = typeof title === 'string' && title.startsWith(head) && title.length > head.length;
 
-  const meetIndicators = [
-    {
-      icon: <FavoriteIcon />,
-      label: t('navigatorsPage.indicatorCompassionate'),
-    },
-    {
-      icon: <VerifiedUserIcon />,
-      label: t('navigatorsPage.indicatorAdvocate'),
-    },
-    {
-      icon: <LanguageIcon />,
-      label: t('navigatorsPage.indicatorTrusted'),
-    },
-  ];
+  const whatTitle = t('navigatorsPage.whatYouGetTitle');
+  const whatParts = splitAt(whatTitle, STEP_WORDS[lang]);
+  const heading = whatParts ? (
+    <>
+      {whatParts[0]}
+      <span className='hp-felt-text whitespace-nowrap'>{whatParts[1]}</span>
+      {whatParts[2]}
+    </>
+  ) : (
+    whatTitle
+  );
+
+  const indicators = [t('navigatorsPage.indicatorCompassionate'), t('navigatorsPage.indicatorAdvocate'), t('navigatorsPage.indicatorTrusted')];
+  const closer = t('navigatorsPage.meetCloser');
+  const closerLines = typeof closer === 'string' ? closer.split(/(?<=\.)\s+/) : [closer];
+
+  const finalTitle = t('navigatorsPage.finalCtaTitle');
+  const figure = typeof finalTitle === 'string' ? finalTitle.match(/\d+/)?.[0] : null;
+  /* the length of the call ("15-minute", "15 minutos") never breaks across lines */
+  const lengthWords = typeof finalTitle === 'string' ? finalTitle.match(/\d+[-\s]\S+/)?.[0] : null;
+  const finalParts = lengthWords ? splitAt(finalTitle, lengthWords) : null;
+  const finalHeading = finalParts ? (
+    <>
+      {finalParts[0]}
+      <span className='whitespace-nowrap'>{finalParts[1]}</span>
+      {finalParts[2]}
+    </>
+  ) : (
+    finalTitle
+  );
 
   return (
-    <>
-      {/* 1. Hero (Redesigned) */}
-      <Box
-        sx={{
-          position: 'relative',
-          mt: { xs: -7, sm: 0 },
-          pt: { xs: 17, sm: 10, md: 14 },
-          pb: { xs: 10, md: 14 },
-          textAlign: 'center',
-          overflow: 'hidden',
-          color: 'white',
-        }}
-      >
-        {/* Parallax background */}
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            backgroundImage: 'url(/HealthNavigatorsBG.webp)',
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundAttachment: isMobile ? 'scroll' : 'fixed',
-            zIndex: 0,
-          }}
-        />
-        {/* Gradient overlay */}
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            background:
-              'linear-gradient(135deg, rgba(0, 53, 64, 0.78) 0%, rgba(15, 23, 42, 0.65) 100%)',
-            backdropFilter: 'blur(2px)',
-            zIndex: 0,
-          }}
-        />
-        {/* Decorative dot grid */}
-        <Box
-          sx={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: 220,
-            height: '100%',
-            opacity: 0.18,
-            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.8) 1px, transparent 1px)',
-            backgroundSize: '24px 24px',
-            zIndex: 0,
-            pointerEvents: 'none',
-            display: { xs: 'none', md: 'block' },
-          }}
-        />
+    <PaperPage>
+      <style>{NAV_CSS}</style>
 
-        <Container
-          maxWidth={false}
-          sx={{
-            position: 'relative',
-            zIndex: 1,
-            px: { xs: 2, md: 6, lg: 10 },
-          }}
-        >
-          <Box sx={{ maxWidth: 900, mx: 'auto' }}>
-            <FadeIn>
-              <Typography
-                variant='h1'
-                sx={{
-                  color: 'white',
-                  fontWeight: 700,
-                  mb: 3,
-                  fontSize: { xs: '2.4rem', sm: '3rem', md: '3.6rem' },
-                  lineHeight: 1.1,
-                }}
-              >
-                {t('navigatorsPage.title')}
-              </Typography>
-              <Typography
-                variant='h5'
-                sx={{
-                  color: 'rgba(255, 255, 255, 0.92)',
-                  mb: 4,
-                  maxWidth: 720,
-                  mx: 'auto',
-                  lineHeight: 1.5,
-                  fontSize: { xs: '1.05rem', md: '1.25rem' },
-                }}
-              >
-                {t('navigatorsPage.subtitle')}
-              </Typography>
-              <Button
-                variant='contained'
-                size='large'
-                component={Link}
+      <PageHero
+        title={heroSplit ? `${head} ` : title}
+        emphasis={heroSplit ? title.slice(head.length).trim() : undefined}
+        lead={t('navigatorsPage.subtitle')}
+        frame={{ src: '/pages/navigators-laptop.webp', alt: ui.heroAlt }}
+      >
+        <Link href='/schedule' className={cls.btnPrimary}>
+          <CalendarDays aria-hidden='true' className='size-5' />
+          {t('navigatorsPage.cta')}
+        </Link>
+      </PageHero>
+
+      <Sheet tone='kraft' labelledBy='nav-does-title'>
+        <NavigatorWork
+          headingId='nav-does-title'
+          heading={heading}
+          lead={t('navigatorsPage.whatYouGetSubtitle')}
+          card={card}
+          steps={steps}
+          cta={{ href: '/schedule', label: t('navigatorsPage.cta') }}
+          pathLabel={t('navigatorsPage.whatYouGetEyebrow')}
+          stepLabel={t('home.step')}
+        />
+      </Sheet>
+
+      <Sheet tone='cream' labelledBy='nav-meet-title'>
+        <div className='grid grid-cols-1 gap-x-14 gap-y-10 lg:grid-cols-[minmax(0,1.3fr)_minmax(0,0.7fr)] lg:grid-rows-[auto_1fr] xl:gap-x-20'>
+          <div data-reveal='rise' className='lg:col-start-2 lg:row-start-1'>
+            <h2 id='nav-meet-title' className={cls.h2}>
+              {t('home.meetNavigatorsTitle')}
+            </h2>
+            <p className={cls.lead}>{t('navigatorsPage.meetDesc')}</p>
+          </div>
+          <div data-reveal='slot' className='lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:self-center'>
+            <VideoWindow
+              src='/Meet Your Health Navigator.mp4'
+              poster='/pages/navigators-table.webp'
+              duration='2:10'
+              labels={{ play: ui.play, video: ui.video, close: ui.close }}
+              sizes='(min-width: 1024px) 760px, 100vw'
+            />
+          </div>
+          <div className='lg:col-start-2 lg:row-start-2'>
+            <TileList items={indicators.filter(Boolean)} />
+            <p data-reveal='rise' className='mb-0 mt-9 border-0 border-t border-solid border-[rgba(27,69,96,0.16)] pt-6 font-[family-name:var(--font-hh-display)] text-[1.375rem] leading-[1.3] text-[#1b4560] sm:text-[1.5rem]'>
+              {closerLines.map((line, i) => (
+                <span key={i} className='block'>
+                  {line}
+                  {i < closerLines.length - 1 ? ' ' : null}
+                </span>
+              ))}
+            </p>
+          </div>
+        </div>
+      </Sheet>
+
+      <Sheet tone='navy' labelledBy='nav-close-title'>
+        <div className='mx-auto grid max-w-[64rem] grid-cols-1 items-center gap-10 md:grid-cols-[auto_minmax(0,1fr)] md:gap-14 lg:gap-20'>
+          {figure ? <FifteenClock figure={figure} /> : null}
+          <div data-reveal='rise'>
+            <h2 id='nav-close-title' className={`${cls.h2} text-[#f4eee5]`}>
+              {finalHeading}
+            </h2>
+            <p className='mb-0 mt-5 max-w-[36rem] text-[1.0625rem] leading-[1.6] text-[#d3dde2] [text-wrap:pretty] sm:text-[1.1875rem]'>{t('navigatorsPage.finalCtaDesc')}</p>
+            <div className='mt-9'>
+              <Link
                 href='/schedule'
-                sx={{
-                  mt: 2,
-                  py: 1.6,
-                  px: 4,
-                  fontSize: '1rem',
-                  borderRadius: 2,
-                  boxShadow: '0 12px 30px rgba(0, 137, 123, 0.4)',
-                }}
+                className='hp-btn inline-flex min-h-[54px] items-center justify-center gap-2.5 rounded-full border-2 border-solid border-transparent bg-[#f4eee5] px-6 text-[1.0625rem] font-semibold text-[#1b4560] no-underline hover:bg-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#f4eee5] [&>svg]:shrink-0'
               >
-                {t('navigatorsPage.cta')}
-              </Button>
-            </FadeIn>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* 2. What Your Health Navigator Does (Redesigned 4x2 grid) */}
-      <Box
-        sx={{
-          position: 'relative',
-          py: { xs: 8, md: 12 },
-          background:
-            'linear-gradient(180deg, rgba(231, 245, 255, 0.5) 0%, rgba(247, 236, 255, 0.4) 100%)',
-          overflow: 'hidden',
-        }}
-      >
-        <Box
-          sx={{
-            position: 'absolute',
-            inset: 0,
-            opacity: 0.13,
-            backgroundImage: 'radial-gradient(circle, #00897B 1px, transparent 1px)',
-            backgroundSize: '32px 32px',
-            pointerEvents: 'none',
-          }}
-        />
-
-        <Container
-          maxWidth={false}
-          sx={{
-            position: 'relative',
-            zIndex: 1,
-            px: { xs: 2, md: 6, lg: 10 },
-          }}
-        >
-          {/* Section header */}
-          <Box
-            sx={{
-              textAlign: 'center',
-              maxWidth: 820,
-              mx: 'auto',
-              mb: { xs: 6, md: 8 },
-            }}
-          >
-            <FadeIn>
-              <Box
-                sx={{
-                  display: 'inline-flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  mb: 2,
-                }}
-              >
-                <SectionEyebrow text={t('navigatorsPage.whatYouGetEyebrow')} variant='plain' />
-              </Box>
-            </FadeIn>
-            <FadeIn delay={100}>
-              <Typography
-                variant='h2'
-                sx={{
-                  color: 'text.primary',
-                  mb: 2,
-                  lineHeight: 1.2,
-                  fontSize: { xs: '1.23rem' },
-                }}
-              >
-                {t('navigatorsPage.whatYouGetTitle')}
-              </Typography>
-            </FadeIn>
-            <FadeIn delay={200}>
-              <Typography
-                variant='body1'
-                sx={{
-                  color: 'text.secondary',
-                  fontSize: { xs: '0.95rem', md: '1.05rem' },
-                  lineHeight: 1.6,
-                }}
-              >
-                {t('navigatorsPage.whatYouGetSubtitle')}
-              </Typography>
-            </FadeIn>
-          </Box>
-
-          {/* 4x2 feature grid */}
-          <Grid container spacing={{ xs: 1.5, sm: 3 }}>
-            {featureMap.map((entry, i) => {
-              const title = whatTheyDoList[entry.srcIdx];
-              const description = whatTheyDoDescriptions[entry.srcIdx];
-              if (!title) return null;
-              return (
-                <Grid size={{ xs: 6, sm: 6, md: 3 }} key={i}>
-                  <FadeIn delay={i * 80} style={{ height: '100%' }}>
-                    <IconFeatureCard
-                      icon={entry.icon}
-                      title={title}
-                      description={description}
-                      color={entry.color}
-                      variant={isMobile ? 'compact' : 'default'}
-                      titleColor={theme.palette.text.primary}
-                      sx={{
-                        height: '100%',
-                        '& .MuiTypography-subtitle1': {
-                          fontSize: { xs: '0.79rem', sm: '1rem' },
-                        },
-                        '& .MuiTypography-body2': {
-                          fontSize: { xs: '0.79rem', sm: '0.83rem' },
-                        },
-                      }}
-                    />
-                  </FadeIn>
-                </Grid>
-              );
-            })}
-          </Grid>
-        </Container>
-      </Box>
-
-      {/* 3. Meet Your Health Navigators (Redesigned video + trust indicators) */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'transparent' }}>
-        <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
-          <Box sx={{ maxWidth: 1100, mx: 'auto' }}>
-            {/* Centered title with gradient underline */}
-            <FadeIn>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  alignItems: 'center',
-                  mb: 6,
-                }}
-              >
-                <Typography variant='h2' align='center' sx={{ color: 'primary.main', mb: 1.5 }}>
-                  {t('home.meetNavigatorsTitle')}
-                </Typography>
-                <Box
-                  sx={{
-                    width: 200,
-                    height: 3,
-                    borderRadius: 2,
-                    background: 'linear-gradient(90deg, #00897B 0%, #8E24AA 100%)',
-                  }}
-                  aria-hidden='true'
-                />
-              </Box>
-            </FadeIn>
-
-            <Grid container spacing={{ xs: 4, md: 6 }} alignItems='center'>
-              {/* LEFT: Video */}
-              <Grid size={{ xs: 12, md: 7 }}>
-                <FadeIn delay={100}>
-                  <Card
-                    sx={{
-                      borderRadius: 3,
-                      overflow: 'hidden',
-                      boxShadow: '0 20px 50px rgba(0, 105, 92, 0.18)',
-                      border: '1px solid',
-                      borderColor: alpha('#00897B', 0.12),
-                    }}
-                  >
-                    <Box
-                      sx={{
-                        position: 'relative',
-                        paddingTop: '56.25%',
-                        bgcolor: alpha('#00897B', 0.06),
-                      }}
-                    >
-                      <Box
-                        component='video'
-                        controls
-                        preload='none'
-                        playsInline
-                        poster='/HealthNavigatorsBG.webp'
-                        src='/Meet Your Health Navigator.mp4'
-                        sx={{
-                          position: 'absolute',
-                          top: 0,
-                          left: 0,
-                          width: '100%',
-                          height: '100%',
-                          objectFit: 'cover',
-                        }}
-                      />
-                      {/* Logo watermark badge top-left */}
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          top: 14,
-                          left: 14,
-                          display: 'inline-flex',
-                          alignItems: 'center',
-                          gap: 0.75,
-                          px: 1.25,
-                          py: 0.5,
-                          borderRadius: 2,
-                          bgcolor: 'rgba(255, 255, 255, 0.92)',
-                          backdropFilter: 'blur(8px)',
-                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.12)',
-                          pointerEvents: 'none',
-                        }}
-                      >
-                        <Image src='/logo.png' width={22} height={22} alt='' aria-hidden />
-                        <Typography
-                          variant='caption'
-                          sx={{
-                            fontWeight: 700,
-                            color: 'primary.main',
-                            fontSize: '0.75rem',
-                          }}
-                        >
-                          MyHealth Haven
-                        </Typography>
-                      </Box>
-                    </Box>
-                  </Card>
-                </FadeIn>
-              </Grid>
-
-              {/* RIGHT: Description + 3 indicators + closer */}
-              <Grid size={{ xs: 12, md: 5 }}>
-                <FadeIn delay={200}>
-                  <Typography
-                    variant='h5'
-                    sx={{
-                      color: 'text.primary',
-                      fontWeight: 700,
-                      mb: 4,
-                      lineHeight: 1.35,
-                      fontSize: { xs: '1.2rem', md: '1.35rem' },
-                    }}
-                  >
-                    {t('navigatorsPage.meetDesc')}
-                  </Typography>
-                </FadeIn>
-
-                <Stack spacing={2.5} sx={{ mb: 4 }}>
-                  {meetIndicators.map((item, i) => (
-                    <FadeIn key={i} delay={300 + i * 100}>
-                      <Stack direction='row' spacing={2} alignItems='center'>
-                        {React.cloneElement(item.icon, {
-                          'aria-hidden': true,
-                          sx: { fontSize: 34, color: 'primary.main', flexShrink: 0 },
-                        })}
-                        <Typography
-                          variant='body1'
-                          sx={{
-                            fontWeight: 600,
-                            color: 'text.primary',
-                          }}
-                        >
-                          {item.label}
-                        </Typography>
-                      </Stack>
-                    </FadeIn>
-                  ))}
-                </Stack>
-
-                <FadeIn delay={600}>
-                  <Box>
-                    <Typography
-                      variant='body1'
-                      sx={{
-                        fontStyle: 'italic',
-                        color: 'text.primary',
-                        fontWeight: 600,
-                        mb: 1,
-                      }}
-                    >
-                      {t('navigatorsPage.meetCloser')}
-                    </Typography>
-                    <Box
-                      sx={{
-                        width: 120,
-                        height: 2,
-                        borderRadius: 2,
-                        background: 'linear-gradient(90deg, #00897B 0%, #8E24AA 100%)',
-                      }}
-                      aria-hidden='true'
-                    />
-                  </Box>
-                </FadeIn>
-              </Grid>
-            </Grid>
-          </Box>
-        </Container>
-      </Box>
-
-      {/* 4. Final CTA (Unchanged) */}
-      <Box
-        sx={{
-          py: { xs: 8, md: 12 },
-          bgcolor: 'transparent',
-          textAlign: 'center',
-        }}
-      >
-        <Container maxWidth={false} sx={{ px: { xs: 2, md: 6, lg: 10 } }}>
-          <Box sx={{ maxWidth: 'md', mx: 'auto' }}>
-            <FadeIn>
-              <Typography variant='h2' gutterBottom>
-                {t('navigatorsPage.finalCtaTitle')}
-              </Typography>
-              <Typography variant='h5' color='text.secondary' paragraph>
-                {t('navigatorsPage.finalCtaDesc')}
-              </Typography>
-              <Box sx={{ mt: 4 }}>
-                <FadeIn delay={300}>
-                  <Button variant='contained' size='large' component={Link} href='/schedule'>
-                    {t('navigatorsPage.finalCtaButton')}
-                  </Button>
-                </FadeIn>
-              </Box>
-            </FadeIn>
-          </Box>
-        </Container>
-      </Box>
-    </>
+                <CalendarDays aria-hidden='true' className='size-5' />
+                {t('navigatorsPage.finalCtaButton')}
+              </Link>
+            </div>
+          </div>
+        </div>
+      </Sheet>
+    </PaperPage>
   );
 };
 

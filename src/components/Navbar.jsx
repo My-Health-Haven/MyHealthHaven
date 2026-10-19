@@ -74,11 +74,14 @@ const Navbar = () => {
     selectLanguage(language === 'en' ? 'es' : 'en');
   };
 
+  /* Pages whose hero is dark, with the scroll depth where it ends. The old dark
+     heroes of /medical-travel (440), /estimate (360) and /navigators (320) are
+     gone: those pages now open on cream paper, so the header keeps its normal
+     colours there. Add a path here if a page gets a dark hero again. */
   const darkHeroThreshold = useMemo(() => {
-    if (pathname.startsWith('/medical-travel')) return 440;
-    if (pathname.startsWith('/estimate')) return 360;
-    if (pathname.startsWith('/navigators')) return 320;
-    return 0;
+    const darkHeroes = {};
+    const match = Object.keys(darkHeroes).find((path) => pathname.startsWith(path));
+    return match ? darkHeroes[match] : 0;
   }, [pathname]);
 
   useEffect(() => {

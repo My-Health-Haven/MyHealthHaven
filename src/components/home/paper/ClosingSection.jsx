@@ -4,8 +4,8 @@ import Link from 'next/link';
 import { CalendarDays, Mail } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import LinkNav from '@/components/home/LinkNav';
-import { cls } from './paperStyles';
-import { FilmWindow } from './parts';
+import { cls } from '@/components/paper/paperStyles';
+import { FilmWindow } from '@/components/paper/parts';
 
 const ALT = {
   en: 'Illustration from the MyHealth Haven film: the patient hugs her Health Navigator, back home after her care.',

@@ -4,7 +4,7 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
-import { cls, noArrow } from './paperStyles';
+import { cls, noArrow } from '@/components/paper/paperStyles';
 
 const COPY = {
   en: { bilingual: 'Bilingual', photo: 'Aerial photo of Cancún, with the lagoon behind the city.' },

@@ -4,7 +4,7 @@ import { useRef, useState } from 'react';
 import Link from 'next/link';
 import { ArrowRight, BadgeDollarSign, CalendarDays, Play, X } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
-import { display } from '@/components/home/paper/fonts';
+import { display } from '@/components/paper/fonts';
 
 /*
  * Maze hero (prototype, branch redesign/without-the-maze-hero). The headline is

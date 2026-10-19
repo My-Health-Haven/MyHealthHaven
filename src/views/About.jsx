@@ -1,9 +1,14 @@
 'use client';
-import React from 'react';
-import { Box, Button, Container, Grid, Stack, Typography } from '@mui/material';
 import Link from 'next/link';
-import FadeIn from '../components/FadeIn';
+import { BadgeDollarSign, CalendarDays } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
+import PaperPage from '@/components/paper/PaperPage';
+import PageHero from '@/components/paper/PageHero';
+import Sheet from '@/components/paper/Sheet';
+import SectionHead from '@/components/paper/SectionHead';
+import TileList from '@/components/paper/TileList';
+import { FilmWindow } from '@/components/paper/parts';
+import { cls } from '@/components/paper/paperStyles';
 
 const pageContent = {
   en: {
@@ -96,205 +101,78 @@ const pageContent = {
   },
 };
 
-const featureCardSx = {
-  height: '100%',
-  minHeight: { xs: 150, md: 176 },
-  p: { xs: 2.5, md: 3 },
-  borderRadius: 4,
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-  background: 'linear-gradient(180deg, rgba(255,255,255,0.92) 0%, rgba(244,250,247,0.98) 100%)',
-  border: '1px solid rgba(0,137,123,0.12)',
-  boxShadow: '0 16px 34px rgba(15,23,42,0.07)',
-};
-
+/*
+ * About, in the paper world of the home page (branch redesign/without-the-maze-hero).
+ * The copy above is the site's own, unchanged; the old eyebrow label is not
+ * shown (the heading leads), and the title's dash becomes the break between the
+ * headline and its underlined second half.
+ */
 const About = () => {
   const { language } = useLanguage();
   const content = pageContent[language] || pageContent.en;
+  const [titleHead, titleTail] = content.title.split('—');
+  const alt =
+    language === 'es'
+      ? {
+          hero: 'Ilustración de la película de MyHealth Haven: una Health Navigator rodeada de pacientes y familias de todas las edades.',
+          together: 'Ilustración de la película de MyHealth Haven: la paciente y su Health Navigator conversan con una doctora en una mesa.',
+        }
+      : {
+          hero: 'Illustration from the MyHealth Haven film: a Health Navigator surrounded by patients and families of all ages.',
+          together: 'Illustration from the MyHealth Haven film: the patient and her Health Navigator talk with a doctor at a table.',
+        };
 
   return (
-    <>
-      <Box
-        sx={{
-          minHeight: '100vh',
-          py: { xs: 8, md: 12 },
-          background: 'linear-gradient(180deg, #EEF7F4 0%, #F6FBFF 100%)',
-          position: 'relative',
-          overflow: 'hidden',
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: -140,
-            right: -80,
-            width: { xs: 260, md: 420 },
-            height: { xs: 260, md: 420 },
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(0,137,123,0.16) 0%, rgba(0,137,123,0) 74%)',
-          },
-          '&::after': {
-            content: '""',
-            position: 'absolute',
-            bottom: -180,
-            left: -120,
-            width: { xs: 300, md: 460 },
-            height: { xs: 300, md: 460 },
-            borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(0,105,92,0.1) 0%, rgba(0,105,92,0) 72%)',
-          },
-        }}
-      >
-        <Container maxWidth='lg' sx={{ position: 'relative', zIndex: 1 }}>
-          <FadeIn>
-            <Box sx={{ textAlign: 'center', maxWidth: 860, mx: 'auto', mb: { xs: 5, md: 7 } }}>
-              <Typography
-                variant='overline'
-                sx={{
-                  color: 'primary.dark',
-                  letterSpacing: 2.6,
-                  fontWeight: 800,
-                }}
-              >
-                {content.eyebrow}
-              </Typography>
-              <Typography variant='h1' sx={{ mt: 1.5, mb: 3 }}>
-                {content.title}
-              </Typography>
-              <Typography
-                variant='h5'
-                color='text.secondary'
-                sx={{ lineHeight: 1.75, maxWidth: 820, mx: 'auto' }}
-              >
-                {content.intro}
-              </Typography>
-              {content.introFollow && (
-                <Typography
-                  variant='h5'
-                  sx={{ mt: 3, fontWeight: 700, color: 'primary.dark', maxWidth: 820, mx: 'auto' }}
-                >
-                  {content.introFollow}
-                </Typography>
-              )}
-            </Box>
-          </FadeIn>
+    <PaperPage>
+      <PageHero title={titleTail ? titleHead : content.title} emphasis={titleTail} lead={content.intro} frame={{ src: '/pages/about-people.webp', alt: alt.hero }}>
+        {content.introFollow ? (
+          <p className='m-0 max-w-[34rem] font-[family-name:var(--font-hh-display)] text-[1.375rem] leading-[1.35] text-[#1b4560]'>{content.introFollow}</p>
+        ) : null}
+      </PageHero>
 
-          <FadeIn delay={120}>
-            <Box
-              sx={{
-                p: { xs: 3, md: 5 },
-                borderRadius: 5,
-                background: 'rgba(255,255,255,0.72)',
-                border: '1px solid rgba(255,255,255,0.7)',
-                backdropFilter: 'blur(18px)',
-                boxShadow: '0 24px 60px rgba(15,23,42,0.1)',
-              }}
+      <Sheet tone='kraft' labelledBy='about-helps-title'>
+        <div className='grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16'>
+          <div>
+            <SectionHead id='about-helps-title' title={content.sectionTitle} lead={content.sectionIntro} />
+            <div data-reveal='slot' className='mt-10 max-w-[34rem]'>
+              <FilmWindow src='/pages/navigators-table.webp' alt={alt.together} sizes='(min-width: 1024px) 520px, 100vw' />
+            </div>
+          </div>
+          <TileList
+            className='lg:pt-3'
+            columns={1}
+            items={content.pillars.map((pillar) => ({ title: pillar.label || pillar, body: pillar.description }))}
+          />
+        </div>
+      </Sheet>
+
+      <Sheet tone='navy' labelledBy='about-promise-title'>
+        <div data-reveal='rise' className='max-w-[52rem]'>
+          <h2 id='about-promise-title' className={`${cls.h2} text-[#f4eee5]`}>
+            {content.promiseTitle}
+          </h2>
+          <p className='mb-0 mt-6 font-[family-name:var(--font-hh-display)] text-[1.5rem] leading-[1.35] text-[#9fdcdc] sm:text-[1.875rem]'>{content.closing}</p>
+          {content.closingBody ? <p className='mb-0 mt-6 max-w-[40rem] text-[1.0625rem] leading-[1.65] text-[#d3dde2]'>{content.closingBody}</p> : null}
+          <p className='mb-0 mt-4 max-w-[40rem] text-[1.0625rem] font-medium leading-[1.65] text-[#f4eee5]'>{content.supportLine}</p>
+          <div className='mt-9 flex flex-col gap-3 sm:flex-row sm:flex-wrap'>
+            <Link
+              href='/schedule'
+              className='hp-btn inline-flex min-h-[54px] items-center justify-center gap-2.5 rounded-full border-2 border-solid border-transparent bg-[#f4eee5] px-6 text-[1.0625rem] font-semibold text-[#1b4560] no-underline hover:bg-white focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#f4eee5] [&>svg]:shrink-0'
             >
-              <Box sx={{ maxWidth: 760, mb: { xs: 3, md: 4 } }}>
-                <Typography variant='h3' gutterBottom>
-                  {content.sectionTitle}
-                </Typography>
-                <Typography
-                  variant='body1'
-                  color='text.secondary'
-                  sx={{ fontSize: '1.05rem', lineHeight: 1.8 }}
-                >
-                  {content.sectionIntro}
-                </Typography>
-              </Box>
-
-              <Grid container spacing={2.5}>
-                {content.pillars.map((pillar, index) => (
-                  <Grid size={{ xs: 12, sm: 6 }} key={pillar.label || pillar}>
-                    <Box sx={featureCardSx}>
-                      <Typography
-                        variant='overline'
-                        sx={{
-                          display: 'block',
-                          color: 'primary.main',
-                          fontWeight: 800,
-                          letterSpacing: 2,
-                          mb: 1,
-                        }}
-                      >
-                        {String(index + 1).padStart(2, '0')}
-                      </Typography>
-                      <Typography
-                        variant='body1'
-                        sx={{ fontWeight: 700, lineHeight: 1.7, color: 'text.primary', mb: 1 }}
-                      >
-                        {pillar.label || pillar}
-                      </Typography>
-                      {pillar.description && (
-                        <Typography variant='body2' color='text.secondary' sx={{ lineHeight: 1.7 }}>
-                          {pillar.description}
-                        </Typography>
-                      )}
-                    </Box>
-                  </Grid>
-                ))}
-              </Grid>
-
-              <Box
-                sx={{
-                  mt: { xs: 4, md: 5 },
-                  pt: { xs: 4, md: 5 },
-                  borderTop: '1px solid rgba(0,137,123,0.12)',
-                }}
-              >
-                <Grid container spacing={3} alignItems='center'>
-                  <Grid size={{ xs: 12, md: 8 }}>
-                    <Typography variant='h3' gutterBottom>
-                      {content.promiseTitle}
-                    </Typography>
-                    <Typography
-                      variant='body1'
-                      sx={{
-                        fontSize: '1.05rem',
-                        lineHeight: 1.8,
-                        mb: 2,
-                        fontWeight: 700,
-                        color: 'text.primary',
-                      }}
-                    >
-                      {content.closing}
-                    </Typography>
-                    {content.closingBody && (
-                      <Typography
-                        variant='body1'
-                        color='text.secondary'
-                        sx={{ fontSize: '1.05rem', lineHeight: 1.8, mb: 2 }}
-                      >
-                        {content.closingBody}
-                      </Typography>
-                    )}
-                    <Typography
-                      variant='body1'
-                      sx={{ color: 'primary.dark', fontWeight: 700, lineHeight: 1.75 }}
-                    >
-                      {content.supportLine}
-                    </Typography>
-                  </Grid>
-                  <Grid size={{ xs: 12, md: 4 }}>
-                    <Stack
-                      direction={{ xs: 'column', sm: 'row', md: 'column' }}
-                      spacing={2}
-                      sx={{ height: '100%', justifyContent: 'center' }}
-                    >
-                      <Button variant='contained' size='large' component={Link} href='/estimate'>
-                        {content.estimateCta}
-                      </Button>
-                      <Button variant='outlined' size='large' component={Link} href='/schedule'>
-                        {content.contactCta}
-                      </Button>
-                    </Stack>
-                  </Grid>
-                </Grid>
-              </Box>
-            </Box>
-          </FadeIn>
-        </Container>
-      </Box>
-    </>
+              <CalendarDays aria-hidden='true' className='size-5' />
+              {content.contactCta}
+            </Link>
+            <Link
+              href='/estimate'
+              className='hp-btn inline-flex min-h-[54px] items-center justify-center gap-2.5 rounded-full border-2 border-solid border-[rgba(244,238,229,0.7)] bg-transparent px-6 text-[1.0625rem] font-semibold text-[#f4eee5] no-underline hover:bg-[rgba(244,238,229,0.08)] focus-visible:outline focus-visible:outline-[3px] focus-visible:outline-offset-[3px] focus-visible:outline-[#f4eee5] [&>svg]:shrink-0'
+            >
+              <BadgeDollarSign aria-hidden='true' className='size-5' />
+              {content.estimateCta}
+            </Link>
+          </div>
+        </div>
+      </Sheet>
+    </PaperPage>
   );
 };
 

@@ -1,8 +1,5 @@
 'use client';
-import React from 'react';
-import { Box, Container, Typography } from '@mui/material';
-import ReactMarkdown from 'react-markdown';
-import FadeIn from '../components/FadeIn';
+import LegalDocument from '@/components/partners-paper/LegalDocument';
 
 const content = `
 **MyHealth Haven**  
@@ -104,27 +101,7 @@ Questions regarding these Terms may be directed to:
 (c) 2026 My Health Haven Management, LLC  - All Rights Reserved
 `;
 
-const TermsOfUse = () => {
-  return (
-    <>
-      <Box sx={{ py: 12 }}>
-        <Container maxWidth='md'>
-          <FadeIn>
-            <Box
-              sx={{
-                '& h1': { fontSize: '2.5rem', mb: 2 },
-                '& h2': { fontSize: '1.5rem', mt: 4, mb: 2 },
-                '& p': { mb: 2 },
-                '& ul': { mb: 2, pl: 4 },
-              }}
-            >
-              <ReactMarkdown>{content}</ReactMarkdown>
-            </Box>
-          </FadeIn>
-        </Container>
-      </Box>
-    </>
-  );
-};
+/* The legal text above is unchanged; LegalDocument lays it out on paper. */
+const TermsOfUse = () => <LegalDocument content={content} />;
 
 export default TermsOfUse;

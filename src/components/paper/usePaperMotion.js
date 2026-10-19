@@ -6,6 +6,7 @@ import { useEffect } from 'react';
  * - [data-reveal] elements below the fold get [data-armed] (hidden by CSS) and
  *   [data-in] when they scroll into view. Elements already on screen or above
  *   it are marked [data-in] straight away, so a reload mid-page never blinks.
+ *   Elements that mount later (async data) are placed the same way.
  * - [data-scrub] elements get --p (0..1) from their position while scrolling.
  *
  * Attributes, not classes: React never rewrites them on a re-render.
@@ -18,8 +19,7 @@ export function usePaperMotion(rootRef) {
     if (!window.matchMedia('(prefers-reduced-motion: no-preference)').matches) return undefined;
     if (!('IntersectionObserver' in window)) return undefined;
 
-    const vh = window.innerHeight;
-    const items = [...root.querySelectorAll('[data-reveal]')];
+    const items = new Set();
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -36,14 +36,30 @@ export function usePaperMotion(rootRef) {
       const row = el.parentElement?.closest('[role="list"]');
       return Boolean(row) && getComputedStyle(row).overflowX !== 'visible';
     };
-    items.forEach((el) => {
-      if (el.getBoundingClientRect().top < vh * 0.9 || inScroller(el)) {
+    const place = (el) => {
+      if (items.has(el) || el.hasAttribute('data-in')) return;
+      items.add(el);
+      if (el.getBoundingClientRect().top < window.innerHeight * 0.9 || inScroller(el)) {
         el.setAttribute('data-in', '');
         return;
       }
       el.setAttribute('data-armed', '');
       io.observe(el);
+    };
+    root.querySelectorAll('[data-reveal]').forEach(place);
+
+    /* content that mounts later (data loaded after the page, a language switch)
+       is placed the same way: armed if it is still below the fold */
+    const mo = new MutationObserver((records) => {
+      records.forEach((record) => {
+        record.addedNodes.forEach((node) => {
+          if (node.nodeType !== 1) return;
+          if (node.matches('[data-reveal]')) place(node);
+          node.querySelectorAll('[data-reveal]').forEach(place);
+        });
+      });
     });
+    mo.observe(root, { childList: true, subtree: true });
 
     /* keyboard focus can land on an element the observer has not reached yet
        (the browser scrolls it just to the bottom edge): reveal it at once */
@@ -77,6 +93,7 @@ export function usePaperMotion(rootRef) {
 
     return () => {
       io.disconnect();
+      mo.disconnect();
       root.removeEventListener('focusin', onFocus);
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', onScroll);

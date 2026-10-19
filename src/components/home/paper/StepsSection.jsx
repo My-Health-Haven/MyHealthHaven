@@ -5,8 +5,8 @@ import Link from 'next/link';
 import { CalendarDays } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import LinkNav from '@/components/home/LinkNav';
-import { cls, noArrow } from './paperStyles';
-import { FilmWindow, frameSrcSet } from './parts';
+import { cls, noArrow } from '@/components/paper/paperStyles';
+import { FilmWindow, frameSrcSet } from '@/components/paper/parts';
 
 const FRAMES = [
   {
