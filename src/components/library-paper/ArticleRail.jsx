@@ -30,14 +30,14 @@ function SectionLinks({ toc, active = -1, onPick }) {
  * The article's side note on wide screens (xl up; it sits on the right anchor
  * and stays in view while reading): the way back to the article's category,
  * then, for a long article, its section headings as jump links (the one being
- * read is marked with the teal felt tile), or, for a short one, the article's
- * own meta line set as a small list. Below xl the breadcrumb on top, the
+ * read is marked with the teal felt tile); a short one shows the way back only
+ * (its meta line is already in the hero). Below xl the breadcrumb on top, the
  * ContentsFold and the back link under the article do the job.
  *
  * toc: [{ id, text }] from the article's own ## headings (ids set by the
- * markdown h2 renderer in ArticleDetail); meta: the hero's meta parts.
+ * markdown h2 renderer in ArticleDetail).
  */
-export default function ArticleRail({ back, toc, tocLabel, meta = [] }) {
+export default function ArticleRail({ back, toc, tocLabel }) {
   const [active, setActive] = useState(-1);
 
   useEffect(() => {
@@ -82,15 +82,6 @@ export default function ArticleRail({ back, toc, tocLabel, meta = [] }) {
             <SectionLinks toc={toc} active={active} />
           </div>
         </nav>
-      ) : meta.length ? (
-        <div role='list' className='m-0 mt-4 flex list-none flex-col gap-2.5 border-0 border-t border-dashed border-[rgba(27,69,96,0.22)] p-0 pt-5'>
-          {meta.map((part) => (
-            <div role='listitem' key={part} className='hl-rail-meta flex items-start gap-3 text-[0.9375rem] leading-[1.45] text-[#3f5868]'>
-              <span aria-hidden='true' className='hp-tile hp-tile-teal !mt-[0.42em] !h-[8px] !w-[16px]' />
-              {part}
-            </div>
-          ))}
-        </div>
       ) : null}
     </div>
   );

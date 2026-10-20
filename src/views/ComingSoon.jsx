@@ -11,11 +11,11 @@ import { cls } from '@/components/paper/paperStyles';
 const UI = {
   en: {
     back: 'Back to Procedures',
-    alt: 'Illustration from the MyHealth Haven film: an empty treatment room, ready, with an exam bed and monitors.',
+    alt: 'Illustration from the MyHealth Haven film: a Health Navigator lays out the pieces of a care plan on a table.',
   },
   es: {
     back: 'Volver a Procedimientos',
-    alt: 'Ilustración de la película de MyHealth Haven: una sala de tratamiento vacía y lista, con camilla y monitores.',
+    alt: 'Ilustración de la película de MyHealth Haven: una Health Navigator acomoda sobre una mesa las piezas de un plan de atención.',
   },
 };
 
@@ -34,7 +34,7 @@ const ComingSoon = () => {
         className='flex min-h-[calc(100svh-64px)] items-center lg:min-h-[calc(100svh-92px)]'
         emphasis={t('misc.comingSoon')}
         lead={t('misc.comingSoonDesc')}
-        frame={{ src: '/pages/procedures-clinic.webp', alt: ui.alt }}
+        frame={{ src: '/pages/coming-plan.webp', alt: ui.alt }}
       >
         <div className='flex flex-col gap-3 sm:flex-row sm:flex-wrap'>
           <Link href='/' className={cls.btnPrimary}>

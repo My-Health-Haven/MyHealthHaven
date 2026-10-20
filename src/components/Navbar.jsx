@@ -85,9 +85,15 @@ const Navbar = () => {
       frame = 0;
       const header = document.querySelector('header');
       if (!header) return;
-      const y = Math.max(0, header.getBoundingClientRect().bottom - 2);
-      const under = document.elementsFromPoint(window.innerWidth / 2, y).find((el) => !header.contains(el));
-      setUseInverseNav(Boolean(under && under.closest('.hp-navy')));
+      /* sample the header's middle at three points and follow the majority, so it
+         flips when a navy sheet covers most of it, not at one pixel's edge */
+      const box = header.getBoundingClientRect();
+      const y = Math.max(0, box.top + box.height / 2);
+      const navy = [0.15, 0.5, 0.85].filter((fx) => {
+        const under = document.elementsFromPoint(window.innerWidth * fx, y).find((el) => !header.contains(el));
+        return Boolean(under && under.closest('.hp-navy'));
+      }).length;
+      setUseInverseNav(navy >= 2);
     };
     const onScroll = () => {
       if (!frame) frame = window.requestAnimationFrame(updateNavContrast);
@@ -110,7 +116,9 @@ const Navbar = () => {
   const navActiveColor = useInverseNav ? 'rgba(255,255,255,0.98)' : 'primary.main';
   const navSurfaceStyles = useInverseNav
     ? {
-        bgcolor: 'rgba(8, 20, 28, 0.28)',
+        /* near-opaque navy over the navy paper sheets, so cream content showing
+           through the glass can never wash out the light labels */
+        bgcolor: 'rgba(27, 69, 96, 0.94)',
         backdropFilter: 'blur(25px) saturate(180%)',
         WebkitBackdropFilter: 'blur(25px) saturate(180%)',
         borderBottom: 'none',
@@ -176,7 +184,7 @@ const Navbar = () => {
             color='primary'
             component={Link}
             href='/estimate'
-            sx={{ boxShadow: 'none', '&:hover': { boxShadow: 'none' }, color: 'white' }}
+            sx={{ bgcolor: '#00796b', boxShadow: 'none', '&:hover': { bgcolor: '#00695c', boxShadow: 'none' }, color: 'white' }}
           >
             {t('navbar.freeEstimate')}
           </Button>
@@ -358,8 +366,10 @@ const Navbar = () => {
                   href='/estimate'
                   sx={{
                     ml: 2,
+                    /* the brand teal one step deeper: white text at 5.3:1 (theme #00897b is 4.3:1) */
+                    bgcolor: '#00796b',
                     boxShadow: 'none',
-                    '&:hover': { boxShadow: 'none' },
+                    '&:hover': { bgcolor: '#00695c', boxShadow: 'none' },
                     color: 'white',
                   }}
                 >

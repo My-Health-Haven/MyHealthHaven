@@ -74,7 +74,7 @@ const Navigators = () => {
   const heading = whatParts ? (
     <>
       {whatParts[0]}
-      <span className='hp-felt-text whitespace-nowrap'>{whatParts[1]}</span>
+      <span className='hp-felt-text hp-felt-lines whitespace-nowrap'>{whatParts[1]}</span>
       {whatParts[2]}
     </>
   ) : (

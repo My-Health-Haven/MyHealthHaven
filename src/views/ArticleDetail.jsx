@@ -196,7 +196,7 @@ const ArticleDetail = ({ slug }) => {
         >
           <aside className='hidden xl:col-start-2 xl:row-start-1 xl:block'>
             <div className='sticky top-[120px] max-w-[22rem]'>
-              <ArticleRail back={back} toc={toc} tocLabel={labels.onThisPage} meta={metaParts} />
+              <ArticleRail back={back} toc={toc} tocLabel={labels.onThisPage} />
             </div>
           </aside>
           <div className='min-w-0 xl:col-start-1 xl:row-start-1'>

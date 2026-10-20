@@ -47,7 +47,7 @@ export default function FormSheet({
                     <br />
                   </>
                 ) : null}
-                <span className='hp-felt-text'>{emphasis}</span>
+                <span className='hp-felt-text hp-felt-lines'>{emphasis}</span>
               </>
             ) : null}
           </h1>

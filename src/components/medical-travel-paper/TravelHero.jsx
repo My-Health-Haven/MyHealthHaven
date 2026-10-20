@@ -28,7 +28,7 @@ export default function TravelHero() {
       <>
         <span className='mt-bal'>{fullTitle.slice(0, at)}</span> <br />
         <span className='mt-bal'>
-          <span className='hp-felt-text'>{fullTitle.slice(at + 1)}</span>
+          <span className='hp-felt-text hp-felt-lines'>{fullTitle.slice(at + 1)}</span>
         </span>
       </>
     ) : (

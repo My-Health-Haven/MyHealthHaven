@@ -130,7 +130,8 @@ const About = () => {
         {content.introFollow ? (
           <p className='m-0 max-w-[34rem] font-[family-name:var(--font-hh-display)] text-[1.375rem] leading-[1.35] text-[#1b4560]'>{content.introFollow}</p>
         ) : null}
-        <Link href='/schedule' className={`${cls.btnPrimary} mt-7`}>
+        {/* one step smaller on phones so the Spanish label fits on one line */}
+        <Link href='/schedule' className={`${cls.btnPrimary} mt-7 max-sm:!text-[1rem]`}>
           <CalendarDays aria-hidden='true' className='size-5' />
           {content.contactCta}
         </Link>

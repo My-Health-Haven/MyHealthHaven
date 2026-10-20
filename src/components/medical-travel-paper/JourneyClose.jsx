@@ -39,7 +39,7 @@ export default function JourneyClose() {
           {t('medicalTravelPage.timelineConclusion.title')}
         </h2>
         <p className='mb-0 mt-5 font-[family-name:var(--font-hh-display)] text-[1.5rem] leading-[1.35] text-[#1b4560] sm:text-[1.75rem]'>
-          <span className='hp-felt-text'>{t('medicalTravelPage.timelineConclusion.subtitle')}</span>
+          <span className='hp-felt-text hp-felt-lines'>{t('medicalTravelPage.timelineConclusion.subtitle')}</span>
         </p>
         <p className={`${cls.lead} mt-6`}>
           {t('medicalTravelPage.timelineConclusion.description')}

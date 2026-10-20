@@ -47,12 +47,12 @@ const COPY = {
    new-tab hint for screen readers */
 const UI = {
   en: {
-    alt: 'Illustration from the MyHealth Haven film: a patient and her Health Navigator stand side by side between two care scenes, a check-in at a desk and a treatment chair.',
+    alt: 'Illustration from the MyHealth Haven film: a patient and her Health Navigator stand side by side among three care scenes: a video call, a treatment chair with a clock, and a path through the countryside.',
     readDoc: 'Read the document',
     newTab: '(opens in a new tab)',
   },
   es: {
-    alt: 'Ilustración de la película de MyHealth Haven: una paciente y su Health Navigator, una al lado de la otra, entre dos escenas de atención: un seguimiento en un escritorio y un sillón de tratamiento.',
+    alt: 'Ilustración de la película de MyHealth Haven: una paciente y su Health Navigator, una al lado de la otra, entre tres escenas de atención: una videollamada, un sillón de tratamiento con un reloj y un camino por el campo.',
     readDoc: 'Leer el documento',
     newTab: '(se abre en una pestaña nueva)',
   },
