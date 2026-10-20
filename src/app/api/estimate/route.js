@@ -127,7 +127,7 @@ const hasDomainDnsRecords = async (domain) => {
       const records = await resolver(domain);
       if (Array.isArray(records) && records.length > 0) return true;
     } catch {
-      // resolver missing this record type — try the next one
+      // resolver missing this record type; try the next one
     }
   }
   return false;
@@ -443,8 +443,8 @@ export async function POST(request) {
       reply_to: toEmail,
       subject:
         payload.language === 'es'
-          ? 'Recibimos su solicitud — MyHealth Haven'
-          : 'We received your request — MyHealth Haven',
+          ? 'Recibimos su solicitud | MyHealth Haven'
+          : 'We received your request | MyHealth Haven',
       html: buildUserConfirmationHtml(payload),
       text: buildUserConfirmationText(payload),
     };

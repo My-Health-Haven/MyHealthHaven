@@ -111,7 +111,7 @@ const WhatsAppWidget = () => {
     if (!hasMoved.current) {
       setIsChatOpen(!isChatOpen);
     }
-    // No snap — bubble stays at the (already-clamped) drop position
+    // No snap: the bubble stays at the (already-clamped) drop position
   };
 
   const handleSendMessage = () => {

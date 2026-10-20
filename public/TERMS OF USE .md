@@ -46,7 +46,7 @@ We reserve the right to suspend or terminate access for violations.
 
 ## **5\. Intellectual Property**
 
-All content on this Site—including text, graphics, logos, trademarks, and design elements—is the property of My Health Haven or its licensors and is protected by applicable intellectual property laws.
+All content on this Site, including text, graphics, logos, trademarks, and design elements, is the property of My Health Haven or its licensors and is protected by applicable intellectual property laws.
 
 You may not reproduce, distribute, or create derivative works without prior written permission.
 

@@ -23,6 +23,9 @@ const NOISE =
 const EDGE =
   "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12'%3E%3Cpath d='M0 12V6C20 9 40 9 60 6S100 3 120 6S160 9 180 6S220 3 240 6V12Z'/%3E%3C/svg%3E\")";
 
+/* the paper texture and deckled edge, for chrome outside the kit (the site footer) */
+export const PAPER_TEXTURES = { NOISE, EDGE };
+
 const BODY_CSS = `
 .hp-body { --hp-ease: cubic-bezier(.2,.8,.2,1); overflow-x: clip; }
 /* keyboard focus and in-page jumps land below the sticky site header */

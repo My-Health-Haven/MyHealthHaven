@@ -296,7 +296,7 @@ const ProblemSolutionSection = ({ isMobile }) => {
                     {/* end flex right Box */}
                   </Stack>
                   {/* end icon+content Stack */}
-                  {/* What you can expect — full card width */}
+                  {/* What you can expect, full card width */}
                   <Box
                     sx={{
                       bgcolor: 'background.paper',

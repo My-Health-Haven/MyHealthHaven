@@ -75,7 +75,7 @@ const Navbar = () => {
   };
 
   /* The header switches to its light-on-dark look while a dark surface is behind
-     it: the navy paper sheets (.hp-navy) of the redesigned pages. (The old
+     it: the navy paper sheets (.hp-navy) of the redesigned pages and the footer. (The old
      per-route dark heroes of /medical-travel, /estimate and /navigators are gone;
      those pages now open on cream paper.) Read from what sits under the header's
      bottom edge on each scroll frame, so it follows any page without a list. */
@@ -91,7 +91,7 @@ const Navbar = () => {
       const y = Math.max(0, box.top + box.height / 2);
       const navy = [0.15, 0.5, 0.85].filter((fx) => {
         const under = document.elementsFromPoint(window.innerWidth * fx, y).find((el) => !header.contains(el));
-        return Boolean(under && under.closest('.hp-navy'));
+        return Boolean(under && under.closest('.hp-navy, .hf-footer'));
       }).length;
       setUseInverseNav(navy >= 2);
     };

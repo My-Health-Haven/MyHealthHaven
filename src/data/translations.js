@@ -57,7 +57,7 @@ export const translations = {
 
       clarityTitle: 'Financial Clarity',
       clarityBody:
-        'All-inclusive estimates shared in plain English before you travel—no hidden facility or ‘surprise’ fees.',
+        'All-inclusive estimates shared in plain English before you travel, with no hidden facility or ‘surprise’ fees.',
 
       continuityTitle: 'Continuity of Care',
       continuityBody:
@@ -110,7 +110,7 @@ export const translations = {
         },
         {
           quote:
-            'Clean facilities, attentive service, and clear communication gave me confidence from the first minute. I never felt alone in the process — they were attentive to everything.',
+            'Clean facilities, attentive service, and clear communication gave me confidence from the first minute. I never felt alone in the process. They were attentive to everything.',
           name: 'Rosa',
           meta: 'Verified Patient • November 2025 • Doctoralia',
         },
@@ -140,7 +140,7 @@ export const translations = {
       whyMexicoTitle: 'Why Mexico for care?',
       whyMexicoSubtitle: 'Where top-tier medicine meets world-class hospitality.',
       whyMexicoDesc1:
-        'Mexico’s leading hospitals offer modern facilities, highly trained specialists, and outcomes that are comparable to U.S. centers—often at a fraction of the list price.',
+        'Mexico’s leading hospitals offer modern facilities, highly trained specialists, and outcomes that are comparable to U.S. centers, often at a fraction of the list price.',
       whyMexicoDesc2:
         'We focus on regions and institutions where healthcare and hospitality infrastructure are well developed, with reliable air connections and recovery-friendly environments.',
       whyMexicoPoint1: 'Access to experienced surgeons and multidisciplinary teams.',
@@ -166,22 +166,22 @@ export const translations = {
 
       faq1Q: 'What is MyHealth Haven™?',
       faq1A:
-        'MyHealth Haven™ is an independent patient-advocacy and care-navigation company. We help U.S. patients access high-quality medical care in Mexico through carefully selected doctors, hospitals, and clinics—without advertising influence, or pay-to-play referrals.',
+        'MyHealth Haven™ is an independent patient-advocacy and care-navigation company. We help U.S. patients access high-quality medical care in Mexico through carefully selected doctors, hospitals, and clinics, without advertising influence or pay-to-play referrals.',
       faq2Q: 'Is MyHealth Haven™ a medical tourism or travel agency?',
       faq2A:
         'No. Unlike travel agencies or hospital marketing platforms, our primary focus is your care. We manage travel and logistics solely to support ensuring safe, well-coordinated medical outcomes.',
       faq3Q: 'How is MyHealth Haven™ different from other medical tourism companies?',
       faq3A:
-        'Most medical tourism companies operate as marketplaces funded by clinic advertising or pay-to-play programs. MyHealth Haven™ does not accept advertising fees or engage in pay-to-play programs with providers. We are paid for guidance, coordination, and advocacy—so our incentives stay aligned with you, the patient.',
+        'Most medical tourism companies operate as marketplaces funded by clinic advertising or pay-to-play programs. MyHealth Haven™ does not accept advertising fees or engage in pay-to-play programs with providers. We are paid for guidance, coordination, and advocacy, so our incentives stay aligned with you, the patient.',
       faq4Q: 'How do you choose doctors, hospitals, and clinics?',
       faq4A:
-        'We intentionally select a small, boutique network of providers based on: Facility competence, quality and outcomes history; Verified credentials and experience; Infection control and safety standards; Ongoing performance review. Providers are re-vetted regularly. Inclusion in our cadre is earned—not bought.',
+        'We intentionally select a small, boutique network of providers based on: Facility competence, quality and outcomes history; Verified credentials and experience; Infection control and safety standards; Ongoing performance review. Providers are re-vetted regularly. Inclusion in our cadre is earned, not bought.',
       faq5Q: 'Are the medical standards comparable to the U.S.?',
       faq5A:
         'Yes. The doctors and facilities we work with always meet and in some cases exceed internationally recognized standards, many with U.S. or European training. Safety protocols, sterilization practices, and clinical governance are aligned with U.S. expectations.',
       faq6Q: 'Who helps me once I decide to move forward?',
       faq6A:
-        'Every patient is paired with a dedicated Health Navigator™—a professional who serves as your single point of contact before, during, and after care. You are not passed between departments or call centers.',
+        'Every patient is paired with a dedicated Health Navigator™: a professional who serves as your single point of contact before, during, and after care. You are not passed between departments or call centers.',
       faq7Q: 'What does a Health Navigator™ do?',
       faq7A:
         'Your Health Navigator™ helps coordinate: Choices from vetted providers to select and scheduling; Clear, upfront pricing; 100% travel support; On-the-ground coordination; Medical record transfer; Post-procedure follow-up and continuity. Their role is to reduce uncertainty and ensure nothing falls through the cracks.',
@@ -196,18 +196,18 @@ export const translations = {
         'No. MyHealth Haven™ supports planned, elective, diagnostic, and preventative care. We do not coordinate emergency or urgent-care services.',
       faq11Q: 'Do you help with travel and lodging?',
       faq11A:
-        'We support travel and lodging related to your medical travel 100%. We are not however a travel agency. Our focus remains medical safety, timing, and continuity—not selling trips or packages.',
+        'We support travel and lodging related to your medical travel 100%. We are not however a travel agency. Our focus remains medical safety, timing, and continuity, not selling trips or packages.',
       faq12Q: 'Are the patient testimonials real?',
       faq12A:
         'Yes. Testimonials reflect real patient experiences. Language may be lightly edited for clarity or privacy, but stories are authentic and verifiable internally.',
       faq13Q: 'Does MyHealth Haven™ accept insurance, Medicare, or Medicaid?',
       faq13A:
-        'No. MyHealth Haven™ operates as a cash-pay model and does not bill private insurance, Medicare, or Medicaid. This approach allows us to focus on high-quality care without the administrative complexity, delays, and coverage limitations often associated with insurance-based systems. Many patients find that even without using insurance, the total cost of care is lower than U.S. out-of-pocket expenses after deductibles, copays, and uncovered services. Our priority is transparent pricing, timely access to care, and clinical standards aligned with U.S. expectations—without insurance-driven constraints.',
+        'No. MyHealth Haven™ operates as a cash-pay model and does not bill private insurance, Medicare, or Medicaid. This approach allows us to focus on high-quality care without the administrative complexity, delays, and coverage limitations often associated with insurance-based systems. Many patients find that even without using insurance, the total cost of care is lower than U.S. out-of-pocket expenses after deductibles, copays, and uncovered services. Our priority is transparent pricing, timely access to care, and clinical standards aligned with U.S. expectations, without insurance-driven constraints.',
 
       ctaBadge: 'The end of guesswork in global care.',
       ctaTitle: 'Talk to a Health Navigator™ about your options.',
       ctaDesc:
-        'One confidential conversation can clarify whether cross-border care is right for you—and what it would actually look like.',
+        'One confidential conversation can clarify whether cross-border care is right for you, and what it would actually look like.',
       scheduleConsultation: 'Schedule a free consultation',
       madeInAmerica: 'Made In America, Made Better in Mexico',
 
@@ -321,7 +321,7 @@ export const translations = {
       cancunHub: 'Cancún Medical Hub',
       comingSoon: 'More locations coming soon',
       timelineTitle: 'Typical Medical Care Timeline',
-      timelineSubtitle: 'A clear, supportive journey—so you always know what comes next.',
+      timelineSubtitle: 'A clear, supportive journey, so you always know what comes next.',
       timelineSteps: [
         {
           title: 'Initial Inquiry',
@@ -333,7 +333,7 @@ export const translations = {
           title: 'Medical Review & Options',
           duration: 'Days 5-7',
           description:
-            'The information you provide is reviewed by our care team and shared with top-tier physicians within your area of needed care. We outline recommended options, provide you an all inclusive price quote, and next steps—clearly and transparently.',
+            'The information you provide is reviewed by our care team and shared with top-tier physicians within your area of needed care. We outline recommended options, provide you an all inclusive price quote, and next steps, clearly and transparently.',
         },
         {
           title: 'Virtual Consultations',
@@ -351,7 +351,7 @@ export const translations = {
             'Travel timing',
             'Hotel and ground transportation',
           ],
-          footer: 'Everything is aligned around your care—not tourism.',
+          footer: 'Everything is aligned around your care, not tourism.',
         },
         {
           title: 'Pre-Travel Preparation',
@@ -375,7 +375,7 @@ export const translations = {
           title: 'Pre-Procedure Evaluation',
           duration: '1–2 Days Before Procedure',
           description:
-            'With your Health Navigator™, you attend in-person evaluations and final testing after which your physician confirms readiness and reviews the plan again—no surprises.',
+            'With your Health Navigator™, you attend in-person evaluations and final testing after which your physician confirms readiness and reviews the plan again, with no surprises.',
         },
         {
           title: 'Procedure Day',
@@ -400,7 +400,7 @@ export const translations = {
         title: 'Throughout the Entire Journey',
         subtitle: 'You are never “on your own.”',
         description:
-          'MyHealth Haven and your Health Navigator™ act as your cross-border care partner, ensuring clarity, safety, and continuity—every step of the way.',
+          'MyHealth Haven and your Health Navigator™ act as your cross-border care partner, ensuring clarity, safety, and continuity, every step of the way.',
       },
       locationsParagraphs: [
         'MyHealth Haven is a U.S.-based company, built to meet American expectations for transparency, safety, and patient advocacy. Our operational model is intentional and focused: rather than spreading care across multiple countries or regions, we purposefully select top-tier medical providers exclusively in Cancún.',

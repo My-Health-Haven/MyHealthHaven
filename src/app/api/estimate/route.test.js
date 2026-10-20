@@ -46,7 +46,7 @@ afterEach(() => {
   vi.restoreAllMocks();
 });
 
-describe('POST /api/estimate — guards', () => {
+describe('POST /api/estimate: guards', () => {
   it('returns 500 when RESEND_API_KEY is missing', async () => {
     delete process.env.RESEND_API_KEY;
     const res = await POST(makeRequest(validPayload));
@@ -106,7 +106,7 @@ describe('POST /api/estimate — guards', () => {
   });
 });
 
-describe('POST /api/estimate — rate limiting', () => {
+describe('POST /api/estimate: rate limiting', () => {
   it('returns 429 after the per-IP limit is exceeded', async () => {
     process.env.ESTIMATE_RATE_LIMIT_MAX = '3';
     const ip = '203.0.113.7';
@@ -120,7 +120,7 @@ describe('POST /api/estimate — rate limiting', () => {
   });
 });
 
-describe('POST /api/estimate — successful submission', () => {
+describe('POST /api/estimate: successful submission', () => {
   it('sends a lead + confirmation email and HTML-escapes user input', async () => {
     const res = await POST(
       makeRequest({ ...validPayload, name: '<b>Jane</b>' }, { 'x-forwarded-for': '198.51.100.1' })
@@ -153,7 +153,7 @@ describe('POST /api/estimate — successful submission', () => {
   });
 });
 
-describe('POST /api/estimate — resilience', () => {
+describe('POST /api/estimate: resilience', () => {
   it('retries the lead email on a transient 5xx and then succeeds', async () => {
     global.fetch = vi
       .fn()
@@ -195,7 +195,7 @@ const routedFetch = (verifierResponse) =>
     return resendOk();
   });
 
-describe('POST /api/estimate — email verification provider', () => {
+describe('POST /api/estimate: email verification provider', () => {
   it('passes when the provider reports the address deliverable', async () => {
     process.env.EMAIL_VERIFIER_API_KEY = 'verifier_key';
     global.fetch = routedFetch({
@@ -277,7 +277,7 @@ describe('POST /api/estimate — email verification provider', () => {
   });
 });
 
-describe('POST /api/estimate — client IP + i18n branches', () => {
+describe('POST /api/estimate: client IP + i18n branches', () => {
   it('falls back to x-real-ip when x-forwarded-for is absent', async () => {
     const res = await POST(makeRequest(validPayload, { 'x-real-ip': '198.51.100.20' }));
     expect(res.status).toBe(200);
@@ -307,7 +307,7 @@ describe('POST /api/estimate — client IP + i18n branches', () => {
   });
 });
 
-describe('OPTIONS /api/estimate — CORS preflight', () => {
+describe('OPTIONS /api/estimate: CORS preflight', () => {
   it('echoes an allowed origin', async () => {
     const req = new Request('http://localhost/api/estimate', {
       method: 'OPTIONS',

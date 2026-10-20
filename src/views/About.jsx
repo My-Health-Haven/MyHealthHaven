@@ -13,7 +13,7 @@ import { cls } from '@/components/paper/paperStyles';
 const pageContent = {
   en: {
     eyebrow: 'About Us',
-    title: 'Medical Care Abroad\u2014Structured, Supported, and Personal',
+    title: 'Medical Care Abroad: Structured, Supported, and Personal',
     intro:
       'Seeking medical care outside the United States can feel uncertain. Patients often face unfamiliar healthcare systems, language barriers, complex travel logistics, and questions about what happens after the procedure is complete.',
     introFollow: 'MyHealth Haven exists to remove that uncertainty.',
@@ -46,7 +46,7 @@ const pageContent = {
     closing:
       'MyHealth Haven is not a travel agency. We are a cross-border care navigation partner.',
     closingBody:
-      'We guide patients through the entire process\u2014from first conversation to safe recovery\u2014so that medical care abroad is not only more accessible, but also more organized, transparent, and humane.',
+      'We guide patients through the entire process, from first conversation to safe recovery, so that medical care abroad is not only more accessible, but also more organized, transparent, and humane.',
     supportLine:
       'Our role is simple: reduce uncertainty, protect the patient experience, and help people move through care with confidence.',
     estimateCta: 'Free Estimate',
@@ -57,7 +57,7 @@ const pageContent = {
   },
   es: {
     eyebrow: 'Sobre Nosotros',
-    title: 'Atencion Medica en el Extranjero\u2014Estructurada, Acompanada y Personal',
+    title: 'Atencion Medica en el Extranjero: Estructurada, Acompanada y Personal',
     intro:
       'Buscar atencion medica fuera de Estados Unidos puede generar incertidumbre. Los pacientes suelen enfrentar sistemas de salud desconocidos, barreras de idioma, logistica de viaje compleja y preguntas sobre que sucede despues del procedimiento.',
     introFollow: 'MyHealth Haven existe para eliminar esa incertidumbre.',
@@ -90,7 +90,7 @@ const pageContent = {
     closing:
       'MyHealth Haven no es una agencia de viajes. Somos un socio de navegacion de atencion transfronteriza.',
     closingBody:
-      'Guiamos a los pacientes a traves de todo el proceso\u2014desde la primera conversacion hasta una recuperacion segura\u2014para que la atencion medica en el extranjero no solo sea mas accesible, sino tambien mas organizada, transparente y humana.',
+      'Guiamos a los pacientes a traves de todo el proceso, desde la primera conversacion hasta una recuperacion segura, para que la atencion medica en el extranjero no solo sea mas accesible, sino tambien mas organizada, transparente y humana.',
     supportLine:
       'Nuestro rol es simple: reducir la incertidumbre, proteger la experiencia del paciente y ayudar a las personas a transitar su atencion con confianza.',
     estimateCta: 'Presupuesto Gratis',
@@ -103,14 +103,16 @@ const pageContent = {
 
 /*
  * About, in the paper world of the home page (branch redesign/without-the-maze-hero).
- * The copy above is the site's own, unchanged; the old eyebrow label is not
- * shown (the heading leads), and the title's dash becomes the break between the
- * headline and its underlined second half.
+ * The copy above is the site's own (em dashes rewritten at the owner's request);
+ * the old eyebrow label is not shown (the heading leads), and the line breaks
+ * after the title's colon, before its underlined second half.
  */
 const About = () => {
   const { language } = useLanguage();
   const content = pageContent[language] || pageContent.en;
-  const [titleHead, titleTail] = content.title.split('—');
+  const colon = content.title.indexOf(': ');
+  const titleHead = colon > 0 ? content.title.slice(0, colon + 1) : content.title;
+  const titleTail = colon > 0 ? content.title.slice(colon + 2) : null;
   /* `closing` is two sentences: what MyHealth Haven is not, then what it is */
   const promise = content.closing.split(/(?<=\.)\s+/).filter(Boolean);
   const alt =

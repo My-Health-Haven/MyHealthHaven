@@ -50,7 +50,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying }) => {
           pointerEvents: 'none',
         }}
       />
-      {/* Decorative purple bloom (bottom right) — desktop only (extends below on mobile and creates a gap) */}
+      {/* Decorative purple bloom (bottom right), desktop only (extends below on mobile and creates a gap) */}
       <Box
         sx={{
           display: { xs: 'none', md: 'block' },
@@ -329,7 +329,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying }) => {
                       objectFit: 'contain',
                     }}
                   />
-                  {/* Floating top-left badge — desktop only (mobile shows it below) */}
+                  {/* Floating top-left badge, desktop only (mobile shows it below) */}
                   <Box
                     sx={{
                       display: { xs: 'none', md: 'inline-flex' },
@@ -364,7 +364,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying }) => {
                     </Typography>
                   </Box>
                 </Box>
-                {/* Compact in-frame 3-stat overlay — desktop only (mobile shows it below the card) */}
+                {/* Compact in-frame 3-stat overlay, desktop only (mobile shows it below the card) */}
                 <Box
                   sx={{
                     display: { xs: 'none', md: 'block' },
@@ -549,7 +549,7 @@ const HeroSection = ({ isHeroVideoPlaying, setIsHeroVideoPlaying }) => {
           </Grid>
         </Grid>
 
-        {/* Bottom trust strip — partner badges + endorsement (frosted glass) */}
+        {/* Bottom trust strip: partner badges + endorsement (frosted glass) */}
         <FadeIn delay={600}>
           <Box
             sx={{

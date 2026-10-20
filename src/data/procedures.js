@@ -2,7 +2,7 @@
  * Static procedures catalog.
  *
  * Edit this file directly to add, remove, or update procedures.
- * Order within each section_group follows the file order below — keep
+ * Order within each section_group follows the file order below; keep
  * entries alphabetized within each speciality.
  */
 
@@ -283,7 +283,7 @@ export const PROCEDURES = [
     section_group: 'Dental & Orthodontics',
     procedure_name: 'Veneers',
     description:
-      'Thin custom-made shells of porcelain or composite bonded to the front of teeth to improve appearance — color, shape, length, or alignment. Common cosmetic dental procedure; minimal tooth preparation in many cases.',
+      'Thin custom-made shells of porcelain or composite bonded to the front of teeth to improve appearance: color, shape, length, or alignment. Common cosmetic dental procedure; minimal tooth preparation in many cases.',
     visible: true,
   },
   {
@@ -513,7 +513,7 @@ export const PROCEDURES = [
     section_group: 'Preventative Care/Wellness',
     procedure_name: 'Metabolic testing',
     description:
-      'Tests that measure how the body uses energy and processes nutrients — including resting metabolic rate, blood sugar response, hormones, and lipid panels. Non-surgical; results help guide nutrition and fitness planning.',
+      'Tests that measure how the body uses energy and processes nutrients, including resting metabolic rate, blood sugar response, hormones, and lipid panels. Non-surgical; results help guide nutrition and fitness planning.',
     visible: true,
   },
   {

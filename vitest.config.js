@@ -16,8 +16,8 @@ export default defineConfig({
     coverage: {
       provider: 'v8',
       reporter: ['text', 'text-summary', 'html'],
-      // Gate coverage on the security/logic-critical surface — input validation
-      // and the only server route — rather than presentational/SEO code.
+      // Gate coverage on the security/logic-critical surface (input validation
+      // and the only server route) rather than presentational/SEO code.
       all: true,
       include: ['src/lib/validation.ts', 'src/app/api/estimate/route.js'],
       thresholds: {
