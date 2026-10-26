@@ -72,16 +72,16 @@ The Free Estimate form submits to `/api/estimate`, which validates and sanitizes
 the request and sends it to email via Resend. Configure these environment
 variables in Vercel (or your runtime):
 
-| Variable                           | Required | Purpose                                                                |
-| ---------------------------------- | -------- | ---------------------------------------------------------------------- |
-| `RESEND_API_KEY`                   | yes      | Resend API key for sending email                                       |
-| `ESTIMATE_FROM_EMAIL`              | rec.     | Verified sender address/domain (falls back to `onboarding@resend.dev`) |
+| Variable                           | Required | Purpose                                                                  |
+| ---------------------------------- | -------- | ------------------------------------------------------------------------ |
+| `RESEND_API_KEY`                   | yes      | Resend API key for sending email                                         |
+| `ESTIMATE_FROM_EMAIL`              | rec.     | Verified sender address/domain (falls back to `onboarding@resend.dev`)   |
 | `ESTIMATE_TO_EMAIL`                | no       | Lead destination inbox (defaults to `healthnavigator@myhealthhaven.org`) |
-| `ESTIMATE_RATE_LIMIT_MAX`          | no       | Max submissions per IP per minute (default `5`)                        |
-| `ALLOWED_ORIGINS`                  | no       | Comma-separated CORS allowlist for the API route                       |
-| `EMAIL_VERIFIER_API_KEY`           | no       | AbstractAPI key; enables provider email verification                   |
-| `ESTIMATE_BLOCK_DISPOSABLE_EMAILS` | no       | Block disposable email domains (default `true`)                        |
-| `NEXT_PUBLIC_GTM_ID`               | no       | Google Tag Manager container ID (analytics, consent-gated)             |
+| `ESTIMATE_RATE_LIMIT_MAX`          | no       | Max submissions per IP per minute (default `5`)                          |
+| `ALLOWED_ORIGINS`                  | no       | Comma-separated CORS allowlist for the API route                         |
+| `EMAIL_VERIFIER_API_KEY`           | no       | AbstractAPI key; enables provider email verification                     |
+| `ESTIMATE_BLOCK_DISPOSABLE_EMAILS` | no       | Block disposable email domains (default `true`)                          |
+| `NEXT_PUBLIC_GTM_ID`               | no       | Google Tag Manager container ID (analytics, consent-gated)               |
 
 Notes:
 
@@ -94,7 +94,10 @@ Notes:
 
 - **Procedures** catalog: `src/data/procedures.js` (static data; no build step).
 - **Page content / views**: `src/views/` and the route files under `src/app`.
-- **Legal docs**: `public/PRIVACY POLICY.md`, `public/TERMS OF USE .md`.
+- **Legal docs**: `docs/legal/privacy-policy.md`, `docs/legal/terms-of-use.md` are
+  the source documents. The rendered copy is inlined in `src/views/PrivacyPolicy.jsx`
+  and `src/views/TermsOfUse.jsx` — edit both. They used to sit in `public/`, where
+  Google served them as duplicates of `/privacy` and `/terms`.
 
 ## License
 

@@ -9,7 +9,6 @@ export const metadata = {
     'Learn about MyHealth Haven and our mission to help U.S. patients navigate trusted medical care in Mexico with transparency and bilingual support.',
   alternates: {
     canonical,
-    languages: { 'x-default': canonical, en: canonical, es: canonical },
   },
   openGraph: {
     title: 'About Us | MyHealth Haven',

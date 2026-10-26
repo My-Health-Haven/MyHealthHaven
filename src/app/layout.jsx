@@ -3,6 +3,7 @@ import '../tailwind.css';
 import Providers from './providers';
 import JsonLd from '@/components/JsonLd';
 import {
+  DEFAULT_META_DESCRIPTION,
   createMedicalBusinessSchema,
   createOrganizationSchema,
   createWebsiteSchema,
@@ -18,11 +19,10 @@ const inter = Inter({
 export const metadata = {
   metadataBase: new URL('https://www.myhealthhaven.org'),
   title: {
-    default: 'MyHealth Haven | Health Navigation Between the U.S. and Mexico',
+    default: 'MyHealth Haven | Medical Care in Mexico for U.S. Patients',
     template: '%s | MyHealth Haven',
   },
-  description:
-    'MyHealth Haven helps U.S. patients navigate trusted medical care in Mexico with bilingual support, transparent planning, and continuity before and after treatment.',
+  description: DEFAULT_META_DESCRIPTION,
   openGraph: {
     siteName: 'MyHealth Haven',
     type: 'website',
@@ -43,9 +43,15 @@ export const metadata = {
       'max-video-preview': -1,
     },
   },
+  // logo.png is 495x442. Google only shows a favicon in results when it is
+  // square and a multiple of 48px, so these are padded square renders of it.
   icons: {
-    icon: '/logo.png',
-    apple: '/logo.png',
+    icon: [
+      { url: '/favicon.ico', sizes: '16x16 32x32 48x48' },
+      { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
+      { url: '/icon-512.png', type: 'image/png', sizes: '512x512' },
+    ],
+    apple: { url: '/apple-icon.png', sizes: '180x180' },
   },
   manifest: '/manifest.json',
   other: {

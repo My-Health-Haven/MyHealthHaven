@@ -53,7 +53,6 @@ export const buildCategoryMetadata = (categorySlug) => {
     description: details.description,
     alternates: {
       canonical,
-      languages: { 'x-default': canonical, en: canonical, es: canonical },
     },
     openGraph: {
       title: `${details.name} | ${SITE_SUFFIX}`,
@@ -98,7 +97,6 @@ export const buildArticleMetadata = (categorySlug, slug) => {
     authors: article.author ? [{ name: article.author }] : undefined,
     alternates: {
       canonical,
-      languages: { 'x-default': canonical, en: canonical, es: canonical },
     },
     openGraph: {
       title: ogTitle,

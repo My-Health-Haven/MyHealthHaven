@@ -9,7 +9,6 @@ export const metadata = {
     'Schedule a free consultation with a MyHealth Haven health navigator to discuss your medical care options in Mexico.',
   alternates: {
     canonical,
-    languages: { 'x-default': canonical, en: canonical, es: canonical },
   },
   openGraph: {
     title: 'Schedule a Consultation | MyHealth Haven',

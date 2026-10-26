@@ -38,7 +38,9 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   `script-src ${scriptSrc}`,
   `connect-src ${connectSrc}`,
-  "frame-src 'self' https://www.google.com https://maps.google.com https://calendar.google.com",
+  // docs.google.com is what /employers and /providers embed. Without it the
+  // browser blocked the frame outright, so both pages showed an empty panel.
+  "frame-src 'self' https://www.google.com https://docs.google.com https://maps.google.com https://calendar.google.com",
   "media-src 'self' blob:",
   "manifest-src 'self'",
   !isDev && 'upgrade-insecure-requests',
@@ -56,6 +58,17 @@ const nextConfig = {
 
   async redirects() {
     return [
+      // Apex -> www, permanently (308). Vercel also redirects the apex at its
+      // edge, but with a 307, which tells Google the move is temporary and
+      // keeps it crawling both hosts. That edge status code lives in the Vercel
+      // project's Domains settings and has to be changed there as well; this
+      // rule is what applies whenever an apex request reaches the app.
+      {
+        source: '/:path*',
+        has: [{ type: 'host', value: 'myhealthhaven.org' }],
+        destination: 'https://www.myhealthhaven.org/:path*',
+        permanent: true,
+      },
       {
         source: '/contact',
         destination: '/estimate',
@@ -128,6 +141,13 @@ const nextConfig = {
           { key: 'Cross-Origin-Opener-Policy', value: 'same-origin' },
           { key: 'Cross-Origin-Resource-Policy', value: 'same-site' },
         ],
+      },
+      {
+        // Loose PDFs in public/ are reachable but linked from nowhere, so Google
+        // crawls them and weighs them against the real pages. They stay served
+        // for anyone sent a direct link; they just stop competing in search.
+        source: '/:path*.pdf',
+        headers: [{ key: 'X-Robots-Tag', value: 'noindex' }],
       },
       {
         source: '/sitemap.xml',

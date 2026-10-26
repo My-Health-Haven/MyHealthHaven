@@ -171,6 +171,7 @@ The goal is not to present a long list of providers. It is to narrow the field t
     title: 'Talking to Your U.S. Doctor About Care in Mexico',
     summary:
       'Suggested questions and framing that help preserve continuity of care before you travel and after you return home.',
+    seoTitle: 'Talking to Your U.S. Doctor About Mexico',
     image: '/talking to your us doctor about care in mexico.png',
     imageAlt: 'Talking to your US doctor about care in Mexico',
     content: `Your U.S. physician may not choose the overseas provider for you, but they can still be an important part of the planning process. A productive conversation usually starts with records, diagnosis details, and a clear explanation of what procedure you are considering and why.
@@ -195,7 +196,7 @@ When everyone understands the same plan, the conversation becomes less about geo
     title: 'How to Prepare for Your First Medical Travel Conversation',
     summary:
       'A simple checklist for getting organized before your first conversation about medical travel, so you can ask better questions and compare options calmly.',
-    seoTitle: 'How to Prepare for Your First Medical Travel Conversation',
+    seoTitle: 'Your First Medical Travel Conversation',
     seoDescription:
       'What to bring, which questions to ask, and what happens next when you have your first conversation about medical travel. A calm, practical preparation guide.',
     image: '/How To Prepare For.png',
@@ -254,9 +255,9 @@ Often the next step is simply gathering any missing records and clarifying open 
     title: 'What Accreditation Actually Means in Mexico',
     summary:
       '"Accredited" can mean several different things in Mexico. Learn what hospital certification, federal regulation, and physician credentials actually mean before considering care in Mexico.',
-    seoTitle: 'Understanding Hospital Accreditation and Standards in Mexico',
+    seoTitle: 'Hospital Accreditation in Mexico',
     seoDescription:
-      '"Accredited" can mean several different things in Mexico. Learn what hospital certification, federal regulation, and physician credentials actually mean before considering care in Mexico.',
+      '"Accredited" means several different things in Mexico. What hospital certification, federal regulation and physician credentials actually tell you.',
     image: '/What Acreditation Actually.png',
     imageAlt: 'Hospital accreditation and certification standards in Mexico',
     content: `If you have started looking into care in Mexico, there is a good chance one question keeps coming back:
@@ -380,8 +381,9 @@ If you want to understand how to evaluate standards at a specific facility, [sch
     title: 'Why the Same Procedure Can Cost 50 Percent Less in Mexico',
     summary:
       'A clear look at why the same medical procedure can cost roughly half as much in Mexico, and why that lower price reflects a different cost structure, not lower-quality care.',
+    seoTitle: 'Why Procedures Cost 50% Less in Mexico',
     seoDescription:
-      "Why can the same procedure cost about 50% less in Mexico? The gap reflects a different cost structure (private-pay pricing and lower overhead), not lower-quality care. Here's what to verify before you go.",
+      'The same procedure can cost about 50% less in Mexico. The gap is a different cost structure, not lower-quality care, and what to verify first.',
     imageAlt: 'Comparing medical procedure costs between the United States and Mexico',
     content: `For many Americans, the first reaction to hearing that a medical procedure may cost 50 percent less in Mexico is suspicion.
 
@@ -514,9 +516,9 @@ To learn more about structured, trust-first support for care in Mexico, [talk to
     title: 'Insured but Still Paying? Understanding What Coverage Really Costs',
     summary:
       "Being covered isn't the same as being able to afford care. Here's a clear look at why many insured Americans still face high out-of-pocket costs, and what that means for your options.",
-    seoTitle: 'Insured but Still Paying? What Coverage Really Costs',
+    seoTitle: 'Insured but Still Paying Out of Pocket?',
     seoDescription:
-      "Being covered isn't the same as being able to afford care. Here's why many insured Americans still face high out-of-pocket costs, and what it means for your options.",
+      "Being covered isn't the same as affording care. Why many insured Americans still face high out-of-pocket costs, and what it means for your options.",
     imageAlt: 'Insured patient reviewing a medical bill and out-of-pocket costs',
     content: `If you have ever paid your insurance premium faithfully, walked into an appointment expecting to be covered, and then opened a bill that made your stomach drop, you are not alone, and you did not do anything wrong.
 
@@ -605,9 +607,9 @@ If any of this sounds familiar, if you have ever felt the gap between being cove
     title: 'Comparing the Price of Preventive Screening: Two Systems, Two Pricing Models',
     summary:
       "In the U.S., a preventive screening's price is assembled from separate charges, network rules, and billing codes, then revealed at the end. Mexico's direct-pay model quotes one package price up front. Here's how to compare the two honestly.",
-    seoTitle: 'Preventive Screening Costs: U.S. vs. Mexico Pricing',
+    seoTitle: 'Preventive Screening: U.S. vs. Mexico Cost',
     seoDescription:
-      "A preventive screening's U.S. price is assembled from separate charges, network rules, and billing codes; Mexico's direct-pay model quotes one package up front. Here's how to compare them.",
+      "A U.S. screening price is assembled from separate charges and billing codes; Mexico quotes one package up front. Here's how to compare the two.",
     imageAlt: 'Comparing preventive screening pricing in the U.S. and Mexico',
     content: `Ask a simple question ("what will this preventive screening cost me?") and you will discover something strange about American healthcare. The question is remarkably hard to answer in advance.
 
@@ -716,9 +718,9 @@ If you want to see a complete, itemized preventive option, [schedule a Health Na
     title: 'Why Private Healthcare in Mexico Can Cost Less',
     summary:
       'A quoted price, what a provider receives, and what a clinician earns are three different things. Understanding what sits between your payment and your care helps you read a price more intelligently.',
-    seoTitle: 'What Sits Between Your Payment and Your Care',
+    seoTitle: 'Why Private Care in Mexico Costs Less',
     seoDescription:
-      'Patient price, provider revenue, and clinician pay are three different things. Learn what sits between your payment and your care, and why private healthcare in Mexico can cost less.',
+      'Patient price, provider revenue and clinician pay are three different things. What sits between your payment and your care, and why Mexico costs less.',
     imageAlt: 'Understanding what sits between a healthcare payment and the care delivered',
     content: `When Americans first compare private healthcare prices in Mexico, the difference can be difficult to interpret. A lower quoted price is sometimes treated as proof of lower quality or evidence that clinicians must be poorly paid. Neither conclusion follows from price alone.
 

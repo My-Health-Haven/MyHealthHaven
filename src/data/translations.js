@@ -1090,3 +1090,15 @@ export const translations = {
     },
   },
 };
+
+/*
+ * How many home-page FAQ entries exist (faq1Q/faq1A … faqNQ/faqNA), counted
+ * from the copy itself. FaqLedger renders this many and the home route builds
+ * FAQPage schema over the same number, so the two cannot drift apart — schema
+ * for a question that is not on the page is a structured-data violation. It
+ * lives here rather than in FaqLedger because a server component cannot read a
+ * plain constant out of a 'use client' module; it gets a client reference.
+ */
+export const HOME_FAQ_COUNT = Object.keys(translations.en.home).filter((key) =>
+  /^faq\d+Q$/.test(key)
+).length;

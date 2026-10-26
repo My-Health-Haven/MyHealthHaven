@@ -10,7 +10,6 @@ export const metadata = {
     'Articles and guides about medical travel, cross-border healthcare, and navigating medical options in Mexico.',
   alternates: {
     canonical,
-    languages: { 'x-default': canonical, en: canonical, es: canonical },
   },
   openGraph: {
     title: 'Learning Library | MyHealth Haven',

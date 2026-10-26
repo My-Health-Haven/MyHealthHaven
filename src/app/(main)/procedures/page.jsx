@@ -10,7 +10,6 @@ export const metadata = {
     'Browse medical procedures available through MyHealth Haven. Compare options for surgery, dental, cosmetic, and diagnostic care in Mexico.',
   alternates: {
     canonical,
-    languages: { 'x-default': canonical, en: canonical, es: canonical },
   },
   openGraph: {
     title: 'Medical Procedures | MyHealth Haven',

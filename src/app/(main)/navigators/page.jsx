@@ -9,7 +9,6 @@ export const metadata = {
     'Meet our bilingual health navigators who guide U.S. patients through cross-border medical care in Mexico with personalized support.',
   alternates: {
     canonical,
-    languages: { 'x-default': canonical, en: canonical, es: canonical },
   },
   openGraph: {
     title: 'Health Navigators | MyHealth Haven',

@@ -5,7 +5,7 @@ import { CalendarDays, Plus } from 'lucide-react';
 import { useLanguage } from '@/context/LanguageContext';
 import { cls } from '@/components/paper/paperStyles';
 
-const FAQ_COUNT = 13;
+import { HOME_FAQ_COUNT } from '@/data/translations';
 
 /*
  * Frequently asked questions: the heading and a way to ask a person stay pinned
@@ -14,11 +14,16 @@ const FAQ_COUNT = 13;
  */
 export default function FaqLedger() {
   const { t } = useLanguage();
-  const faqs = Array.from({ length: FAQ_COUNT }, (_, i) => ({ q: t(`home.faq${i + 1}Q`), a: t(`home.faq${i + 1}A`) }));
+  const faqs = Array.from({ length: HOME_FAQ_COUNT }, (_, i) => ({
+    q: t(`home.faq${i + 1}Q`),
+    a: t(`home.faq${i + 1}A`),
+  }));
 
   return (
     <section id='faq' aria-labelledby='hp-faq-title' className={`hp-sheet hp-kraft ${cls.pad}`}>
-      <div className={`${cls.wrap} grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-20`}>
+      <div
+        className={`${cls.wrap} grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] lg:gap-20`}
+      >
         <div>
           <div data-reveal='rise' className='lg:sticky lg:top-[132px]'>
             <h2 id='hp-faq-title' className={cls.h2}>
@@ -34,10 +39,17 @@ export default function FaqLedger() {
 
         <div className='hp-faq border-0 border-t border-solid border-[rgba(27,69,96,0.2)]'>
           {faqs.map((faq, i) => (
-            <details key={i} data-reveal='rise' className='border-0 border-b border-solid border-[rgba(27,69,96,0.2)]'>
+            <details
+              key={i}
+              data-reveal='rise'
+              className='border-0 border-b border-solid border-[rgba(27,69,96,0.2)]'
+            >
               <summary className='flex cursor-pointer items-start justify-between gap-6 rounded-[4px] py-5 text-[1.0625rem] font-semibold leading-[1.45] text-[#1b4560] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1b4560]'>
                 <span>{faq.q}</span>
-                <span aria-hidden='true' className='hp-faq-icon mt-[-2px] grid size-8 shrink-0 place-items-center rounded-full bg-[rgba(0,121,107,0.1)] text-[#00796b]'>
+                <span
+                  aria-hidden='true'
+                  className='hp-faq-icon mt-[-2px] grid size-8 shrink-0 place-items-center rounded-full bg-[rgba(0,121,107,0.1)] text-[#00796b]'
+                >
                   <Plus className='size-4' />
                 </span>
               </summary>

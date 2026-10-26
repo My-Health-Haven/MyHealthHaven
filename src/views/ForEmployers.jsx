@@ -1,9 +1,12 @@
 'use client';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, CalendarDays, Route } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import PaperPage from '@/components/paper/PaperPage';
 import PageHero from '@/components/paper/PageHero';
 import Sheet from '@/components/paper/Sheet';
+import SectionHead from '@/components/paper/SectionHead';
+import TileList from '@/components/paper/TileList';
+import ClosingCall from '@/components/paper/ClosingCall';
 import { cls } from '@/components/paper/paperStyles';
 import { DocumentFolder, OpenDocumentLink } from '@/components/partners-paper/DocumentPanel';
 
@@ -21,25 +24,81 @@ const COPY = {
       'Employer resources for evaluating guided cross-border care, cost transparency, and patient support through MyHealth Haven.',
     intro:
       'Review employer-facing information about how MyHealth Haven supports teams exploring structured, guided access to care in Mexico.',
+    sectionTitle: 'What guided care looks like',
+    sectionEmphasis: 'for your people',
+    sectionLead:
+      'Employees postpone necessary procedures because of high costs, long wait times, or insurance rules that are hard to read. MyHealth Haven gives them a guided route through care in Mexico rather than a list of options to work out alone.',
+    pillars: [
+      {
+        title: 'One point of contact',
+        body: 'Each employee works with a dedicated bilingual Health Navigator™ who stays with them from the first question through recovery, so nobody is coordinating care across two countries on their own.',
+      },
+      {
+        title: 'Costs known before anyone travels',
+        body: 'Employees receive an all-inclusive estimate up front, so there are no unpredictable bills and no surprise add-on fees to resolve after the fact.',
+      },
+      {
+        title: 'Vetted hospitals and surgeons',
+        body: 'Care takes place in accredited facilities with doctors selected against U.S.-level standards, reviewed before any patient is referred.',
+      },
+      {
+        title: 'Care that continues at home',
+        body: 'Once an employee is back, their Health Navigator™ stays available for virtual follow-ups and coordinates with their local physician.',
+      },
+    ],
+    docTitle: 'What the employer document covers',
     highlights: [
       'Program overview and employer-facing documentation',
       'How care coordination, travel support, and patient guidance work',
       'A sample resource your team can download and review offline',
     ],
+    closingTitle: 'Talk through what this could look like for your team.',
+    closingLead:
+      'A Health Navigator can walk you through the program and answer the questions your team is likely to have.',
+    closingPrimary: 'Speak with a Health Navigator',
+    closingSecondary: 'How medical travel works',
   },
   es: {
     title: 'Para Empleadores',
-    viewerTitle: 'Documentacion para Empleadores',
+    viewerTitle: 'Documentación para Empleadores',
     openFrame: 'Abrir Documento',
     metaDescription:
-      'Recursos para empleadores sobre atencion transfronteriza guiada, claridad de costos y acompanamiento al paciente con MyHealth Haven.',
+      'Recursos para empleadores sobre atención transfronteriza guiada, claridad de costos y acompañamiento al paciente con MyHealth Haven.',
     intro:
-      'Revise informacion orientada a empleadores sobre como MyHealth Haven apoya a equipos que exploran acceso estructurado y guiado a atencion en Mexico.',
-    highlights: [
-      'Resumen del programa y documentacion orientada a empleadores',
-      'Como funcionan la coordinacion de atencion, el apoyo de viaje y el acompanamiento al paciente',
-      'Un recurso de ejemplo que su equipo puede descargar y revisar sin conexion',
+      'Revise información orientada a empleadores sobre cómo MyHealth Haven apoya a equipos que exploran acceso estructurado y guiado a atención en México.',
+    sectionTitle: 'Cómo se ve la atención guiada',
+    sectionEmphasis: 'para su equipo',
+    sectionLead:
+      'Muchas personas posponen procedimientos necesarios por los altos costos, los tiempos de espera o reglas de seguro difíciles de entender. MyHealth Haven les ofrece una ruta guiada hacia la atención en México, en lugar de una lista de opciones que deban resolver solas.',
+    pillars: [
+      {
+        title: 'Un solo punto de contacto',
+        body: 'Cada empleado trabaja con un Health Navigator™ bilingüe dedicado que lo acompaña desde la primera pregunta hasta la recuperación, para que nadie coordine su atención entre dos países por su cuenta.',
+      },
+      {
+        title: 'Costos claros antes de viajar',
+        body: 'Los empleados reciben un estimado todo incluido desde el inicio, sin cuentas impredecibles ni cargos sorpresa que resolver después.',
+      },
+      {
+        title: 'Hospitales y cirujanos verificados',
+        body: 'La atención se realiza en instalaciones acreditadas, con médicos seleccionados conforme a estándares de nivel estadounidense y revisados antes de cualquier referencia.',
+      },
+      {
+        title: 'Atención que continúa en casa',
+        body: 'Cuando el empleado regresa, su Health Navigator™ sigue disponible para seguimientos virtuales y coordina con su médico local.',
+      },
     ],
+    docTitle: 'Qué incluye el documento para empleadores',
+    highlights: [
+      'Resumen del programa y documentación orientada a empleadores',
+      'Cómo funcionan la coordinación de atención, el apoyo de viaje y el acompañamiento al paciente',
+      'Un recurso de ejemplo que su equipo puede descargar y revisar sin conexión',
+    ],
+    closingTitle: 'Conversemos sobre lo que esto puede significar para su equipo.',
+    closingLead:
+      'Un Health Navigator puede explicarle el programa y responder las preguntas que su equipo probablemente tenga.',
+    closingPrimary: 'Hablar con un Health Navigator',
+    closingSecondary: 'Cómo funciona el viaje médico',
   },
 };
 
@@ -59,11 +118,17 @@ const UI = {
 };
 
 /*
- * For Employers, in the paper world of the home page. The copy above is the
- * site's own, unchanged (intro and highlights stay unrendered, as before). The
- * short title reads as one felt-underlined phrase. One action each: the hero
- * leads down to the document, the panel opens it in Google Docs. The Google Doc
- * keeps the same preview src, title and size, now in a manila folder.
+ * For Employers, in the paper world of the home page. The short title reads as
+ * one felt-underlined phrase; the hero leads down to the document and the panel
+ * opens it in Google Docs, which keeps the same preview src, title and size in a
+ * manila folder.
+ *
+ * The page used to render only the title and the document panel: twelve words
+ * of its own, which left it and For Providers all but identical to each other
+ * and to nothing else. `intro` and `highlights` already existed here unrendered
+ * and now carry the hero and the document sheet; `pillars` says, for this
+ * audience, what the rest of the site already says about navigators, estimates,
+ * vetting and follow-up.
  */
 const ForEmployers = () => {
   const { language } = useLanguage();
@@ -72,40 +137,66 @@ const ForEmployers = () => {
 
   return (
     <PaperPage>
-      <PageHero emphasis={copy.title} frame={{ src: '/pages/employers-pair.webp', alt: ui.alt }}>
+      <PageHero
+        emphasis={copy.title}
+        lead={copy.intro}
+        frame={{ src: '/pages/employers-pair.webp', alt: ui.alt }}
+      >
         <a href='#employer-doc' className={`${cls.btnPrimary} w-full sm:w-auto`}>
           <ArrowDown aria-hidden='true' className='size-5' />
           {ui.readDoc}
         </a>
       </PageHero>
 
-      <Sheet tone='kraft' id='employer-doc' labelledBy='employer-doc-title'>
-        <DocumentFolder
-          titleId='employer-doc-title'
-          title={copy.viewerTitle}
-          action={
-            <OpenDocumentLink
-              href={GOOGLE_DOC_URL}
-              label={copy.openFrame}
-              newTabLabel={ui.newTab}
-              variant='outline'
-            />
-          }
-        >
-          <iframe
-            title={copy.viewerTitle}
-            src={GOOGLE_DOC_PREVIEW_URL}
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              border: 0,
-            }}
-          />
-        </DocumentFolder>
+      <Sheet tone='kraft' labelledBy='employer-care-title'>
+        <SectionHead
+          id='employer-care-title'
+          title={copy.sectionTitle}
+          emphasis={copy.sectionEmphasis}
+          lead={copy.sectionLead}
+        />
+        <TileList className='mt-12 lg:mt-14' columns={2} items={copy.pillars} />
       </Sheet>
+
+      <Sheet tone='cream' id='employer-doc' labelledBy='employer-doc-title'>
+        <SectionHead id='employer-doc-title' title={copy.docTitle} />
+        <TileList className='mt-10 max-w-[46rem]' items={copy.highlights} />
+        <div className='mt-14 lg:mt-16'>
+          <DocumentFolder
+            title={copy.viewerTitle}
+            action={
+              <OpenDocumentLink
+                href={GOOGLE_DOC_URL}
+                label={copy.openFrame}
+                newTabLabel={ui.newTab}
+                variant='outline'
+              />
+            }
+          >
+            <iframe
+              title={copy.viewerTitle}
+              src={GOOGLE_DOC_PREVIEW_URL}
+              style={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                border: 0,
+              }}
+            />
+          </DocumentFolder>
+        </div>
+      </Sheet>
+
+      <ClosingCall
+        id='employer-close-title'
+        tone='kraft'
+        title={copy.closingTitle}
+        lead={copy.closingLead}
+        primary={{ href: '/schedule', label: copy.closingPrimary, icon: CalendarDays }}
+        secondary={{ href: '/medical-travel', label: copy.closingSecondary, icon: Route }}
+      />
     </PaperPage>
   );
 };

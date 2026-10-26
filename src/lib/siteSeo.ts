@@ -16,8 +16,16 @@ export const SITE_ADDRESS = {
   addressCountry: 'US',
 } as const;
 export const DEFAULT_META_DESCRIPTION =
-  'MyHealth Haven helps U.S. patients navigate trusted medical care in Mexico with bilingual support, transparent planning, and continuity before and after treatment.';
-export const SEO_LASTMOD = '2026-03-24';
+  'MyHealth Haven helps U.S. patients find trusted medical care in Mexico, with bilingual support, clear planning and continuity before and after treatment.';
+/**
+ * Fallback `<lastmod>` for routes that carry no date of their own.
+ *
+ * Bump this whenever a release rewrites page copy. A stale value is not
+ * harmless: it tells Google nothing has changed since that date, which holds
+ * back recrawling of the pages the release actually touched. Library articles
+ * override it with their own `date`/`updatedDate`.
+ */
+export const SEO_LASTMOD = '2026-10-19';
 
 // ---------------------------------------------------------------------------
 // Interfaces

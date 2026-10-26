@@ -10,7 +10,15 @@ import { RowList, SpecialityCount, SpecialityMark, SpecialityName } from './inde
  * name is the speciality and its count ("Bariatric 5 procedures"), and the
  * description is its description, not part of the name.
  */
-const IndexDrawer = ({ speciality, procedures, expanded, onToggle, aboutLabel, countWord, index = 0 }) => {
+const IndexDrawer = ({
+  speciality,
+  procedures,
+  expanded,
+  onToggle,
+  aboutLabel,
+  countWord,
+  index = 0,
+}) => {
   const { key, displayName, Icon, description } = speciality;
   const title = displayName || key;
   const uid = useId();
@@ -25,7 +33,7 @@ const IndexDrawer = ({ speciality, procedures, expanded, onToggle, aboutLabel, c
         <button
           type='button'
           aria-expanded={expanded}
-          aria-controls={expanded ? panelId : undefined}
+          aria-controls={panelId}
           aria-labelledby={`${nameId} ${countId}`}
           aria-describedby={description ? descId : undefined}
           onClick={onToggle}
@@ -47,11 +55,11 @@ const IndexDrawer = ({ speciality, procedures, expanded, onToggle, aboutLabel, c
         </button>
       </h2>
 
-      {expanded ? (
-        <div id={panelId} className='pr-drawer-panel'>
-          <RowList procedures={procedures} aboutLabel={aboutLabel} split />
-        </div>
-      ) : null}
+      {/* Rendered whether or not the drawer is open, for the same reason as the
+          slip in IndexRow: mounting on open kept the entries out of the HTML. */}
+      <div id={panelId} className='pr-drawer-panel' hidden={!expanded}>
+        <RowList procedures={procedures} aboutLabel={aboutLabel} split />
+      </div>
     </div>
   );
 };

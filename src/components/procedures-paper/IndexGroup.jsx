@@ -12,7 +12,17 @@ const DEFAULT_VISIBLE = 5;
  * count is odd) spans both columns and sets its entries in two stacks. Side by
  * side, two groups share their head row (CSS subgrid), so the navy rules line up.
  */
-const IndexGroup = ({ speciality, procedures, viewMoreLabel, viewLessLabel, wide = false, forceShowAll = false, aboutLabel, countWord, index = 0 }) => {
+const IndexGroup = ({
+  speciality,
+  procedures,
+  viewMoreLabel,
+  viewLessLabel,
+  wide = false,
+  forceShowAll = false,
+  aboutLabel,
+  countWord,
+  index = 0,
+}) => {
   const [showAll, setShowAll] = useState(false);
   const { key, displayName, Icon, description } = speciality;
   const title = displayName || key;
@@ -21,11 +31,20 @@ const IndexGroup = ({ speciality, procedures, viewMoreLabel, viewLessLabel, wide
   const isExpanded = forceShowAll || showAll;
   const hiddenCount = Math.max(count - DEFAULT_VISIBLE, 0);
   const visibleProcedures = isExpanded ? procedures : procedures.slice(0, DEFAULT_VISIBLE);
+  // The entries past the fifth, kept in the HTML behind `hidden` while the
+  // group is closed. Slicing them away entirely left 31 of the 66 procedures
+  // out of the served page. They sit in their own unsplit list so the visible
+  // five still divide across the wide group's two stacks exactly as before.
+  const restProcedures = isExpanded ? [] : procedures.slice(DEFAULT_VISIBLE);
 
   const hasMoreToShow = hiddenCount > 0;
 
   return (
-    <div data-reveal='rise' style={{ '--i': index % 2 }} className={`pr-group ${wide ? 'pr-group-wide' : ''}`}>
+    <div
+      data-reveal='rise'
+      style={{ '--i': index % 2 }}
+      className={`pr-group ${wide ? 'pr-group-wide' : ''}`}
+    >
       <div className='pr-head'>
         <SpecialityMark Icon={Icon} />
         <div className='min-w-0'>
@@ -40,9 +59,24 @@ const IndexGroup = ({ speciality, procedures, viewMoreLabel, viewLessLabel, wide
       <div className='pr-body'>
         <RowList procedures={visibleProcedures} aboutLabel={aboutLabel} split={wide} />
 
+        {restProcedures.length > 0 ? (
+          <div hidden>
+            <RowList procedures={restProcedures} aboutLabel={aboutLabel} />
+          </div>
+        ) : null}
+
         {hasMoreToShow && !forceShowAll ? (
-          <button type='button' aria-expanded={showAll} onClick={() => setShowAll((prev) => !prev)} className='pr-more'>
-            {showAll ? viewLessLabel || 'Show less' : viewMoreLabel ? viewMoreLabel(hiddenCount) : `View ${hiddenCount} more`}
+          <button
+            type='button'
+            aria-expanded={showAll}
+            onClick={() => setShowAll((prev) => !prev)}
+            className='pr-more'
+          >
+            {showAll
+              ? viewLessLabel || 'Show less'
+              : viewMoreLabel
+                ? viewMoreLabel(hiddenCount)
+                : `View ${hiddenCount} more`}
             <ChevronDown aria-hidden='true' className='size-[18px]' />
           </button>
         ) : null}

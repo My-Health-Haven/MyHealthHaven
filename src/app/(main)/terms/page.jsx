@@ -9,7 +9,6 @@ export const metadata = {
     'MyHealth Haven terms of use. Read the terms and conditions governing your use of our website and services.',
   alternates: {
     canonical,
-    languages: { 'x-default': canonical, en: canonical, es: canonical },
   },
   openGraph: {
     title: 'Terms of Use | MyHealth Haven',

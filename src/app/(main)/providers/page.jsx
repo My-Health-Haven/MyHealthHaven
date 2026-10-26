@@ -9,7 +9,6 @@ export const metadata = {
     'Partner with MyHealth Haven to connect with U.S. patients seeking quality, affordable medical care in Mexico.',
   alternates: {
     canonical,
-    languages: { 'x-default': canonical, en: canonical, es: canonical },
   },
   openGraph: {
     title: 'For Providers | MyHealth Haven',

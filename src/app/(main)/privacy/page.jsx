@@ -9,7 +9,6 @@ export const metadata = {
     'MyHealth Haven privacy policy. Learn how we collect, use, and protect your personal information.',
   alternates: {
     canonical,
-    languages: { 'x-default': canonical, en: canonical, es: canonical },
   },
   openGraph: {
     title: 'Privacy Policy | MyHealth Haven',
