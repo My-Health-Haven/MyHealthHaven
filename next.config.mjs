@@ -38,9 +38,7 @@ const contentSecurityPolicy = [
   "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
   `script-src ${scriptSrc}`,
   `connect-src ${connectSrc}`,
-  // docs.google.com is what /employers and /providers embed. Without it the
-  // browser blocked the frame outright, so both pages showed an empty panel.
-  "frame-src 'self' https://www.google.com https://docs.google.com https://maps.google.com https://calendar.google.com",
+  "frame-src 'self' https://www.google.com https://maps.google.com https://calendar.google.com",
   "media-src 'self' blob:",
   "manifest-src 'self'",
   !isDev && 'upgrade-insecure-requests',

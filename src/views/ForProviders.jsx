@@ -1,5 +1,5 @@
 'use client';
-import { ArrowDown, CalendarDays, Stethoscope } from 'lucide-react';
+import { ArrowDown, CalendarDays, Mail, Stethoscope } from 'lucide-react';
 import { useLanguage } from '../context/LanguageContext';
 import PaperPage from '@/components/paper/PaperPage';
 import PageHero from '@/components/paper/PageHero';
@@ -8,18 +8,20 @@ import SectionHead from '@/components/paper/SectionHead';
 import TileList from '@/components/paper/TileList';
 import ClosingCall from '@/components/paper/ClosingCall';
 import { cls } from '@/components/paper/paperStyles';
-import { DocumentClipboard, OpenDocumentLink } from '@/components/partners-paper/DocumentPanel';
+import { SITE_EMAIL } from '@/lib/siteSeo';
 
-const GOOGLE_DOC_URL =
-  'https://docs.google.com/document/d/1nIfNNsPdV0ZApVAkHKaeWnFv-oR8EI9YqQSOMeCWFTY/edit?usp=sharing';
-const GOOGLE_DOC_PREVIEW_URL =
-  'https://docs.google.com/document/d/1nIfNNsPdV0ZApVAkHKaeWnFv-oR8EI9YqQSOMeCWFTY/preview';
+// The provider documentation used to be embedded here from Google Docs. The
+// document is not public, so the frame only ever offered visitors a Google
+// sign-in box; the section says what the document covers and offers a way to
+// ask for it instead.
+const REQUEST_MAILTO = `mailto:${SITE_EMAIL}?subject=${encodeURIComponent(
+  'Provider documentation request'
+)}`;
 
 const COPY = {
   en: {
     title: 'For Providers',
-    viewerTitle: 'Provider Documentation',
-    openFrame: 'Open Document',
+    requestDoc: 'Request the full document',
     metaDescription:
       'Provider resources for partnering with MyHealth Haven on guided cross-border care, patient coordination, and quality standards.',
     intro:
@@ -60,8 +62,7 @@ const COPY = {
   },
   es: {
     title: 'Para Proveedores',
-    viewerTitle: 'Documentación para Proveedores',
-    openFrame: 'Abrir Documento',
+    requestDoc: 'Solicitar el documento completo',
     metaDescription:
       'Recursos para proveedores sobre la asociación con MyHealth Haven en atención transfronteriza guiada, coordinación de pacientes y estándares de calidad.',
     intro:
@@ -107,24 +108,21 @@ const COPY = {
 const UI = {
   en: {
     alt: 'Illustration from the MyHealth Haven film: a clean, well-equipped clinic exam room with monitors, supplies and a treatment bed.',
-    readDoc: 'Read the document',
-    newTab: '(opens in a new tab)',
+    readDoc: 'See what it covers',
   },
   es: {
     alt: 'Ilustración de la película de MyHealth Haven: un consultorio clínico limpio y bien equipado, con monitores, insumos y una camilla.',
-    readDoc: 'Leer el documento',
-    newTab: '(se abre en una pestaña nueva)',
+    readDoc: 'Vea qué incluye',
   },
 };
 
 /*
  * For Providers, in the paper world of the home page. The short title reads as
- * one felt-underlined phrase; the hero leads down to the document and the panel
- * opens it in Google Docs, which keeps the same preview src, title and size on a
- * clinic clipboard.
+ * one felt-underlined phrase; the hero leads down to what the documentation
+ * covers, and that section ends in a way to ask for it.
  *
- * Like For Employers, this page used to render only its title and the document
- * panel, which left the two pages all but word-for-word identical. `intro` and
+ * Like For Employers, this page used to render only its title and an embedded
+ * Google Doc, which left the two pages all but word-for-word identical. `intro` and
  * `highlights` already existed here unrendered; `pillars` puts the handoff this
  * audience actually asks about — records ahead of the patient, the navigator in
  * the building, vetting, follow-up home — in the page's own words.
@@ -160,32 +158,10 @@ const ForProviders = () => {
       <Sheet tone='cream' id='provider-doc' labelledBy='provider-doc-title'>
         <SectionHead id='provider-doc-title' title={copy.docTitle} />
         <TileList className='mt-10 max-w-[46rem]' items={copy.highlights} />
-        <div className='mt-14 lg:mt-16'>
-          <DocumentClipboard
-            title={copy.viewerTitle}
-            action={
-              <OpenDocumentLink
-                href={GOOGLE_DOC_URL}
-                label={copy.openFrame}
-                newTabLabel={ui.newTab}
-                variant='outline'
-              />
-            }
-          >
-            <iframe
-              title={copy.viewerTitle}
-              src={GOOGLE_DOC_PREVIEW_URL}
-              style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                width: '100%',
-                height: '100%',
-                border: 0,
-              }}
-            />
-          </DocumentClipboard>
-        </div>
+        <a href={REQUEST_MAILTO} className={`${cls.btnPrimary} mt-12 w-full sm:w-auto`}>
+          <Mail aria-hidden='true' className='size-5' />
+          {copy.requestDoc}
+        </a>
       </Sheet>
 
       <ClosingCall
